@@ -1,3 +1,2 @@
 # Femboi_OwO
-4th time trying discord bot with many functions and "/" command
 Please don't use this...
