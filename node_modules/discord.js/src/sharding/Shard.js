@@ -2,6 +2,9 @@
 
 const EventEmitter = require('node:events');
 const path = require('node:path');
+const process = require('node:process');
+const { setTimeout } = require('node:timers');
+const { setTimeout: sleep } = require('node:timers/promises');
 const { Error } = require('../errors');
 const Util = require('../util/Util');
 let childProcess = null;
@@ -201,7 +204,7 @@ class Shard extends EventEmitter {
    */
   async respawn({ delay = 500, timeout = 30_000 } = {}) {
     this.kill();
-    if (delay > 0) await Util.delayFor(delay);
+    if (delay > 0) await sleep(delay);
     return this.spawn(timeout);
   }
 
@@ -247,7 +250,8 @@ class Shard extends EventEmitter {
         if (message?._fetchProp !== prop) return;
         child.removeListener('message', listener);
         this._fetches.delete(prop);
-        resolve(message._result);
+        if (!message._error) resolve(message._result);
+        else reject(Util.makeError(message._error));
       };
       child.on('message', listener);
 
@@ -265,11 +269,12 @@ class Shard extends EventEmitter {
   /**
    * Evaluates a script or function on the shard, in the context of the {@link Client}.
    * @param {string|Function} script JavaScript to run on the shard
+   * @param {*} [context] The context for the eval
    * @returns {Promise<*>} Result of the script execution
    */
-  eval(script) {
+  eval(script, context) {
     // Stringify the script if it's a Function
-    const _eval = typeof script === 'function' ? `(${script})(this)` : script;
+    const _eval = typeof script === 'function' ? `(${script})(this, ${JSON.stringify(context)})` : script;
 
     // Shard is dead (maybe respawning), don't cache anything and error immediately
     if (!this.process && !this.worker) return Promise.reject(new Error('SHARDING_NO_CHILD_EXISTS', this.id));

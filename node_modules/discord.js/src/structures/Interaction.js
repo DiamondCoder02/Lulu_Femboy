@@ -1,7 +1,7 @@
 'use strict';
 
 const Base = require('./Base');
-const { InteractionTypes, MessageComponentTypes } = require('../util/Constants');
+const { InteractionTypes, MessageComponentTypes, ApplicationCommandTypes } = require('../util/Constants');
 const Permissions = require('../util/Permissions');
 const SnowflakeUtil = require('../util/SnowflakeUtil');
 
@@ -74,6 +74,19 @@ class Interaction extends Base {
      * @type {?Readonly<Permissions>}
      */
     this.memberPermissions = data.member?.permissions ? new Permissions(data.member.permissions).freeze() : null;
+
+    /**
+     * The locale of the user who invoked this interaction
+     * @type {string}
+     * @see {@link https://discord.com/developers/docs/dispatch/field-values#predefined-field-values-accepted-locales}
+     */
+    this.locale = data.locale;
+
+    /**
+     * The preferred locale from the guild this interaction was sent in
+     * @type {?string}
+     */
+    this.guildLocale = data.guild_locale ?? null;
   }
 
   /**
@@ -82,7 +95,7 @@ class Interaction extends Base {
    * @readonly
    */
   get createdTimestamp() {
-    return SnowflakeUtil.deconstruct(this.id).timestamp;
+    return SnowflakeUtil.timestampFrom(this.id);
   }
 
   /**
@@ -158,6 +171,22 @@ class Interaction extends Base {
    */
   isContextMenu() {
     return InteractionTypes[this.type] === InteractionTypes.APPLICATION_COMMAND && typeof this.targetId !== 'undefined';
+  }
+
+  /**
+   * Indicates whether this interaction is a {@link UserContextMenuInteraction}
+   * @returns {boolean}
+   */
+  isUserContextMenu() {
+    return this.isContextMenu() && ApplicationCommandTypes[this.targetType] === ApplicationCommandTypes.USER;
+  }
+
+  /**
+   * Indicates whether this interaction is a {@link MessageContextMenuInteraction}
+   * @returns {boolean}
+   */
+  isMessageContextMenu() {
+    return this.isContextMenu() && ApplicationCommandTypes[this.targetType] === ApplicationCommandTypes.MESSAGE;
   }
 
   /**

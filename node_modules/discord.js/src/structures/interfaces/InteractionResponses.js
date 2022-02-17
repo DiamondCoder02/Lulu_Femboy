@@ -61,6 +61,7 @@ class InteractionResponses {
           flags: options.ephemeral ? MessageFlags.FLAGS.EPHEMERAL : undefined,
         },
       },
+      auth: false,
     });
     this.deferred = true;
 
@@ -101,6 +102,7 @@ class InteractionResponses {
         data,
       },
       files,
+      auth: false,
     });
     this.replied = true;
 
@@ -160,6 +162,7 @@ class InteractionResponses {
    * @returns {Promise<Message|APIMessage>}
    */
   followUp(options) {
+    if (!this.deferred && !this.replied) return Promise.reject(new Error('INTERACTION_NOT_REPLIED'));
     return this.webhook.send(options);
   }
 
@@ -179,6 +182,7 @@ class InteractionResponses {
       data: {
         type: InteractionResponseTypes.DEFERRED_MESSAGE_UPDATE,
       },
+      auth: false,
     });
     this.deferred = true;
 
@@ -213,6 +217,7 @@ class InteractionResponses {
         data,
       },
       files,
+      auth: false,
     });
     this.replied = true;
 

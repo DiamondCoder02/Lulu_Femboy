@@ -1,8 +1,17 @@
 'use strict';
 
+const process = require('node:process');
 const Base = require('./Base');
 const { PrivacyLevels } = require('../util/Constants');
 const SnowflakeUtil = require('../util/SnowflakeUtil');
+
+/**
+ * @type {WeakSet<StageInstance>}
+ * @private
+ * @internal
+ */
+const deletedStageInstances = new WeakSet();
+let deprecationEmittedForDeleted = false;
 
 /**
  * Represents a stage instance.
@@ -17,12 +26,6 @@ class StageInstance extends Base {
      * @type {Snowflake}
      */
     this.id = data.id;
-
-    /**
-     * Whether the stage instance has been deleted
-     * @type {boolean}
-     */
-    this.deleted = false;
 
     this._patch(data);
   }
@@ -81,6 +84,36 @@ class StageInstance extends Base {
   }
 
   /**
+   * Whether or not the stage instance has been deleted
+   * @type {boolean}
+   * @deprecated This will be removed in the next major version, see https://github.com/discordjs/discord.js/issues/7091
+   */
+  get deleted() {
+    if (!deprecationEmittedForDeleted) {
+      deprecationEmittedForDeleted = true;
+      process.emitWarning(
+        'StageInstance#deleted is deprecated, see https://github.com/discordjs/discord.js/issues/7091.',
+        'DeprecationWarning',
+      );
+    }
+
+    return deletedStageInstances.has(this);
+  }
+
+  set deleted(value) {
+    if (!deprecationEmittedForDeleted) {
+      deprecationEmittedForDeleted = true;
+      process.emitWarning(
+        'StageInstance#deleted is deprecated, see https://github.com/discordjs/discord.js/issues/7091.',
+        'DeprecationWarning',
+      );
+    }
+
+    if (value) deletedStageInstances.add(this);
+    else deletedStageInstances.delete(this);
+  }
+
+  /**
    * The guild this stage instance belongs to
    * @type {?Guild}
    * @readonly
@@ -115,7 +148,7 @@ class StageInstance extends Base {
   async delete() {
     await this.guild.stageInstances.delete(this.channelId);
     const clone = this._clone();
-    clone.deleted = true;
+    deletedStageInstances.add(clone);
     return clone;
   }
 
@@ -139,7 +172,7 @@ class StageInstance extends Base {
    * @readonly
    */
   get createdTimestamp() {
-    return SnowflakeUtil.deconstruct(this.id).timestamp;
+    return SnowflakeUtil.timestampFrom(this.id);
   }
 
   /**
@@ -152,4 +185,5 @@ class StageInstance extends Base {
   }
 }
 
-module.exports = StageInstance;
+exports.StageInstance = StageInstance;
+exports.deletedStageInstances = deletedStageInstances;

@@ -1,7 +1,8 @@
 'use strict';
 
 const https = require('node:https');
-const FormData = require('@discordjs/form-data');
+const { setTimeout } = require('node:timers');
+const FormData = require('form-data');
 const fetch = require('node-fetch');
 const { UserAgent } = require('../util/Constants');
 
@@ -50,8 +51,8 @@ class APIRequest {
     let body;
     if (this.options.files?.length) {
       body = new FormData();
-      for (const file of this.options.files) {
-        if (file?.file) body.append(file.key ?? file.name, file.file, file.name);
+      for (const [index, file] of this.options.files.entries()) {
+        if (file?.file) body.append(file.key ?? `files[${index}]`, file.file, file.name);
       }
       if (typeof this.options.data !== 'undefined') {
         if (this.options.dontUsePayloadJSON) {

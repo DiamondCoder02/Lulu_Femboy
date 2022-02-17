@@ -1,5 +1,6 @@
 'use strict';
 
+const process = require('node:process');
 const Package = (exports.Package = require('../../package.json'));
 const { Error, RangeError, TypeError } = require('../errors');
 
@@ -78,7 +79,8 @@ exports.Endpoints = {
         makeImageUrl(`${root}/role-icons/${roleId}/${hash}`, { size, format }),
     };
   },
-  invite: (root, code) => `${root}/${code}`,
+  invite: (root, code, eventId) => (eventId ? `${root}/${code}?event=${eventId}` : `${root}/${code}`),
+  scheduledEvent: (root, guildId, eventId) => `${root}/${guildId}/${eventId}`,
   botGateway: '/gateway/bot',
 };
 
@@ -128,8 +130,17 @@ exports.Events = {
   API_RESPONSE: 'apiResponse',
   API_REQUEST: 'apiRequest',
   CLIENT_READY: 'ready',
+  /**
+   * @deprecated See {@link https://github.com/discord/discord-api-docs/issues/3690 this issue} for more information.
+   */
   APPLICATION_COMMAND_CREATE: 'applicationCommandCreate',
+  /**
+   * @deprecated See {@link https://github.com/discord/discord-api-docs/issues/3690 this issue} for more information.
+   */
   APPLICATION_COMMAND_DELETE: 'applicationCommandDelete',
+  /**
+   * @deprecated See {@link https://github.com/discord/discord-api-docs/issues/3690 this issue} for more information.
+   */
   APPLICATION_COMMAND_UPDATE: 'applicationCommandUpdate',
   GUILD_CREATE: 'guildCreate',
   GUILD_DELETE: 'guildDelete',
@@ -179,6 +190,7 @@ exports.Events = {
   ERROR: 'error',
   WARN: 'warn',
   DEBUG: 'debug',
+  CACHE_SWEEP: 'cacheSweep',
   SHARD_DISCONNECT: 'shardDisconnect',
   SHARD_ERROR: 'shardError',
   SHARD_RECONNECTING: 'shardReconnecting',
@@ -192,6 +204,11 @@ exports.Events = {
   GUILD_STICKER_CREATE: 'stickerCreate',
   GUILD_STICKER_DELETE: 'stickerDelete',
   GUILD_STICKER_UPDATE: 'stickerUpdate',
+  GUILD_SCHEDULED_EVENT_CREATE: 'guildScheduledEventCreate',
+  GUILD_SCHEDULED_EVENT_UPDATE: 'guildScheduledEventUpdate',
+  GUILD_SCHEDULED_EVENT_DELETE: 'guildScheduledEventDelete',
+  GUILD_SCHEDULED_EVENT_USER_ADD: 'guildScheduledEventUserAdd',
+  GUILD_SCHEDULED_EVENT_USER_REMOVE: 'guildScheduledEventUserRemove',
 };
 
 exports.ShardEvents = {
@@ -210,19 +227,20 @@ exports.ShardEvents = {
  * * GUILD_MEMBER
  * * MESSAGE
  * * REACTION
+ * * GUILD_SCHEDULED_EVENT
  * <warn>Partials require you to put checks in place when handling data. See the "Partial Structures" topic on the
  * [guide](https://discordjs.guide/popular-topics/partials.html) for more information.</warn>
  * @typedef {string} PartialType
  */
-exports.PartialTypes = keyMirror(['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION']);
+exports.PartialTypes = keyMirror(['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'GUILD_SCHEDULED_EVENT']);
 
 /**
  * The type of a WebSocket message event, e.g. `MESSAGE_CREATE`. Here are the available events:
  * * READY
  * * RESUMED
- * * APPLICATION_COMMAND_CREATE
- * * APPLICATION_COMMAND_DELETE
- * * APPLICATION_COMMAND_UPDATE
+ * * APPLICATION_COMMAND_CREATE (deprecated)
+ * * APPLICATION_COMMAND_DELETE (deprecated)
+ * * APPLICATION_COMMAND_UPDATE (deprecated)
  * * GUILD_CREATE
  * * GUILD_DELETE
  * * GUILD_UPDATE
@@ -268,6 +286,11 @@ exports.PartialTypes = keyMirror(['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 
  * * STAGE_INSTANCE_UPDATE
  * * STAGE_INSTANCE_DELETE
  * * GUILD_STICKERS_UPDATE
+ * * GUILD_SCHEDULED_EVENT_CREATE
+ * * GUILD_SCHEDULED_EVENT_UPDATE
+ * * GUILD_SCHEDULED_EVENT_DELETE
+ * * GUILD_SCHEDULED_EVENT_USER_ADD
+ * * GUILD_SCHEDULED_EVENT_USER_REMOVE
  * @typedef {string} WSEventType
  * @see {@link https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events}
  */
@@ -322,6 +345,11 @@ exports.WSEvents = keyMirror([
   'STAGE_INSTANCE_UPDATE',
   'STAGE_INSTANCE_DELETE',
   'GUILD_STICKERS_UPDATE',
+  'GUILD_SCHEDULED_EVENT_CREATE',
+  'GUILD_SCHEDULED_EVENT_UPDATE',
+  'GUILD_SCHEDULED_EVENT_DELETE',
+  'GUILD_SCHEDULED_EVENT_USER_ADD',
+  'GUILD_SCHEDULED_EVENT_USER_REMOVE',
 ]);
 
 /**
@@ -423,6 +451,41 @@ exports.MessageTypes = [
 ];
 
 /**
+ * The name of an item to be swept in Sweepers
+ * * `applicationCommands` - both global and guild commands
+ * * `bans`
+ * * `emojis`
+ * * `invites` - accepts the `lifetime` property, using it will sweep based on expires timestamp
+ * * `guildMembers`
+ * * `messages` - accepts the `lifetime` property, using it will sweep based on edited or created timestamp
+ * * `presences`
+ * * `reactions`
+ * * `stageInstances`
+ * * `stickers`
+ * * `threadMembers`
+ * * `threads` - accepts the `lifetime` property, using it will sweep archived threads based on archived timestamp
+ * * `users`
+ * * `voiceStates`
+ * @typedef {string} SweeperKey
+ */
+exports.SweeperKeys = [
+  'applicationCommands',
+  'bans',
+  'emojis',
+  'invites',
+  'guildMembers',
+  'messages',
+  'presences',
+  'reactions',
+  'stageInstances',
+  'stickers',
+  'threadMembers',
+  'threads',
+  'users',
+  'voiceStates',
+];
+
+/**
  * The types of messages that are `System`. The available types are `MessageTypes` excluding:
  * * DEFAULT
  * * REPLY
@@ -457,6 +520,9 @@ exports.ActivityTypes = createEnum(['PLAYING', 'STREAMING', 'LISTENING', 'WATCHI
  * * `GUILD_CATEGORY` - a guild category channel
  * * `GUILD_NEWS` - a guild news channel
  * * `GUILD_STORE` - a guild store channel
+ * <warn>Store channels are deprecated and will be removed from Discord in March 2022. See
+ * [Self-serve Game Selling Deprecation](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
+ * for more information.</warn>
  * * `GUILD_NEWS_THREAD` - a guild news channel's public thread channel
  * * `GUILD_PUBLIC_THREAD` - a guild text channel's public thread channel
  * * `GUILD_PRIVATE_THREAD` - a guild text channel's private thread channel
@@ -636,7 +702,9 @@ exports.VerificationLevels = createEnum(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY_
  * * ACCOUNT_OWNER_ONLY
  * * ANNOUNCEMENT_EDIT_LIMIT_EXCEEDED
  * * CHANNEL_HIT_WRITE_RATELIMIT
+ * * SERVER_HIT_WRITE_RATELIMIT
  * * CONTENT_NOT_ALLOWED
+ * * GUILD_PREMIUM_LEVEL_TOO_LOW
  * * MAXIMUM_GUILDS
  * * MAXIMUM_FRIENDS
  * * MAXIMUM_PINS
@@ -655,6 +723,7 @@ exports.VerificationLevels = createEnum(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY_
  * * MAXIMUM_THREAD_PARTICIPANTS
  * * MAXIMUM_NON_GUILD_MEMBERS_BANS
  * * MAXIMUM_BAN_FETCHES
+ * * MAXIMUM_NUMBER_OF_UNCOMPLETED_GUILD_SCHEDULED_EVENTS_REACHED
  * * MAXIMUM_NUMBER_OF_STICKERS_REACHED
  * * MAXIMUM_PRUNE_REQUESTS
  * * MAXIMUM_GUILD_WIDGET_SETTINGS_UPDATE
@@ -695,7 +764,10 @@ exports.VerificationLevels = createEnum(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY_
  * * INVALID_FORM_BODY
  * * INVITE_ACCEPTED_TO_GUILD_NOT_CONTAINING_BOT
  * * INVALID_API_VERSION
+ * * FILE_UPLOADED_EXCEEDS_MAXIMUM_SIZE
+ * * INVALID_FILE_UPLOADED
  * * CANNOT_SELF_REDEEM_GIFT
+ * * INVALID_GUILD
  * * PAYMENT_SOURCE_REQUIRED
  * * CANNOT_DELETE_COMMUNITY_REQUIRED_CHANNEL
  * * INVALID_STICKER_SENT
@@ -705,6 +777,7 @@ exports.VerificationLevels = createEnum(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY_
  * * GUILD_NOT_AVAILABLE_IN_LOCATION
  * * GUILD_MONETIZATION_REQUIRED
  * * INSUFFICIENT_BOOSTS
+ * * INVALID_JSON
  * * TWO_FACTOR_REQUIRED
  * * NO_USERS_WITH_DISCORDTAG_EXIST
  * * REACTION_BLOCKED
@@ -714,7 +787,16 @@ exports.VerificationLevels = createEnum(['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY_
  * * MESSAGE_ALREADY_HAS_THREAD
  * * THREAD_LOCKED
  * * MAXIMUM_ACTIVE_THREADS
- * * MAXIMUM_ACTIVE_ANNOUCEMENT_THREAD
+ * * MAXIMUM_ACTIVE_ANNOUNCEMENT_THREAD
+ * * INVALID_JSON_FOR_UPLOADED_LOTTIE_FILE
+ * * UPLOADED_LOTTIES_CANNOT_CONTAIN_RASTERIZED_IMAGES
+ * * STICKER_MAXIMUM_FRAMERATE_EXCEEDED
+ * * STICKER_FRAME_COUNT_EXCEEDS_MAXIMUM_OF_1000_FRAMES
+ * * LOTTIE_ANIMATION_MAXIMUM_DIMENSIONS_EXCEEDED
+ * * STICKER_FRAME_RATE_IS_TOO_SMALL_OR_TOO_LARGE
+ * * STICKER_ANIMATION_DURATION_EXCEEDS_MAXIMUM_OF_5_SECONDS
+ * * CANNOT_UPDATE_A_FINISHED_EVENT
+ * * FAILED_TO_CREATE_STAGE_NEEDED_FOR_STAGE_EVENT
  * @typedef {string} APIError
  * @see {@link https://discord.com/developers/docs/topics/opcodes-and-status-codes#json-json-error-codes}
  */
@@ -767,6 +849,7 @@ exports.APIErrors = {
   ACCOUNT_OWNER_ONLY: 20018,
   ANNOUNCEMENT_EDIT_LIMIT_EXCEEDED: 20022,
   CHANNEL_HIT_WRITE_RATELIMIT: 20028,
+  SERVER_HIT_WRITE_RATELIMIT: 20029,
   CONTENT_NOT_ALLOWED: 20031,
   GUILD_PREMIUM_LEVEL_TOO_LOW: 20035,
   MAXIMUM_GUILDS: 30001,
@@ -787,6 +870,7 @@ exports.APIErrors = {
   MAXIMUM_THREAD_PARTICIPANTS: 30033,
   MAXIMUM_NON_GUILD_MEMBERS_BANS: 30035,
   MAXIMUM_BAN_FETCHES: 30037,
+  MAXIMUM_NUMBER_OF_UNCOMPLETED_GUILD_SCHEDULED_EVENTS_REACHED: 30038,
   MAXIMUM_NUMBER_OF_STICKERS_REACHED: 30039,
   MAXIMUM_PRUNE_REQUESTS: 30040,
   MAXIMUM_GUILD_WIDGET_SETTINGS_UPDATE: 30042,
@@ -830,6 +914,7 @@ exports.APIErrors = {
   FILE_UPLOADED_EXCEEDS_MAXIMUM_SIZE: 50045,
   INVALID_FILE_UPLOADED: 50046,
   CANNOT_SELF_REDEEM_GIFT: 50054,
+  INVALID_GUILD: 50055,
   PAYMENT_SOURCE_REQUIRED: 50070,
   CANNOT_DELETE_COMMUNITY_REQUIRED_CHANNEL: 50074,
   INVALID_STICKER_SENT: 50081,
@@ -839,6 +924,7 @@ exports.APIErrors = {
   GUILD_NOT_AVAILABLE_IN_LOCATION: 50095,
   GUILD_MONETIZATION_REQUIRED: 50097,
   INSUFFICIENT_BOOSTS: 50101,
+  INVALID_JSON: 50109,
   TWO_FACTOR_REQUIRED: 60003,
   NO_USERS_WITH_DISCORDTAG_EXIST: 80004,
   REACTION_BLOCKED: 90001,
@@ -856,6 +942,8 @@ exports.APIErrors = {
   LOTTIE_ANIMATION_MAXIMUM_DIMENSIONS_EXCEEDED: 170005,
   STICKER_FRAME_RATE_IS_TOO_SMALL_OR_TOO_LARGE: 170006,
   STICKER_ANIMATION_DURATION_EXCEEDS_MAXIMUM_OF_5_SECONDS: 170007,
+  CANNOT_UPDATE_A_FINISHED_EVENT: 180000,
+  FAILED_TO_CREATE_STAGE_NEEDED_FOR_STAGE_EVENT: 180002,
 };
 
 /**
@@ -1002,7 +1090,6 @@ exports.InteractionResponseTypes = createEnum([
   'UPDATE_MESSAGE',
   'APPLICATION_COMMAND_AUTOCOMPLETE_RESULT',
 ]);
-/* eslint-enable max-len */
 
 /**
  * The type of a message component
@@ -1056,6 +1143,14 @@ exports.NSFWLevels = createEnum(['DEFAULT', 'EXPLICIT', 'SAFE', 'AGE_RESTRICTED'
 exports.PrivacyLevels = createEnum([null, 'PUBLIC', 'GUILD_ONLY']);
 
 /**
+ * Privacy level of a {@link GuildScheduledEvent} object:
+ * * GUILD_ONLY
+ * @typedef {string} GuildScheduledEventPrivacyLevel
+ * @see {@link https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-privacy-level}
+ */
+exports.GuildScheduledEventPrivacyLevels = createEnum([null, null, 'GUILD_ONLY']);
+
+/**
  * The premium tier (Server Boost level) of a guild:
  * * NONE
  * * TIER_1
@@ -1065,6 +1160,29 @@ exports.PrivacyLevels = createEnum([null, 'PUBLIC', 'GUILD_ONLY']);
  * @see {@link https://discord.com/developers/docs/resources/guild#guild-object-premium-tier}
  */
 exports.PremiumTiers = createEnum(['NONE', 'TIER_1', 'TIER_2', 'TIER_3']);
+
+/**
+ * The status of a {@link GuildScheduledEvent}:
+ * * SCHEDULED
+ * * ACTIVE
+ * * COMPLETED
+ * * CANCELED
+ * @typedef {string} GuildScheduledEventStatus
+ * @see {@link https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status}
+ */
+exports.GuildScheduledEventStatuses = createEnum([null, 'SCHEDULED', 'ACTIVE', 'COMPLETED', 'CANCELED']);
+
+/**
+ * The entity type of a {@link GuildScheduledEvent}:
+ * * NONE
+ * * STAGE_INSTANCE
+ * * VOICE
+ * * EXTERNAL
+ * @typedef {string} GuildScheduledEventEntityType
+ * @see {@link https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-types}
+ */
+exports.GuildScheduledEventEntityTypes = createEnum([null, 'STAGE_INSTANCE', 'VOICE', 'EXTERNAL']);
+/* eslint-enable max-len */
 
 exports._cleanupSymbol = Symbol('djsCleanup');
 
@@ -1097,6 +1215,11 @@ function createEnum(keys) {
  * The value set for a guild's default message notifications.
  * @property {ExplicitContentFilterLevel} ExplicitContentFilterLevels
  * The value set for the explicit content filter levels for a guild.
+ * @property {GuildScheduledEventStatus} GuildScheduledEventStatuses The status of a {@link GuildScheduledEvent} object.
+ * @property {GuildScheduledEventEntityType} GuildScheduledEventEntityTypes The entity type of a
+ * {@link GuildScheduledEvent} object.
+ * @property {GuildScheduledEventPrivacyLevel} GuildScheduledEventPrivacyLevels Privacy level of a
+ * {@link GuildScheduledEvent} object.
  * @property {InteractionResponseType} InteractionResponseTypes The type of an interaction response.
  * @property {InteractionType} InteractionTypes The type of an {@link Interaction} object.
  * @property {MembershipState} MembershipStates The value set for a team member's membership state.

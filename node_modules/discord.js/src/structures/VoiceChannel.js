@@ -1,7 +1,10 @@
 'use strict';
 
+const process = require('node:process');
 const BaseGuildVoiceChannel = require('./BaseGuildVoiceChannel');
 const Permissions = require('../util/Permissions');
+
+let deprecationEmittedForEditable = false;
 
 /**
  * Represents a guild voice channel on Discord.
@@ -15,6 +18,15 @@ class VoiceChannel extends BaseGuildVoiceChannel {
    * @deprecated Use {@link VoiceChannel#manageable} instead
    */
   get editable() {
+    if (!deprecationEmittedForEditable) {
+      process.emitWarning(
+        'The VoiceChannel#editable getter is deprecated. Use VoiceChannel#manageable instead.',
+        'DeprecationWarning',
+      );
+
+      deprecationEmittedForEditable = true;
+    }
+
     return this.manageable;
   }
 
@@ -35,7 +47,14 @@ class VoiceChannel extends BaseGuildVoiceChannel {
    * @readonly
    */
   get speakable() {
-    return this.permissionsFor(this.client.user).has(Permissions.FLAGS.SPEAK, false);
+    const permissions = this.permissionsFor(this.client.user);
+    if (!permissions) return false;
+    // This flag allows speaking even if timed out
+    if (permissions.has(Permissions.FLAGS.ADMINISTRATOR, false)) return true;
+
+    return (
+      this.guild.me.communicationDisabledUntilTimestamp < Date.now() && permissions.has(Permissions.FLAGS.SPEAK, false)
+    );
   }
 
   /**
