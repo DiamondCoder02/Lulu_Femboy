@@ -36,5 +36,5 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply('Pong!');
   }
 });
-
-client.login('token');
+let config = require('./config.json');
+client.login(config.token);
