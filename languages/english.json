@@ -1,0 +1,8 @@
+{
+    "ping":{
+        "description": "measures the bot latency and shows uptime",
+        "calc": "Calculating ping...",
+        "uptime": "Uptime: ",
+        "date": " day, - hour, - minute and - second"
+    }
+}

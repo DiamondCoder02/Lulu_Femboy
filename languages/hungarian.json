@@ -1,0 +1,8 @@
+{
+    "ping":{
+        "description": "A bot válaszidejét számolja és az üzemidejét mutatja",
+        "calc": "Válaszidő számítása...",
+        "uptime": "Üzemidő: ",
+        "date": " nap, - óra, - perc és - másodperc"
+    }
+}
