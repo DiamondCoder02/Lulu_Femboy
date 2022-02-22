@@ -35,4 +35,4 @@ client.on('interactionCreate', async (interaction) => {
 		await interaction.reply('Pong!');
 	}
 });
-client.login('ODkzMjAwODgzNzYzMDExNTk0.YVYAJQ.nmgevtAvP0KjYLK12Wdf7XXOsAI')
+client.login('token')
