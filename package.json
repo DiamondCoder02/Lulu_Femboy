@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@discordjs/builders": "^0.12.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "@discordjs/voice": "^0.7.2",
     "discord-api-types": "^0.24.0",
