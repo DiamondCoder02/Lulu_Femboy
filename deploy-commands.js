@@ -4,6 +4,7 @@ const { Routes } = require('discord-api-types/v9');
 const { clientId, Token } = require('./config.json');
 require('dotenv').config();
 var token = process.env.token;
+var cId =process.env.cId
 
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -21,9 +22,17 @@ try{
 }catch{
     console.log("Please provide a token.")
 }
+try{
+    if (clientId !== "clientID")
+        var c = clientId
+    else
+        var c = cId
+}catch{
+    console.log("Please provide a token.")
+}
 
 const rest = new REST({ version: '9' }).setToken(t);
 
-rest.put(Routes.applicationCommands(clientId), { body: commands })
+rest.put(Routes.applicationCommands(c), { body: commands })
 	.then(() => console.log('Successfully registered application commands.'))
 	.catch(console.error);

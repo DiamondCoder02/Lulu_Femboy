@@ -15,11 +15,8 @@ for (const file of commandFiles) {
 //Slash command handler
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-
 	const command = client.commands.get(interaction.commandName);
-
 	if (!command) return;
-
 	try {
 		await command.execute(interaction);
 	} catch (error) {
@@ -49,7 +46,6 @@ try{
 }catch{
     console.log("Please provide a token.")
 }
-
 
 /*
 const Discord = require('discord.js'), cooldowns = new Discord.Collection(), fsp = require('fs').promises, path = require('path')
