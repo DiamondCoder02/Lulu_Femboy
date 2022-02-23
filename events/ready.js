@@ -1,13 +1,21 @@
+module.exports = {
+	name: 'ready',
+	once: true,
+	execute(client) {
+		console.log(`Ready! Logged in as ${client.user.tag}`);
+	},
+};
+/*
 module.exports = (system) => {
     console.log('Ready!');
     system.client.user.setActivity("(^///^) Testing / commands")
-        /*
+        
     "\n\t" + system.lang.ready.login + system.client.user.tag
     + "\n\n\t" + system.lang.ready.prefix + system.config.prefix
     + "\n\t" + system.lang.ready.start_lang + system.config.language
     + "\n\n\t" + system.lang.ready.start + system.client.readyAt
         )
-        */
+        
     const ready_embed = new system.Discord.MessageEmbed()
     .setColor(system.config.embed_colors.blue)
     .addField("Bot started! \n" 
@@ -20,4 +28,4 @@ module.exports = (system) => {
     }catch{  
         channel.send(ready_embed);return
     }
-}
+}*/

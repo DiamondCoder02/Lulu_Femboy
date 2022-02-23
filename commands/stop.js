@@ -1,3 +1,15 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('stop')
+		.setDescription('Stops the bot with a password.'),
+	async execute(interaction, client) {
+		await interaction.reply('STOP!');
+		client.destroy()
+		.then(() => process.exit())
+	},
+};
+/*
 const Discord = require("discord.js")
 module.exports = {
     name: 'stop',
@@ -29,4 +41,4 @@ module.exports = {
 			message.channel.send(stop_embed);
 		}
     }
-}
+}*/
