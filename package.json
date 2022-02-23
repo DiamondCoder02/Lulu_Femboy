@@ -1,0 +1,22 @@
+{
+  "name": "femboi_owo",
+  "version": "0.0.1",
+  "description": "4th time trying to make a discord bot, now with slash command",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiamondPRO02/Femboi_OwO.git"
+  },
+  "author": "DiamondCoder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiamondPRO02/Femboi_OwO/issues"
+  },
+  "homepage": "https://github.com/DiamondPRO02/Femboi_OwO#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
