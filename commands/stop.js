@@ -7,5 +7,5 @@ module.exports = {
 		await interaction.reply(`Bot has been stopped by ${interaction.user.tag}`);
 		console.log(`-------------------------\nThe bot is being stopped!!!\nTriggered: ${interaction.user.tag} in #${interaction.channel.name} at ${interaction.createdTimestamp}\n-------------------------`)
 		client.destroy()
-	},
-};
+	}
+}
