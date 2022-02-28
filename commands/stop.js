@@ -5,12 +5,11 @@ module.exports = {
 		.setName('stop')
 		.setDescription('Stops the bot with a password.'),
 	async execute(interaction, client) {
-		await interaction.reply({content: `Bot has been stopped by ${interaction.user.tag}`, ephemeral:true});
+		await interaction.reply({content: `Bot has been stopped by you (${interaction.user.tag})!!!`, ephemeral:true});
 		console.log(`-------------------------\nThe bot is being stopped!!!\nTriggered: ${interaction.user.tag} in #${interaction.channel.name} at ${interaction.createdTimestamp}\n-------------------------`)
 		const embed = new MessageEmbed()
 			.setColor('#0099ff')
-			.setTitle('Embed test')
-			.setURL('https://discord.js.org')
+			.setTitle('Bot stopped!')
 			.setDescription(`Bot has been stopped by ${interaction.user.tag}`);
 		await interaction.followUp({content: "Stopped!", embeds: [embed]})
 		client.destroy()

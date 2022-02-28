@@ -18,10 +18,10 @@ client.on('interactionCreate', async interaction => {
 	const command = client.commands.get(interaction.commandName);
 	if (!command) return;
 	try {
-		await command.execute(interaction, client);
+		await command.execute(interaction, client, config);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		await interaction.reply({ content: 'There was an error while executing this command!'});
 	}
 });
 //event handler
@@ -39,13 +39,9 @@ console.log(client);
 //client.on("warn", (e) => console.warn(e))
 //client.on("debug", (e) => console.info(e))
 try{
-    if (config.Token == "token")
-        client.login(token)
-    else
-        client.login(config.Token)
-}catch{
-    console.log("Please provide a token.")
-}
+    if (config.Token == "token") client.login(token)
+    else client.login(config.Token)
+}catch{console.log("Please provide a bot token.")}
 
 /*
 const Discord = require('discord.js'), cooldowns = new Discord.Collection(), fsp = require('fs').promises, path = require('path')

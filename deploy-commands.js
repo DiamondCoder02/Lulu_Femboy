@@ -15,21 +15,13 @@ for (const file of commandFiles) {
 }
 
 try{
-    if (Token !== "token")
-        var t = Token
-    else
-        var t = token
-}catch{
-    console.log("Please provide a token.")
-}
+    if (Token !== "token") var t = Token
+    else var t = token
+}catch{console.log("Please provide a bot token.")}
 try{
-    if (clientId !== "clientID")
-        var c = clientId
-    else
-        var c = cId
-}catch{
-    console.log("Please provide a token.")
-}
+    if (clientId !== "clientID") var c = clientId
+    else var c = cId
+}catch{console.log("Please provide a ClientID.")}
 
 const rest = new REST({ version: '9' }).setToken(t);
 
