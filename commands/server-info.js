@@ -6,7 +6,7 @@ module.exports = {
 	    .setDescription('Shows some server informations!'),
     async execute(interaction, client, config) {
         const owner = await interaction.guild.fetchOwner(); 
-        console.log(interaction.guild)
+        //console.log(interaction.guild)
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('Server Informations')
@@ -22,6 +22,7 @@ module.exports = {
                 {name: '\u200B', value: '\u200B', inline:true},
                 {name: 'guild owner:', value: owner.user.tag, inline:true},
                 {name: 'guild creation date:', value: String(interaction.guild.createdAt), inline:true},
+                {name: 'guild local:', value: String(interaction.guild.prefferedLocale), inline:true},
             )
             .addField(`Bot name and join date:`, `${interaction.guild.me} \n ${interaction.guild.joinedAt}`)
             .addField('\u200B', '\u200B')
@@ -41,21 +42,20 @@ module.exports = {
         const page = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setCustomId('si_right')
-					.setLabel('Right')
-					.setStyle('PRIMARY'),
-			)
-            .addComponents(
-				new MessageButton()
 					.setCustomId('si_left')
 					.setLabel('Left')
-					.setStyle('SECONDARY'),
-            )
-            .addComponents(
+					.setStyle('SECONDARY')
+                    .setEmoji('⬅️'),
+                new MessageButton()
+					.setCustomId('si_right')
+					.setLabel('Right')
+					.setStyle('PRIMARY')
+                    .setEmoji('➡️'),
 				new MessageButton()
 					.setCustomId('delete')
 					.setLabel('Delete message')
-					.setStyle('DANGER'),
+					.setStyle('DANGER')
+                    .setEmoji('✖️'),
             )
         await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
     }
