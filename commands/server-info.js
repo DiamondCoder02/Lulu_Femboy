@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 	    .setName('server-info')
@@ -38,6 +38,25 @@ module.exports = {
                 {name: "Content filter", value: String(interaction.guild.explicitContentFilter), inline:true},
                 {name: "Partnered", value: (interaction.guild.partnered ? 'true' : 'false')},
             )
-        await interaction.reply({content: "Server Info", embeds: [embed]})
+        const page = new MessageActionRow()
+			.addComponents(
+				new MessageButton()
+					.setCustomId('si_right')
+					.setLabel('Right')
+					.setStyle('PRIMARY'),
+			)
+            .addComponents(
+				new MessageButton()
+					.setCustomId('si_left')
+					.setLabel('Left')
+					.setStyle('SECONDARY'),
+            )
+            .addComponents(
+				new MessageButton()
+					.setCustomId('delete')
+					.setLabel('Delete message')
+					.setStyle('DANGER'),
+            )
+        await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
     }
 }
