@@ -7,18 +7,32 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName('user')
             .setDescription('Info about a user')
-            .addUserOption(option => option.setName('target').setDescription('The user')))
+            .addUserOption(option => option.setName('target').setDescription('The user').setRequired(true)))
         .addSubcommand(subcommand => subcommand
             .setName('server')
             .setDescription('Info about the server')),
     async execute(interaction, client, config) {
         if (interaction.options.getSubcommand() === 'user') {
             const user = interaction.options.getUser('target');
-            if (user) {
-                await interaction.reply(`Username: ${user.username}\nID: ${user.id}`);
-            } else {
-                await interaction.reply(`Your username: ${interaction.user.username}\nYour ID: ${interaction.user.id}`);
-            }
+            const profilepic = user.displayAvatarURL();
+            const embed = new MessageEmbed()
+                .setColor('#00FF00')
+                .setTitle('Profile / User Informations')
+                .setThumbnail(profilepic)
+                .setDescription(`Here are some server information, \nrequested by: ${interaction.user.tag}`)
+                .setAuthor({ name: user.tag, iconURL: profilepic })
+                .setTimestamp()
+                .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
+                .addFields(
+                    {name: "Username:", value: user.username, inline:true},
+                    {name: "Tag:", value: user.tag, inline:true},
+                )
+                .addFields(
+                    {name: "UserID:", value: String(user.id), inline:true},
+                    {name: "CreatedAt", value: String(user.createdAt), inline:true},
+                    {name: "Bot?", value: (user.bot ? "True" : "False")}
+                )
+            await interaction.reply({content: "Server Info", embeds: [embed]})
         } else if (interaction.options.getSubcommand() === 'server') {
             const owner = await interaction.guild.fetchOwner(); 
             //console.log(interaction.guild)
