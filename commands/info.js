@@ -73,8 +73,19 @@ module.exports = {
                         .setLabel('Delete message')
                         .setStyle('DANGER')
                         .setEmoji('✖️')
-                        .setDisabled(true),
+                        .setDisabled(false),
                 )
+                const filter = i => i.customId === 'delete' && i.user.id === '748830668812845077';
+
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+                
+                collector.on('collect', async i => {
+                    if (i.customId === 'delete') {
+                        await interaction.deleteReply();
+                    }
+                });
+                
+                collector.on('end', collected => console.log(`Collected ${collected.size} items`));
             await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
         }
     }

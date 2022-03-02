@@ -1,4 +1,5 @@
 const config = require('../config.json');
+const fs = require('fs');
 module.exports = {
 	name: 'ready',
 	once: true,
@@ -8,6 +9,10 @@ module.exports = {
             + "\n\t -- Language: " + config.language
             + "\n\t -- Ready at: " + client.readyAt
             + "\n\t -- Guilds: "+ Guilds)
-        client.user.setActivity("(^///^) Testing slash commands")
+        const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+        const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+        console.log("Commands: ", commandFiles)
+        console.log("Event: ", eventFiles)
+        client.user.setActivity("(ノ｀Д)ノ Testing slash commands")
 	}
 }
