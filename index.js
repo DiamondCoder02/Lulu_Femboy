@@ -14,14 +14,16 @@ for (const file of commandFiles) {
 }
 //Slash command handler
 client.on('interactionCreate', async interaction => {
-	const command = client.commands.get(interaction.commandName);
-	if (!command) return;
-	try {
-		await command.execute(interaction, client, config);
-	} catch (error) {
-		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral:true});
-	}
+    if (interaction.isCommand) {
+        const command2 = client.commands.get(interaction.commandName);
+        if (!command2) return;
+        try {
+            await command2.execute(interaction, client, config);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral:true});
+        }
+    }
 });
 //event handler
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));

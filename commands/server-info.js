@@ -45,17 +45,20 @@ module.exports = {
 					.setCustomId('si_left')
 					.setLabel('Left')
 					.setStyle('SECONDARY')
-                    .setEmoji('⬅️'),
+                    .setEmoji('⬅️')
+                    .setDisabled(true),
                 new MessageButton()
 					.setCustomId('si_right')
 					.setLabel('Right')
 					.setStyle('PRIMARY')
-                    .setEmoji('➡️'),
+                    .setEmoji('➡️')
+                    .setDisabled(true),
 				new MessageButton()
 					.setCustomId('delete')
 					.setLabel('Delete message')
 					.setStyle('DANGER')
-                    .setEmoji('✖️'),
+                    .setEmoji('✖️')
+                    .setDisabled(true),
             )
         await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
     }
