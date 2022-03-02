@@ -39,6 +39,7 @@ console.log(client);
 //client.on("error", (e) => console.error(e))
 //client.on("warn", (e) => console.warn(e))
 //client.on("debug", (e) => console.info(e))
+console.log(commandFiles)
 try{
     if (config.Token == "token") client.login(token)
     else client.login(config.Token)
