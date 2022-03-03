@@ -1,14 +1,15 @@
 module.exports = {
 	name: 'interactionCreate',
 	execute(interaction) {
-		if (interaction.isCommand()) {
-			console.log(`[${interaction.createdAt}] -- ${interaction.user.tag} in ${interaction.guild.name} at #${interaction.channel.name} triggered: ${interaction.commandName}.`);
+		const i = interaction
+		if (i.isCommand()) {
+			console.log(`[${i.createdAt}] -- ${i.user.tag} in ${i.guild.name} at #${i.channel.name} triggered: ${i.commandName}.`);
 		}
-		else if (interaction.isButton()) {
-			console.log(`[${interaction.createdAt}] -- ${interaction.user.tag} in ${interaction.guild.name} at #${interaction.channel.name} triggered a button.`);
+		else if (i.isButton()) {
+			console.log(`[${i.createdAt}] -- ${i.user.tag} in ${i.guild.name} at #${i.channel.name} triggered a button.`);
 		} 
-		else if (interaction.isSelectMenu()) {
-			console.log(`[${interaction.createdAt}] -- ${interaction.user.tag} in ${interaction.guild.name} at #${interaction.channel.name} triggered a select menu.`);
+		else if (i.isSelectMenu()) {
+			console.log(`[${i.createdAt}] -- ${i.user.tag} in ${i.guild.name} at #${i.channel.name} triggered a select menu.`);
 		}
 	}
 };

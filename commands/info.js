@@ -14,6 +14,7 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
                 .setName('server_cheat')
                 .setDescription('Cheatsheet about the server infos')),
+    //Execution
     async execute(interaction, client, config) {
         const page = new MessageActionRow()
             .addComponents(
@@ -36,13 +37,14 @@ module.exports = {
                     .setEmoji('✖️')
             )
         const filter = i => i.customId === 'delete';
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+        const collector = interaction.channel.createMessageComponentCollector({ filter });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
                 await interaction.deleteReply();
             }
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+        //User, server, cheatsheet
         if (interaction.options.getSubcommand() === 'user') {
             const user = interaction.options.getUser('target');
             const profilepic = user.displayAvatarURL();
