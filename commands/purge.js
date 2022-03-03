@@ -31,7 +31,7 @@ module.exports = {
         )
         await interaction.reply({ content: "Please select a number to delete messages.", components: [numberMenuDelete], ephemeral: true });
         const filter = i => i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
         collector.on('collect', async i => {
             if (i.customId === 'select') {
                 await interaction.channel.bulkDelete(Number(i.values), true)
