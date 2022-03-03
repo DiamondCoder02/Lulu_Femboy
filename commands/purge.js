@@ -11,20 +11,20 @@ module.exports = {
 			.setCustomId('select')
 			.setPlaceholder('Nothing selected')
 			.addOptions([{
-					label: '25',
-					description: 'Delete 25 message',
+					label: '-25 message',
+					description: 'Delete the last 25 message',
 					value: '25',
 				},{
-					label: '50',
-					description: 'Delete 50 message',
+					label: '-50 message',
+					description: 'Delete the last 50 message',
 					value: '50',
 				},{
-					label: '75',
-					description: 'Delete 75 message',
+					label: '-75 message',
+					description: 'Delete the last 75 message',
 					value: '75',
 				},{
-					label: '99',
-					description: 'Delete 99 message',
+					label: '-99 message',
+					description: 'Delete the last 99 message',
 					value: '99',
 				},
             ]),
