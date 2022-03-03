@@ -37,7 +37,7 @@ module.exports = {
                     .setEmoji('✖️')
             )
         const filter = i => i.customId === 'delete';
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
                 await interaction.deleteReply();
@@ -68,6 +68,7 @@ module.exports = {
             await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server') {
             const owner = await interaction.guild.fetchOwner(); 
+            const afktime = (interaction.guild.afkTimeout % 60)
             //console.log(interaction.guild)
             const embed = new MessageEmbed()
                 .setColor('#00FF00')
@@ -78,29 +79,32 @@ module.exports = {
                 .setAuthor({ name: 'Femboy_OwO: ', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096', url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .setTimestamp()
                 .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
-                .addFields(
-                    {name: 'guild name:', value: `${interaction.guild.name} / ${interaction.guild.nameAcronym}`, inline:true},
-                    {name: 'guild member count:', value: String(interaction.guild.memberCount), inline:true},
-                    {name: '\u200B', value: '\u200B', inline:true},
-                    {name: 'guild owner:', value: owner.user.tag, inline:true},
-                    {name: 'guild creation date:', value: String(interaction.guild.createdAt), inline:true},
-                    {name: 'guild local:', value: String(interaction.guild.prefferedLocale), inline:true},
-                )
-                .addField(`Bot name and join date:`, `${interaction.guild.me} \n ${interaction.guild.joinedAt}`)
-                .addField('\u200B', '\u200B')
-                .addFields(
-                    {name: "Premium count:", value: String(interaction.guild.premiumSubcriptionCount), inline:true},
-                    {name: "Premium Tier:", value: String(interaction.guild.premiumTier), inline:true},
-                    {name: "Premium Progress Bar?", value: (interaction.guild.premiumProgressBarEnabled ? 'true' : 'false'), inline:true},
-                )
-                .addFields(
-                    {name: "Is guild available? ", value: (interaction.guild.available ? 'True' : 'False'), inline:true},
-                    {name: `System channel?`, value: String(interaction.guild.systemChannel), inline:true},
-                    {name: '\u200B', value: '\u200B', inline:true},
-                    {name: "MFA level:", value: String(interaction.guild.mfaLevel), inline:true},
-                    {name: "Content filter", value: String(interaction.guild.explicitContentFilter), inline:true},
-                    {name: "Partnered", value: (interaction.guild.partnered ? 'true' : 'false')},
-                )
+                .addField('Guild name and acronym:',  `${interaction.guild.name}` + `\n(${interaction.guild.nameAcronym})`, true)
+                .addField('Server owner:',  String(owner.user.tag), true)
+                .addField('Server capacity:',  `${interaction.guild.memberCount} / ` + interaction.guild.maximumMembers, true)
+                .addField('Is the server large?',  (interaction.guild.large ? 'True' : 'False'), true)
+                .addField('Server ID:',  String(interaction.guild.id), true)
+                .addField('Guild description:',  String(interaction.guild.description))
+                .addField('Premium count and tier:',  `${interaction.guild.premiumSubscriptionCount} / ` + String(interaction.guild.premiumTier), true)
+                .addField('Is premium progress bar on?',  (interaction.guild.premiumProgressBarEnabled ? 'True' : 'False'), true)
+                .addField('Guild created at:',  `${interaction.guild.createdAt}`)
+                .addField('Bot tag:',  String(interaction.guild.me), true)
+                .addField('###',  String(interaction.guild.joinedTimestamp), true)
+                .addField('Bot joined at:',  `${interaction.guild.joinedAt}`)
+                .addField('Update channel:',  String(interaction.guild.publicUpdatesChannel), true)
+                .addField('Rules channel:',  String(interaction.guild.rulesChannel), true)
+                .addField('System channel:',  `${interaction.guild.systemChannel}`, true)
+                .addField('Afk voice channel:',  String(interaction.guild.afkChannel), true)
+                .addField('Voice channel bitrate:',  `${interaction.guild.maximumBitrate}`, true)
+                .addField('Afk timeout (min):',  String(afktime), true)
+                .addField('Explicit content filter level:',  `${interaction.guild.explicitContentFilter}`, true)
+                .addField('Mfa and nsfw level:',  `${interaction.guild.mfaLevel} / ` + String(interaction.guild.nsfwLevel), true)
+                .addField('Guild required verification level:',  String(interaction.guild.verificationLevel), true)
+                .addField('Preferred server locale:',  String(interaction.guild.preferredLocale), true)
+                .addField('Is guild verified?',  (interaction.guild.verified ? 'True' : 'False'), true)
+                .addField('Is guild partnered?',  (interaction.guild.partnered ? 'True' : 'False'), true)
+                //.addField('11 joinedTimestamp(number)[The stamp the client user joined guild]',  String(interaction.guild.joinedTimestamp), true)
+                //.addField('\u200B', '\u200B')
             await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server_cheat') {
             const embedtest1 = new MessageEmbed()
