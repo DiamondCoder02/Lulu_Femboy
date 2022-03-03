@@ -37,7 +37,7 @@ module.exports = {
                     .setEmoji('✖️')
             )
         const filter = i => i.customId === 'delete';
-        const collector = interaction.channel.createMessageComponentCollector({ filter });
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
                 await interaction.deleteReply();

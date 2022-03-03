@@ -9,29 +9,23 @@ module.exports = {
             .setTitle("Ping Roles:")
             .setColor("#0099ff")
             .setDescription("`Click some button bellow if you want get notified!`")
-
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton()
                     .setCustomId('Acm')
                     .setLabel('sfw')
-                    .setStyle('SECONDARY')
-                    .setEmoji("📰"),
+                    .setStyle('SECONDARY'),
                 new MessageButton()
                     .setCustomId('Gv')
                     .setLabel('nsfw')
                     .setStyle('SECONDARY')
-                    .setEmoji("🎉")
             )
-        const m = await interaction.reply({ embeds: [embed], components: [row] });
-
-        const iFilter = i => i.user.id === message.author.id;
-
-        const collector = m.createMessageComponentCollector({ filter: iFilter, time: 60000 })
-
+        await interaction.reply({ embeds: [embed], components: [row] });
+        const filter = i => i.user.id === interaction.user.id;
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
         collector.on('collect', async i => {
             if (i.customId === 'Acm') {
-                const role = message.guild.roles.cache.get("948322911419265024");
+                const role = interaction.guild.roles.cache.get("948322911419265024");
                 if (i.member.roles.cache?.has('948322911419265024')) {
                     i.member.roles.remove('948322911419265024')
                     await i.reply({ content: `${role} was removed from you`, ephemeral: true });
@@ -40,7 +34,7 @@ module.exports = {
                     await i.reply({ content: `${role} was added to you`, ephemeral: true });
                 }
             } else if (i.customId === 'Gv') {
-                const role = message.guild.roles.cache.get("948322955883069510");
+                const role = interaction.guild.roles.cache.get("948322955883069510");
                 if (i.member.roles.cache?.has('948322955883069510')) {
                     i.member.roles.remove('948322955883069510')
                     await i.reply({ content: `${role} was removed from you`, ephemeral: true });
@@ -50,6 +44,6 @@ module.exports = {
                 }
             }
         })
-        await collector.stop("complete")
+        collector.on('end', collected => console.log(`Collected ${collected.size} items`) + interaction.deleteReply());
     }
 }
