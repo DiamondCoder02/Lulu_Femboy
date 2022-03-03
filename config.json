@@ -1,6 +1,6 @@
 {
-    "clientId": "clientID",
     "Token": "token",
-    "language": "english",
-    "prefix": "+"
+    "clientId": "clientID",
+    "stopPassword": "lolipop",
+    "language": "english"
 }
