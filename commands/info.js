@@ -64,6 +64,7 @@ module.exports = {
                 )
                 .addFields(
                     {name: "CreatedTimestamp", value: String(usertime), inline:true},
+                    {name: "**user Created:**", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline:true},
                     {name: "UserID:", value: String(user.id), inline:true},
                 )
             await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
@@ -85,6 +86,7 @@ module.exports = {
                 .addField('Guild name and acronym:',  `${interaction.guild.name}` + `\n(${interaction.guild.nameAcronym})`, true)
                 .addField('Server owner:',  String(owner.user.tag), true)
                 .addField('Server capacity:',  `${interaction.guild.memberCount} / ` + interaction.guild.maximumMembers, true)
+                .addField(`**Guild Created:**`, `<t:${Math.floor(interaction.guild.createdTimestamp / 1000)}:R>`, true)
                 .addField('Is the server large?',  (interaction.guild.large ? 'True' : 'False'), true)
                 .addField('Server ID:',  String(interaction.guild.id), true)
                 .addField('Guild description:',  String(interaction.guild.description))
