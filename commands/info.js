@@ -12,13 +12,13 @@ module.exports = {
             .setName('server')
             .setDescription('Info about the server'))
         .addSubcommand(subcommand => subcommand
-                .setName('server_cheat')
-                .setDescription('Cheatsheet about the server infos')),
+            .setName('server_cheat')
+            .setDescription('Cheatsheet about the server infos')),
     //Execution
     async execute(interaction, client, config) {
         const page = new MessageActionRow()
             .addComponents(
-                new MessageButton()
+                /*new MessageButton()
                     .setCustomId('si_left')
                     .setLabel('Left')
                     .setStyle('SECONDARY')
@@ -29,7 +29,7 @@ module.exports = {
                     .setLabel('Right')
                     .setStyle('PRIMARY')
                     .setEmoji('➡️')
-                    .setDisabled(true),
+                    .setDisabled(true),*/
                 new MessageButton()
                     .setCustomId('delete')
                     .setLabel('Delete message')
@@ -48,6 +48,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'user') {
             const user = interaction.options.getUser('target');
             const profilepic = user.displayAvatarURL();
+            const usertime = new Date(user.createdTimestamp).toLocaleString();
             const embed = new MessageEmbed()
                 .setColor('#00FF00')
                 .setTitle('Profile / User Informations')
@@ -59,16 +60,18 @@ module.exports = {
                 .addFields(
                     {name: "Username:", value: user.username, inline:true},
                     {name: "Tag:", value: user.tag, inline:true},
+                    {name: "Bot?", value: (user.bot ? "True" : "False")}
                 )
                 .addFields(
+                    {name: "CreatedTimestamp", value: String(usertime), inline:true},
                     {name: "UserID:", value: String(user.id), inline:true},
-                    {name: "CreatedAt", value: String(user.createdAt), inline:true},
-                    {name: "Bot?", value: (user.bot ? "True" : "False")}
                 )
             await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server') {
             const owner = await interaction.guild.fetchOwner(); 
-            const afktime = (interaction.guild.afkTimeout % 60)
+            const afktime = String(interaction.guild.afkTimeout % 60)
+            const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
+            const botservertime = new Date(interaction.guild.joinedTimestamp).toLocaleString();
             //console.log(interaction.guild)
             const embed = new MessageEmbed()
                 .setColor('#00FF00')
@@ -87,16 +90,16 @@ module.exports = {
                 .addField('Guild description:',  String(interaction.guild.description))
                 .addField('Premium count and tier:',  `${interaction.guild.premiumSubscriptionCount} / ` + String(interaction.guild.premiumTier), true)
                 .addField('Is premium progress bar on?',  (interaction.guild.premiumProgressBarEnabled ? 'True' : 'False'), true)
-                .addField('Guild created at:',  `${interaction.guild.createdAt}`)
+                .addField('Guild created at:',  servertime)
                 .addField('Bot tag:',  String(interaction.guild.me), true)
-                .addField('###',  String(interaction.guild.joinedTimestamp), true)
-                .addField('Bot joined at:',  `${interaction.guild.joinedAt}`)
+                .addField('Bot joined at:',  botservertime, true)
+                .addField('\u200B', '\u200B', true)
                 .addField('Update channel:',  String(interaction.guild.publicUpdatesChannel), true)
                 .addField('Rules channel:',  String(interaction.guild.rulesChannel), true)
                 .addField('System channel:',  `${interaction.guild.systemChannel}`, true)
                 .addField('Afk voice channel:',  String(interaction.guild.afkChannel), true)
                 .addField('Voice channel bitrate:',  `${interaction.guild.maximumBitrate}`, true)
-                .addField('Afk timeout (min):',  String(afktime), true)
+                .addField('Afk timeout (min):',  afktime, true)
                 .addField('Explicit content filter level:',  `${interaction.guild.explicitContentFilter}`, true)
                 .addField('Mfa and nsfw level:',  `${interaction.guild.mfaLevel} / ` + String(interaction.guild.nsfwLevel), true)
                 .addField('Guild required verification level:',  String(interaction.guild.verificationLevel), true)

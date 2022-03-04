@@ -9,10 +9,10 @@ module.exports = {
             + "\n\t -- Language: " + config.language
             + "\n\t -- Ready at: " + client.readyAt
             + "\n\t -- Guilds: "+ Guilds)
-        const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+        /*const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
         console.log("Commands: ", commandFiles)
-        console.log("Event: ", eventFiles)
+        console.log("Event: ", eventFiles)*/
         client.user.setActivity("(ノ｀Д)ノ Testing slash commands")
 	}
 }
