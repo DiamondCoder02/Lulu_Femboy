@@ -4,15 +4,15 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
+        const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+        console.log(eventFiles)
         const Guilds = client.guilds.cache.map(guild => guild.name);
 		console.log(` -- Ready! \n -- Logged in as ${client.user.tag}`
             + "\n\t -- Language: " + config.language
+            + "\n\t -- ClientID: " + config.clientId
+            + "\n\t -- Password: " + config.stopPassword
             + "\n\t -- Ready at: " + client.readyAt
             + "\n\t -- Guilds: "+ Guilds)
-        /*const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-        const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-        console.log("Commands: ", commandFiles)
-        console.log("Event: ", eventFiles)*/
         client.user.setActivity("(ノ｀Д)ノ Testing slash commands")
 	}
 }
