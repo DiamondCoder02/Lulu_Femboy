@@ -12,6 +12,8 @@ module.exports = {
         .setThumbnail(interaction.guild.iconURL())
       
         channel.find(898290588284223498).send(embed);
+        
+        channel.find(898290588284223498).reply({embeds: [embed]})
 
 
 /*

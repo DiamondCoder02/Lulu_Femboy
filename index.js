@@ -35,6 +35,30 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+
+client.on("guildMemberAdd", (member) => {
+    console.log("Test0")
+    let channel = member.guild.channels.cache;
+    console.log("Test1")
+    let embed = new MessageEmbed()
+    .setColor('#00FF00')
+    .setTitle('Welcome!')
+    .addField(`Hello, welcome to chill <@${member.user.id}>!`)
+    .setThumbnail(interaction.guild.iconURL())
+    console.log("Test2")
+    const welcome_role = client.guilds.roles.cache.find(role => role.name === "Test");
+    console.log("Test3")
+    channel.find(898290588284223498).send(embed);
+    console.log("Test4")
+    const role = interaction.options.getRole('guest');
+    console.log("Test5")
+    const members = interaction.options.getMember(member);
+    console.log("Test6")
+    members.roles.add(role);
+    console.log("Test7")
+    members.roles.add(welcome_role)
+});
+
 console.log(client)
 //client.on("error", (e) => console.error(e))
 //client.on("warn", (e) => console.warn(e))
