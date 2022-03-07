@@ -32,8 +32,8 @@ module.exports = {
                 .addChoice('Gecg', 'gecg')
                 .addChoice('Avatar', 'avatar')
                 .addChoice('Waifu', 'waifu')
-                .setRequired(true)
-        ),
+                .setRequired(true))
+        .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.')),
 	async execute(interaction) {
         if (interaction.options.getString('category') === 'tickle') {lewd = await neko.sfw.tickle()}
         if (interaction.options.getString('category') === 'slap') {lewd = await neko.sfw.slap()}
@@ -58,14 +58,17 @@ module.exports = {
         if (interaction.options.getString('category') === 'gecg') {lewd = await neko.sfw.gecg()}
         if (interaction.options.getString('category') === 'avatar') {lewd = await neko.sfw.avatar()}
         if (interaction.options.getString('category') === 'waifu') {lewd = await neko.sfw.waifu()}
-
         const embed = new MessageEmbed()
             .setColor('#00FF00')
-            .setTitle('OwO, '+ interaction.options.getString('category'))
+            .setTitle("OwO, " + interaction.options.getString('category'))
             .setTimestamp()
             .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
             .setImage(lewd.url)
-        await interaction.reply({embeds: [embed]})
+        if (interaction.options.getUser('target')) {
+            const user = interaction.options.getUser('target');
+            embed.setDescription(`UwU! You, ${user.toString()} have been mentioned for: ` + interaction.options.getString('category'))
+            await interaction.reply({ content: user.toString(), embeds: [embed]})
+        } else await interaction.reply({ embeds: [embed]})
     }
 };
 
