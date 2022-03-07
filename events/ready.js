@@ -4,6 +4,7 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
+        client.user.setActivity("(ノ｀Д)ノ Testing slash commands")
         console.log(client)
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
         console.log(eventFiles)
@@ -14,6 +15,5 @@ module.exports = {
             + "\n\t -- Password: " + config.stopPassword
             + "\n\t -- Ready at: " + client.readyAt
             + "\n\t -- Guilds: "+ Guilds)
-        client.user.setActivity("(ノ｀Д)ノ Testing slash commands")
 	}
 }
