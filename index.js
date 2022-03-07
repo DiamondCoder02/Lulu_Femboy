@@ -59,7 +59,7 @@ client.on("guildMemberAdd", (member) => {
     members.roles.add(welcome_role)
 });
 
-console.log(client)
+//console.log(client)
 //client.on("error", (e) => console.error(e))
 //client.on("warn", (e) => console.warn(e))
 //client.on("debug", (e) => console.info(e))
