@@ -27,6 +27,9 @@ module.exports = {
                 .setRequired(true)
         ),
 	async execute(interaction) {
+        if (!interaction.channel.nsfw) {
+            interaction.reply('Sorry, this is a Not Safe For Work command!'); return;
+        }
         if (interaction.options.getString('lewd_category') === 'pussyArt') {lewd = await neko.nsfw.pussyArt()}
         if (interaction.options.getString('lewd_category') === 'cumArts') {lewd = await neko.nsfw.cumArts()}
         if (interaction.options.getString('lewd_category') === 'avatar') {lewd = await neko.nsfw.avatar()}

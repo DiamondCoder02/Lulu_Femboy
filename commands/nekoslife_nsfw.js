@@ -36,6 +36,9 @@ module.exports = {
                 .setRequired(true)
         ),
 	async execute(interaction) {
+        if (!interaction.channel.nsfw) {
+            interaction.reply('Sorry, this is a Not Safe For Work command!'); return;
+        }
         if (interaction.options.getString('lewd_category') === 'randomHentaiGif') {lewd = await neko.nsfw.randomHentaiGif()}
         if (interaction.options.getString('lewd_category') === 'pussy') {lewd = await neko.nsfw.pussy()}
         if (interaction.options.getString('lewd_category') === 'nekoGif') {lewd = await neko.nsfw.nekoGif()}
