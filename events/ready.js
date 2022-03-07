@@ -4,6 +4,7 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
+        console.log(client)
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
         console.log(eventFiles)
         const Guilds = client.guilds.cache.map(guild => guild.name);
