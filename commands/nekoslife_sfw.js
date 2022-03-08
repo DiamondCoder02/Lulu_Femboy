@@ -66,7 +66,8 @@ module.exports = {
             .setImage(lewd.url)
         if (interaction.options.getUser('target')) {
             const user = interaction.options.getUser('target');
-            embed.setDescription(`UwU! You, ${user.toString()} have been mentioned for: ` + interaction.options.getString('category'))
+            const from = interaction.user
+            embed.setDescription(`UwU! From ${from.toString()} to ${user.toString()}. A nice ` + interaction.options.getString('category')+ " to you. :3")
             await interaction.reply({ content: user.toString(), embeds: [embed]})
         } else await interaction.reply({ embeds: [embed]})
     }
