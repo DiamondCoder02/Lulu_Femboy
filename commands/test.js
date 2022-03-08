@@ -110,10 +110,17 @@ module.exports = {
 					},
 				]),
 		);
-        const embed = new MessageEmbed()
-			.setColor('#0099ff')
-			.setTitle('Some title')
-			.setDescription('Some description here');
+		const embed = new MessageEmbed()
+        .setColor('#00FF00')
+        .setTitle("Wut?")
+        .setDescription(`BingBong`)
+        .setThumbnail(client.user.displayAvatarURL())
+        .addFields(
+            { name: "Command:", value: "Bruh", inline:true},
+            { name: "Idea:", value: "Head empty", inline:true}
+		)
+        .setTimestamp()
+        .setFooter({text: `Ja`});
         await interaction.reply({content: "Testing", embeds: [embed], components: [row, row2, menu, menu2]})
     }
 }
