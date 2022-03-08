@@ -1,6 +1,10 @@
 {
     "Token": "token",
     "clientId": "clientID",
+
+    "futureIdeas": "-More porn \n-Music \n-Better role handling \n-More event listeners \n-Status showing \n-Permission system \n-Language support \n-Optional ping for mentions: nekoslife_sfw \n-Do I even need cooldown system?",
+    "bugsToFix": "-DM breaks the bot \n-Purge gives error even though it works \n-Better error handling for things",
+
     "stopPassword": "lolipop",
     "language": "english"
 }
