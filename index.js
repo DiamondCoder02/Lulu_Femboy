@@ -29,7 +29,7 @@ client.on('interactionCreate', async interaction => {
         const command2 = client.commands.get(interaction.commandName);
         if (!command2) return;
         //Check dm
-        if (interaction.channel.type == 'DM') {return interaction.reply("(* ￣︿￣)) Executing in DMs are disabled. Please use commands on servers.")}
+        if (interaction.channel.type == 'DM') {return interaction.reply("(* ￣︿￣)) Executing in DMs temporarly are disabled. Please use commands on servers.")}
         //try execute command
         try {
             await command2.execute(interaction, client, config);
