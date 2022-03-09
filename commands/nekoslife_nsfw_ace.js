@@ -25,32 +25,45 @@ module.exports = {
                 .addChoice('EroNeko', 'eroNeko')
                 .addChoice('EroYuri', 'eroYuri')
                 .setRequired(true)
-        ),
+        )
+        .addIntegerOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.')),
 	async execute(interaction) {
         if (!interaction.channel.nsfw) {
             interaction.reply('Sorry, this is a Not Safe For Work command!'); return;
         }
-        if (interaction.options.getString('lewd_category') === 'pussyArt') {lewd = await neko.nsfw.pussyArt()}
-        if (interaction.options.getString('lewd_category') === 'cumArts') {lewd = await neko.nsfw.cumArts()}
-        if (interaction.options.getString('lewd_category') === 'avatar') {lewd = await neko.nsfw.avatar()}
-        if (interaction.options.getString('lewd_category') === 'kuni') {lewd = await neko.nsfw.kuni()}
-        if (interaction.options.getString('lewd_category') === 'kemonomimi') {lewd = await neko.nsfw.kemonomimi()}
-        if (interaction.options.getString('lewd_category') === 'kitsune') {lewd = await neko.nsfw.kitsune()}
-        if (interaction.options.getString('lewd_category') === 'keta') {lewd = await neko.nsfw.keta()}
-        if (interaction.options.getString('lewd_category') === 'holo') {lewd = await neko.nsfw.holo()}
-        if (interaction.options.getString('lewd_category') === 'holoEro') {lewd = await neko.nsfw.holoEro()}
-        if (interaction.options.getString('lewd_category') === 'eroFeet') {lewd = await neko.nsfw.eroFeet()}
-        if (interaction.options.getString('lewd_category') === 'ero') {lewd = await neko.nsfw.ero()}
-        if (interaction.options.getString('lewd_category') === 'eroKitsune') {lewd = await neko.nsfw.eroKitsune()}
-        if (interaction.options.getString('lewd_category') === 'eroKemonomimi') {lewd = await neko.nsfw.eroKemonomimi()}
-        if (interaction.options.getString('lewd_category') === 'eroNeko') {lewd = await neko.nsfw.eroNeko()}
-        if (interaction.options.getString('lewd_category') === 'eroYuri') {lewd = await neko.nsfw.eroYuri()}
-        const embed = new MessageEmbed()
-            .setColor('#00FF00')
-            .setTitle('UwU, '+ interaction.options.getString('lewd_category'))
-            .setTimestamp()
-            .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
-            .setImage(lewd.url)
-        await interaction.reply({embeds: [embed]})
+        if (interaction.options.getInteger('repeat')) {
+            amount = interaction.options.getInteger('repeat')
+        } else amount = 1
+        for (let a = 0; a < amount; ) {
+            if (interaction.options.getString('lewd_category') === 'pussyArt') {lewd = await neko.nsfw.pussyArt()}
+            if (interaction.options.getString('lewd_category') === 'cumArts') {lewd = await neko.nsfw.cumArts()}
+            if (interaction.options.getString('lewd_category') === 'avatar') {lewd = await neko.nsfw.avatar()}
+            if (interaction.options.getString('lewd_category') === 'kuni') {lewd = await neko.nsfw.kuni()}
+            if (interaction.options.getString('lewd_category') === 'kemonomimi') {lewd = await neko.nsfw.kemonomimi()}
+            if (interaction.options.getString('lewd_category') === 'kitsune') {lewd = await neko.nsfw.kitsune()}
+            if (interaction.options.getString('lewd_category') === 'keta') {lewd = await neko.nsfw.keta()}
+            if (interaction.options.getString('lewd_category') === 'holo') {lewd = await neko.nsfw.holo()}
+            if (interaction.options.getString('lewd_category') === 'holoEro') {lewd = await neko.nsfw.holoEro()}
+            if (interaction.options.getString('lewd_category') === 'eroFeet') {lewd = await neko.nsfw.eroFeet()}
+            if (interaction.options.getString('lewd_category') === 'ero') {lewd = await neko.nsfw.ero()}
+            if (interaction.options.getString('lewd_category') === 'eroKitsune') {lewd = await neko.nsfw.eroKitsune()}
+            if (interaction.options.getString('lewd_category') === 'eroKemonomimi') {lewd = await neko.nsfw.eroKemonomimi()}
+            if (interaction.options.getString('lewd_category') === 'eroNeko') {lewd = await neko.nsfw.eroNeko()}
+            if (interaction.options.getString('lewd_category') === 'eroYuri') {lewd = await neko.nsfw.eroYuri()}
+            const embed = new MessageEmbed()
+                .setColor('#00FF00')
+                .setTitle('UwU, '+ interaction.options.getString('lewd_category'))
+                .setTimestamp()
+                .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
+                .setImage(lewd.url)
+            try{
+                await interaction.reply({ embeds: [embed]})
+            }
+            catch{
+                await interaction.followUp({ embeds: [embed]})
+            }
+            //Make sure it won't loop forever so...
+            a += 1
+        }
     }
 };
