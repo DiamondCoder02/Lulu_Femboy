@@ -33,8 +33,17 @@ module.exports = {
                 .addChoice('Avatar', 'avatar')
                 .addChoice('Waifu', 'waifu')
                 .setRequired(true))
-        .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.')),
+        .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.'))
+        .addIntegerOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.')),
 	async execute(interaction) {
+        if (interaction.options.getInteger('repeat')) {
+            amount = interaction.options.getInteger('repeat')
+        } else amount = 1
+        for (let a = 0; a < amount; ) {
+            console.log("test:"+a)
+            a += 1
+        }
+        //if (interaction.options.getInteger('repeat'))
         if (interaction.options.getString('category') === 'tickle') {lewd = await neko.sfw.tickle()}
         if (interaction.options.getString('category') === 'slap') {lewd = await neko.sfw.slap()}
         if (interaction.options.getString('category') === 'poke') {lewd = await neko.sfw.poke()}
@@ -68,8 +77,20 @@ module.exports = {
             const user = interaction.options.getUser('target');
             const from = interaction.user
             embed.setDescription(`UwU! From ${from.toString()} to ${user.toString()}. A nice ` + interaction.options.getString('category')+ " to you. :3")
-            await interaction.reply({ content: user.toString(), embeds: [embed]})
-        } else await interaction.reply({ embeds: [embed]})
+            try{
+                await interaction.reply({ content: user.toString(), embeds: [embed]})
+            }catch{
+                await interaction.followUp({ embeds: [embed]})
+            }
+        } else {
+            try{
+                await interaction.reply({ embeds: [embed]})
+            }
+            catch{
+                await interaction.followUp({ embeds: [embed]})
+            }
+        }
+        //If number given let interaction reply then for(x-1) => Interaction.followup
     }
 };
 

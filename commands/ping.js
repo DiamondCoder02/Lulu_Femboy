@@ -25,6 +25,5 @@ module.exports = {
 					{name: "Uptime:", value: uptime},
                 )
         await interaction.editReply({content: "**Ping Calculated!**", embeds: [embed]})
-		
 	}
 }
