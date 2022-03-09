@@ -13,8 +13,8 @@ module.exports = {
 				console.log(`[${i.createdAt}] -- ${i.user.tag} in ${i.guild.name} at #${i.channel.name} triggered a select menu.`);
 			}
 		} catch (error) {
-			//console.log(error)
-			console.log(`[${i.createdAt}] -- ${i.user.tag} in DM triggered: ${i.commandName}.`);
+			console.log(error)
+			//console.log(`[${i.createdAt}] -- ${i.user.tag} in DM triggered: ${i.commandName}.`);
 		}
 	}
 };
