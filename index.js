@@ -4,7 +4,7 @@ const { Client, Collection, Intents } = require('discord.js');
 const config = require('./config.json');
 require('dotenv').config();
 var token = process.env.token;
-const client = new Client({ intents: [Intents.FLAGS.GUILDS], partials: ["CHANNEL"] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES], partials: ["CHANNEL"] });
 client.commands = new Collection();
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -73,7 +73,10 @@ client.on('message', async function(message){
     //command execution
     command.execute(message, cmdArgs)
 });*/
-
+client.on("guildMemberAdd", (member) => {
+    console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
+    member.guild.channels.cache.find(c => c.name === "new-retard-stuff").send(`"${member.user.username}" has joined this server`);
+});
 //GuildMemberAdd test
 client.on("guildMemberAdd", (member) => {
     console.log("Test0")
