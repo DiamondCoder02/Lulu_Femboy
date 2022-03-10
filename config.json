@@ -4,7 +4,7 @@
 
     "bot_statusId": "897097242861789236",
 
-    "futureIdeas": "-More porn \n-Music \n-Better role handling \n-More event listeners \n-Permission system \n-Language support \n-Do I even need cooldown system?",
+    "futureIdeas": "-More porn \n-Music \n-Better role handling \n-More event listeners \n-Permission system \n-Language support \n-~~Do I even need cooldown system?~~ NO",
     "bugsToFix": "-DM ~~breaks the bot~~ (Temporarly diabled)\n-Purge gives error even though it works \n-Better error handling for things",
 
     "stopPassword": "lolipop",
