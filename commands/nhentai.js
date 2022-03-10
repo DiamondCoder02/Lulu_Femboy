@@ -4,18 +4,42 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('nhentai')
 		.setDescription('nHentai reading for you.')
-        .addSubcommand(subcommand => subcommand
+        .addStringOption(option =>
+            option.setName('get')
+            .setDescription('Choose one you want to see:')
+            .addChoice('Random', 'random')
+            .addChoice('New', 'new')
+            .addChoice('Popular', 'popular')
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+            option.setName('name')
+            .setDescription('Search for name:')
+        )
+        .addStringOption(option =>
+            option.setName('author')
+            .setDescription('Search for author')
+        )
+        .addIntegerOption(option =>
+            option.setName('id')
+            .setDescription('Search for ID')
+        )
+        /*.addSubcommand(subcommand => subcommand
             .setName('specifics')
             .setDescription('Id, Author, Name')
             .addStringOption(option =>
-                option.setName('specific')
-                .setDescription('Search for something specific:')
-                //.addChoice('ID', 'id')
-                .addChoice('Author', 'author')
-                .addChoice('Name', 'name')
-                .setRequired(true)
+                option.setName('name')
+                .setDescription('Search for name:')
             )
-            .addIntegerOption(option => option.setName('int').setDescription('Give ID to read').setRequired(true))
+            .addStringOption(option =>
+                option.setName('author')
+                .setDescription('Search for author')
+            )
+            .addIntegerOption(option =>
+                option.setName('id')
+                .setDescription('Search for ID')
+            )
+            //.addIntegerOption(option => option.setName('int').setDescription('Give ID to read'))
         )
         .addSubcommand(subcommand => subcommand
             .setName('gets')
@@ -28,7 +52,7 @@ module.exports = {
                 .addChoice('Popular', 'popular')
                 .setRequired(true)
             )
-        ),
+        )*/,
 	async execute(interaction, client) {
         await interaction.reply({content: "UwU"})
 
