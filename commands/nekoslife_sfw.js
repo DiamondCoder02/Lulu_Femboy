@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout;
 const nekoslife = require('nekos.life');
 const neko = new nekoslife();
 module.exports = {
@@ -76,6 +77,7 @@ module.exports = {
                 try{
                     await interaction.reply({ content: user.toString(), embeds: [embed]})
                 }catch{
+                    await wait(1000)
                     await interaction.followUp({ embeds: [embed]})
                 }
             } else {
@@ -83,6 +85,7 @@ module.exports = {
                     await interaction.reply({ embeds: [embed]})
                 }
                 catch{
+                    await wait(1000)
                     await interaction.followUp({ embeds: [embed]})
                 }
             }
