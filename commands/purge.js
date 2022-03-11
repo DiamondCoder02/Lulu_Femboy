@@ -31,11 +31,12 @@ module.exports = {
         )
         await interaction.reply({ content: "Please select a number to delete messages.", components: [numberMenuDelete], ephemeral: true });
         const filter = i => i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
+        const collector = interaction.channel.createMessageComponentCollector({ filter });
         collector.on('collect', async i => {
             if (i.customId === 'select') {
                 await interaction.channel.bulkDelete(Number(i.values), true)
                 console.log(`Successfully deleted ${Number(i.values)} messages.`)
+				await interaction.followUp({ content: `Successfully deleted ${Number(i.values)} messages.` });
             }
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
         })
