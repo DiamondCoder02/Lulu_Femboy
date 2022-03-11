@@ -10,7 +10,6 @@ module.exports = {
             .addChoice('Random', 'random')
             .addChoice('New', 'new')
             .addChoice('Popular', 'popular')
-            .setRequired(true)
         )
         .addStringOption(option =>
             option.setName('name')
