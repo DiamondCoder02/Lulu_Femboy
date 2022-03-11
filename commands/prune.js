@@ -13,6 +13,6 @@ module.exports = {
 			console.error(error);
 			interaction.reply({ content: 'There was an error trying to prune messages in this channel!', ephemeral: true });
 		});
-		return interaction.reply({ content: `Successfully deleted \`${amount}\` messages.`, ephemeral: true });
+		return interaction.reply({ content: `Successfully deleted \`${amount}\` messages.`});
 	},
 };

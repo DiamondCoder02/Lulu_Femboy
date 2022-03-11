@@ -15,13 +15,15 @@ module.exports = {
 				.setColor('#ff0000')
 				.setTitle('Bot stopped!')
 				.setDescription(`Bot has been stopped by ${interaction.user.tag}`);
-			await interaction.reply({content: "Stopped!", embeds: [embed]})
+			await interaction.reply({content: "Stopped! :3", ephemeral: true})
+			await interaction.followUp({content: "Stopped!", embeds: [embed]})
 			client.destroy()
 		} else {
 			const embed = new MessageEmbed()
 				.setColor('#0099ff')
 				.setTitle('Wrong password')
-				.setDescription(`You gave a wrong password ${interaction.user.tag}.\n` + Date.now());
+				.setDescription(`You gave a wrong password ${interaction.user.tag}.\n`)
+				.setTimestamp;
 			await interaction.reply({embeds: [embed]})
 		}
 	}

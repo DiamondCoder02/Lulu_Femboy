@@ -31,15 +31,19 @@ module.exports = {
             if (i.customId === '25') {
                 await interaction.channel.bulkDelete(25, true)
                 console.log(`Successfully deleted 25 messages.`)
+                await interaction.followUp({ content: `Successfully deleted 25messages.` });
             } else if (i.customId === '50') {
                 await interaction.channel.bulkDelete(50, true)
                 console.log(`Successfully deleted 50 messages.`)
+                await interaction.followUp({ content: `Successfully deleted 50 messages.` });
             } else if (i.customId === '75') {
                 await interaction.channel.bulkDelete(75, true)
                 console.log(`Successfully deleted 75 messages.`)
+                await interaction.followUp({ content: `Successfully deleted 75 messages.` });
             } else if (i.customId === '99') {
                 await interaction.channel.bulkDelete(99, true)
                 console.log(`Successfully deleted 99 messages.`)
+                await interaction.followUp({ content: `Successfully deleted 99 messages.` });
             }
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
         })
