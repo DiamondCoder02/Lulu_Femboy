@@ -32,26 +32,8 @@ module.exports = {
         let maxNumber = 3
         const nHentai = require('shentai')
         const sHentai = new nHentai
-        const nhentaiEmbed = new MessageEmbed()
-            .setColor('#ec2852')
-            .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
-            .setTimestamp()
-        function searchEmbed(doujin){
-            nhentaiEmbed.setTitle(String(doujin.titles.english))
-            nhentaiEmbed.setDescription(String(doujin.titles.original))
-            nhentaiEmbed.addField("tags:", String(doujin.tags))
-            nhentaiEmbed.setImage(doujin.cover)
-            nhentaiEmbed.setFooter({ text: "ID: "+String(doujin.id) })
-        }
-        function readEmbed(doujin){
-            nhentaiEmbed.setTitle(String(doujin.titles.english))
-            nhentaiEmbed.setDescription(String(doujin.titles.original))
-            nhentaiEmbed.addField("tags:", String(doujin.tags))
-            nhentaiEmbed.setImage(doujin.pages[pageNumber])
-            nhentaiEmbed.setFooter({ text: "ID: "+String(doujin.id) })
-        }
+        
         try{
-
             const page = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
@@ -72,6 +54,30 @@ module.exports = {
                         .setStyle('DANGER')
                         .setEmoji('✖️')
                 )
+            function searchEmbed(doujin){
+                const nhentaiEmbed = new MessageEmbed()
+                .setColor('#ec2852')
+                .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
+                .setTimestamp()
+                .setTitle(String(doujin.titles.english))
+                .setDescription(String(doujin.titles.original))
+                .addField("tags:", String(doujin.tags))
+                .setImage(doujin.cover)
+                .setFooter({ text: "ID: "+String(doujin.id) })
+                interaction.reply({content: "nHentai testing", embeds: [nhentaiEmbed]})
+            }
+            function readEmbed(doujin){
+                const readEm = new MessageEmbed()
+                .setColor('#ec2852')
+                .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
+                .setTimestamp()
+                .setTitle(String(doujin.titles.english))
+                .setDescription(String(doujin.titles.original))
+                .addField("tags:", String(doujin.tags))
+                .setImage(doujin.pages[pageNumber])
+                .setFooter({ text: "ID: "+String(doujin.id) })
+                interaction.reply({content: "nHentai testing", embeds: [readEm], components: [page]})
+            }
 
             const collector = interaction.channel.createMessageComponentCollector({ time: 60000 });
             collector.on('collect', async i => {
@@ -79,6 +85,7 @@ module.exports = {
                     await interaction.deleteReply();
                 }if (i.customId === 'right') {
                     pageNumber += 1
+                    const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
                     const readEmbed = new MessageEmbed()
                         .setColor('#ec2852')
                         .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
@@ -86,12 +93,13 @@ module.exports = {
                         .setTitle(String(doujin.titles.english))
                         .setDescription(String(doujin.titles.original))
                         .addField("tags:", String(doujin.tags))
-                        .setImage(doujin.pages[pageNumber])
+                        .setImage(String(doujin.pages[0]))
                         .setFooter({ text: "ID: "+String(doujin.id) })
                     interaction.edit({embeds: [readEmbed]})
                     console.log(pageNumber)
                 }if (i.customId === 'left') {
                     pageNumber -= 1
+                    const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
                     const readEmbed = new MessageEmbed()
                         .setColor('#ec2852')
                         .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
@@ -99,7 +107,7 @@ module.exports = {
                         .setTitle(String(doujin.titles.english))
                         .setDescription(String(doujin.titles.original))
                         .addField("tags:", String(doujin.tags))
-                        .setImage(doujin.pages[pageNumber])
+                        .setImage(String(doujin.pages[1]))
                         .setFooter({ text: "ID: "+String(doujin.id) })
                     interaction.edit({embeds: [readEmbed]})
                     console.log(pageNumber)
@@ -111,7 +119,7 @@ module.exports = {
                 // Random, in async function (id, author.empty, both titles, pages, tags, cover)
                 const doujin = await sHentai.getRandom()
                 searchEmbed(doujin)
-                console.log(doujin.pages[0])
+                console.log(doujin)
             }else if (interaction.options.getString('get') === 'new') {
                 // New, in async function (id, english titles, cover [About 25 pages])
                 const doujins2 = await sHentai.getNew()
@@ -142,7 +150,7 @@ module.exports = {
                 console.log(doujin)
             }
 
-            await interaction.reply({content: "nHentai testing", embeds: [nhentaiEmbed], components: [page]})
+            //await interaction.reply({content: "nHentai testing", embeds: [searchEmbed], components: [page]})
         }catch(error){
             console.log(error)
         }
