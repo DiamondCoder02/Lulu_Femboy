@@ -38,6 +38,10 @@ module.exports = {
         )
         .addIntegerOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.')),
 	async execute(interaction) {
+        const amount = interaction.options.getInteger('repeat');
+        if (amount <= 1 || amount > 10) {
+			return interaction.reply({ content: 'You need to input a number between 1 and max: 10.', ephemeral: true });
+		}
         if (!interaction.channel.nsfw) {
             interaction.reply('Sorry, this is a Not Safe For Work command!'); return;
         }

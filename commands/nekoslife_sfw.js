@@ -37,6 +37,10 @@ module.exports = {
         .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.'))
         .addIntegerOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.')),
 	async execute(interaction) {
+        const amount = interaction.options.getInteger('repeat');
+        if (amount <= 1 || amount > 10) {
+			return interaction.reply({ content: 'You need to input a number between 1 and max: 10.', ephemeral: true });
+		}
         if (interaction.options.getInteger('repeat')) {
             amount = interaction.options.getInteger('repeat')
         } else amount = 1
