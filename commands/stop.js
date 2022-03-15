@@ -14,7 +14,7 @@ module.exports = {
 			const embed = new MessageEmbed()
 				.setColor('#ff0000')
 				.setTitle('Bot stopped!')
-				.setDescription(`Bot has been stopped by ${interaction.user.tag}`);
+				.setDescription(`Bot has been stopped by ${interaction.user.tag}`)
 			await interaction.reply({content: "Stopped! :3", ephemeral: true})
 			await interaction.followUp({content: "Stopped!", embeds: [embed]})
 			client.destroy()
@@ -23,7 +23,6 @@ module.exports = {
 				.setColor('#0099ff')
 				.setTitle('Wrong password')
 				.setDescription(`You gave a wrong password ${interaction.user.tag}.\n`)
-				.setTimestamp;
 			await interaction.reply({embeds: [embed]})
 		}
 	}
