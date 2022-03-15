@@ -15,21 +15,9 @@ module.exports = {
             .setName('server_cheat')
             .setDescription('Cheatsheet about the server infos')),
     //Execution
-    async execute(interaction, client, config) {
+    async execute(interaction) {
         const page = new MessageActionRow()
             .addComponents(
-                /*new MessageButton()
-                    .setCustomId('si_left')
-                    .setLabel('Left')
-                    .setStyle('SECONDARY')
-                    .setEmoji('⬅️')
-                    .setDisabled(true),
-                new MessageButton()
-                    .setCustomId('si_right')
-                    .setLabel('Right')
-                    .setStyle('PRIMARY')
-                    .setEmoji('➡️')
-                    .setDisabled(true),*/
                 new MessageButton()
                     .setCustomId('delete')
                     .setLabel('Delete message')
@@ -37,11 +25,12 @@ module.exports = {
                     .setEmoji('✖️')
             )
         const filter = i => i.customId === 'delete';
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
+        const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 5000 });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
                 await interaction.deleteReply();
-            }
+                collector.stop()
+            }else {console.log("error")}
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
         //User, server, cheatsheet
