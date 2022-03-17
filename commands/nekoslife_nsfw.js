@@ -36,18 +36,15 @@ module.exports = {
                 .addChoice('Gasm', 'gasm')
                 .setRequired(true)
         )
-        .addIntegerOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.')),
+        .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10)),
 	async execute(interaction) {
-        const amount = interaction.options.getInteger('repeat');
-        if (amount <= 1 || amount > 10) {
-			return interaction.reply({ content: 'You need to input a number between 1 and max: 10.', ephemeral: true });
-		}
+        var amount = Number(interaction.options.getNumber('repeat'));
+        if (interaction.options.getNumber('repeat')) {
+            amount = Number(interaction.options.getNumber('repeat'))
+        } else amount = 1
         if (!interaction.channel.nsfw) {
             interaction.reply('Sorry, this is a Not Safe For Work command!'); return;
         }
-        if (interaction.options.getInteger('repeat')) {
-            amount = interaction.options.getInteger('repeat')
-        } else amount = 1
         for (let a = 0; a < amount; ) {
             if (interaction.options.getString('lewd_category') === 'randomHentaiGif') {lewd = await neko.nsfw.randomHentaiGif()}
             if (interaction.options.getString('lewd_category') === 'pussy') {lewd = await neko.nsfw.pussy()}
