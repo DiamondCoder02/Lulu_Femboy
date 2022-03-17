@@ -24,7 +24,7 @@ module.exports = {
                     .setStyle('DANGER')
                     .setEmoji('✖️')
             )
-        const filter = i => i.customId === 'delete';
+        const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 5000 });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
