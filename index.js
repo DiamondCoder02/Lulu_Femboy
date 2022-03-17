@@ -4,7 +4,7 @@ const { Client, Collection, Intents } = require('discord.js');
 const config = require('./config.json');
 require('dotenv').config();
 var token = process.env.token;
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES], partials: ["CHANNEL"] });
+const client = new Client({ ws: {properties: {$browser: 'Discord iOS'}}, intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES], partials: ["CHANNEL"] });
 client.commands = new Collection();
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
