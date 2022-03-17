@@ -69,8 +69,12 @@ module.exports = {
             interaction.reply({embeds: [readEm], components: [page]})
             console.log(doujin.pages[pageNumber])
         }
+        if (interaction.options.getInteger('to_read_id')) {
+            // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
+            pageTime = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
+        }else pageTime = {"pages":["1"]}
         const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
-        const collector = interaction.channel.createMessageComponentCollector({filter, time: ((doujin.pages).length)*60000 });
+        const collector = interaction.channel.createMessageComponentCollector({filter, time: ((pageTime.pages).length)*30000 });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
                 await interaction.deleteReply();
