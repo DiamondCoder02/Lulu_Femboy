@@ -1,10 +1,12 @@
-# Femboi_OwO
-Please don't use this...
+# 4th Discorcd bot: Femboi_OwO
+Please don't use this...(, unless you know what mess I made here.)
 
-Getting better but still early in development
+Getting better but still early in development. Still not stupid proof but working on it.
 
-Made slash command work. Just first start setup.bat then when done run start.bat. Everything is in English but I plan to add easy language support as usual.
+Works with nodeJS.
 
-NSFW commands only works in nsfw channels
+Works with only slash commands. Just first start setup.bat then when done run start.bat. Everything is in English but I plan to add easy language support as usual. In config you can kinda see what I plan soon and how I'm currently holding.
+
+NSFW commands only works in nsfw channels.
 
 Don't forget to get clientID and token from Discord developer page.
