@@ -17,7 +17,7 @@ module.exports = {
             + "\n\t -- Password: " + config.stopPassword
             + "\n\t -- Ready at: " + client.readyAt
             + "\n\t -- Guilds: "+ Guilds)
-        //channel.bulkDelete(1, true).catch(error => {console.error(error)})
+        channel.bulkDelete(1, true).catch(error => {console.error(error)})
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('Bot start!')

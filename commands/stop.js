@@ -6,7 +6,7 @@ module.exports = {
 		.setDescription('Stops the bot with a password.')
 		.addStringOption(option => option.setName('stoppassword').setDescription('Enter a password to stop the bot').setRequired(true)),
 	async execute(interaction, client, config) {
-		const channel = client.channels.cache.get(config.bot_status);
+		const channel = client.channels.cache.get(config.bot_statusId);
 		//channel.bulkDelete(1, true).catch(error => {console.error(error)})
 		if (config.stopPassword === interaction.options.getString('stoppassword')){
 			console.log(`-------------------------\nThe bot has stopped!!!`)
