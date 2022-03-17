@@ -6,9 +6,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('nhentai')
 		.setDescription('nHentai reading for you.')
-        .addStringOption(option =>
-            option.setName('get')
-            .setDescription('Choose one you want to see:')
+        .addStringOption(option => option.setName('get').setDescription('Choose one you want to see:')
             .addChoice('Random', 'random')
             .addChoice('New', 'new')
             .addChoice('Popular', 'popular')
@@ -55,19 +53,35 @@ module.exports = {
             .addField("tags:", String(doujin.tags))
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id) })
-            interaction.reply({content: "nHentai testing", embeds: [nhentaiEmbed]})
+            interaction.reply({embeds: [nhentaiEmbed]})
         }
-        function readEmbed(doujin){
-            const readEm = new MessageEmbed()
-            .setColor('#ec2852')
-            .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
-            .setTimestamp()
-            .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
-            .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
-            .setImage(doujin.pages[pageNumber])
-            .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
-            interaction.reply({embeds: [readEm], components: [page]})
-            console.log(doujin.pages[pageNumber])
+        function multipleEmbed(doujins){
+            const current = doujins.slice(0, 15)
+            const multiEmbed = new MessageEmbed()
+                .setColor('#ec2852')
+                .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
+                .setTimestamp()
+                .setTitle(`Showing ${1 + current.length} doujins.`)
+                .addField(Promise.all(current.map(async doujins => ({name: String(doujins.id),value: `${doujins.titles.english}`}))))
+            interaction.reply({embeds: [multiEmbed]})
+
+            /*const generateEmbed = async start => {
+                const current = doujins.slice(start, start + 15)
+                return new MessageEmbed({
+                    color: `#ec2852`,
+                    author: { name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' },
+                    title: `Showing ${start + current.length} doujins.`,
+                    fields: await Promise.all(
+                        current.map(async doujins => ({
+                            name: doujins.id,
+                            value: `${doujins.titles.english}`
+                        }))
+                    ),
+                    timestamp
+                })
+            }*/
+            //interaction.reply({embeds: [await generateEmbed(0)]})
+            
         }
         if (interaction.options.getInteger('to_read_id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
@@ -116,8 +130,9 @@ module.exports = {
             console.log(doujin)
         }else if (interaction.options.getString('get') === 'new') {
             // New, in async function (id, english titles, cover [About 25 pages])
-            const doujins2 = await sHentai.getNew()
-            console.log(doujins2)
+            const doujins = await sHentai.getNew()
+            multipleEmbed(doujins)
+            console.log(doujins)
         }else if (interaction.options.getString('get') === 'popular') {
             // Popular, in async function  (id, english titles, cover [About 5 pages])
             const doujins = await sHentai.getPopular()
@@ -140,7 +155,15 @@ module.exports = {
         }else if (interaction.options.getInteger('to_read_id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
-            readEmbed(doujin)
+            const readEm = new MessageEmbed()
+            .setColor('#ec2852')
+            .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
+            .setTimestamp()
+            .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
+            .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
+            .setImage(doujin.pages[pageNumber])
+            .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
+            interaction.reply({embeds: [readEm], components: [page]})
             console.log(doujin)
         }
         /*    
