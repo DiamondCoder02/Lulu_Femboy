@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton, Message } = require('discord.js');
+const nHentai = require('shentai')
+const sHentai = new nHentai
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('nhentai')
@@ -15,14 +17,14 @@ module.exports = {
         .addStringOption(option => option.setName('author').setDescription('Search for author'))
         .addIntegerOption(option => option.setName('id').setDescription('Search for ID'))
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID')),
-	async execute(interaction, client) {
-        if (!interaction.channel.nsfw) {
-            interaction.reply('Sorry, this is a Not Safe For Work command!'); return;
-        }
-        const pageNumber = 0
-        const maxNumber = 100
-        const nHentai = require('shentai')
-        const sHentai = new nHentai
+	async execute(interaction) {
+        if (!interaction.channel.nsfw) {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
+        try {collector.stop()} catch{console.log("No collect")}
+        var pageNumber = 0
+        var maxNumber = 100
+        if (pageNumber == 0){var l = true} else var l = false
+        if (pageNumber == maxNumber){var r = true} else var r = false
+        console.log("Test:" + l + "/" + r)
         const page = new MessageActionRow()
             .addComponents(
                 new MessageButton()
@@ -30,13 +32,13 @@ module.exports = {
                     .setLabel('Left')
                     .setStyle('SECONDARY')
                     .setEmoji('⬅️')
-                    .setDisabled(((pageNumber===0)? true : false)),
+                    .setDisabled(false),
                 new MessageButton()
                     .setCustomId('right')
                     .setLabel('Right')
                     .setStyle('PRIMARY')
                     .setEmoji('➡️')
-                    .setDisabled(((pageNumber===maxNumber)? false : true)),
+                    .setDisabled(false),
                 new MessageButton()
                     .setCustomId('delete')
                     .setLabel('Delete message')
@@ -63,12 +65,12 @@ module.exports = {
             .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
             .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
             .setImage(doujin.pages[pageNumber])
-            .setFooter({ text: "ID: "+String(doujin.id) })
-            interaction.reply({content: "nHentai testing", embeds: [readEm], components: [page]})
+            .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
+            interaction.reply({embeds: [readEm], components: [page]})
             console.log(doujin.pages[pageNumber])
         }
         const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
-        const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
+        const collector = interaction.channel.createMessageComponentCollector({filter, time: ((doujin.pages).length)*60000 });
         collector.on('collect', async i => {
             if (i.customId === 'delete') {
                 await interaction.deleteReply();
@@ -83,7 +85,7 @@ module.exports = {
                     .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
-                    .setFooter({ text: "ID: "+String(doujin.id) })
+                    .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
                 interaction.editReply({embeds: [readEmbed], components: [page]})
                 console.log(pageNumber)
             }if (i.customId === 'left') {
@@ -96,7 +98,7 @@ module.exports = {
                     .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
-                    .setFooter({ text: "ID: "+String(doujin.id) })
+                    .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
                 interaction.editReply({embeds: [readEmbed], components: [page]})
                 console.log(pageNumber)
             }
@@ -137,7 +139,6 @@ module.exports = {
             readEmbed(doujin)
             console.log(doujin)
         }
-        //await interaction.reply({content: "nHentai testing", embeds: [searchEmbed], components: [page]})
         /*    
         // Next Page (id, english titles, cover [About 25 pages]) ???????????????
         const search = await sHentai.search('dev')
