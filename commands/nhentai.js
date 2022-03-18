@@ -55,34 +55,6 @@ module.exports = {
             .setFooter({ text: "ID: "+String(doujin.id) })
             interaction.reply({embeds: [nhentaiEmbed]})
         }
-        function multipleEmbed(doujins){
-            const current = doujins.slice(0, 15)
-            const multiEmbed = new MessageEmbed()
-                .setColor('#ec2852')
-                .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
-                .setTimestamp()
-                .setTitle(`Showing ${1 + current.length} doujins.`)
-                .addField(Promise.all(current.map(async doujins => ({name: String(doujins.id),value: `${doujins.titles.english}`}))))
-            interaction.reply({embeds: [multiEmbed]})
-
-            /*const generateEmbed = async start => {
-                const current = doujins.slice(start, start + 15)
-                return new MessageEmbed({
-                    color: `#ec2852`,
-                    author: { name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' },
-                    title: `Showing ${start + current.length} doujins.`,
-                    fields: await Promise.all(
-                        current.map(async doujins => ({
-                            name: doujins.id,
-                            value: `${doujins.titles.english}`
-                        }))
-                    ),
-                    timestamp
-                })
-            }*/
-            //interaction.reply({embeds: [await generateEmbed(0)]})
-            
-        }
         if (interaction.options.getInteger('to_read_id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             pageTime = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
@@ -131,7 +103,6 @@ module.exports = {
         }else if (interaction.options.getString('get') === 'new') {
             // New, in async function (id, english titles, cover [About 25 pages])
             const doujins = await sHentai.getNew()
-            multipleEmbed(doujins)
             console.log(doujins)
         }else if (interaction.options.getString('get') === 'popular') {
             // Popular, in async function  (id, english titles, cover [About 5 pages])
@@ -140,13 +111,13 @@ module.exports = {
         }else if (interaction.options.getString('name')) {
             // Search name in async function (id, author.empty, both titles, pages, tags, cover)
             const search2 = await sHentai.search(interaction.options.getString('name'))
-            const doujin3 = await sHentai.getDoujin(search2.results[0].id)
-            searchEmbed(doujin3)
-            console.log(doujin3)
+            const doujin = await sHentai.getDoujin(search2.results[0].id)
+            searchEmbed(doujin)
+            console.log(doujin)
         }else if (interaction.options.getString('author')) {
             // Search author in async function (id, object titles, cover [About 10 pages])
-            const doujins3 = await sHentai.byAuthor(interaction.options.getString('author'))
-            console.log(doujins3)
+            const doujins = await sHentai.byAuthor(interaction.options.getString('author'))
+            console.log(doujins)
         }else if (interaction.options.getInteger('id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('id')))
