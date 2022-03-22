@@ -147,30 +147,31 @@ module.exports = {
             // Search name in async function (id, author.empty, both titles, pages, tags, cover)
             const search2 = await sHentai.search(interaction.options.getString('name'))
             const doujin = await sHentai.getDoujin(search2.results[0].id)
-            searchEmbed(doujin)
             console.log(doujin)
+            searchEmbed(doujin)
         }else if (interaction.options.getString('author')) {
             // Search author in async function (id, object titles, cover [About 10 pages])
             const doujins = await sHentai.byAuthor(interaction.options.getString('author'))
+            const doujin = await doujins.results
+            console.log(doujin)
             /**
              * @param {number} start
              * @returns {Promise<MessageEmbed>}
              */
             const generateEmbed = async start => {
-                const current = doujins//.slice(start, start + 10)
+                const current = doujin.slice(start, start + 10)
                 return new MessageEmbed({
                     title: `Showing author doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
                     color: '#ec2852',
                     fields: await Promise.all(
-                        current.map(async doujins => ({
-                            name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
+                        current.map(async doujin => ({
+                            name: `*ID:*  -  ${doujin.id}`, value: `**Title:**  ${doujin.titles.english}`
                         }))
                     )
                 })
             }
             interaction.reply({embeds: [await generateEmbed(0)], components: [searchDelete]})
-            console.log(doujins)
         }else if (interaction.options.getInteger('id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('id')))
