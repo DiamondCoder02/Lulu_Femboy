@@ -18,11 +18,8 @@ module.exports = {
 	async execute(interaction) {
         if (!interaction.channel.nsfw) {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
         try {collector.stop()} catch{console.log("No collect")}
-        var pageNumber = 0
-        var maxNumber = 100
-        if (pageNumber == 0){var l = true} else var l = false
-        if (pageNumber == maxNumber){var r = true} else var r = false
-        console.log("Test:" + l + "/" + r)
+        var pageNumber = -1
+
         const page = new MessageActionRow()
             .addComponents(
                 new MessageButton()
@@ -48,8 +45,8 @@ module.exports = {
             .setColor('#ec2852')
             .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
             .setTimestamp()
-            .setTitle(String(doujin.titles.english))
-            .setDescription(String(doujin.titles.original))
+            .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
+            .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
             .addField("tags:", String(doujin.tags))
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id) })
@@ -66,8 +63,9 @@ module.exports = {
                 await interaction.deleteReply();
                 collector.stop()
             }if (i.customId === 'right') {
-                pageNumber += 1
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
+            if ((pageNumber+1) === doujin.pages.length) {pageNumber = ((doujin.pages.length)-1)} else {pageNumber +=1}
+                console.log(pageNumber +" / "+ (doujin.pages.length))
                 const readEmbed = new MessageEmbed()
                     .setColor('#ec2852')
                     .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
@@ -75,12 +73,12 @@ module.exports = {
                     .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
-                    .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
+                    .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
                 interaction.editReply({embeds: [readEmbed], components: [page]})
-                console.log(pageNumber)
             }if (i.customId === 'left') {
-                pageNumber -= 1
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
+                if (pageNumber <= 0) {pageNumber = 0} else {pageNumber -=1}
+                console.log(pageNumber +" / "+ doujin.pages.length)
                 const readEmbed = new MessageEmbed()
                     .setColor('#ec2852')
                     .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
@@ -88,9 +86,8 @@ module.exports = {
                     .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
-                    .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
+                    .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
                 interaction.editReply({embeds: [readEmbed], components: [page]})
-                console.log(pageNumber)
             }
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
@@ -132,7 +129,7 @@ module.exports = {
             .setTimestamp()
             .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
             .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
-            .setImage(doujin.pages[pageNumber])
+            .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
             interaction.reply({embeds: [readEm], components: [page]})
             console.log(doujin)
