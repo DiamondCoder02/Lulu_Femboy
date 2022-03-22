@@ -8,13 +8,13 @@ module.exports = {
 		.setDescription('nHentai reading for you.')
         .addStringOption(option => option.setName('get').setDescription('Choose one you want to see:')
             .addChoice('Random', 'random')
-            .addChoice('New', 'new')
-            .addChoice('Popular', 'popular')
+            .addChoice('Top 25 New', 'new')
+            .addChoice('Top 5 Popular', 'popular')
         )
-        .addStringOption(option => option.setName('name').setDescription('Search for name:'))
-        .addStringOption(option => option.setName('author').setDescription('Search for author'))
-        .addIntegerOption(option => option.setName('id').setDescription('Search for ID'))
-        .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID')),
+        .addStringOption(option => option.setName('name').setDescription('Search for name.'))
+        .addStringOption(option => option.setName('author').setDescription('Search for author.'))
+        .addIntegerOption(option => option.setName('id').setDescription('Search for ID.'))
+        .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
 	async execute(interaction) {
         if (!interaction.channel.nsfw) {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
         try {collector.stop()} catch{console.log("No collect")}
@@ -33,13 +33,14 @@ module.exports = {
                     .setLabel('Right')
                     .setStyle('PRIMARY')
                     .setEmoji('➡️')
-                    .setDisabled(false),
-                new MessageButton()
-                    .setCustomId('delete')
-                    .setLabel('Delete message')
-                    .setStyle('DANGER')
-                    .setEmoji('✖️')
+                    .setDisabled(false)
             )
+        const searchDelete = new MessageActionRow().addComponents(
+            new MessageButton()
+                .setCustomId('delete')
+                .setLabel('Delete message')
+                .setStyle('DANGER')
+                .setEmoji('✖️'))
         function searchEmbed(doujin){
             const nhentaiEmbed = new MessageEmbed()
             .setColor('#ec2852')
@@ -50,7 +51,7 @@ module.exports = {
             .addField("tags:", String(doujin.tags))
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id) })
-            interaction.reply({embeds: [nhentaiEmbed]})
+            interaction.reply({embeds: [nhentaiEmbed], components: [searchDelete]})
         }
         if (interaction.options.getInteger('to_read_id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
@@ -74,7 +75,7 @@ module.exports = {
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
                     .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
-                interaction.editReply({embeds: [readEmbed], components: [page]})
+                interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
             }if (i.customId === 'left') {
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
                 if (pageNumber <= 0) {pageNumber = 0} else {pageNumber -=1}
@@ -87,7 +88,7 @@ module.exports = {
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
                     .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
-                interaction.editReply({embeds: [readEmbed], components: [page]})
+                interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
             }
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
@@ -100,10 +101,47 @@ module.exports = {
         }else if (interaction.options.getString('get') === 'new') {
             // New, in async function (id, english titles, cover [About 25 pages])
             const doujins = await sHentai.getNew()
+            /**
+             * @param {number} start
+             * @returns {Promise<MessageEmbed>}
+             */
+            const generateEmbed = async start => {
+                const current = doujins.slice(start, start + 25)
+                return new MessageEmbed({
+                    title: `Showing new doujins:`,
+                    author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
+                    color: '#ec2852',
+                    fields: await Promise.all(
+                        current.map(async doujins => ({
+                            name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
+                        }))
+                    )
+                })
+            }
+            interaction.reply({embeds: [await generateEmbed(0)], components: [searchDelete]})
+
             console.log(doujins)
         }else if (interaction.options.getString('get') === 'popular') {
             // Popular, in async function  (id, english titles, cover [About 5 pages])
             const doujins = await sHentai.getPopular()
+            /**
+             * @param {number} start
+             * @returns {Promise<MessageEmbed>}
+             */
+            const generateEmbed = async start => {
+                const current = doujins.slice(start, start + 5)
+                return new MessageEmbed({
+                    title: `Showing popular doujins:`,
+                    author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
+                    color: '#ec2852',
+                    fields: await Promise.all(
+                        current.map(async doujins => ({
+                            name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
+                        }))
+                    )
+                })
+            }
+            interaction.reply({embeds: [await generateEmbed(0)], components: [searchDelete]})
             console.log(doujins)
         }else if (interaction.options.getString('name')) {
             // Search name in async function (id, author.empty, both titles, pages, tags, cover)
@@ -114,6 +152,24 @@ module.exports = {
         }else if (interaction.options.getString('author')) {
             // Search author in async function (id, object titles, cover [About 10 pages])
             const doujins = await sHentai.byAuthor(interaction.options.getString('author'))
+            /**
+             * @param {number} start
+             * @returns {Promise<MessageEmbed>}
+             */
+            const generateEmbed = async start => {
+                const current = doujins//.slice(start, start + 10)
+                return new MessageEmbed({
+                    title: `Showing author doujins:`,
+                    author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
+                    color: '#ec2852',
+                    fields: await Promise.all(
+                        current.map(async doujins => ({
+                            name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
+                        }))
+                    )
+                })
+            }
+            interaction.reply({embeds: [await generateEmbed(0)], components: [searchDelete]})
             console.log(doujins)
         }else if (interaction.options.getInteger('id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
@@ -131,7 +187,7 @@ module.exports = {
             .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
-            interaction.reply({embeds: [readEm], components: [page]})
+            interaction.reply({embeds: [readEm], components: [page, searchDelete]})
             console.log(doujin)
         }
         /*    

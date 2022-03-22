@@ -49,11 +49,7 @@ module.exports = {
 		const canFitOnOnePage = doujins.length <= 10
 		const embedMessage = await channel.send({
 			embeds: [await generateEmbed(0)],
-			components: canFitOnOnePage ?
-				[] :
-				[new MessageActionRow({
-					components: [forwardButton]
-				})]
+			components: canFitOnOnePage ? [] : [new MessageActionRow({components: [forwardButton]})]
 		})
 		// Exit if there is only one page of guilds (no need for all of this)
 		if (canFitOnOnePage) return
@@ -67,14 +63,7 @@ module.exports = {
 			// Respond to interaction by updating message with new embed
 			await interaction.update({
 				embeds: [await generateEmbed(currentIndex)],
-				components: [
-					new MessageActionRow({
-						components: [
-							// back button if it isn't the start
-							...(currentIndex ? [backButton] : []),
-						]
-					})
-				]
+				components: [new MessageActionRow({components: [...(currentIndex ? [backButton] : [])]})]
 			})
 		})
 	}
