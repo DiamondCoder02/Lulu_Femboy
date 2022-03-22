@@ -21,7 +21,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('Bot start!')
-            .setDescription(`Bot has been started <t:${Math.floor(client.readyTimestamp / 1000)}:R>`);
+            .setDescription(`Bot has been started \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \nThat was <t:${Math.floor(client.readyTimestamp / 1000)}:R>`);
         channel.send({embeds: [embed]})
 	}
 }
