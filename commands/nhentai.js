@@ -12,7 +12,7 @@ module.exports = {
             .addChoice('Top 5 Popular', 'popular')
         )
         .addStringOption(option => option.setName('name').setDescription('Search for name.'))
-        .addStringOption(option => option.setName('author').setDescription('Search for author.'))
+        //.addStringOption(option => option.setName('author').setDescription('Search for author.'))
         .addIntegerOption(option => option.setName('id').setDescription('Search for ID.'))
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
 	async execute(interaction) {
@@ -152,21 +152,20 @@ module.exports = {
         }else if (interaction.options.getString('author')) {
             // Search author in async function (id, object titles, cover [About 10 pages])
             const doujins = await sHentai.byAuthor(interaction.options.getString('author'))
-            const doujin = await doujins.results
-            console.log(doujin)
+            console.log(doujins)
             /**
              * @param {number} start
              * @returns {Promise<MessageEmbed>}
              */
             const generateEmbed = async start => {
-                const current = doujin.slice(start, start + 10)
+                const current = doujins.slice(start, start + 10)
                 return new MessageEmbed({
                     title: `Showing author doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
                     color: '#ec2852',
                     fields: await Promise.all(
-                        current.map(async doujin => ({
-                            name: `*ID:*  -  ${doujin.id}`, value: `**Title:**  ${doujin.titles.english}`
+                        current.map(async doujins => ({
+                            name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
                         }))
                     )
                 })
