@@ -1,15 +1,18 @@
-const config = require('../config.json');
-const { MessageEmbed } = require('discord.js');
-const fs = require('fs');
+const config = require('../config.json'), { MessageEmbed } = require('discord.js'), fs = require('fs');
 module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
-        const channel = client.channels.cache.get(config.bot_statusId);
-        client.user.setActivity("(ノ｀Д)ノ Testing slash commands")
+        const channel = client.channels.cache.get(config.bot_status_channelId);
+        client.user.setActivity("([]~(￣▽￣)~* Learning new commands")
         console.log(client)
+        //client.on("error", (e) => console.error(e))
+        //client.on("warn", (e) => console.warn(e))
+        //client.on("debug", (e) => console.info(e))
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+        const languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'));
         console.log(eventFiles)
+        console.log(languageFiles)
         const Guilds = client.guilds.cache.map(guild => guild.name);
 		console.log(` -- Ready! \n -- Logged in as ${client.user.tag}`
             + "\n\t -- Language: " + config.language

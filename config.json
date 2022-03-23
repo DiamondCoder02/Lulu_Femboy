@@ -2,10 +2,10 @@
     "Token": "token",
     "clientId": "clientID",
 
-    "bot_statusId": "897097242861789236",
+    "bot_status_channelId": "897097242861789236",
 
-    "futureIdeas": "-More porn \n-reminder \n-Music \n-Better role handling \n-More event listeners \n-Permission system \n-Language support",
-    "bugsToFix": "-DM ~~breaks the bot~~ (Temporarly diabled) \n-Better error handling for things",
+    "futureIdeas": "-More porn \n-reminder \n-Music \n-Better role handling \n-More event listeners \n-Permission system \n-Language support \n-Translator?",
+    "bugsToFix": "-DM ~~breaks the bot~~ (Temporarly diabled) \n-Better error handling for things \n-Weird behaviour sometimes at nHentai when collector gets a stroke",
 
     "stopPassword": "lolipop",
     "language": "english"
