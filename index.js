@@ -21,6 +21,7 @@ for (const file of eventFiles) {
 client.on('interactionCreate', async interaction => {
     if (interaction.isCommand) {
         const command2 = client.commands.get(interaction.commandName);
+        if (!command2) return;
         if (interaction.channel.type == 'DM') {return interaction.reply("(* ￣︿￣)) Executing in DMs are temporarly disabled. Please use commands on servers.")}
         try {
             await command2.execute(interaction, client, config);
