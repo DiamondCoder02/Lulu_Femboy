@@ -4,9 +4,17 @@
 
     "bot_status_channelId": "897097242861789236",
 
-    "futureIdeas": "-More porn \n-reminder \n-Music \n-Better role handling \n-More event listeners \n-Permission system \n-Language support \n-Translator?",
+    "futureIdeas": "-Even more porn \n-reminder \n-Music \n-Better role handling \n-More event listeners \n-Permission system \n-Language support \n-Translator?",
     "bugsToFix": "-DM ~~breaks the bot~~ (Temporarly diabled) \n-Better error handling for things \n-Weird behaviour sometimes at nHentai when collector gets a stroke",
 
     "stopPassword": "lolipop",
-    "language": "english"
+    "language": "english",
+
+    "sfw_roles": {
+        "1": "948322911419265024"
+    },
+    "nsfw_roles": {
+        "1": "NSFW",
+        "2": "956523960474927174"
+    }
 }

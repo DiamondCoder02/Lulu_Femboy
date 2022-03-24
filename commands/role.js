@@ -2,18 +2,29 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionR
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('role')
-        .setDescription('Gives role with button'),
-    async execute(interaction) {
-        let embed = new MessageEmbed()
-            .setTitle("Self Roles:")
-            .setColor("#0099ff")
-            .setDescription("`Click some button bellow if you want access to some good stuff!`")
+        .setDescription('Gives roles with buttons'),
+        //.addSubcommand(subcommand => subcommand.setName('safe_for_work').setDescription('Wholesome roles that you can get.'))
+        //.addSubcommand(subcommand => subcommand.setName('not_safe_for_work').setDescription('Lewd roles for all you naughty.')),
+    async execute(interaction, config) {
+        const role_embed = new MessageEmbed()
+        .setTitle("Self Roles:")
+        .setColor("#0099ff")
+        .setDescription("`Click some button bellow if you want access to some good stuff!`")
+        if (interaction.options.getSubcommand() === 'safe_for_work') {
+            
+        }
+        if (interaction.options.getSubcommand() === 'not_safe_for_work') {
+            if (!interaction.channel.nsfw) { interaction.reply({content:'Sorry, this is a Not Safe For Work command!', ephemeral: true}); return }
+            
+        }
+
+
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton().setCustomId('role_sfw').setLabel('sfw').setStyle('SECONDARY').setEmoji('🧒'),
                 new MessageButton().setCustomId('role_nsfw').setLabel('nsfw').setStyle('SECONDARY').setEmoji('🕵️')
             )
-        await interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
+        await interaction.reply({ embeds: [role_embed], components: [row], ephemeral: true });
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 5000 });
         collector.on('collect', async i => {
