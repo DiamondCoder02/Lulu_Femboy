@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
@@ -13,16 +12,15 @@ module.exports = {
         let uptime ="Days: \`" + days + "\`, \nTime: \`" + hours + ":" + minutes + ":" + seconds + "\`"
         const msg = await interaction.reply({content: "Calculating ping...", fetchReply:true});
         ping = msg.createdTimestamp - interaction.createdTimestamp;
-
 		const embed = new MessageEmbed()
-                .setColor('#00FF00')
-                .setTitle('Ping and uptime')
-                .setTimestamp()
-                .addFields(
-                    {name: "Ping:", value: `\`` + ping + 'ms\`', inline:true},
-                    {name: "Discord API:", value: '\`' + client.ws.ping + 'ms\`', inline:true},
-					{name: "Uptime:", value: uptime},
-                )
+            .setColor('#00FF00')
+            .setTitle('Ping and uptime')
+            .setTimestamp()
+            .addFields(
+                {name: "Ping:", value: `\`` + ping + 'ms\`', inline:true},
+                {name: "Discord API:", value: '\`' + client.ws.ping + 'ms\`', inline:true},
+                {name: "Uptime:", value: uptime},
+            )
         await interaction.editReply({content: "**Ping Calculated!**", embeds: [embed]})
 	}
 }

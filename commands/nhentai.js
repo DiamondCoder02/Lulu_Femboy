@@ -1,7 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, MessageActionRow, MessageButton, Message } = require('discord.js');
-const nHentai = require('shentai')
-const sHentai = new nHentai
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const nHentai = require('shentai'), sHentai = new nHentai
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('nhentai')
@@ -19,28 +17,13 @@ module.exports = {
         if (!interaction.channel.nsfw) {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
         try {collector.stop()} catch{console.log("No collect")}
         var pageNumber = -1
-
         const page = new MessageActionRow()
             .addComponents(
-                new MessageButton()
-                    .setCustomId('left')
-                    .setLabel('Left')
-                    .setStyle('SECONDARY')
-                    .setEmoji('⬅️')
-                    .setDisabled(false),
-                new MessageButton()
-                    .setCustomId('right')
-                    .setLabel('Right')
-                    .setStyle('PRIMARY')
-                    .setEmoji('➡️')
-                    .setDisabled(false)
+                new MessageButton().setCustomId('left').setLabel('Left').setStyle('SECONDARY').setEmoji('⬅️').setDisabled(false),
+                new MessageButton().setCustomId('right').setLabel('Right').setStyle('PRIMARY').setEmoji('➡️').setDisabled(false)
             )
         const searchDelete = new MessageActionRow().addComponents(
-            new MessageButton()
-                .setCustomId('delete')
-                .setLabel('Delete message')
-                .setStyle('DANGER')
-                .setEmoji('✖️'))
+            new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER').setEmoji('✖️'))
         function searchEmbed(doujin){
             const nhentaiEmbed = new MessageEmbed()
             .setColor('#ec2852')
@@ -60,12 +43,10 @@ module.exports = {
         const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
         const collector = interaction.channel.createMessageComponentCollector({filter, time: ((pageTime.pages).length)*30000 });
         collector.on('collect', async i => {
-            if (i.customId === 'delete') {
-                await interaction.deleteReply();
-                collector.stop()
-            }if (i.customId === 'right') {
+            if (i.customId === 'delete') { await interaction.deleteReply(); collector.stop() }
+            if (i.customId === 'right') {
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
-            if ((pageNumber+1) === doujin.pages.length) {pageNumber = ((doujin.pages.length)-1)} else {pageNumber +=1}
+                if ((pageNumber+1) === doujin.pages.length) {pageNumber = ((doujin.pages.length)-1)} else {pageNumber +=1}
                 console.log(pageNumber +" / "+ (doujin.pages.length))
                 const readEmbed = new MessageEmbed()
                     .setColor('#ec2852')
@@ -97,7 +78,6 @@ module.exports = {
             // Random, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getRandom()
             searchEmbed(doujin)
-            console.log(doujin)
         }else if (interaction.options.getString('get') === 'new') {
             // New, in async function (id, english titles, cover [About 25 pages])
             const doujins = await sHentai.getNew()
@@ -119,8 +99,6 @@ module.exports = {
                 })
             }
             interaction.reply({embeds: [await generateEmbed(0)], components: [searchDelete]})
-
-            console.log(doujins)
         }else if (interaction.options.getString('get') === 'popular') {
             // Popular, in async function  (id, english titles, cover [About 5 pages])
             const doujins = await sHentai.getPopular()
@@ -142,17 +120,14 @@ module.exports = {
                 })
             }
             interaction.reply({embeds: [await generateEmbed(0)], components: [searchDelete]})
-            console.log(doujins)
         }else if (interaction.options.getString('name')) {
             // Search name in async function (id, author.empty, both titles, pages, tags, cover)
             const search2 = await sHentai.search(interaction.options.getString('name'))
             const doujin = await sHentai.getDoujin(search2.results[0].id)
-            console.log(doujin)
             searchEmbed(doujin)
         }else if (interaction.options.getString('author')) {
             // Search author in async function (id, object titles, cover [About 10 pages])
             const doujins = await sHentai.byAuthor(interaction.options.getString('author'))
-            console.log(doujins)
             /**
              * @param {number} start
              * @returns {Promise<MessageEmbed>}
@@ -175,7 +150,6 @@ module.exports = {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('id')))
             searchEmbed(doujin)
-            console.log(doujin)
         }else if (interaction.options.getInteger('to_read_id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
@@ -188,13 +162,13 @@ module.exports = {
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
             interaction.reply({embeds: [readEm], components: [page, searchDelete]})
-            console.log(doujin)
         }
         /*    
         // Next Page (id, english titles, cover [About 25 pages]) ???????????????
         const search = await sHentai.search('dev')
         const nextPage = await search.next()
         console.log(nextPage.results)
+        console.log(search)
         */
     }
 }

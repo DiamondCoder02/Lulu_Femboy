@@ -1,38 +1,20 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('info')
         .setDescription('Shows some server informations!')
-        .addSubcommand(subcommand => subcommand
-            .setName('user')
-            .setDescription('Info about a user')
+        .addSubcommand(subcommand => subcommand.setName('user').setDescription('Info about a user')
             .addUserOption(option => option.setName('target').setDescription('The user').setRequired(true)))
-        .addSubcommand(subcommand => subcommand
-            .setName('server')
-            .setDescription('Info about the server'))
-        .addSubcommand(subcommand => subcommand
-            .setName('server_cheat')
-            .setDescription('Cheatsheet about the server infos')),
-    //Execution
+        .addSubcommand(subcommand => subcommand.setName('server').setDescription('Info about the server'))
+        .addSubcommand(subcommand => subcommand.setName('server_cheat').setDescription('Cheatsheet about the server infos')),
     async execute(interaction) {
         const page = new MessageActionRow()
             .addComponents(
-                new MessageButton()
-                    .setCustomId('delete')
-                    .setLabel('Delete message')
-                    .setStyle('DANGER')
-                    .setEmoji('✖️')
+                new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER').setEmoji('✖️')
             )
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 5000 });
-        collector.on('collect', async i => {
-            if (i.customId === 'delete') {
-                await interaction.deleteReply();
-                collector.stop()
-            }else {console.log("error")}
-        });
-        collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+        collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
         //User, server, cheatsheet
         if (interaction.options.getSubcommand() === 'user') {
             const user = interaction.options.getUser('target');
@@ -62,7 +44,6 @@ module.exports = {
             const afktime = String(interaction.guild.afkTimeout % 60)
             const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
             const botservertime = new Date(interaction.guild.joinedTimestamp).toLocaleString();
-            //console.log(interaction.guild)
             const embed = new MessageEmbed()
                 .setColor('#00FF00')
                 .setTitle('Server Informations')
@@ -97,8 +78,6 @@ module.exports = {
                 .addField('Preferred server locale:',  String(interaction.guild.preferredLocale), true)
                 .addField('Is guild verified?',  (interaction.guild.verified ? 'True' : 'False'), true)
                 .addField('Is guild partnered?',  (interaction.guild.partnered ? 'True' : 'False'), true)
-                //.addField('11 joinedTimestamp(number)[The stamp the client user joined guild]',  String(interaction.guild.joinedTimestamp), true)
-                //.addField('\u200B', '\u200B')
             await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server_cheat') {
             const embedtest1 = new MessageEmbed()

@@ -1,6 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
-const fs = require('fs')
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js'), fs = require('fs')
 let languagesFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'))
 let eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))

@@ -1,13 +1,11 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('stop')
 		.setDescription('Stops the bot with a password.')
 		.addStringOption(option => option.setName('stoppassword').setDescription('Enter a password to stop the bot').setRequired(true)),
 	async execute(interaction, client, config) {
-		const channel = client.channels.cache.get(config.bot_statusId);
-		//channel.bulkDelete(1, true).catch(error => {console.error(error)})
+		const channel = client.channels.cache.get(config.bot_status_channelId);
 		if (config.stopPassword === interaction.options.getString('stoppassword')){
 			console.log(`-------------------------\nThe bot has stopped!!!`)
 			console.log(`Triggered: ${interaction.user.tag} in ${interaction.guild.name}, #${interaction.channel.name} at ${interaction.createdAt}\n-------------------------`)

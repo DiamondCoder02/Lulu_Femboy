@@ -1,46 +1,42 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
-const nekoslife = require('nekos.life');
-const neko = new nekoslife();
+const nekoslife = require('nekos.life'), neko = new nekoslife();
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('nekoslife_sfw')
 		.setDescription('Pictures from Nekoslife.')
-        .addStringOption(option =>
-            option.setName('category')
-                .setDescription('The wholesome category')
-                .addChoice('Tickle', 'tickle')
-                .addChoice('Slap', 'slap')
-                .addChoice('Poke', 'poke')
-                .addChoice('Pat', 'pat')
-                .addChoice('Neko', 'neko')
-                .addChoice('Meow', 'meow')
-                .addChoice('Lizard', 'lizard')
-                .addChoice('Kiss', 'kiss')
-                .addChoice('Hug', 'hug')
-                .addChoice('Fox Girl', 'foxGril')
-                .addChoice('Feed', 'feed')
-                .addChoice('Cuddle', 'cuddle')
-                .addChoice('Neko Gif', 'nekoGif')
-                .addChoice('Kemonomimi', 'kemonomini')
-                .addChoice('Holo', 'holo')
-                .addChoice('Smug', 'smug')
-                .addChoice('Baka', 'baka')
-                .addChoice('Woof', 'woof')
-                .addChoice('Wallpaper', 'wallpaper')
-                .addChoice('Goose', 'goose')
-                .addChoice('Gecg?', 'gecg')
-                .addChoice('Avatar / Profile Pictures', 'avatar')
-                .addChoice('Waifus', 'waifu')
-                .setRequired(true))
+        .addStringOption(option => option.setName('category')
+            .setDescription('The wholesome category')
+            .addChoice('Tickle', 'tickle')
+            .addChoice('Slap', 'slap')
+            .addChoice('Poke', 'poke')
+            .addChoice('Pat', 'pat')
+            .addChoice('Neko', 'neko')
+            .addChoice('Meow', 'meow')
+            .addChoice('Lizard', 'lizard')
+            .addChoice('Kiss', 'kiss')
+            .addChoice('Hug', 'hug')
+            .addChoice('Fox Girl', 'foxGril')
+            .addChoice('Feed', 'feed')
+            .addChoice('Cuddle', 'cuddle')
+            .addChoice('Neko Gif', 'nekoGif')
+            .addChoice('Kemonomimi', 'kemonomini')
+            .addChoice('Holo', 'holo')
+            .addChoice('Smug', 'smug')
+            .addChoice('Baka', 'baka')
+            .addChoice('Woof', 'woof')
+            .addChoice('Wallpaper', 'wallpaper')
+            .addChoice('Goose', 'goose')
+            .addChoice('Gecg?', 'gecg')
+            .addChoice('Avatar / Profile Pictures', 'avatar')
+            .addChoice('Waifus', 'waifu')
+            .setRequired(true))
         .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.'))
         .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10)),
 	async execute(interaction) {
-        var amount = Number(interaction.options.getNumber('repeat'));
         if (interaction.options.getNumber('repeat')) {
-            amount = Number(interaction.options.getNumber('repeat'))
-        } else amount = 1
+            var amount = Number(interaction.options.getNumber('repeat'))
+        } else var amount = 1
         for (let a = 0; a < amount; ) {
             if (interaction.options.getString('category') === 'tickle') {lewd = await neko.sfw.tickle()}
             if (interaction.options.getString('category') === 'slap') {lewd = await neko.sfw.slap()}
@@ -72,19 +68,15 @@ module.exports = {
                 .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
                 .setImage(lewd.url)
             if (interaction.options.getUser('target')) {
-                const user = interaction.options.getUser('target');
-                const from = interaction.user
+                const user = interaction.options.getUser('target'), from = interaction.user
                 embed.setDescription(`UwU! From ${from.toString()} to ${user.toString()}. A nice ` + interaction.options.getString('category')+ " to you. :3")
-                try{
-                    await interaction.reply({ content: user.toString(), embeds: [embed]})
-                }catch{
+                try{ await interaction.reply({ content: user.toString(), embeds: [embed]}) }
+                catch{
                     await wait(1000)
                     await interaction.followUp({ embeds: [embed]})
                 }
             } else {
-                try{
-                    await interaction.reply({ embeds: [embed]})
-                }
+                try{ await interaction.reply({ embeds: [embed]}) }
                 catch{
                     await wait(1000)
                     await interaction.followUp({ embeds: [embed]})
@@ -96,7 +88,7 @@ module.exports = {
     }
 };
 
-/*
+/* wholesome nekoslife function that I probably never use
 spoiler: [AsyncFunction (anonymous)],
 why: [AsyncFunction (anonymous)],
 catText: [AsyncFunction (anonymous)],
