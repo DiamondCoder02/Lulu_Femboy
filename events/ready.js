@@ -1,4 +1,4 @@
-const config = require('../config.json'), { MessageEmbed } = require('discord.js'), fs = require('fs');
+const config = require('../config.json'), { MessageEmbed } = require('discord.js'), fs = require('fs'), lang = require('./languages/' + config.language + '.json');
 module.exports = {
 	name: 'ready',
 	once: true,

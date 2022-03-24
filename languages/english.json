@@ -1,8 +1,12 @@
 {
-    "ping":{
-        "description": "measures the bot latency and shows uptime",
-        "calc": "Calculating ping...",
-        "uptime": "Uptime: ",
-        "date": " day, - hour, - minute and - second"
+    "index":{
+        "no_dm": "(* ￣︿￣)) Executing in DMs are temporarly disabled. Please use commands on servers.",
+        "error": "There was an error while executing this command!",
+        "token": "Please provide a bot token."
+    },
+    "deploy": {
+        "token": "Please provide a bot token.",
+        "clientId": "Please provide a ClientID.",
+        "success": "Successfully registered application commands."
     }
 }

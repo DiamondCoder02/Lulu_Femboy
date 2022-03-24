@@ -1,5 +1,5 @@
 //basic loaders
-const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json');
+const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
 require('dotenv').config();
 var token = process.env.token;
 const client = new Client({ ws: {properties: {$browser: 'Discord iOS'}}, intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES], partials: ["CHANNEL"] });
@@ -22,12 +22,12 @@ client.on('interactionCreate', async interaction => {
     if (interaction.isCommand) {
         const command2 = client.commands.get(interaction.commandName);
         if (!command2) return;
-        if (interaction.channel.type == 'DM') {return interaction.reply("(* ￣︿￣)) Executing in DMs are temporarly disabled. Please use commands on servers.")}
+        if (interaction.channel.type == 'DM') {return interaction.reply(lang.index.no_dm)}
         try {
             await command2.execute(interaction, client, config);
         } catch (error) {
             console.error(error);
-            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral:true});
+            await interaction.reply({ content: lang.index.error, ephemeral:true});
         }
     }
 });
@@ -35,4 +35,4 @@ client.on('interactionCreate', async interaction => {
 try{
     if (config.Token == "token") client.login(token)
     else client.login(config.Token)
-}catch{console.log("Please provide a bot token.")}
+}catch{console.log(lang.index.token)}
