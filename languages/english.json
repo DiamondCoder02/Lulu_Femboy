@@ -1,6 +1,6 @@
 {
     "index":{
-        "no_dm": "(* ￣︿￣)) Executing in DMs are temporarly disabled. Please use commands on servers.",
+        "no_dm": "(* ￣︿￣) Executing in DMs are temporarly disabled. Please use commands on servers.",
         "error": "There was an error while executing this command!",
         "token": "Please provide a bot token."
     },

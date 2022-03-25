@@ -1,7 +1,12 @@
 {
-    "index":{
-        "no_dm": "",
-        "error": "",
-        "token": ""
+    "index": {
+        "no_dm": "(* ￣︿￣) Átmenetileg nem lehet privátban üzenni. Kérleg használj egy szerveren.",
+        "error": "Hiba történt a parancs futtatása közben!",
+        "token": "Kérlek adj meg egy helyes bot tokent."
+    },
+    "deploy": {
+        "token": "Kérlek adj meg egy helyes bot tokent.",
+        "clientId": "Kérlek adj meg egy helyes ClientId-t",
+        "success": "Sikeresen regisztrálva lettek a parancsok"
     }
 }
