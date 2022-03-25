@@ -1,4 +1,4 @@
-const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9'), { clientId, Token, language } = require('./config.json'), lang = require('./languages/' + config.language + '.json');
+const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9'), { clientId, Token, language } = require('./config.json'), lang = require('./languages/' + language + '.json');
 const commands = [], commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 require('dotenv').config();
 var token = process.env.token;
