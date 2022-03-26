@@ -26,7 +26,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setTitle(emb[0])
-            .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R>`);
+            .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
         channel.send({embeds: [embed]})
 	}
 }
