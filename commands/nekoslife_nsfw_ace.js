@@ -25,9 +25,9 @@ module.exports = {
             .setRequired(true)
         )
         .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10)),
-	async execute(interaction) {
+	async execute(interaction, client, config, lang) {
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
-        if (!interaction.channel.nsfw) { interaction.reply('Sorry, this is a Not Safe For Work command!'); return}
+        if (!interaction.channel.nsfw) { interaction.reply(lang.nsfw); return}
         for (let a = 0; a < amount; ) {
             if (interaction.options.getString('lewd_category') === 'pussyArt') {lewd = await neko.nsfw.pussyArt()}
             if (interaction.options.getString('lewd_category') === 'cumArts') {lewd = await neko.nsfw.cumArts()}

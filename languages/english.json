@@ -1,4 +1,5 @@
 {
+    "buttons": "delete",
     "index": {
         "no_dm": "(* ￣︿￣) Executing in DMs are temporarly disabled. Please use commands on servers.",
         "error": "There was an error while executing this command!",
@@ -15,5 +16,15 @@
         "embed": "Bot start! - Bot has been started - That was"
     },
     "1_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
-    "int_create": "in - at - triggered: - triggered a button. - triggered a select menu."
+    "int_create": "in - at - triggered: - triggered a button. - triggered a select menu.",
+    "bot_info": {
+        "tdf": "Here is some information about the bot and its development: - Bot done: - Last update:",
+        "fields": "Idea list: - To fix / Bugs: - Command prefix: - Languages: - Event listeners: - Commands:"
+    },
+    "cl1": "Please select a number to delete messages. - Successfully deleted messages:",
+    "pr2": "You need to input a number between 1 and 99. - Successfully deleted - messages.",
+    "pu3": "Delete the last - message",
+    "nsfw": "Sorry, this is a Not Safe For Work command!",
+    "nekoslife": "sends a nice - to you,",
+    "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime:"
 }

@@ -7,7 +7,7 @@ module.exports = {
             .addUserOption(option => option.setName('target').setDescription('The user').setRequired(true)))
         .addSubcommand(subcommand => subcommand.setName('server').setDescription('Info about the server'))
         .addSubcommand(subcommand => subcommand.setName('server_cheat').setDescription('Cheatsheet about the server infos')),
-    async execute(interaction) {
+    async execute(interaction, client, config, lang) {
         const page = new MessageActionRow()
             .addComponents(
                 new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER').setEmoji('✖️')
@@ -38,7 +38,7 @@ module.exports = {
                     {name: "**user Created:**", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline:true},
                     {name: "UserID:", value: String(user.id), inline:true},
                 )
-            await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
+            await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server') {
             const owner = await interaction.guild.fetchOwner(); 
             const afktime = String(interaction.guild.afkTimeout % 60)
@@ -78,7 +78,7 @@ module.exports = {
                 .addField('Preferred server locale:',  String(interaction.guild.preferredLocale), true)
                 .addField('Is guild verified?',  (interaction.guild.verified ? 'True' : 'False'), true)
                 .addField('Is guild partnered?',  (interaction.guild.partnered ? 'True' : 'False'), true)
-            await interaction.reply({content: "Server Info", embeds: [embed], components: [page]})
+            await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server_cheat') {
             const embedtest1 = new MessageEmbed()
                 .setColor('#00FF00')

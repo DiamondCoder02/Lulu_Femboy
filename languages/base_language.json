@@ -1,4 +1,5 @@
 {
+    "buttons": "",
     "index": {
         "no_dm": "(* ￣︿￣)",
         "error": "",
@@ -15,5 +16,15 @@
         "embed": " -  -  "
     },
     "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
-    "int_create": " -  -  -  - "
+    "int_create": " -  -  -  - ",
+    "bot_info": {
+        "tdf": " -  - ",
+        "fields": " -  -  -  -  - "
+    },
+    "cl1": " - ",
+    "pr2": " -  - ",
+    "pu3": " -  -  -  - ",
+    "nsfw": "",
+    "nekoslife": " - ",
+    "ping": " -  -  -  -  - "
 }

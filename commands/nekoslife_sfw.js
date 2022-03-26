@@ -33,10 +33,9 @@ module.exports = {
             .setRequired(true))
         .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.'))
         .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10)),
-	async execute(interaction) {
-        if (interaction.options.getNumber('repeat')) {
-            var amount = Number(interaction.options.getNumber('repeat'))
-        } else var amount = 1
+	async execute(interaction, client, config, lang) {
+        let nl = lang.nekoslife.split('-')
+        if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
             if (interaction.options.getString('category') === 'tickle') {lewd = await neko.sfw.tickle()}
             if (interaction.options.getString('category') === 'slap') {lewd = await neko.sfw.slap()}
@@ -69,7 +68,7 @@ module.exports = {
                 .setImage(lewd.url)
             if (interaction.options.getUser('target')) {
                 const user = interaction.options.getUser('target'), from = interaction.user
-                embed.setDescription(`UwU! From ${from.toString()} to ${user.toString()}. A nice ` + interaction.options.getString('category')+ " to you. :3")
+                embed.setDescription(`UwU! ${from.toString()} `+ nl[0] + interaction.options.getString('category') + nl[1] + user.toString() + ". :3")
                 try{ await interaction.reply({ content: user.toString(), embeds: [embed]}) }
                 catch{
                     await wait(1000)

@@ -24,7 +24,7 @@ client.on('interactionCreate', async interaction => {
         if (!command2) return;
         if (interaction.channel.type == 'DM') {return interaction.reply(lang.index.no_dm)}
         try {
-            await command2.execute(interaction, client, config);
+            await command2.execute(interaction, client, config, lang);
         } catch (error) {
             console.error(error);
             await interaction.reply({ content: lang.index.error, ephemeral:true});
