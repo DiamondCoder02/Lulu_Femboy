@@ -8,5 +8,12 @@
         "token": "",
         "clientId": "",
         "success": ""
-    }
+    },
+    "ready": {
+        "set_activity": "",
+        "console_log": " -  -  -  -  - ",
+        "embed": " -  -  "
+    },
+    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
+    "int_create": " -  -  -  - "
 }

@@ -4,7 +4,9 @@ module.exports = {
 	once: true,
 	execute(client) {
         const channel = client.channels.cache.get(config.bot_status_channelId);
-        client.user.setActivity("([]~(￣▽￣)~* Learning new commands")
+        let con = lang.ready.console_log.split('-')
+        let emb = lang.ready.embed.split('-')
+        client.user.setActivity(lang.ready.set_activity)
         console.log(client)
         //client.on("error", (e) => console.error(e))
         //client.on("warn", (e) => console.warn(e))
@@ -14,17 +16,17 @@ module.exports = {
         console.log(eventFiles)
         console.log(languageFiles)
         const Guilds = client.guilds.cache.map(guild => guild.name);
-		console.log(` -- Ready! \n -- Logged in as ${client.user.tag}`
-            + "\n\t -- Language: " + config.language
-            + "\n\t -- ClientID: " + config.clientId
-            + "\n\t -- Password: " + config.stopPassword
-            + "\n\t -- Ready at: " + client.readyAt
-            + "\n\t -- Guilds: "+ Guilds)
+		console.log(`\n --` + con[0] + client.user.tag
+            + `\n\t --` + con[1] + config.language
+            + `\n\t --` + con[2] + config.clientId
+            + `\n\t --` + con[3] + config.stopPassword
+            + `\n\t --` + con[4] + client.readyAt
+            + `\n\t --` + con[5]+" "+ Guilds)
         channel.bulkDelete(1, true).catch(error => {console.error(error)})
         const embed = new MessageEmbed()
             .setColor('#00FF00')
-            .setTitle('Bot start!')
-            .setDescription(`Bot has been started \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \nThat was <t:${Math.floor(client.readyTimestamp / 1000)}:R>`);
+            .setTitle(emb[0])
+            .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R>`);
         channel.send({embeds: [embed]})
 	}
 }

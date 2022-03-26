@@ -8,5 +8,12 @@
         "token": "Kérlek adj meg egy helyes bot tokent.",
         "clientId": "Kérlek adj meg egy helyes ClientId-t",
         "success": "Sikeresen regisztrálva lettek a parancsok"
-    }
+    },
+    "ready": {
+        "set_activity": "[]~(￣▽￣)~* Új parancsokat tanulok",
+        "console_log": "Bejelentkezve mint - Nyelv: - ClientID: - Jelszó: - Készenlétben: - Szerverek:",
+        "embed": "Bot elindítva! - Bot el lett indítva - Ez volt "
+    },
+    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
+    "int_create": "felhasználó a - szerveren - csatornában aktiválta: - csatornában aktivált egy gombot. - csatornában aktivált egy menüt."
 }
