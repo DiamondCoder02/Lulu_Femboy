@@ -1,0 +1,31 @@
+{
+    "buttons": "dewete",
+    "index": {
+        "no_dm": "(* ￣︿￣) executing in dms awe tempowawiwy disabwed. Pwease use commands on sewvews.",
+        "error": "thewe was an ewwow whiwe executing this command!",
+        "token": "pwease pwovide a bot token."
+    },
+    "deploy": {
+        "token": "pwease pwovide a bot token.",
+        "clientid": "pwease pwovide a cwientid.",
+        "success": "successfuwwy wegistewed appwication commands."
+    },
+    "ready": {
+        "set_activity": "[]~(￣▽￣)~* leawning new commands",
+        "console_log": "lowwed in as - langwuage: - cwientid: - passwowd: - wready at: - guiwds:",
+        "embed": "bot stawt! - bot has bween stawted - twat was"
+    },
+    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
+    "int_create": "in - at - twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
+    "bot_info": {
+        "tdf": "hewe is some infowmation about the bwot and its devewopment: - bwot done: - last update:",
+        "fields": "idea wist: - to fix / bwugs: - command pwefix: - langwuage: - event wistenews: - commands:"
+    },
+    "cl1": "pwease sewect a numbew to dewete messages. - successfuwwy deweted messages:",
+    "pr2": "youw need to input a numbew between 1 and 99. - successfuwwy deweted - messages.",
+    "pu3": "dewete the wast - message",
+    "nsfw": "sowwy, this is a not safe fow wowk command! >w<",
+    "nekoslife": "sends a nice - to you,",
+    "ping": "days: - time: - cawcuwating ping... - **ping cawcuwated!** - ping and uptime - uptime:",
+    "stop": "bwot stopped! - bwot has been stopped by - wwong passwowd! - you gave a wwong passwowd"
+}

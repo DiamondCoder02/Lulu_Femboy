@@ -1,7 +1,7 @@
 {
     "buttons": "delete",
     "index": {
-        "no_dm": "(* ￣︿￣) Executing in DMs are temporarly disabled. Please use commands on servers.",
+        "no_dm": "(* ￣︿￣) Executing in DMs are temporarily disabled. Please use commands on servers.",
         "error": "There was an error while executing this command!",
         "token": "Please provide a bot token."
     },
@@ -15,7 +15,7 @@
         "console_log": "Logged in as - Language: - ClientID: - Password: - Ready at: - Guilds:",
         "embed": "Bot start! - Bot has been started - That was"
     },
-    "1_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
+    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - at - triggered: - triggered a button. - triggered a select menu.",
     "bot_info": {
         "tdf": "Here is some information about the bot and its development: - Bot done: - Last update:",
@@ -26,5 +26,6 @@
     "pu3": "Delete the last - message",
     "nsfw": "Sorry, this is a Not Safe For Work command!",
     "nekoslife": "sends a nice - to you,",
-    "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime:"
+    "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime:",
+    "stop": "Bot stopped! - Bot has been stopped by - Wrong password! - You gave a wrong password"
 }
