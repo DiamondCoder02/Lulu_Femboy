@@ -8,7 +8,7 @@
     "bugsToFix": "-DM ~~breaks the bot~~ (Temporarly diabled) \n-Better error handling for things \n-Weird behaviour sometimes at nHentai when collector gets a stroke",
 
     "stopPassword": "lolipop",
-    "language": "owo",
+    "language": "english",
 
     "sfw_roles": {
         "1": "948322911419265024"

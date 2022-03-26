@@ -3,23 +3,23 @@
     "index": {
         "no_dm": "(* ￣︿￣) Befehle in DMs sind vorübergehend deaktiviert. Bitte verwenden Sie Befehle auf Servern.",
         "error": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!",
-        "token": "Bitte geben Sie ein Bot-Token an."
+        "token": "Bitte geben Sie ein Bot Token an."
     },
     "deploy": {
-        "token": "Bitte geben Sie ein Bot-Token an.",
-        "clientId": "Bitte geben Sie eine Kunden-ID an.",
+        "token": "Bitte geben Sie ein Bot Token an.",
+        "clientId": "Bitte geben Sie eine KundenID an.",
         "success": "Erfolgreich registrierte Anwendungsbefehle."
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Lernen Sie neue Befehle",
-        "console_log": "Angemeldet als - Sprache: - Kunden-ID: - Passwort: - Bereit bei: - Gilden:",
-        "embed": "Bot-Start! - Bot wurde gestartet - Das war"
+        "console_log": "Angemeldet als - Sprache: - KundenID: - Passwort: - Bereit bei: - Gilden:",
+        "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
     "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - bei - Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "bot_info": {
         "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update:",
-        "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis-Listener: - Befehle:"
+        "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis Listener: - Befehle:"
     },
     "cl1": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten:",
     "pr2": "Sie müssen eine Zahl zwischen 1 und 99 eingeben. - Erfolgreich gelöscht - Nachrichten.",
