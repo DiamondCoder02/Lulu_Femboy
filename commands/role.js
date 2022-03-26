@@ -10,13 +10,13 @@ module.exports = {
         .setTitle("Self Roles:")
         .setColor("#0099ff")
         .setDescription("`Click some button bellow if you want access to some good stuff!`")
-        if (interaction.options.getSubcommand() === 'safe_for_work') {
+        /*if (interaction.options.getSubcommand() === 'safe_for_work') {
             
         }
         if (interaction.options.getSubcommand() === 'not_safe_for_work') {
             if (!interaction.channel.nsfw) { interaction.reply({content:'Sorry, this is a Not Safe For Work command!', ephemeral: true}); return }
             
-        }
+        }*/
 
 
         const row = new MessageActionRow()
