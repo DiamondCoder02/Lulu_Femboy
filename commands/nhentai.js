@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, 
 const nHentai = require('shentai'), sHentai = new nHentai
 module.exports = {
     guildOnly: true,
+    cooldown: 15,
 	data: new SlashCommandBuilder()
 		.setName('nhentai')
 		.setDescription('nHentai reading for you.')

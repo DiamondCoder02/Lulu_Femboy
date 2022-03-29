@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 module.exports = {
+    cooldown: 30,
 	data: new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Server ping calculation.'),

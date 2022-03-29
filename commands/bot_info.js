@@ -6,6 +6,7 @@ let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.j
 //const eventArray = eventFiles.map(x => {return x.replace('.js','\n')})
 //const comArray = commandFiles.map(x => {return x.replace('.js','\n')})
 module.exports = {
+    cooldown: 60,
     data: new SlashCommandBuilder()
 		.setName('bot_info')
 		.setDescription('Bot informations.'),

@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed }
 const wait = require('node:timers/promises').setTimeout;
 const nekoslife = require('nekos.life'), neko = new nekoslife();
 module.exports = {
+    cooldown: 30,
 	data: new SlashCommandBuilder()
 		.setName('nekoslife_sfw')
 		.setDescription('Pictures from Nekoslife.')

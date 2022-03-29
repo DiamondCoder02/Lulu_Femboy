@@ -1,5 +1,6 @@
 //basic loaders
 const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
+const cooldowns = new Collection();
 require('dotenv').config();
 var token = process.env.token;
 const client = new Client({ ws: {properties: {$browser: 'Discord iOS'}}, intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES], partials: ["CHANNEL"] });
@@ -25,7 +26,23 @@ client.on('interactionCreate', async interaction => {
     if (interaction.isCommand) {
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
+        //OnlyGuild
         if (command.guildOnly && interaction.channel.type === 'DM') {return interaction.reply(lang.index.no_dm)}
+        //Cooldown
+        if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection());}
+        const now = Date.now();
+        const timestamps = cooldowns.get(interaction.commandName);
+        const cooldownAmount = (command.cooldown || 1) * 1000;
+        if (timestamps.has(interaction.user.id)) {
+            const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
+            if (now < expirationTime) {
+                const timeLeft = (expirationTime - now) / 1000;
+                return interaction.reply({content: "Cooldown time left:"+timeLeft});
+            }
+        }
+        timestamps.set(interaction.user.id, now);
+        setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+        //Execute
         try {
             await command.execute(interaction, client, config, lang);
         } catch (error) {

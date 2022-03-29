@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 module.exports = {
     guildOnly: true,
+    cooldown: 10,
 	data: new SlashCommandBuilder()
         .setName('info')
         .setDescription('Shows some server informations!')
