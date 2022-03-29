@@ -3,7 +3,8 @@
     "index": {
         "no_dm": "(* ￣︿￣) executing in dms awe tempowawiwy disabwed. Pwease use commands on sewvews.",
         "error": "thewe was an ewwow whiwe executing this command!",
-        "token": "pwease pwovide a bot token."
+        "token": "pwease pwovide a bot token.",
+        "cooldown": "coowdown time weft in seconds, befowe you can use the command again:"
     },
     "deploy": {
         "token": "pwease pwovide a bot token.",

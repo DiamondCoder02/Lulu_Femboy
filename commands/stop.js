@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 module.exports = {
+	permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
 		.setName('stop')
 		.setDescription('Stops the bot with a password.')
-		.addStringOption(option => option.setName('stoppassword').setDescription('Enter a password to stop the bot').setRequired(true)),
+		.addStringOption(option => option.setName('password').setDescription('Enter a password to stop the bot').setRequired(true)),
 	async execute(interaction, client, config, lang) {
 		let st = lang.stop.split('-')
 		if (config.stopPassword === interaction.options.getString('stoppassword')){

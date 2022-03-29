@@ -3,7 +3,8 @@
     "index": {
         "no_dm": "(* ￣︿￣) Átmenetileg nem lehet privátban üzenni. Kérleg használj egy szerveren.",
         "error": "Hiba történt a parancs futtatása közben!",
-        "token": "Kérlek adj meg egy helyes bot tokent."
+        "token": "Kérlek adj meg egy helyes bot tokent.",
+        "cooldown": "Visszamaradó idő másodpercben mielött megint használhatod:"
     },
     "deploy": {
         "token": "Kérlek adj meg egy helyes bot tokent.",

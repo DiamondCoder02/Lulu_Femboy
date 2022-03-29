@@ -3,7 +3,8 @@
     "index": {
         "no_dm": "(* ￣︿￣)",
         "error": "",
-        "token": ""
+        "token": "",
+        "cooldown": ""
     },
     "deploy": {
         "token": "",

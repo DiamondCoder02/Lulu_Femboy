@@ -37,11 +37,19 @@ client.on('interactionCreate', async interaction => {
             const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
-                return interaction.reply({content: "Cooldown time left:"+timeLeft});
+                return interaction.reply({content: lang.index.cooldown + " `"+timeLeft+"`"});
             }
         }
         timestamps.set(interaction.user.id, now);
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+
+        /*
+        if (interaction.guild) {
+            var role = (interaction.channel.permissionsFor(interaction.member).has(command.permissions))
+        } else var role = false
+        if (!role) {return interaction.reply({content: "Not enough role"})}
+        */
+
         //Execute
         try {
             await command.execute(interaction, client, config, lang);
