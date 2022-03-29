@@ -5,18 +5,20 @@ module.exports = {
 		let i_c = lang.int_create.split('-')
 		const i = interaction
 		try{
-			if (i.isCommand()) {
-				console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[2] + i.commandName);
+			if (i.channel.type === 'DM') {
+				return console.log(i.createdAt + " -- "+ i.user.tag + " DM"+ i_c[2] + i.commandName);
 			}
-			else if (i.isButton()) {
-				console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[3]);
+			if (i.isCommand()) {
+				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[2] + i.commandName);
+			}
+			if (i.isButton()) {
+				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[3]);
 			} 
-			else if (i.isSelectMenu()) {
-				console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[4]);
+			if (i.isSelectMenu()) {
+				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[4]);
 			}
 		} catch (error) {
 			console.log(error)
-			//console.log(`[${i.createdAt}] -- ${i.user.tag} in DM triggered: ${i.commandName}.`);
 		}
 	}
 };

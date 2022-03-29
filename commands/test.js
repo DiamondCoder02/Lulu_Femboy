@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const {MessageActionRow,MessageButton,MessageEmbed} = require('discord.js')
 module.exports = {
+	//guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('test')
 		.setDescription('Feature testing.'),

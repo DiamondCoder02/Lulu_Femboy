@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
+	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('prune')
 		.setDescription('Purge/clean/prune up to 99 messages.')

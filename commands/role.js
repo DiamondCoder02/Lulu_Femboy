@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 module.exports = {
+    guildOnly: true,
 	data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Gives roles with buttons'),

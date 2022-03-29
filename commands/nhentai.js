@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const nHentai = require('shentai'), sHentai = new nHentai
 module.exports = {
+    guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('nhentai')
 		.setDescription('nHentai reading for you.')
@@ -14,7 +15,7 @@ module.exports = {
         .addIntegerOption(option => option.setName('id').setDescription('Search for ID.'))
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
 	async execute(interaction) {
-        if (!interaction.channel.nsfw) {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
+        if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
         try {collector.stop()} catch{console.log("No collect")}
         var pageNumber = -1
         const page = new MessageActionRow()

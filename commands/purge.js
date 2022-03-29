@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageSelectMenu } = require('discord.js');
 module.exports = {
+	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('purge')
 		.setDescription('Purge/clean/prune up to 99 messages.'),

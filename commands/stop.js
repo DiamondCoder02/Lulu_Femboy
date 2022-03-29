@@ -8,7 +8,11 @@ module.exports = {
 		let st = lang.stop.split('-')
 		if (config.stopPassword === interaction.options.getString('stoppassword')){
 			console.log(`-------------------------\nThe bot has stopped!!!`)
-			console.log(`Triggered: ${interaction.user.tag} in ${interaction.guild.name}, #${interaction.channel.name} at ${interaction.createdAt}\n-------------------------`)
+			try {
+				console.log(`Triggered: ${interaction.user.tag} in ${interaction.guild.name}, #${interaction.channel.name} at ${interaction.createdAt}\n-------------------------`)
+			} catch {
+				console.log(`Triggered: ${interaction.user.tag} in DMs at ${interaction.createdAt}\n-------------------------`)
+			}
 			const embed = new MessageEmbed()
 				.setColor('#ff0000')
 				.setTitle(st[0])
