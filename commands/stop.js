@@ -7,7 +7,7 @@ module.exports = {
 		.addStringOption(option => option.setName('password').setDescription('Enter a password to stop the bot').setRequired(true)),
 	async execute(interaction, client, config, lang) {
 		let st = lang.stop.split('-')
-		if (config.stopPassword === interaction.options.getString('stoppassword')){
+		if (config.stopPassword === interaction.options.getString('password')){
 			console.log(`-------------------------\nThe bot has stopped!!!`)
 			try {
 				console.log(`Triggered: ${interaction.user.tag} in ${interaction.guild.name}, #${interaction.channel.name} at ${interaction.createdAt}\n-------------------------`)
