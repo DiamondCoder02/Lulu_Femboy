@@ -1,3 +1,3 @@
-start npm i
-start node deploy-commands.js
+npm i
+node deploy-commands.js
 pause
