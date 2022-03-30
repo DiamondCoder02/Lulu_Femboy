@@ -4,8 +4,8 @@
 
     "bot_status_channelId": "897097242861789236",
 
-    "futureIdeas": "-Even more 18+ \n-reminder \n-Music \n-Better role handling \n-More event listeners \n-Translator?",
-    "bugsToFix": "-Better error handling for things \n-Weird behaviour sometimes at nHentai when collector gets a stroke",
+    "futureIdeas": "-Even more 18+ \n-reminder \n-Music \n-Better role handling \n-More event listeners",
+    "bugsToFix": "-Better error handling for things \n-Weird behaviour sometimes at nHentai when collector gets a stroke \n-nHentai also fucky wucky with dms",
 
     "stopPassword": "lolipop",
     "language": "english",
