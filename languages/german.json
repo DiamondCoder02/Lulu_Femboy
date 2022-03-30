@@ -1,7 +1,7 @@
 {
     "buttons": "löschen",
     "index": {
-        "no_dm": "(* ￣︿￣) Befehle in DMs sind vorübergehend deaktiviert. Bitte verwenden Sie Befehle auf Servern.",
+        "no_dm": "(* ￣︿￣) Das Ausführen dieses Befehls in DMs ist deaktiviert. Bitte verwenden Sie diesen Befehl auf einem Server.",
         "error": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!",
         "token": "Bitte geben Sie ein Bot Token an.",
         "cooldown": "Verbleibende Abklingzeit in Sekunden, bevor Sie den Befehl erneut verwenden können:"

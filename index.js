@@ -1,5 +1,5 @@
 //basic loaders
-const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
+const fs = require('fs'), { Client, Collection, Intents, MessageEmbed } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
 const cooldowns = new Collection();
 require('dotenv').config();
 var token = process.env.token;
@@ -42,14 +42,13 @@ client.on('interactionCreate', async interaction => {
         }
         timestamps.set(interaction.user.id, now);
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
-
-        /*
-        if (interaction.guild) {
-            var role = (interaction.channel.permissionsFor(interaction.member).has(command.permissions))
-        } else var role = false
-        if (!role) {return interaction.reply({content: "Not enough role"})}
-        */
-
+        //guild role check
+        if (command.guildOnly == true) {
+            if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {
+                role = true
+            } else role = false
+            if (!role && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: "Not enough role"})}
+        }
         //Execute
         try {
             await command.execute(interaction, client, config, lang);

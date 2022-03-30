@@ -1,7 +1,7 @@
 {
     "buttons": "töröl",
     "index": {
-        "no_dm": "(* ￣︿￣) Átmenetileg nem lehet privátban üzenni. Kérleg használj egy szerveren.",
+        "no_dm": "(* ￣︿￣) Ezt a parancsot nem lehet privátban használni. Kérlek használd egy szerveren.",
         "error": "Hiba történt a parancs futtatása közben!",
         "token": "Kérlek adj meg egy helyes bot tokent.",
         "cooldown": "Visszamaradó idő másodpercben mielött megint használhatod:"

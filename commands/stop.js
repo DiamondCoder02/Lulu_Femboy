@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 module.exports = {
 	permissions: "ADMINISTRATOR",
+	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('stop')
 		.setDescription('Stops the bot with a password.')

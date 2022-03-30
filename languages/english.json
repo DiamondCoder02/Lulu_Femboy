@@ -1,7 +1,7 @@
 {
     "buttons": "delete",
     "index": {
-        "no_dm": "(* ￣︿￣) Executing in DMs are temporarily disabled. Please use commands on servers.",
+        "no_dm": "(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.",
         "error": "There was an error while executing this command!",
         "token": "Please provide a bot token.",
         "cooldown": "Cooldown time left in seconds, before you can use the command again:"
