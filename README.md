@@ -3,6 +3,7 @@
 Please don't use this...(, **unless you know what mess I made here.**)
 #### A bit of explanation:
 Just my own little bot to learn. Early in development. Still not stupid proof but working on it as I don't want it to break often.
+Feel free to contribute if you want I appriciate every problem report and every help.
 This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
 ## Setup
 - Have latest [NodeJs](https://nodejs.org/en/) installed.
@@ -15,15 +16,15 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - Invite the bot into the server with this link. Replace TEXT with client id: ( https://discord.com/api/oauth2/authorize?client_id=TEXT&permissions=2415930432&scope=bot%20applications.commands )
 - After all this save and run start.bat
 
-Everything is in English but I plan to add easy language support as usual. In config you can kinda see what I plan and how I'm currently holding.
+"Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.
 
-#### Future ideas:
+### Future ideas:
 - [ ] Even more 18+ 
 - [ ] reminder
 - [ ] Music
 - [ ] Better role handling
 - [ ] More event listeners
-#### Currently I know broken:
+### Currently I know broken:
 - [ ] Better error handling for things 
 - [ ] Weird behaviour sometimes at nHentai when collector gets a stroke 
 - [ ] nHentai also fucky wucky with dms
