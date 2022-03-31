@@ -10,18 +10,20 @@ module.exports = {
 		.addStringOption(option => option.setName('from').setDescription('Translate from (Default English)'))
         .addStringOption(option => option.setName('to').setDescription('Translate to (Default English)')),
     async execute(interaction, client, config, lang) {
-        try {
+        //try {
             translate.engine = "google"; // Or "yandex", "libre", "deepl"
             translate.key = process.env.GOOGLE_KEY;
             const text = await translate(interaction.options.getString('text'), { from: interaction.options.getString('from'), to: interaction.options.getString('to') });
 
             const embed = new MessageEmbed()
                 .setColor('#00ffff')
-                .setTitle(String(text))
-                .setDescription("translated from: \n"+interaction.options.getString('text'))
-            await interaction.reply({content: text + "\ntranslated from: \n"+interaction.options.getString('text')})
+                .setTitle("Translation: "+ interaction.options.getString('from') + " -> " + interaction.options.getString('to'))
+                .setDescription(text)
+                .setTimestamp()
+                .addField("translated from:", interaction.options.getString('text'))
+            //await interaction.reply({content: text + "\ntranslated from: \n"+interaction.options.getString('text')})
             console.log(embed)
-            //await interaction.reply({embeds: embed})
-        } catch { interaction.reply({content: "Error: please make sure you wrote the languages correctly."}) }
+            await interaction.reply({embeds: [embed]})
+        //} catch { interaction.reply({content: "Error: please make sure you wrote the languages correctly."}) }
     }
 }
