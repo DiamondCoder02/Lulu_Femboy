@@ -1,6 +1,7 @@
 {
     "Token": "token",
     "clientId": "clientID",
+    "guildId": "guildID",
 
     "bot_status_channelId": "897097242861789236",
 
