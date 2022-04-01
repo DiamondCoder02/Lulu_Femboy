@@ -28,4 +28,4 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [ ] Better error handling for things 
 - [ ] Weird behaviour sometimes at nHentai when collector gets a stroke 
 - [ ] nHentai also fucky wucky with dms
-- [ ] Not sure but I will find a working translation package that I can use for the translation command
+- [x] Translation finally works. ~~Not sure but I will find a working translation package that I can use for the translation command~~
