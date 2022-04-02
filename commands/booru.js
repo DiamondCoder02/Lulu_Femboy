@@ -1,4 +1,4 @@
-//rule34 command (Writen by Gihub Copilot)
+//rule34 command (Gihub Copilot)
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const {MessageActionRow,MessageButton,MessageEmbed} = require('discord.js')
 const Booru = require('booru')
@@ -39,13 +39,21 @@ module.exports = {
         console.log(sites + "\n" + tags + "\n" + page + "\n" + repeat)
         
         // Search with promises
-        Booru.search(sites, { limit: 1, random: false })
+        Booru.search(sites, tags, { limit: 1, random: false })
         .then(posts => {
             if (posts == "No images found.") {
                 console.log('No images found.')
             }
         
             for (let post of posts) {
+                //embed
+                const embed = new MessageEmbed()
+                    .setTitle('Rule34')
+                    .setColor('#ff0000')
+                    .setDescription('Searching for ' + tags + ' on ' + sites)
+                    .setImage(post.fileUrl)
+                    .setTimestamp()
+                interaction.reply({embeds: [embed]})
                 console.log(post.fileUrl)
             }
         })
@@ -60,10 +68,14 @@ module.exports = {
             }
         })
 
+        /*
         async function booruSearch(sites, tags, limit = 1, random = true) {
+            try{
             const posts = await Booru.search(sites, tags, {limit, random})
             return console.log(posts[0].fileUrl)
+            } catch (err) { console.log(err) }
         }
         booruSearch(sites, tags, 1, true)
+        */
     }
 };
