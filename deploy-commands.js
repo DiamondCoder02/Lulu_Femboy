@@ -12,14 +12,14 @@ try { if (clientId !== "clientID") var c = clientId; else var c = cId} catch {co
 try { if (guildId !== "guildID") var g = guildId; else var g = gId} catch {console.log("guildId missing")}
 const rest = new REST({ version: '9' }).setToken(t);
 
-//ask user for number input from console (Thank you github copilot)
+//ask user for number input from console (github copilot)
 const ask = (question, callback) => {
     const readline = require('readline');
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
-    rl.question("Please choose a number between 1 and 4: \n1. Register new command only in the specific guild. \n2. Register command on all servers( might take an hour to appear). \n3. Delete slash commands only in the specific guild.\n4. Delete commands on all servers( might take an hour to work).\n", (answer) => {
+    rl.question("Please choose a number between 1 and 5: \n1. Register new command only in the specific guild. \n2. Register command on all servers( might take an hour to appear). \n3. Delete slash commands only in the specific guild.\n4. Delete commands on all servers( might take an hour to work).\n5. Exit.\n", (answer) => {
         rl.close();
         callback(answer);
     });
@@ -30,10 +30,12 @@ ask(lang.deploy.question, (answer) => {
         rest.put(Routes.applicationGuildCommands(c, g), { body: commands })
         .then(() => console.log(lang.deploy.success))
         .catch(console.error);
+        console.log(commands)
     } else if (answer == 2) {
         rest.put(Routes.applicationCommands(c), { body: commands })
         .then(() => console.log("Reguistered all commands globally"))
         .catch(console.error);
+        console.log(commands)
     } else if (answer == 3) {
         rest.get(Routes.applicationGuildCommands(c, g))
         .then(data => {
@@ -56,8 +58,9 @@ ask(lang.deploy.question, (answer) => {
             return Promise.all(promises).then(() => console.log("Deleted all commands globally"));
         })
         .catch(console.error);
+    } else if (answer == 5) {
+        return console.log("You have chosen to exit the program. Goodbye!");
     } else {
-        return console.log("Error: Please enter a number between 1 and 4");
+        console.log("Error: Please restart the program and enter a number between 1 and 5");
     }
-    console.log(commands)
 });
