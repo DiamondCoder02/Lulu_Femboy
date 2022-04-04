@@ -1,6 +1,6 @@
 //lewd command (Gihub Copilot)
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const Booru = require('booru')
 const { BooruError } = require('booru')
 module.exports = {
@@ -27,20 +27,19 @@ module.exports = {
             .addChoice('realbooru.net', 'realbooru')
             .setRequired(true)
         )
-        .addStringOption(option => option.setName('tags').setDescription('Tags to search for').setRequired(true))
-        .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10)),
+        .addStringOption(option => option.setName('tags').setDescription('Tags to search for').setRequired(true)),
+        //one day I will do this: .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10)),
     async execute(interaction, client, config, lang) {
     try{
         if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { interaction.reply(lang.nsfw); return }
         const sites = interaction.options.getString('sites')
         const tags = interaction.options.getString('tags')
-        const repeat = interaction.options.getNumber('repeat')
-        console.log(sites + "\n" + tags + "\n" + repeat)
+        //const repeat = interaction.options.getNumber('repeat')
+        //console.log(sites + "\n" + tags + "\n" + repeat)
         // Search with promises
         Booru.search(sites, tags, { limit: 1, random: true }).then(posts => {
             for (let post of posts) {
-                console.log(post + "\n ------------------------------------------- \n")
-                console.log(posts)
+                // console.log(post + "\n ------------------------------------------- \n" + posts)
                 //embed
                 const embed = new MessageEmbed()
                     .setTitle(sites)
@@ -66,7 +65,6 @@ module.exports = {
                 console.error(err)
             }
         })
-
         /*
         async function booruSearch(sites, tags, limit = 1, random = true) {
             try{
