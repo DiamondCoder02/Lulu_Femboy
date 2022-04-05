@@ -1,12 +1,12 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), pr = lang.prune.split('-')
 module.exports = {
 	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('prune')
-		.setDescription('Purge/clean/prune up to 99 messages.')
-		.addIntegerOption(option => option.setName('amount').setDescription('Number of messages to delete/clean/prune').setRequired(true)),
-	async execute(interaction, client, config, lang) {
-		let pr = lang.pr2.split('-')
+		.setDescription(pr[3])
+		.addIntegerOption(option => option.setName('amount').setDescription(pr[4]).setRequired(true)),
+	async execute(interaction) {
 		const amount = interaction.options.getInteger('amount');
 		if (amount <= 1 || amount > 100) {
 			return interaction.reply({ content: pr[0], ephemeral: true });

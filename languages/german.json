@@ -4,7 +4,8 @@
         "no_dm": "(* ￣︿￣) Das Ausführen dieses Befehls in DMs ist deaktiviert. Bitte verwenden Sie diesen Befehl auf einem Server.",
         "error": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!",
         "token": "Bitte geben Sie ein Bot Token an.",
-        "cooldown": "Verbleibende Abklingzeit in Sekunden, bevor Sie den Befehl erneut verwenden können:"
+        "cooldown": "Verbleibende Abklingzeit in Sekunden, bevor Sie den Befehl erneut verwenden können:",
+        "perm": "Sie haben nicht die erforderlichen Berechtigungen, um diesen Befehl auszuführen."
     },
     "deploy": {
         "token": "Bitte geben Sie ein Bot Token an.",
@@ -19,14 +20,25 @@
     "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - bei - Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "bot_info": {
-        "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update:",
+        "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update: - Bot Informationen",
         "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis Listener: - Befehle:"
     },
-    "cl1": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten:",
-    "pr2": "Sie müssen eine Zahl zwischen 1 und 99 eingeben. - Erfolgreich gelöscht - Nachrichten.",
-    "pu3": "Löschen Sie die letzte - Nachricht",
     "nsfw": "Tut mir leid, das ist ein unartiger Befehl!",
     "nekoslife": "sendet ein nettes - an dich,",
-    "ping": "Tage: - Uhrzeit: - Ping wird berechnet... - **Ping berechnet!** - Ping und Betriebszeit - Betriebszeit:",
-    "stop": "Bot gestoppt! - Bot wurde gestoppt von - Falsches Passwort! - Sie haben ein falsches Passwort angegeben"
+    
+    "clean": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten: - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",
+    "ping": "Tage: - Uhrzeit: - Ping wird berechnet... - **Ping berechnet!** - Ping und Betriebszeit - Betriebszeit: - Server-Ping-Berechnung.",
+    "prune": "Sie müssen eine Zahl zwischen 1 und 99 eingeben. - Erfolgreich gelöscht - Nachrichten. - Anzahl der Nachrichten zum Löschen/Säubern/Pruning - Löschen/Säubern/Pruning bis zu 99 Nachrichten.",
+    "purge": "Letzte - Nachricht löschen - Nichts ausgewählt - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",
+    "stop": "Der Bot wurde gestoppt! - Bot wurde gestoppt von - Sie haben ein falsches Passwort angegeben - in - um - Falsches Passwort!",
+    "stopSlash": "Stoppt den Bot mit einem Passwort. - Geben Sie ein Passwort ein, um den Bot zu stoppen",
+    "translate": {
+        "setDesc": "Nachrichten in eine Sprache übersetzen. Bitte wählen Sie die Sprache auf Englisch",
+        "addOptions": "Der Text, der übersetzt werden muss - Übersetzen von (Standard Englisch) - Übersetzen nach (Standard Englisch) - Welche Übersetzungsmaschine soll verwendet werden (Standard Google)",
+        "embed": "Übersetzung von",
+        "embed2": "Übersetzt von",
+        "error": "Fehler: Bitte stellen Sie sicher, dass Sie die Sprachen richtig geschrieben haben.",
+        "long": "Entschuldigung, der Text ist zu lang. Bitte versuchen Sie es erneut mit einem kürzeren Text.",
+        "longEmbed": "Entschuldigung, der übersetzte Text ist zu lang, um angezeigt zu werden."
+    }
 }

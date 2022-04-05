@@ -2,31 +2,43 @@
     "buttons": "dewete",
     "index": {
         "no_dm": "(* ￣︿￣) Execwuting this command in dms is disabwed, UwU. Pwease use this command on a sewvew.",
-        "error": "thewe was an ewwow whiwe executing this command!",
-        "token": "pwease pwovide a bot token.",
-        "cooldown": "coowdown time weft in seconds, befowe you can use the command again:"
+        "error": "Thewe was an ewwow whiwe executing this command!",
+        "token": "Pwease pwovide a bot token.",
+        "cooldown": "Coowdown time weft in seconds, befowe you can use the command again:",
+        "perm": "You do not have the wequiwed pewmissions to execute this command."
     },
     "deploy": {
-        "token": "pwease pwovide a bot token.",
-        "clientid": "pwease pwovide a cwientid.",
-        "success": "successfuwwy wegistewed appwication commands."
+        "token": "Pwease pwovide a bot token.",
+        "clientid": "Pwease pwovide a cwientid.",
+        "success": "Successfuwwy wegistewed appwication commands."
     },
     "ready": {
-        "set_activity": "[]~(￣▽￣)~* leawning new commands",
-        "console_log": "lowwed in as - langwuage: - cwientid: - passwowd: - wready at: - guiwds:",
-        "embed": "bot stawt! - bot has bween stawted - twat was"
+        "set_activity": "[]~(￣▽￣)~* Leawning new commands",
+        "console_log": "Lowwed in as - Langwuage: - Cwientid: - Passwowd: - Wready at: - Guiwds:",
+        "embed": "Bot stawt! - Bot has bween stawted - Twat was"
     },
     "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - at - twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
     "bot_info": {
-        "tdf": "hewe is some infowmation about the bwot and its devewopment: - bwot done: - last update:",
-        "fields": "idea wist: - to fix / bwugs: - command pwefix: - langwuage: - event wistenews: - commands:"
+        "tdf": "Hewe is some infowmation about the bwot and its devewopment: - Bwot done: - Last update: - Bwot infowmation.",
+        "fields": "Idea wist: - To fwix / bwugs: - Command pwefix: - Langwuage: - Event wistenews: - Commands:"
     },
-    "cl1": "pwease sewect a numbew to dewete messages. - successfuwwy deweted messages:",
-    "pr2": "youw need to input a numbew between 1 and 99. - successfuwwy deweted - messages.",
-    "pu3": "dewete the wast - message",
-    "nsfw": "sowwy, this is a not safe fow wowk command! >w<",
+    "nsfw": "Sowwy, this is a not safe fow wowk command! >w<",
     "nekoslife": "sends a nice - to you,",
-    "ping": "days: - time: - cawcuwating ping... - **ping cawcuwated!** - ping and uptime - uptime:",
-    "stop": "bwot stopped! - bwot has been stopped by - wwong passwowd! - you gave a wwong passwowd"
+
+    "clean": "Pwease sewect a numbew to dewete messages. - Successfuwwy deweted messages: - Puwge/cwean/pwune up to 99 messages.",
+    "ping": "days: - time: - cawcuwating ping... - **ping cawcuwated!** - ping and uptime - uptime: - sewvew ping cawcuwation.",
+    "prune": "Youw need to input a numbew between 1 and 99. - Successfuwwy deweted - messages. - Numbew of messages to dewete/cwean/pwune - puwge/cwean/pwune up to 99 messages.",
+    "purge": "Dewete the wast - message - Nothing sewected - Puwge/cwean/pwune up to 99 messages.",
+    "stop": "The bwot has stwopped! - Bwot has been stwopped by - You gave a wwong passwowd - in - at - Wwong passwowd!",
+    "stopslash": "Stops the bot with a passwowd. - Entew a passwowd to stop the bot",
+    "translate": {
+        "setDesc": "Twanswate messages to a wanguage. Pwease choose wanguages in engwish",
+        "addOptions": "The text that needs twanswation - Twanswate fwom (defauwt engwish) - Twanswate to (defauwt engwish) - What twanswation engine to use (defauwt googwe)",
+        "embed": "Twanswation fwom",
+        "embed2": "Twanswated fwom",
+        "error": "Ewwow: Pwease make suwe you wwote the wanguages cowwectwy.",
+        "long": "Sowwy the text is too wong. Pwease twy again with a showtew text.",
+        "longEmbed": "Sowwy the twanswated text is too wong to dispway."
+    }
 }

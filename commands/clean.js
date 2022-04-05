@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton } = require('discord.js');
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), cl = lang.clean.split('-')
 module.exports = {
     guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('clean')
-		.setDescription('Purge/clean/prune up to 99 messages.'),
-	async execute(interaction, client, config, lang) {
-        let cl = lang.cl1.split('-')
+		.setDescription(cl[2]),
+	async execute(interaction) {
         const numberToDelete = new MessageActionRow()
             .addComponents(
                 new MessageButton().setCustomId('25').setLabel('25').setStyle('SECONDARY'),

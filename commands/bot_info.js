@@ -5,14 +5,13 @@ let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.j
 //const lanArray = languagesFiles.map(x => {return x.replace('.json',"\n")})
 //const eventArray = eventFiles.map(x => {return x.replace('.js','\n')})
 //const comArray = commandFiles.map(x => {return x.replace('.js','\n')})
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), td = lang.bot_info.tdf.split('-'), fi = lang.bot_info.fields.split('-')
 module.exports = {
     cooldown: 60,
     data: new SlashCommandBuilder()
 		.setName('bot_info')
-		.setDescription('Bot informations.'),
-	async execute(interaction, client, config, lang) {
-        let td = lang.bot_info.tdf.split('-')
-        let fi = lang.bot_info.fields.split('-')
+		.setDescription(td[3]),
+	async execute(interaction, client, config) {
 		const version_embed = new MessageEmbed()
         .setColor('#00FF00')
         .setTitle(td[0])
@@ -27,7 +26,7 @@ module.exports = {
             { name: fi[5], value: ","+String(comArray), inline:true},
         )
         .setTimestamp()
-        .setFooter({text: td[2]+` 2022.March.26`});
+        .setFooter({text: td[2]+` 2022.April.05`});
         await interaction.reply({embeds: [version_embed]})
     }
 }

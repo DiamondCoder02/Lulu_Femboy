@@ -4,7 +4,8 @@
         "no_dm": "(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.",
         "error": "There was an error while executing this command!",
         "token": "Please provide a bot token.",
-        "cooldown": "Cooldown time left in seconds, before you can use the command again:"
+        "cooldown": "Cooldown time left in seconds, before you can use the command again:",
+        "perm": "You do not have the required permissions to execute this command."
     },
     "deploy": {
         "token": "Please provide a bot token.",
@@ -19,14 +20,25 @@
     "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - at - triggered: - triggered a button. - triggered a select menu.",
     "bot_info": {
-        "tdf": "Here is some information about the bot and its development: - Bot done: - Last update:",
+        "tdf": "Here is some information about the bot and its development: - Bot done: - Last update: - Bot information.",
         "fields": "Idea list: - To fix / Bugs: - Command prefix: - Languages: - Event listeners: - Commands:"
     },
-    "cl1": "Please select a number to delete messages. - Successfully deleted messages:",
-    "pr2": "You need to input a number between 1 and 99. - Successfully deleted - messages.",
-    "pu3": "Delete the last - message",
     "nsfw": "Sorry, this is a Not Safe For Work command!",
     "nekoslife": "sends a nice - to you,",
-    "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime:",
-    "stop": "Bot stopped! - Bot has been stopped by - Wrong password! - You gave a wrong password"
+
+    "clean": "Please select a number to delete messages. - Successfully deleted messages: - Purge/clean/prune up to 99 messages.",
+    "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime: - Server ping calculation.",
+    "prune": "You need to input a number between 1 and 99. - Successfully deleted - messages. - Number of messages to delete/clean/prune - Purge/clean/prune up to 99 messages.",
+    "purge": "Delete the last - message - Nothing selected - Purge/clean/prune up to 99 messages.",
+    "stop": "The bot has stopped! - Bot has been stopped by - You gave a wrong password - in - at - Wrong password!",
+    "stopSlash": "Stops the bot with a password. - Enter a password to stop the bot",
+    "translate": {
+        "setDesc": "Translate messages to a language. Please choose languages in English",
+        "addOptions": "The text that needs translation - Translate from (Default English) - Translate to (Default English) - What translation engine to use (Default Google)",
+        "embed": "Translation from",
+        "embed2": "Translated from",
+        "error": "Error: please make sure you wrote the languages correctly.",
+        "long": "Sorry the text is too long. Please try again with a shorter text.",
+        "longEmbed": "Sorry the translated text is too long to display."
+    }
 }

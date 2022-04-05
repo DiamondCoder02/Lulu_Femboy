@@ -1,20 +1,16 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.stopSlash.split('-'), st = lang.stop.split('-')
 module.exports = {
 	permissions: "ADMINISTRATOR",
 	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('stop')
-		.setDescription('Stops the bot with a password.')
-		.addStringOption(option => option.setName('password').setDescription('Enter a password to stop the bot').setRequired(true)),
-	async execute(interaction, client, config, lang) {
-		let st = lang.stop.split('-')
+		.setDescription(s[0])
+		.addStringOption(option => option.setName('password').setDescription(s[1]).setRequired(true)),
+	async execute(interaction, client, config) {
 		if (config.stopPassword === interaction.options.getString('password')){
-			console.log(`-------------------------\nThe bot has stopped!!!`)
-			try {
-				console.log(`Triggered: ${interaction.user.tag} in ${interaction.guild.name}, #${interaction.channel.name} at ${interaction.createdAt}\n-------------------------`)
-			} catch {
-				console.log(`Triggered: ${interaction.user.tag} in DMs at ${interaction.createdAt}\n-------------------------`)
-			}
+			console.log(`-------------------------\n` + st[0] + `\n` + st[1] +`: ` + interaction.user.tag 
+				+ st[3] + interaction.guild.name+", #"+interaction.channel.name + st[4] + interaction.createdAt + `\n-------------------------`)
 			const embed = new MessageEmbed()
 				.setColor('#ff0000')
 				.setTitle(st[0])
@@ -25,8 +21,8 @@ module.exports = {
 		} else {
 			const embed = new MessageEmbed()
 				.setColor('#0099ff')
-				.setTitle(st[2])
-				.setDescription(st[3] + interaction.user.tag)
+				.setTitle(st[5])
+				.setDescription(st[2] + interaction.user.tag)
 				await interaction.reply({content: st[2], ephemeral: true})
 				await interaction.followUp({embeds: [embed]})
 		}

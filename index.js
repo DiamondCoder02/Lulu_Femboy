@@ -42,12 +42,12 @@ client.on('interactionCreate', async interaction => {
         }
         timestamps.set(interaction.user.id, now);
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
-        //guild role check
+        //guild permission check
         if (command.guildOnly == true) {
             if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {
                 role = true
             } else role = false
-            if (!role && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: "Not enough role"})}
+            if (!role && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perms})}
         }
         //Execute
         try {

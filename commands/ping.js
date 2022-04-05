@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), p = lang.ping.split('-')
 module.exports = {
     cooldown: 30,
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Server ping calculation.'),
-	async execute(interaction, client, config, lang) {
-        let p = lang.ping.split('-')
+		.setDescription(p[6]),
+	async execute(interaction, client) {
         let totalSeconds = (client.uptime / 1000);
 		let days = Math.floor(totalSeconds / 86400);
 		let hours = Math.floor( (totalSeconds %= 86400) / 3600);
