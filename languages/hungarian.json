@@ -1,5 +1,7 @@
 {
-    "buttons": "töröl",
+    "t": "Igaz",
+    "f": "Hamis",
+    "d": "Üzenet törlése",
     "index": {
         "no_dm": "(* ￣︿￣) Ezt a parancsot nem lehet privátban használni. Kérlek használd egy szerveren.",
         "error": "Hiba történt a parancs futtatása közben!",
@@ -8,25 +10,29 @@
         "perm": "Nincs elegendő jogosultságod a parancs használatához."
     },
     "deploy": {
-        "token": "Kérlek adj meg egy helyes bot tokent.",
-        "clientId": "Kérlek adj meg egy helyes ClientId-t",
-        "success": "Sikeresen regisztrálva lettek a parancsok"
+        "error": "Kérlek adj meg egy bot tokent. - Kérlek adj meg egy ClientID. - Kérlek adj meg egy GuildID. - Hiba: Indítsad újra a programot és válasz egy számot 1 és 5 között",
+        "answer": "A választott guildben a parancsok regisztrálva - Parancsok regisztrálva globálisan - A választott guildben a parancsok törölve - Parancsok dörölve globálisan - Kiléptél a programból. Viszlát!",
+        "question": "Válasz egy számot 1 és 5 között: - Parancsok regisztrálása a kiválasztott guildben. - Parancsok regisztrálása globálisan( lehet hogy egy óráig tart míg megjelenik). - Parancsok törlése a kiválasztott guildben - Parancsok törlése globálisan( lehet hogy egy óráig tart míg megjelenik). - Kilépés."
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Új parancsokat tanulok",
         "console_log": "Bejelentkezve mint - Nyelv: - ClientID: - Jelszó: - Készenlétben: - Szerverek:",
         "embed": "Bot elindítva! - Bot el lett indítva - Ez volt "
     },
-    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "felhasználó a - szerveren - csatornában aktiválta: - csatornában aktivált egy gombot. - csatornában aktivált egy menüt.",
+    "nekoslife": "küld egy szép - ot neked,",
     "bot_info": {
         "tdf": "Itt van egypár információ a bot és fejlesztéséről: - Bot kész: - Utolsó frissítés: - Bot információk.",
         "fields": "Ötlet lista: - Javítani / Hibák: - Parancs előjel: - Nyelvek: - Esemény figyelők: - Parancsok:"
     },
     "nsfw": "Bocsi, ez nem egy család barát parancs!",
-    "nekoslife": "küld egy szép - ot neked,",
-
     "clean": "Kérlek válasz hogy mennyi üzenet legyen törölve. - Sikeresen törölt üzenetek: - Max 99 üzenetek törlése.",
+    "info": {
+        "slash": "Szerver és felhasználó információk - Információ a felhasználoról - Felhasználó - Információ a szerverről - Csallólap a szerver információiról(, valószínűleg nem lesz lefordítva)",
+        "user": "Profil / Felhasználó információk - Itt van pár felhasználó információ, kérte: - Felhasználónév: - Felhasználó létrehozva - Felhasználó kreálva: - Felhasználó ID:",
+        "server1": "Szerver infromáció - Itt van pár szerver információ, kérte: - Szerver név és acronym: - Szerver tulajdonos: - Szerver kapacitás: - Szerver létrehozva: - Nagy a szerver? - Szerver ID: - Szerver leírás: - Prémiumok száma és szintje: - Van prémium állapotjelző? - A szerver létrehozva: - Bot csatlakozott:",
+        "server2": "Frissítési csatorna: - Szabálycsatorna: - Rendszercsatorna: - Afk hangcsatorna: - Hangcsatorna bitsebesség: - Afk időtúllépés (min): - Explicit tartalomszűrő szint: - Mfa és nsfw szint: - Szerver csatlakozásához szükséges ellenőrzési szint: - Előnyben részesített szerver területe: - A szerver ellenőrizve? - A szerver partner?"
+    },
     "ping": "Napok: - Idő: - Ping számolása... - **Ping kiszámolva!** - Ping és inditás óta idő - Inditás óta idő: - Server ping számítása.",
     "prune": "Adjál meg egy számot 1 és 99 között. - Sikeresen törölve - üzenet. - Adott mennyiségű üzenet törlése - Max 99 üzenetek törlése.",
     "purge": "Töröl - üzenetet - Nincs választva - Max 99 üzenetek törlése.",

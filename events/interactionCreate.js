@@ -9,13 +9,13 @@ module.exports = {
 				return console.log(i.createdAt + " -- "+ i.user.tag + " DM"+ i_c[2] + i.commandName);
 			}
 			if (i.isCommand()) {
-				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[2] + i.commandName);
+				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] +"#"+ i.channel.name + i_c[2] + i.commandName);
 			}
 			if (i.isButton()) {
-				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[3]);
+				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] +"#"+  i.channel.name + i_c[3]);
 			} 
 			if (i.isSelectMenu()) {
-				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] + i.channel.name + i_c[4]);
+				return console.log(i.createdAt + " -- "+ i.user.tag +" "+ i_c[0] + i.guild.name + i_c[1] +"#"+  i.channel.name + i_c[4]);
 			}
 		} catch (error) {
 			console.log(error)

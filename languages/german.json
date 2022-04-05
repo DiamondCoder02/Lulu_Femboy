@@ -1,5 +1,7 @@
 {
-    "buttons": "löschen",
+    "t": "Wahr",
+    "f": "Falsch",
+    "d": "Nachricht löschen",
     "index": {
         "no_dm": "(* ￣︿￣) Das Ausführen dieses Befehls in DMs ist deaktiviert. Bitte verwenden Sie diesen Befehl auf einem Server.",
         "error": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!",
@@ -8,25 +10,29 @@
         "perm": "Sie haben nicht die erforderlichen Berechtigungen, um diesen Befehl auszuführen."
     },
     "deploy": {
-        "token": "Bitte geben Sie ein Bot Token an.",
-        "clientId": "Bitte geben Sie eine KundenID an.",
-        "success": "Erfolgreich registrierte Anwendungsbefehle."
+        "error": "Bitte geben Sie ein Bot-Token an. - Bitte geben Sie eine ClientID an. - Bitte geben Sie eine GuildID an. - Fehler: Bitte starten Sie das Programm neu und geben Sie eine Zahl zwischen 1 und 5 ein",
+        "answer": "Alle Befehle in der bestimmten Gilde registriert - Alle Befehle global registriert - Alle Befehle in der bestimmten Gilde gelöscht - Alle Befehle global gelöscht - Sie haben sich entschieden, das Programm zu beenden. Auf Wiedersehen!",
+        "question": "Bitte wähle eine Zahl zwischen 1 und 5: - Registriere neuen Befehl nur in der bestimmten Gilde. - Registriere Befehl auf allen Servern (es kann eine Stunde dauern, bis er erscheint). - Lösche Befehle nur in der bestimmten Gilde. - Befehle auf allen Servern löschen (kann eine Stunde dauern). - Beenden."
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Lernen Sie neue Befehle",
         "console_log": "Angemeldet als - Sprache: - KundenID: - Passwort: - Bereit bei: - Gilden:",
         "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
-    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - bei - Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
+    "nekoslife": "sendet ein nettes - an dich,",
     "bot_info": {
         "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update: - Bot Informationen",
         "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis Listener: - Befehle:"
     },
     "nsfw": "Tut mir leid, das ist ein unartiger Befehl!",
-    "nekoslife": "sendet ein nettes - an dich,",
-    
     "clean": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten: - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",
+    "info": {
+        "slash": "Server und Benutzerinformationen! - Informationen über einen Benutzer - Der Benutzer - Informationen über den Server - Cheatsheet über die Serverinformationen( wird wahrscheinlich nicht übersetzt)",
+        "user": "Profil / Benutzerinformationen - Hier sind einige Benutzerinformationen, angefordert von: - Benutzername: - Erstellter Zeitstempel - Benutzer erstellt: - BenutzerID:",
+        "server1": "Serverinformationen - Hier sind einige Serverinformationen, angefordert von: - Gildenname und Akronym: - Serverbesitzer: - Serverkapazität: - Gilde erstellt: - Ist der Server groß? - ServerID: - Gildenbeschreibung: - Premium Anzahl und Stufe: - Ist der Premium-Fortschrittsbalken an? - Gilde erstellt am: - Bot beigetreten am:",
+        "server2": "Aktualisierungskanal: - Regelkanal: - Systemkanal: - Afk Sprachkanal: - Sprachkanal Bitrate: - Afk Zeitüberschreitung (min): - Filterstufe für explizite Inhalte: - MFA und nsfw Stufe: - Verifizierungsstufe für Gilde erforderlich : - Bevorzugtes Servergebietsschema: - Ist die Gilde verifiziert? - Ist die Gilde Partner?"
+    },
     "ping": "Tage: - Uhrzeit: - Ping wird berechnet... - **Ping berechnet!** - Ping und Betriebszeit - Betriebszeit: - Server-Ping-Berechnung.",
     "prune": "Sie müssen eine Zahl zwischen 1 und 99 eingeben. - Erfolgreich gelöscht - Nachrichten. - Anzahl der Nachrichten zum Löschen/Säubern/Pruning - Löschen/Säubern/Pruning bis zu 99 Nachrichten.",
     "purge": "Letzte - Nachricht löschen - Nichts ausgewählt - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",

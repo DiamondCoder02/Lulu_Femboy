@@ -1,5 +1,7 @@
 {
-    "buttons": "dewete",
+    "t": "Twue",
+    "f": "Fwalse",
+    "d": "Dewete mwessage",
     "index": {
         "no_dm": "(* ￣︿￣) Execwuting this command in dms is disabwed, UwU. Pwease use this command on a sewvew.",
         "error": "Thewe was an ewwow whiwe executing this command!",
@@ -8,30 +10,34 @@
         "perm": "You do not have the wequiwed pewmissions to execute this command."
     },
     "deploy": {
-        "token": "Pwease pwovide a bot token.",
-        "clientid": "Pwease pwovide a cwientid.",
-        "success": "Successfuwwy wegistewed appwication commands."
+        "error": "Pwease pwovide a bot token. - Pwease pwovide a cwientid. - Pwease pwovide a guiwdid. - Ewwow: Pwease westawt the pwogwam and entew a numbew between 1 and 5",
+        "answer": "Registewed aww commands in the specific guiwd - Registewed aww commands gwobawwy - Deweted aww commands in the specific guiwd - Deweted aww commands gwobawwy - You have chosen to exit the pwogwam. Goodbye!",
+        "question": "Pwease choose a numbew between 1 and 5: - Registew new command onwy in the specific guiwd. - Registew command on aww sewvews( might take an houw to appeaw). - Dewete all commands onwy in the specific guiwd. - Dewete commands on aww sewvews( might take an houw to wowk). - Exit."
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Leawning new commands",
         "console_log": "Lowwed in as - Langwuage: - Cwientid: - Passwowd: - Wready at: - Guiwds:",
         "embed": "Bot stawt! - Bot has bween stawted - Twat was"
     },
-    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - at - twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
+    "nekoslife": "sends a nice - to you,",
     "bot_info": {
         "tdf": "Hewe is some infowmation about the bwot and its devewopment: - Bwot done: - Last update: - Bwot infowmation.",
         "fields": "Idea wist: - To fwix / bwugs: - Command pwefix: - Langwuage: - Event wistenews: - Commands:"
     },
     "nsfw": "Sowwy, this is a not safe fow wowk command! >w<",
-    "nekoslife": "sends a nice - to you,",
-
     "clean": "Pwease sewect a numbew to dewete messages. - Successfuwwy deweted messages: - Puwge/cwean/pwune up to 99 messages.",
+    "info": {
+        "slash": "Sewvew and usew infowmations! - Info about a usew - The usew - Info about the sewvew - Cheatsheet about the sewvew infos(, pwobabwy won't be twanswated)",
+        "user": "Pwofiwe / Usew infowmations - Hewe awe some uwser infowmation, wequested by: - Usewname: - Cweated timestamp - Usew cweated: - Usewid:",
+        "server1": "Sewvew infowmations - Hewe awe some sewvew infowmation, wequested by: - Guiwd name and acwonym: - Sewvew ownew: - Sewvew capacity: - Guiwd cweated: - Is the sewvew wawge? - Sewvew id: - Guiwd descwiption: - Pwemium count and tiew: - Is pwemium pwogwess baw on? - Guiwd cweated at: - Bot joined at:",
+        "server2": "Update channew: - Ruwes channew: - System channew: - Afk voice channew: - Voice channew bitwate: - Afk timeout (min): - Expwicit content fiwtew wevew: - Mfa and nsfw wevew: - Guiwd wequiwed vewification wevew: - Pwefewwed sewvew wocawe: - Is guiwd vewified? - Is guiwd pawtnewed?"
+    },
     "ping": "days: - time: - cawcuwating ping... - **ping cawcuwated!** - ping and uptime - uptime: - sewvew ping cawcuwation.",
     "prune": "Youw need to input a numbew between 1 and 99. - Successfuwwy deweted - messages. - Numbew of messages to dewete/cwean/pwune - puwge/cwean/pwune up to 99 messages.",
     "purge": "Dewete the wast - message - Nothing sewected - Puwge/cwean/pwune up to 99 messages.",
     "stop": "The bwot has stwopped! - Bwot has been stwopped by - You gave a wwong passwowd - in - at - Wwong passwowd!",
-    "stopslash": "Stops the bot with a passwowd. - Entew a passwowd to stop the bot",
+    "stopSlash": "Stops the bot with a passwowd. - Entew a passwowd to stop the bot",
     "translate": {
         "setDesc": "Twanswate messages to a wanguage. Pwease choose wanguages in engwish",
         "addOptions": "The text that needs twanswation - Twanswate fwom (defauwt engwish) - Twanswate to (defauwt engwish) - What twanswation engine to use (defauwt googwe)",

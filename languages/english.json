@@ -1,5 +1,7 @@
 {
-    "buttons": "delete",
+    "t": "True",
+    "f": "False",
+    "d": "Delete message",
     "index": {
         "no_dm": "(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.",
         "error": "There was an error while executing this command!",
@@ -8,25 +10,29 @@
         "perm": "You do not have the required permissions to execute this command."
     },
     "deploy": {
-        "token": "Please provide a bot token.",
-        "clientId": "Please provide a ClientID.",
-        "success": "Successfully registered application commands."
+        "error": "Please provide a bot token. - Please provide a ClientID. - Please provide a GuildID. - Error: Please restart the program and enter a number between 1 and 5",
+        "answer": "Registered all commands in the specific guild - Registered all commands globally - Deleted all commands in the specific guild - Deleted all commands globally - You have chosen to exit the program. Goodbye!",
+        "question": "Please choose a number between 1 and 5: - Register new command only in the specific guild. - Register command on all servers( might take an hour to appear). - Delete all commands only in the specific guild. - Delete commands on all servers( might take an hour to work). - Exit."
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Learning new commands",
         "console_log": "Logged in as - Language: - ClientID: - Password: - Ready at: - Guilds:",
         "embed": "Bot start! - Bot has been started - That was"
     },
-    "int_create_comment": "Sat Mar 26 2022 01:43:19 -- Coder Diamond#6765 in Diamond's dungeon at #bot-spam triggered: test.",
     "int_create": "in - at - triggered: - triggered a button. - triggered a select menu.",
+    "nekoslife": "sends a nice - to you,",
     "bot_info": {
         "tdf": "Here is some information about the bot and its development: - Bot done: - Last update: - Bot information.",
         "fields": "Idea list: - To fix / Bugs: - Command prefix: - Languages: - Event listeners: - Commands:"
     },
     "nsfw": "Sorry, this is a Not Safe For Work command!",
-    "nekoslife": "sends a nice - to you,",
-
     "clean": "Please select a number to delete messages. - Successfully deleted messages: - Purge/clean/prune up to 99 messages.",
+    "info": {
+        "slash": "Server and user informations! - Info about a user - The user - Info about the server - Cheatsheet about the server infos(, probably won't be translated)",
+        "user": "Profile / User Informations - Here are some user information, requested by: - Username: - Created timestamp - User Created: - UserID:",
+        "server1": "Server Informations - Here are some server information, requested by: - Guild name and acronym: - Server owner: - Server capacity: - Guild Created: - Is the server large? - Server ID: - Guild description: - Premium count and tier: - Is premium progress bar on? - Guild created at: - Bot joined at:",
+        "server2": "Update channel: - Rules channel: - System channel: - Afk voice channel: - Voice channel bitrate: - Afk timeout (min): - Explicit content filter level: - Mfa and nsfw level: - Guild required verification level: - Preferred server locale: - Is guild verified? - Is guild partnered?"
+    },
     "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime: - Server ping calculation.",
     "prune": "You need to input a number between 1 and 99. - Successfully deleted - messages. - Number of messages to delete/clean/prune - Purge/clean/prune up to 99 messages.",
     "purge": "Delete the last - message - Nothing selected - Purge/clean/prune up to 99 messages.",
