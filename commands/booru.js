@@ -1,19 +1,19 @@
 //lewd command (Gihub Copilot)
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.booru.slash.split('-') , e = lang.booru.embed.split('-')
 module.exports = {
 	//guildOnly: true,
 	cooldown: 1,
     data: new SlashCommandBuilder()
         .setName('booru')
-        .setDescription('Search booru for a picture')
-        .addStringOption(option => option.setName('sites').setDescription('Sites to search')
+        .setDescription(s[0])
+        .addStringOption(option => option.setName('sites').setDescription(s[1])
             .addChoice('e621.net 18+', 'e621')
             .addChoice('e926.net <18', 'e926')
-            .addChoice('hypnohub.net 18+', 'hypnohub')
-            .addChoice('danbooru.donmai.us 18+', 'danbooru')
+            //.addChoice('hypnohub.net 18+', 'hypnohub')
+            //.addChoice('danbooru.donmai.us 18+', 'danbooru')
             .addChoice('konachan.com 18+', 'konac')
             .addChoice('konachan.net <18', 'konan')
             .addChoice('yande.re 18+', 'yandere')
@@ -22,61 +22,56 @@ module.exports = {
             .addChoice('safebooru.org <18', 'safebooru')
             .addChoice('tbib.org <18', 'tbib')
             .addChoice('xbooru.com 18+', 'xbooru')
-            .addChoice('rule34.paheal.net 18+', 'paheal')
+            //.addChoice('rule34.paheal.net 18+', 'paheal')
             .addChoice('derpibooru.org 18+', 'derpibooru')
             .addChoice('realbooru.net 18+', 'realbooru')
             .setRequired(true)
         )
-        .addStringOption(option => option.setName('tags').setDescription('Tags to search for').setRequired(true))
-        .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more then one at a time.').setMinValue(1).setMaxValue(10)),
+        .addStringOption(option => option.setName('tags').setDescription(s[2]).setRequired(true))
+        .addNumberOption(option => option.setName('repeat').setDescription(s[3]).setMinValue(1).setMaxValue(10)),
     async execute(interaction) {
         const sites = interaction.options.getString('sites')
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib") { }
         else { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw) } }
-        const tags = interaction.options.getString('tags')
+        const tags = interaction.options.getString('tags').split(' ')
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
-                console.log(posts)
-                //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
-                if (posts.first.rating == 's') { r = "Safe"}
-                if (posts.first.rating == 'q') { r = "Questionable"}
-                if (posts.first.rating == 'e') { r = "Explicit"}
-                if (posts.first.rating == 'u') { r = "Unrated"}
+                //console.log(posts +"\n"+ posts[0].fileUrl)
+                try{ 
+                    //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
+                    if (posts.first.rating == 's') { r = e[0]}
+                    if (posts.first.rating == 'q') { r = e[1]}
+                    if (posts.first.rating == 'e') { r = e[2]}
+                    if (posts.first.rating == 'u') { r = e[3]}
+                } catch(e) { r = "-"}
                 const embed = new MessageEmbed()
-                    .setTitle(sites)
+                    .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
                     .setColor('#ff0000')
-                    .setDescription("Domain: " + posts.first.booru.domain)
-                    .setAuthor({ name: posts.first.booru.domain, iconURL: posts.first.previewUrl, url: posts.first.previewUrl })
-                    .addField('Searched for:', "*"+tags+"*", true)
-                    .addField('Rating:', r, true)
-                    .addField("Tags: ", "`"+posts.first.tags.join(', ')+"`")
+                    .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
+                    .addField("⚖️"+e[4], r, true)
+                    .addField("🔍"+e[5], "*"+tags+"*", true)
+                    .addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ')+"`")
                     .setTimestamp()
-                //console.log(posts[0].fileUrl)
+                const buttons = new MessageActionRow().addComponents(
+                    new MessageButton().setURL(posts[0].fileUrl).setLabel('Link').setStyle('LINK').setEmoji('🖥️'))
                 if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")) {
-                    try{ 
-                        await interaction.reply({embeds: [embed]})
-                    }catch{
-                        await wait(1000);
-                        await interaction.followUp({embeds: [embed]})
-                    }
+                    try{ await interaction.reply({embeds: [embed], components: [buttons]})
+                    }catch{ await interaction.followUp({embeds: [embed], components: [buttons]})}
                     await interaction.followUp({content: posts[0].fileUrl});
-                }
-                else {
+                } else {
                     await embed.setImage(posts[0].fileUrl)
-                    try{
-                        await interaction.reply({embeds: [embed]});
-                    }catch{
-                        await interaction.followUp({embeds: [embed]});
-                    }
+                    try{ await interaction.reply({embeds: [embed], components: [buttons]});
+                    }catch{ await interaction.followUp({embeds: [embed], components: [buttons]}); }
                 }
             }
             booruSearch(sites, tags, 1, true).catch(err => { 
                 if (err instanceof BooruError) { console.error(err) } 
-                else { interaction.reply({content: "Something went wrong. Make sure you wrote the tag and chosen the correct site."});console.error(err) }
+                else { interaction.reply({content: lang.booru.error});console.error(err) }
             })
             a+=1
+            await wait(1000);
         }
     }
 };

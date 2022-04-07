@@ -20,6 +20,11 @@
         "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
     "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
+    "booru": {
+        "slash": "Bildtafeln nach einem Bild durchsuchen - Zu durchsuchende Websites - Zu suchende Tags (mehrere durch Leerzeichen trennen) - Anzahl: Wenn Sie mehr als eines auf einmal erhalten möchten.",
+        "embed": "Sicher - Fragwürdig - Explizit - Nicht bewertet - Bewertung: - Gesucht nach:",
+        "error": "Etwas ist schief gelaufen. Stellen Sie sicher, dass Sie das Tag richtig geschrieben und eine Seite ausgewählt haben."
+    },
     "bot_info": {
         "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update: - Bot Informationen",
         "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis Listener: - Befehle:"

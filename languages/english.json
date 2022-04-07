@@ -20,6 +20,11 @@
         "embed": "Bot start! - Bot has been started - That was"
     },
     "int_create": "triggered: - triggered a button. - triggered a select menu.",
+    "booru": {
+        "slash": "Search imageboards for a picture - Sites to search - Tags to search for (separate multiple with space) - Amount: If you want to get more then one at a time.",
+        "embed": "Safe - Questionable - Explicit - Unrated - Rating: - Searched for:",
+        "error": "Something went wrong. Make sure you wrote the tag correctly and chosen a site."
+    },
     "bot_info": {
         "tdf": "Here is some information about the bot and its development: - Bot done: - Last update: - Bot information.",
         "fields": "Idea list: - To fix / Bugs: - Command prefix: - Languages: - Event listeners: - Commands:"
