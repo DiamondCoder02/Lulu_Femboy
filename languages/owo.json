@@ -19,13 +19,11 @@
         "console_log": "Lowwed in as - Langwuage: - Cwientid: - Passwowd: - Wready at: - Guiwds:",
         "embed": "Bot stawt! - Bot has bween stawted - Twat was"
     },
-    "int_create": "in - at - twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
-    "nekoslife": "sends a nice - to you,",
+    "int_create": "twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
     "bot_info": {
         "tdf": "Hewe is some infowmation about the bwot and its devewopment: - Bwot done: - Last update: - Bwot infowmation.",
         "fields": "Idea wist: - To fwix / bwugs: - Command pwefix: - Langwuage: - Event wistenews: - Commands:"
     },
-    "nsfw": "Sowwy, this is a not safe fow wowk command! >w<",
     "clean": "Pwease sewect a numbew to dewete messages. - Successfuwwy deweted messages: - Puwge/cwean/pwune up to 99 messages.",
     "info": {
         "slash": "Sewvew and usew infowmations! - Info about a usew - The usew - Info about the sewvew - Cheatsheet about the sewvew infos(, pwobabwy won't be twanswated)",
@@ -46,5 +44,7 @@
         "error": "Ewwow: Pwease make suwe you wwote the wanguages cowwectwy.",
         "long": "Sowwy the text is too wong. Pwease twy again with a showtew text.",
         "longEmbed": "Sowwy the twanswated text is too wong to dispway."
-    }
+    },
+    "nekoslife": "sends a nice - to you,",
+    "nsfw": "Sowwy, this is a not safe fow wowk command! >w<"
 }

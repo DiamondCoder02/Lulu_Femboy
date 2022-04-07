@@ -19,13 +19,11 @@
         "console_log": "Logged in as - Language: - ClientID: - Password: - Ready at: - Guilds:",
         "embed": "Bot start! - Bot has been started - That was"
     },
-    "int_create": "in - at - triggered: - triggered a button. - triggered a select menu.",
-    "nekoslife": "sends a nice - to you,",
+    "int_create": "triggered: - triggered a button. - triggered a select menu.",
     "bot_info": {
         "tdf": "Here is some information about the bot and its development: - Bot done: - Last update: - Bot information.",
         "fields": "Idea list: - To fix / Bugs: - Command prefix: - Languages: - Event listeners: - Commands:"
     },
-    "nsfw": "Sorry, this is a Not Safe For Work command!",
     "clean": "Please select a number to delete messages. - Successfully deleted messages: - Purge/clean/prune up to 99 messages.",
     "info": {
         "slash": "Server and user informations! - Info about a user - The user - Info about the server - Cheatsheet about the server infos(, probably won't be translated)",
@@ -46,5 +44,7 @@
         "error": "Error: please make sure you wrote the languages correctly.",
         "long": "Sorry the text is too long. Please try again with a shorter text.",
         "longEmbed": "Sorry the translated text is too long to display."
-    }
+    },
+    "nekoslife": "sends a nice - to you,",
+    "nsfw": "Sorry, this is a Not Safe For Work command!"
 }

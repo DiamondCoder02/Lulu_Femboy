@@ -19,13 +19,11 @@
         "console_log": "Angemeldet als - Sprache: - KundenID: - Passwort: - Bereit bei: - Gilden:",
         "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
-    "int_create": "in - bei - Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
-    "nekoslife": "sendet ein nettes - an dich,",
+    "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "bot_info": {
         "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update: - Bot Informationen",
         "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis Listener: - Befehle:"
     },
-    "nsfw": "Tut mir leid, das ist ein unartiger Befehl!",
     "clean": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten: - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",
     "info": {
         "slash": "Server und Benutzerinformationen! - Informationen über einen Benutzer - Der Benutzer - Informationen über den Server - Cheatsheet über die Serverinformationen( wird wahrscheinlich nicht übersetzt)",
@@ -46,5 +44,7 @@
         "error": "Fehler: Bitte stellen Sie sicher, dass Sie die Sprachen richtig geschrieben haben.",
         "long": "Entschuldigung, der Text ist zu lang. Bitte versuchen Sie es erneut mit einem kürzeren Text.",
         "longEmbed": "Entschuldigung, der übersetzte Text ist zu lang, um angezeigt zu werden."
-    }
+    },
+    "nekoslife": "sendet ein nettes - an dich,",
+    "nsfw": "Tut mir leid, das ist ein unartiger Befehl!"
 }

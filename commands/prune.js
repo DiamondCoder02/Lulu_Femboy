@@ -12,6 +12,7 @@ module.exports = {
 			return interaction.reply({ content: pr[0], ephemeral: true });
 		}
 		await interaction.channel.bulkDelete(amount, true)
+		console.log(pr[1] + `\`${amount}\`` + pr[2])
 		return interaction.reply({ content: pr[1] + `\`${amount}\`` + pr[2]});
 	},
 };
