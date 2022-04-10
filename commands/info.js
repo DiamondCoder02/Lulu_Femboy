@@ -11,11 +11,8 @@ module.exports = {
             .addUserOption(option => option.setName('target').setDescription(sl[2]).setRequired(true)))
         .addSubcommand(subcommand => subcommand.setName('server').setDescription(sl[3]))
         .addSubcommand(subcommand => subcommand.setName('server_cheat').setDescription(sl[4])),
-    async execute(interaction) {
-        const page = new MessageActionRow()
-            .addComponents(
-                new MessageButton().setCustomId('delete').setLabel(lang.d).setStyle('DANGER').setEmoji('✖️')
-            )
+    async execute(interaction, client) {
+        const page = new MessageActionRow().addComponents( new MessageButton().setCustomId('delete').setLabel(lang.d).setStyle('DANGER').setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 10000 });
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
@@ -31,7 +28,7 @@ module.exports = {
                 .setDescription(us[1] + interaction.user.tag)
                 .setAuthor({ name: user.tag, iconURL: profilepic })
                 .setTimestamp()
-                .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
+                .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
                 .addFields(
                     {name: us[2], value: user.username, inline:true},
                     {name: "Tag:", value: user.tag, inline:true},
@@ -54,9 +51,9 @@ module.exports = {
                 .setThumbnail(interaction.guild.iconURL())
                 .setDescription( s1[1] + interaction.user.tag)
                 .setURL('https://discord.gg/CCXgVGTnSh')
-                .setAuthor({ name: 'Femboy_OwO: ', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096', url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
+                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .setTimestamp()
-                .setFooter({ text: 'FembOwO#3146', iconURL: 'https://cdn.discordapp.com/avatars/893200883763011594/e95fdc60fb38bb1a44e218c9d43de7e9.png?size=4096' })
+                .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
                 .addField(s1[2],  interaction.guild.name + `\n(${interaction.guild.nameAcronym})`, true)
                 .addField(s1[3],  String(owner.user.tag), true)
                 .addField(s1[4],  `${interaction.guild.memberCount} / ` + interaction.guild.maximumMembers, true)
@@ -88,6 +85,7 @@ module.exports = {
                 .setColor('#00FF00')
                 .setTitle(sl[4])
                 .setDescription(`(Max25 field per embed) 1/?`)
+                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .addField('01 afkChannel(VoiceChannel)', String(interaction.guild.afkChannel), true)
                 .addField('02 afkTimeout(number)',  String(interaction.guild.afkTimeout), true)
                 .addField('03 available(boolean)',  (interaction.guild.available ? lang.t : lang.f), true)
@@ -117,6 +115,7 @@ module.exports = {
                 .setColor('#00FF00')
                 .setTitle(sl[4])
                 .setDescription(`(Max25 field per embed) 2/?`)
+                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .addField('26 Presences(PresenceManager)', String(interaction.guild.presences), true)
                 .addField('27 PublicUpdatesChannel(TextChannel)', String(interaction.guild.publicUpdatesChannel), true)
                 .addField('28 PublicUpdatesChannelId(snowflake)', String(interaction.guild.publicUpdatesChannelId), true)
