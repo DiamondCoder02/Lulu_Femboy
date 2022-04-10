@@ -2,6 +2,7 @@
     "t": "Igaz",
     "f": "Hamis",
     "d": "Üzenet törlése",
+    "nsfw": "Bocsi, ez nem egy család barát parancs!",
     "index": {
         "no_dm": "(* ￣︿￣) Ezt a parancsot nem lehet privátban használni. Kérlek használd egy szerveren.",
         "error": "Hiba történt a parancs futtatása közben!",
@@ -49,7 +50,5 @@
         "error": "Hiba: Kérlek legyél biztos hogy jól adtad meg a nyelvet.",
         "long": "Bocsi, a szöveg túl hosszú. Légyszi adj meg egy rövidebbet.",
         "longEmbed": "Bocsi, a lefordított szöveg túl hosszú a kiírására."
-    },
-    "nekoslife": "küld egy szép - ot neked,",
-    "nsfw": "Bocsi, ez nem egy család barát parancs!"
+    }
 }

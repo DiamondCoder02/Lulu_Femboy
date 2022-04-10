@@ -2,6 +2,7 @@
     "t": "Twue",
     "f": "Fwalse",
     "d": "Dewete mwessage",
+    "nsfw": "Sowwy, this is a not safe fow wowk command! >w<",
     "index": {
         "no_dm": "(* ￣︿￣) Execwuting this command in dms is disabwed, UwU. Pwease use this command on a sewvew.",
         "error": "Thewe was an ewwow whiwe executing this command!",
@@ -49,7 +50,5 @@
         "error": "Ewwow: Pwease make suwe you wwote the wanguages cowwectwy.",
         "long": "Sowwy the text is too wong. Pwease twy again with a showtew text.",
         "longEmbed": "Sowwy the twanswated text is too wong to dispway."
-    },
-    "nekoslife": "sends a nice - to you,",
-    "nsfw": "Sowwy, this is a not safe fow wowk command! >w<"
+    }
 }

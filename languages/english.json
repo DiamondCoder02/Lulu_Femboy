@@ -2,6 +2,7 @@
     "t": "True",
     "f": "False",
     "d": "Delete message",
+    "nsfw": "Sorry, this is a Not Safe For Work command!",
     "index": {
         "no_dm": "(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.",
         "error": "There was an error while executing this command!",
@@ -49,7 +50,5 @@
         "error": "Error: please make sure you wrote the languages correctly.",
         "long": "Sorry the text is too long. Please try again with a shorter text.",
         "longEmbed": "Sorry the translated text is too long to display."
-    },
-    "nekoslife": "sends a nice - to you,",
-    "nsfw": "Sorry, this is a Not Safe For Work command!"
+    }
 }

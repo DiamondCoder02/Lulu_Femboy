@@ -35,9 +35,9 @@ module.exports = {
         else { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw) } }
         const tags = interaction.options.getString('tags').split(' ')
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
-        for (let a = 0; a < amount; ) {
-            async function booruSearch(sites, tags, limit = 1, random = true) {
-                const posts = await Booru.search(sites, tags, {limit, random})
+        
+            async function booruSearch(sites, tags, limit, random) {
+                const posts = await Booru.search(sites, tags, limit, random)
                 //console.log(posts +"\n"+ posts[0].fileUrl)
                 try{ 
                     //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
@@ -54,8 +54,7 @@ module.exports = {
                     .addField("🔍"+e[5], "*"+tags+"*", true)
                     .addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ')+"`")
                     .setTimestamp()
-                const buttons = new MessageActionRow().addComponents(
-                    new MessageButton().setURL(posts[0].fileUrl).setLabel('Link').setStyle('LINK').setEmoji('🖥️'))
+                const buttons = new MessageActionRow().addComponents( new MessageButton().setURL(posts[0].fileUrl).setLabel('Link').setStyle('LINK').setEmoji('🖥️') )
                 if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")) {
                     try{ await interaction.reply({embeds: [embed], components: [buttons]})
                     }catch{ await interaction.followUp({embeds: [embed], components: [buttons]})}
@@ -66,7 +65,8 @@ module.exports = {
                     }catch{ await interaction.followUp({embeds: [embed], components: [buttons]}); }
                 }
             }
-            booruSearch(sites, tags, 1, true).catch(err => { 
+        for (let a = 0; a < amount; ) {
+            booruSearch(sites, tags, limit = 1, random = true).catch(err => { 
                 if (err instanceof BooruError) { console.error(err) } 
                 else { interaction.reply({content: lang.booru.error});console.error(err) }
             })
