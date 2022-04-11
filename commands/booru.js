@@ -45,6 +45,8 @@ module.exports = {
                     if (posts.first.rating == 'e') { r = e[2]}
                     if (posts.first.rating == 'u') { r = e[3]}
                 } catch(e) { r = "-"}
+                //const tag = posts.first.tags.join(', ')
+                //if (tag.length > 1024) { return interaction.reply({content: lang.translate.long}) }
                 const embed = new MessageEmbed()
                     .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
                     .setColor('#ff0000')
@@ -65,10 +67,12 @@ module.exports = {
                     }catch{ await interaction.followUp({embeds: [embed], components: [buttons]}); }
                 }
             }
-            booruSearch(sites, tags, 1, true).catch(err => { 
-                if (err instanceof BooruError) { console.error(err) } 
-                else { interaction.reply({content: lang.booru.error});console.error(err) }
-            })
+            try{
+                booruSearch(sites, tags, 1, true).catch(err => { 
+                    if (err instanceof BooruError) { console.error(err) } 
+                    else { interaction.reply({content: lang.booru.error});console.error(err) }
+                })
+            } catch(e) { console.error(e) }
             a+=1
             await wait(1000);
         }
