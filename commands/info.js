@@ -18,7 +18,7 @@ module.exports = {
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
         //User, server, cheatsheet
         if (interaction.options.getSubcommand() === 'user') {
-            const user = interaction.options.getUser('target');
+            const user = interaction.options.getUser('target').trim();
             const profilepic = user.displayAvatarURL();
             const usertime = new Date(user.createdTimestamp).toLocaleString();
             const embed = new MessageEmbed()

@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription(s[0])
 		.addStringOption(option => option.setName('password').setDescription(s[1]).setRequired(true)),
 	async execute(interaction, client, config) {
-		if (config.stopPassword === interaction.options.getString('password')){
+		if (config.stopPassword === interaction.options.getString('password').trim()){
 			console.log(`-------------------------\n` + st[0] + `\n` + st[1] +`: ` + interaction.user.tag 
 				+ st[3] + interaction.guild.name+", #"+interaction.channel.name + st[4] + interaction.createdAt + `\n-------------------------`)
 			const embed = new MessageEmbed()

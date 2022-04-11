@@ -29,11 +29,11 @@ module.exports = {
         .addStringOption(option => option.setName('tags').setDescription(s[2]).setRequired(true))
         .addNumberOption(option => option.setName('repeat').setDescription(s[3]).setMinValue(1).setMaxValue(10)),
     async execute(interaction) {
-        const sites = interaction.options.getString('sites')
+        const sites = interaction.options.getString('sites').trim()
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib") { }
         else { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw) } }
-        const tags = interaction.options.getString('tags').split(' ')
-        if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
+        const tags = interaction.options.getString('tags').trim().split(' ')
+        if (interaction.options.getNumber('repeat').trim()) { var amount = Number(interaction.options.getNumber('repeat').trim()) } else var amount = 1
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
