@@ -26,6 +26,4 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [ ] More event listeners
 ### Currently I know broken or needs a bit of fixing:
 - [ ] Better error handling for things 
-- [ ] Weird behaviour sometimes at nHentai when collector gets a stroke 
-- [ ] nHentai also fucky wucky with dms
-- [x] Translation finally works. ~~Not sure but I will find a working translation package that I can use for the translation command~~
+- [ ] nHentai completly broke...
