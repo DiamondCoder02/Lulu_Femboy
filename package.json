@@ -24,7 +24,7 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "nekos.life": "^2.0.9",
-    "shentai": "^2.0.0",
+    "shentai": "^2.0.3",
     "translate": "^1.4.1"
   }
 }
