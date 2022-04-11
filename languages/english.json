@@ -37,6 +37,11 @@
         "server1": "Server Informations - Here are some server information, requested by: - Guild name and acronym: - Server owner: - Server capacity: - Guild Created: - Is the server large? - Server ID: - Guild description: - Premium count and tier: - Is premium progress bar on? - Guild created at: - Bot joined at:",
         "server2": "Update channel: - Rules channel: - System channel: - Afk voice channel: - Voice channel bitrate: - Afk timeout (min): - Explicit content filter level: - Mfa and nsfw level: - Guild required verification level: - Preferred server locale: - Is guild verified? - Is guild partnered?"
     },
+    "nekoslife": {
+        "slash_desc": "Nekoslife wholesomes and lewds. - Wholesome pictures from Nekoslife. - Wholesome others from Nekoslife. - Lewds from Nekoslife. - Lewds art, ero, characthers and others from Nekoslife.",
+        "desc": "Wholesome category - Lewd category - Ping your friend if you want. - Amount: If you want to get more than one at a time. - sends you a nice",
+        "error_reply": "You need to give a text for OwOify, Spoiler and 8ball."
+    },
     "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime: - Server ping calculation.",
     "prune": "You need to input a number between 1 and 99. - Successfully deleted - messages. - Number of messages to delete/clean/prune - Purge/clean/prune up to 99 messages.",
     "purge": "Delete the last - message - Nothing selected - Purge/clean/prune up to 99 messages.",

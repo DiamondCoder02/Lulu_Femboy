@@ -37,6 +37,11 @@
         "server1": "Sewvew infowmations - Hewe awe some sewvew infowmation, wequested by: - Guiwd name and acwonym: - Sewvew ownew: - Sewvew capacity: - Guiwd cweated: - Is the sewvew wawge? - Sewvew id: - Guiwd descwiption: - Pwemium count and tiew: - Is pwemium pwogwess baw on? - Guiwd cweated at: - Bot joined at:",
         "server2": "Update channew: - Ruwes channew: - System channew: - Afk voice channew: - Voice channew bitwate: - Afk timeout (min): - Expwicit content fiwtew wevew: - Mfa and nsfw wevew: - Guiwd wequiwed vewification wevew: - Pwefewwed sewvew wocawe: - Is guiwd vewified? - Is guiwd pawtnewed?"
     },
+    "nekoslife": {
+        "slash_desc": "nekoswife whowesomes and wewds. - whowesome pictuwes fwom nekoswife. - whowesome othews fwom nekoswife. - lewds fwom nekoswife. - lewds awt, ewo, chawacthews and othews fwom nekoswife.",
+        "desc": "whowesome categowy - lewd categowy - ping youw fwiend if you want. - amount: if you want to get mowe than one at a time. - sends you a nice",
+        "error_reply": "you need to giwe a twext fow owoify, spoiwew and 8bawl."
+    },
     "ping": "days: - time: - cawcuwating ping... - **ping cawcuwated!** - ping and uptime - uptime: - sewvew ping cawcuwation.",
     "prune": "Youw need to input a numbew between 1 and 99. - Successfuwwy deweted - messages. - Numbew of messages to dewete/cwean/pwune - puwge/cwean/pwune up to 99 messages.",
     "purge": "Dewete the wast - message - Nothing sewected - Puwge/cwean/pwune up to 99 messages.",

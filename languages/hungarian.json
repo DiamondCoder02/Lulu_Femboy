@@ -37,6 +37,11 @@
         "server1": "Szerver infromáció - Itt van pár szerver információ, kérte: - Szerver név és acronym: - Szerver tulajdonos: - Szerver kapacitás: - Szerver létrehozva: - Nagy a szerver? - Szerver ID: - Szerver leírás: - Prémiumok száma és szintje: - Van prémium állapotjelző? - A szerver létrehozva: - Bot csatlakozott:",
         "server2": "Frissítési csatorna: - Szabálycsatorna: - Rendszercsatorna: - Afk hangcsatorna: - Hangcsatorna bitsebesség: - Afk időtúllépés (min): - Explicit tartalomszűrő szint: - Mfa és nsfw szint: - Szerver csatlakozásához szükséges ellenőrzési szint: - Előnyben részesített szerver területe: - A szerver ellenőrizve? - A szerver partner?"
     },
+    "nekoslife": {
+        "slash_desc": "Nekoslife barátságos és perverz - Barátságos képek Nekoslifeból. - Más barátságos képek Nekoslifeból. - Perverz Nekoslife. - Perverz képek, ero, karakterek és egyebek Nekoslifeból.",
+        "desc": "Barátságos kategória - Perverz kategória - Pinggeld meg a barátodat ha szeretnéd - Mennyiség: Ha többet szeretnél mint egy. - Küld neked egy kellemes",
+        "error_reply": "Meg kell adnod szöveget OwOify, Spoiler és 8ball-hoz."
+    },
     "ping": "Napok: - Idő: - Ping számolása... - **Ping kiszámolva!** - Ping és inditás óta idő - Inditás óta idő: - Server ping számítása.",
     "prune": "Adjál meg egy számot 1 és 99 között. - Sikeresen törölve - üzenet. - Adott mennyiségű üzenet törlése - Max 99 üzenetek törlése.",
     "purge": "Töröl - üzenetet - Nincs választva - Max 99 üzenetek törlése.",

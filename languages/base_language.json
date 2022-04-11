@@ -2,8 +2,9 @@
     "t": "",
     "f": "",
     "d": "",
+    "nsfw": "",
     "index": {
-        "no_dm": "(* ￣︿￣)",
+        "no_dm": "(* ￣︿￣) ",
         "error": "",
         "token": "",
         "cooldown": "",
@@ -15,23 +16,31 @@
         "question": " -  -  -  -  - "
     },
     "ready": {
-        "set_activity": "[]~(￣▽￣)~*",
+        "set_activity": "[]~(￣▽￣)~* ",
         "console_log": " -  -  -  -  - ",
-        "embed": " -  -  "
+        "embed": " -  - "
     },
     "int_create": " -  - ",
-    "nekoslife": " - ",
+    "booru": {
+        "slash": " -  -  - ",
+        "embed": " -  -  -  -  - ",
+        "error": ""
+    },
     "bot_info": {
         "tdf": " -  -  - ",
         "fields": " -  -  -  -  - "
     },
-    "nsfw": "",
     "clean": " -  - ",
     "info": {
         "slash": " -  -  -  - ",
-        "user": " -  -  -  -  -  - ",
+        "user": " -  -  -  -  - ",
         "server1": " -  -  -  -  -  -  -  -  -  -  -  - ",
         "server2": " -  -  -  -  -  -  -  -  -  -  - "
+    },
+    "nekoslife": {
+        "slash_desc": " -  -  -  - ",
+        "desc": " -  -  -  - ",
+        "error_reply": ""
     },
     "ping": " -  -  -  -  -  - ",
     "prune": " -  -  -  - ",

@@ -1,18 +1,18 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
-const sl = lang.info.slash.split('-')
+const sd = lang.nekoslife.slash_desc.split('-'), de = lang.nekoslife.desc.split('-'), er = lang.nekoslife.error_reply
 const wait = require('node:timers/promises').setTimeout;
 const nekoslife = require('nekos.life'), neko = new nekoslife();
 module.exports = {
     cooldown: 5,
 	data: new SlashCommandBuilder()
 		.setName('nekoslife')
-		.setDescription('Pictures from Nekoslife.')
+		.setDescription(sd[0])
         .addSubcommand(subcommand => subcommand
             .setName('wholesome')
-            .setDescription('Wholesome pictures from Nekoslife.')
+            .setDescription(sd[1])
             .addStringOption(option => option.setName("sfw_w")
-                .setDescription("Wholesome category")
+                .setDescription(de[0])
                 .addChoice('Baka', 'baka')
                 .addChoice('Cuddle', 'cuddle')
                 .addChoice('Feed', 'feed')
@@ -29,13 +29,13 @@ module.exports = {
                 .addChoice('Smug', 'smug')
                 .addChoice('Tickle', 'tickle')
                 .setRequired(true))
-            .addUserOption(option => option.setName('target').setDescription('Ping your friend if you want.'))
-            .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10))
+            .addUserOption(option => option.setName('target').setDescription(de[2]))
+            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('sfw_other')
-            .setDescription('Wholesome others from Nekoslife.')
+            .setDescription(sd[2])
             .addStringOption(option => option.setName("sfw_o")
-                .setDescription("Wholesome category")
+                .setDescription(de[0])
                 .addChoice('8ball', 'eightBall')
                 .addChoice('Avatar / Profile Pictures', 'avatar')
                 .addChoice('CatText', 'catText')
@@ -51,13 +51,13 @@ module.exports = {
                 .addChoice('Why', 'why')
                 .addChoice('Woof', 'woof')
                 .setRequired(true))
-            .addStringOption(option => option.setName('text').setDescription('You need to give a text for OwOify and 8ball'))
-            .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10))
+            .addStringOption(option => option.setName('text').setDescription(er))
+            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('lewd')
-            .setDescription('Lewds from Nekoslife.')
+            .setDescription(sd[3])
             .addStringOption(option => option.setName("nsfw_l")
-                .setDescription("Lewd category")
+                .setDescription(de[1])
                 .addChoice('Anal', 'anal')
                 .addChoice('Blowjob', 'blowJob')
                 .addChoice('Blowjob Gif', 'bj')
@@ -82,12 +82,12 @@ module.exports = {
                 .addChoice('Trap', 'trap')
                 .addChoice('Yuri', 'yuri')
                 .setRequired(true))
-            .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('nsfw_other')
-            .setDescription('Lewds art, ero, characthers and others from Nekoslife.')
+            .setDescription(sd[4])
             .addStringOption(option => option.setName("nsfw_o")
-                .setDescription("Lewd category")
+                .setDescription(de[1])
                 .addChoice('Avatar', 'avatar')
                 .addChoice('Cum Arts', 'cumArts')
                 .addChoice('Holo', 'holo')
@@ -105,13 +105,12 @@ module.exports = {
                 .addChoice('Ero Neko', 'eroNeko')
                 .addChoice('Ero Yuri', 'eroYuri')
                 .setRequired(true))
-            .addNumberOption(option => option.setName('repeat').setDescription('Amount: If you want to get more than one at a time.').setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
         ),
 	async execute(interaction, client) {
-        let nl = lang.nekoslife.split('-')
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
-            if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT' && (interaction.options.getString('nsfw_l') || interaction.options.getString('nsfw_o'))) {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
+            if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT' && (interaction.options.getString('nsfw_l') || interaction.options.getString('nsfw_o'))) {interaction.reply(lang.nsfw); return;}
             if (interaction.options.getString('nsfw_o')) { c = interaction.options.getString('nsfw_o')}
             if (interaction.options.getString('nsfw_l')) { c = interaction.options.getString('nsfw_l')}
             if (interaction.options.getString('sfw_w')) { c = interaction.options.getString('sfw_w')}
@@ -146,10 +145,10 @@ module.exports = {
             if (interaction.options.getString('sfw_o') === 'kemonomimi') {lewd = await neko.sfw.kemonomimi()}
             if (interaction.options.getString('sfw_o') === 'why') {lewd = await neko.sfw.why(); let text = lewd.why; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
             if (interaction.options.getString('sfw_o') === 'catText') {lewd = await neko.sfw.catText(); const text = lewd.cat; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
-            if (interaction.options.getString('sfw_o') === 'OwOify') {lewd = await neko.sfw.OwOify({text: interaction.options.getString('text')}); const text = lewd.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply('You need to give a text for OwOify and 8ball')}}
-            if (interaction.options.getString('sfw_o') === 'eightBall') {lewd = await neko.sfw.eightBall({text: interaction.options.getString('text')}); const text = lewd.response ; if(interaction.options.getString('text')){ embed.setDescription("**"+interaction.options.getString('text')+"**\n"+text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply('You need to give a text for OwOify and 8ball')}}
+            if (interaction.options.getString('sfw_o') === 'OwOify') {lewd = await neko.sfw.OwOify({text: interaction.options.getString('text')}); const text = lewd.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply(er)}}
+            if (interaction.options.getString('sfw_o') === 'eightBall') {lewd = await neko.sfw.eightBall({text: interaction.options.getString('text')}); const text = lewd.response ; if(interaction.options.getString('text')){ embed.setDescription("**"+interaction.options.getString('text')+"**\n"+text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply(er)}}
             if (interaction.options.getString('sfw_o') === 'fact') {lewd = await neko.sfw.fact(); const text = lewd.fact; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
-            if (interaction.options.getString('sfw_o') === 'spoiler') {lewd = await neko.sfw.spoiler(); const text = lewd.msg; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
+            if (interaction.options.getString('sfw_o') === 'spoiler') {lewd = await neko.sfw.spoiler({text: interaction.options.getString('text')}); const text = lewd.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply(er)}}
             if (interaction.options.getString('nsfw_l') === 'randomHentaiGif') {lewd = await neko.nsfw.randomHentaiGif()}
             if (interaction.options.getString('nsfw_l') === 'pussy') {lewd = await neko.nsfw.pussy()}
             if (interaction.options.getString('nsfw_l') === 'nekoGif') {lewd = await neko.nsfw.nekoGif()}
@@ -192,7 +191,7 @@ module.exports = {
             embed.setImage(lewd.url)
             if (interaction.options.getUser('target')) {
                 const user = interaction.options.getUser('target'), from = interaction.user
-                embed.setDescription(from.toString() + "sends a nice" + interaction.options.getString('sfw_w') + "to you," + user.toString() + ". :3")
+                embed.setDescription(from.toString() + de[4] + " " + interaction.options.getString('sfw_w') + ", " + user.toString() + ". :3")
                 try{ await interaction.reply({ content: user.toString(), embeds: [embed]}) }
                 catch{
                     await wait(1000)

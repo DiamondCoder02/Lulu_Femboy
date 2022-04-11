@@ -37,6 +37,11 @@
         "server1": "Serverinformationen - Hier sind einige Serverinformationen, angefordert von: - Gildenname und Akronym: - Serverbesitzer: - Serverkapazität: - Gilde erstellt: - Ist der Server groß? - ServerID: - Gildenbeschreibung: - Premium Anzahl und Stufe: - Ist der Premium-Fortschrittsbalken an? - Gilde erstellt am: - Bot beigetreten am:",
         "server2": "Aktualisierungskanal: - Regelkanal: - Systemkanal: - Afk Sprachkanal: - Sprachkanal Bitrate: - Afk Zeitüberschreitung (min): - Filterstufe für explizite Inhalte: - MFA und nsfw Stufe: - Verifizierungsstufe für Gilde erforderlich : - Bevorzugtes Servergebietsschema: - Ist die Gilde verifiziert? - Ist die Gilde Partner?"
     },
+    "nekoslife": {
+        "slash_desc": "Nekoslife gesunde und anzügliche. - Gesunde Bilder aus Nekoslife. - Gesunde andere aus Nekoslife. - Anzügliche aus Nekoslife. - Anzügliche Kunst, Erotik, Charaktere und andere aus Nekoslife.",
+        "desc": "Gesunde Kategorie - Anzügliche Kategorie - Pingen Sie Ihren Freund, wenn Sie möchten. - Betrag: Wenn Sie mehr als einen auf einmal erhalten möchten. - schickt Ihnen ein nettes",
+        "error_reply": "Sie müssen einen Text für OwOify, Spoiler und 8ball eingeben."
+    },
     "ping": "Tage: - Uhrzeit: - Ping wird berechnet... - **Ping berechnet!** - Ping und Betriebszeit - Betriebszeit: - Server-Ping-Berechnung.",
     "prune": "Sie müssen eine Zahl zwischen 1 und 99 eingeben. - Erfolgreich gelöscht - Nachrichten. - Anzahl der Nachrichten zum Löschen/Säubern/Pruning - Löschen/Säubern/Pruning bis zu 99 Nachrichten.",
     "purge": "Letzte - Nachricht löschen - Nichts ausgewählt - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",
