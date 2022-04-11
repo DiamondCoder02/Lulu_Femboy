@@ -108,7 +108,7 @@ module.exports = {
             .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
         ),
 	async execute(interaction, client) {
-        if (interaction.options.getNumber('repeat').trim()) { var amount = Number(interaction.options.getNumber('repeat').trim()) } else var amount = 1
+        if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
             if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT' && (interaction.options.getString('nsfw_l').trim() || interaction.options.getString('nsfw_o').trim())) {interaction.reply(lang.nsfw); return;}
             if (interaction.options.getString('nsfw_o')) { c = interaction.options.getString('nsfw_o').trim()}
