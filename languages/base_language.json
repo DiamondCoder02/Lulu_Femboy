@@ -24,7 +24,8 @@
     "booru": {
         "slash": " -  -  - ",
         "embed": " -  -  -  -  - ",
-        "error": ""
+        "error": "",
+        "err": ""
     },
     "bot_info": {
         "tdf": " -  -  - ",

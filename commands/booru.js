@@ -37,6 +37,7 @@ module.exports = {
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
+                if (posts.length === 0) { return console.log(lang.booru.err) }
                 //console.log(posts +"\n"+ posts[0].fileUrl)
                 try{ 
                     //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
@@ -45,8 +46,6 @@ module.exports = {
                     if (posts.first.rating == 'e') { r = e[2]}
                     if (posts.first.rating == 'u') { r = e[3]}
                 } catch(e) { r = "-"}
-                //const tag = posts.first.tags.join(', ')
-                //if (tag.length > 1024) { return interaction.reply({content: lang.translate.long}) }
                 const embed = new MessageEmbed()
                     .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
                     .setColor('#ff0000')

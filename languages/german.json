@@ -24,7 +24,8 @@
     "booru": {
         "slash": "Bildtafeln nach einem Bild durchsuchen - Zu durchsuchende Websites - Zu suchende Tags (mehrere durch Leerzeichen trennen) - Anzahl: Wenn Sie mehr als eines auf einmal erhalten möchten.",
         "embed": "Sicher - Fragwürdig - Explizit - Nicht bewertet - Bewertung: - Gesucht nach:",
-        "error": "Etwas ist schief gelaufen. Stellen Sie sicher, dass Sie das Tag richtig geschrieben und eine Seite ausgewählt haben."
+        "error": "Etwas ist schief gelaufen. Stellen Sie sicher, dass Sie das Tag richtig geschrieben und eine Seite ausgewählt haben.",
+        "err": "Es wurden keine Ergebnisse gefunden. Versuchen Sie es erneut mit weniger Tags."
     },
     "bot_info": {
         "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update: - Bot Informationen",

@@ -24,7 +24,8 @@
     "booru": {
         "slash": "Képek keresése képtáblákon - Keresendő webhelyek - Keresendő címkék (több címkét szóközzel válasszad el) - Mennyiség: Ha egyszerre többet szeretnél, mint egyet.",
         "embed": "Család barát - Kérdéses - Perverz - Nincs besorolva - Értékelés: - Keresettek:",
-        "error": "Valami hiba történt. Győződjön meg arról, hogy helyesen írta be a címkét, és választotta ki a webhelyet."
+        "error": "Valami hiba történt. Győződjön meg arról, hogy helyesen írta be a címkét, és választotta ki a webhelyet.",
+        "err": "Nincs találat. Próbáld meg újra, kevesebb szóval."
     },
     "bot_info": {
         "tdf": "Itt van egypár információ a bot és fejlesztéséről: - Bot kész: - Utolsó frissítés: - Bot információk.",
