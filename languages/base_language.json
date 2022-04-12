@@ -23,9 +23,8 @@
     "int_create": " -  - ",
     "booru": {
         "slash": " -  -  - ",
-        "embed": " -  -  -  -  - ",
+        "embed": " -  -  -  -  -  - ",
         "error": "",
-        "err": "",
         "long_tag": ""
     },
     "bot_info": {

@@ -23,9 +23,8 @@
     "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "booru": {
         "slash": "Bildtafeln nach einem Bild durchsuchen - Zu durchsuchende Websites - Zu suchende Tags (mehrere durch Leerzeichen trennen) - Anzahl: Wenn Sie mehr als eines auf einmal erhalten möchten.",
-        "embed": "Sicher - Fragwürdig - Explizit - Nicht bewertet - Bewertung: - Gesucht nach:",
+        "embed": "Sicher - Fragwürdig - Explizit - Nicht bewertet - Bewertung: - Gesucht nach: - Suchen",
         "error": "Etwas ist schief gelaufen. Stellen Sie sicher, dass Sie das Tag richtig geschrieben und eine Seite ausgewählt haben.",
-        "err": "Es wurden keine Ergebnisse gefunden. Versuchen Sie es erneut mit weniger Tags.",
         "long_tag": "Leider sind die Tags zu lang, um angezeigt zu werden."
     },
     "bot_info": {

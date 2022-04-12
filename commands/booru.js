@@ -34,12 +34,11 @@ module.exports = {
         else { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw) } }
         const tags = interaction.options.getString('tags').trim().split(' ')
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
+        await interaction.reply(e[6]+"...")
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
-                if (posts.length === 0) { try{return interaction.followUp({content: lang.booru.err})}catch{return interaction.reply({content: lang.booru.err})} }
-                const tag = posts.first.tags.join(', ').length
-                if (posts.first.tags.join(', ').length > 1000) { try{return interaction.followUp({content: lang.booru.long_tag})}catch{return interaction.reply({content: lang.booru.long_tag})}}
+                if (posts.length === 0) { return interaction.followUp({content: lang.booru.error})}
                 //console.log(posts +"\n"+ posts[0].fileUrl)
                 try{ 
                     //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
@@ -54,26 +53,24 @@ module.exports = {
                     .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
                     .addField("⚖️"+e[4], r, true)
                     .addField("🔍"+e[5], "*"+tags+"*", true)
-                    .addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ')+"`")
                     .setTimestamp()
+                if (posts.first.tags.join(', ').length > 1000) {embed.addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ').substring(0,999)+"...`")} else {embed.addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ')+"`")}
                 const buttons = new MessageActionRow().addComponents(
                     new MessageButton().setURL(posts[0].fileUrl).setLabel('Link').setStyle('LINK').setEmoji('🖥️'))
                 if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")|| posts[0].fileUrl.includes(".gif")) {
-                    try{ await interaction.reply({embeds: [embed], components: [buttons]})
-                    }catch{ await interaction.followUp({embeds: [embed], components: [buttons]})}
+                    await interaction.followUp({embeds: [embed], components: [buttons]})
                     await interaction.followUp({content: posts[0].fileUrl});
                 } else {
                     await embed.setImage(posts[0].fileUrl)
-                    try{ await interaction.reply({embeds: [embed], components: [buttons]});
-                    }catch{ await interaction.followUp({embeds: [embed], components: [buttons]}); }
+                    await interaction.followUp({embeds: [embed], components: [buttons]})
                 }
             }
             booruSearch(sites, tags, 1, true).catch(err => { 
                 if (err instanceof BooruError) { console.error(err) } 
-                else { console.error(err) ; try{return interaction.followUp({content: lang.booru.error})}catch{return interaction.reply({content: lang.booru.error})} }
+                else { console.error(err) ; return interaction.followUp({content: lang.booru.error})}
             })
             a+=1
-            await wait(1500);
+            await wait(2000);
         }
     }
 };
