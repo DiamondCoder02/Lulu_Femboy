@@ -37,7 +37,9 @@ module.exports = {
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
-                if (posts.length === 0) { return console.log(lang.booru.err) }
+                if (posts.length === 0) { try{return interaction.followUp({content: lang.booru.err})}catch{return interaction.reply({content: lang.booru.err})} }
+                const tag = posts.first.tags.join(', ').length
+                if (posts.first.tags.join(', ').length > 1000) { try{return interaction.followUp({content: lang.booru.long_tag})}catch{return interaction.reply({content: lang.booru.long_tag})}}
                 //console.log(posts +"\n"+ posts[0].fileUrl)
                 try{ 
                     //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
@@ -56,7 +58,7 @@ module.exports = {
                     .setTimestamp()
                 const buttons = new MessageActionRow().addComponents(
                     new MessageButton().setURL(posts[0].fileUrl).setLabel('Link').setStyle('LINK').setEmoji('🖥️'))
-                if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")) {
+                if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")|| posts[0].fileUrl.includes(".gif")) {
                     try{ await interaction.reply({embeds: [embed], components: [buttons]})
                     }catch{ await interaction.followUp({embeds: [embed], components: [buttons]})}
                     await interaction.followUp({content: posts[0].fileUrl});
@@ -66,14 +68,12 @@ module.exports = {
                     }catch{ await interaction.followUp({embeds: [embed], components: [buttons]}); }
                 }
             }
-            try{
-                booruSearch(sites, tags, 1, true).catch(err => { 
-                    if (err instanceof BooruError) { console.error(err) } 
-                    else { interaction.reply({content: lang.booru.error});console.error(err) }
-                })
-            } catch(e) { console.error(e) }
+            booruSearch(sites, tags, 1, true).catch(err => { 
+                if (err instanceof BooruError) { console.error(err) } 
+                else { console.error(err) ; try{return interaction.followUp({content: lang.booru.error})}catch{return interaction.reply({content: lang.booru.error})} }
+            })
             a+=1
-            await wait(1000);
+            await wait(1500);
         }
     }
 };

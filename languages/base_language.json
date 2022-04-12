@@ -25,7 +25,8 @@
         "slash": " -  -  - ",
         "embed": " -  -  -  -  - ",
         "error": "",
-        "err": ""
+        "err": "",
+        "long_tag": ""
     },
     "bot_info": {
         "tdf": " -  -  - ",

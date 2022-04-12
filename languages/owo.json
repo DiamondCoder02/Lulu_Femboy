@@ -25,7 +25,8 @@
         "slash": "Seawch imageboawds fow a pictuwe - Sites to seawch - Tags to seawch fow (sepawate muwtipwe tags with space) - Amount: if you want to get mowe then one at a time.",
         "embed": "Safe - Questionabwe - Expwicit - Unwated - Rating: - Seawched fow:",
         "error": "Something went wwong. Make suwe you wwote the tag cowwectwy and chwowosen a site.",
-        "err": "no wesuwts wewe found. Twy again with fewew tags."
+        "err": "no wesuwts wewe found. Twy again with fewew tags.",
+        "long_tag": "sowwy the tags awe too wong to be dispwayed."
     },
     "bot_info": {
         "tdf": "Hewe is some infowmation about the bwot and its devewopment: - Bwot done: - Last update: - Bwot infowmation.",
