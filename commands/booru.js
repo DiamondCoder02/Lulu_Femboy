@@ -32,7 +32,7 @@ module.exports = {
         const sites = interaction.options.getString('sites').trim()
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib") { }
         else { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw) } }
-        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('paheal') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply("please give me a tag to find a random picture") }
+        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('paheal') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply(lang.booru.tag) }
         else if(!interaction.options.getString('tags')) {tags = ""}
         //else if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply("please don't use tags with this site") }
         else { tags = interaction.options.getString('tags').trim().split(' ')}
