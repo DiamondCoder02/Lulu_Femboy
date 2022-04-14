@@ -3,6 +3,7 @@
     "f": "",
     "d": "",
     "nsfw": "",
+    "amount": "",
     "index": {
         "no_dm": "(* ￣︿￣) ",
         "error": "",
@@ -22,7 +23,7 @@
     },
     "int_create": " -  - ",
     "booru": {
-        "slash": " -  -  - ",
+        "slash": " -  - ",
         "embed": " -  -  -  -  -  - ",
         "error": "",
         "long_tag": "",
@@ -41,8 +42,12 @@
     },
     "nekoslife": {
         "slash_desc": " -  -  -  - ",
-        "desc": " -  -  -  - ",
+        "desc": " -  -  - ",
         "error_reply": ""
+    },
+    "phub": {
+        "swash": " -  - ",
+        "wepwy": " -  -  -  - "
     },
     "ping": " -  -  -  -  -  - ",
     "prune": " -  -  -  - ",

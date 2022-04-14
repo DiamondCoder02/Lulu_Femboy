@@ -27,7 +27,7 @@ module.exports = {
             .setRequired(true)
         )
         .addStringOption(option => option.setName('tags').setDescription(s[2]))
-        .addNumberOption(option => option.setName('repeat').setDescription(s[3]).setMinValue(1).setMaxValue(10)),
+        .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10)),
     async execute(interaction) {
         const sites = interaction.options.getString('sites').trim()
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib") { }

@@ -3,6 +3,7 @@
     "f": "Fwalse",
     "d": "Dewete mwessage",
     "nsfw": "Sowwy, this is a not safe fow wowk command! >w<",
+    "amount": "Amount: if you want to get mowe then one at a time.",
     "index": {
         "no_dm": "(* ￣︿￣) Execwuting this command in dms is disabwed, UwU. Pwease use this command on a sewvew.",
         "error": "Thewe was an ewwow whiwe executing this command!",
@@ -22,7 +23,7 @@
     },
     "int_create": "twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
     "booru": {
-        "slash": "Seawch imageboawds fow a pictuwe - Sites to seawch - Tags to seawch fow (sepawate muwtipwe tags with space) - Amount: if you want to get mowe then one at a time.",
+        "slash": "Seawch imageboawds fow a pictuwe - Sites to seawch - Tags to seawch fow (sepawate muwtipwe tags with space)",
         "embed": "Safe - Questionabwe - Expwicit - Unwated - Rating: - Seawched fow: - Seawching UwU",
         "error": "Something went wwong. Make suwe you wwote the tag cowwectwy and chwowosen a site.",
         "long_tag": "Sowwy the tags awe too wong to be dispwayed.",
@@ -41,8 +42,12 @@
     },
     "nekoslife": {
         "slash_desc": "nekoswife whowesomes and wewds. - whowesome pictuwes fwom nekoswife. - whowesome othews fwom nekoswife. - lewds fwom nekoswife. - lewds awt, ewo, chawacthews and othews fwom nekoswife.",
-        "desc": "whowesome categowy - lewd categowy - ping youw fwiend if you want. - amount: if you want to get mowe than one at a time. - sends you a nice",
+        "desc": "whowesome categowy - lewd categowy - ping youw fwiend if you want. - sends you a nice",
         "error_reply": "you need to giwe a twext fow owoify, spoiwew and 8bawl."
+    },
+    "phub": {
+        "slash": "Discowd pown database with mowe than 5000 ewements - 66 categowies you might be intewested. Wwite onwy one - If you want something specific fiwe (.gif,.jpg,.mp4,...)",
+        "reply": "Random fwom discowd phub - These awe the avaiwabwe catogowies and twypes - Categowy - Twype - You cannot have that combination. Sowwy!"
     },
     "ping": "days: - time: - cawcuwating ping... - **ping cawcuwated!** - ping and uptime - uptime: - sewvew ping cawcuwation.",
     "prune": "Youw need to input a numbew between 1 and 99. - Successfuwwy deweted - messages. - Numbew of messages to dewete/cwean/pwune - puwge/cwean/pwune up to 99 messages.",

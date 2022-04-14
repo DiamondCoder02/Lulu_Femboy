@@ -3,6 +3,7 @@
     "f": "Hamis",
     "d": "Üzenet törlése",
     "nsfw": "Bocsi, ez nem egy család barát parancs!",
+    "amount": "Mennyiség: Ha egyszerre többet szeretnél, mint egyet.",
     "index": {
         "no_dm": "(* ￣︿￣) Ezt a parancsot nem lehet privátban használni. Kérlek használd egy szerveren.",
         "error": "Hiba történt a parancs futtatása közben!",
@@ -22,7 +23,7 @@
     },
     "int_create": "csatornában aktiválta: - csatornában aktivált egy gombot. - csatornában aktivált egy menüt.",
     "booru": {
-        "slash": "Képek keresése képtáblákon - Keresendő webhelyek - Keresendő címkék (több címkét szóközzel válasszad el) - Mennyiség: Ha egyszerre többet szeretnél, mint egyet.",
+        "slash": "Képek keresése képtáblákon - Keresendő webhelyek - Keresendő címkék (több címkét szóközzel válasszad el)",
         "embed": "Család barát - Kérdéses - Perverz - Nincs besorolva - Értékelés: - Keresettek: - Keresés",
         "error": "Valami hiba történt. Győződjön meg arról, hogy helyesen írta be a címkét, és választotta ki a webhelyet.",
         "long_tag": "Bocsi, túl sok a tag a megmutatáshoz.",
@@ -41,8 +42,12 @@
     },
     "nekoslife": {
         "slash_desc": "Nekoslife barátságos és perverz - Barátságos képek Nekoslifeból. - Más barátságos képek Nekoslifeból. - Perverz Nekoslife. - Perverz képek, ero, karakterek és egyebek Nekoslifeból.",
-        "desc": "Barátságos kategória - Perverz kategória - Pinggeld meg a barátodat ha szeretnéd - Mennyiség: Ha többet szeretnél mint egy. - Küld neked egy kellemes",
+        "desc": "Barátságos kategória - Perverz kategória - Pinggeld meg a barátodat ha szeretnéd - Küld neked egy kellemes",
         "error_reply": "Meg kell adnod szöveget OwOify, Spoiler és 8ball-hoz."
+    },
+    "phub": {
+        "slash": "Discord porn adatbázis több mint 5000 elemmel - 66 kategoria ami érdekelhet. Csak EGYET írjál - Ha szeretnél egy konkrét fájlt (.gif, .jpg, .mp4,...)",
+        "reply": "Random Discord phub - Ezek az elérhető kategóriák és fájltípusok - Kategória - Típus - Ezeket nem írhatod eggyüt. Bocsi!"
     },
     "ping": "Napok: - Idő: - Ping számolása... - **Ping kiszámolva!** - Ping és inditás óta idő - Inditás óta idő: - Server ping számítása.",
     "prune": "Adjál meg egy számot 1 és 99 között. - Sikeresen törölve - üzenet. - Adott mennyiségű üzenet törlése - Max 99 üzenetek törlése.",

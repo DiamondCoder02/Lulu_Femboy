@@ -19,11 +19,13 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 "Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.
 
 ### Future (maybe) ideas:
-- [ ] Even more 18+ 
+- [x] Even more 18+ 
 - [ ] reminder
 - [ ] Music
 - [ ] Better role handling
 - [ ] More event listeners
+- [ ] Make website to edit config?
+- [ ] Welcome message to system channel (embed or image?)
 ### Currently I know broken or needs a bit of fixing:
 - [ ] Better error handling for things 
-- [ ] nHentai completly broke...
+- [ ] nHentai broke

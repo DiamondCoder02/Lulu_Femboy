@@ -30,7 +30,7 @@ module.exports = {
                 .addChoice('Tickle', 'tickle')
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription(de[2]))
-            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('sfw_other')
             .setDescription(sd[2])
@@ -52,7 +52,7 @@ module.exports = {
                 .addChoice('Woof', 'woof')
                 .setRequired(true))
             .addStringOption(option => option.setName('text').setDescription(er))
-            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('lewd')
             .setDescription(sd[3])
@@ -82,7 +82,7 @@ module.exports = {
                 .addChoice('Trap', 'trap')
                 .addChoice('Yuri', 'yuri')
                 .setRequired(true))
-            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('nsfw_other')
             .setDescription(sd[4])
@@ -105,7 +105,7 @@ module.exports = {
                 .addChoice('Ero Neko', 'eroNeko')
                 .addChoice('Ero Yuri', 'eroYuri')
                 .setRequired(true))
-            .addNumberOption(option => option.setName('repeat').setDescription(de[3]).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         ),
 	async execute(interaction, client) {
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
@@ -191,7 +191,7 @@ module.exports = {
             embed.setImage(lewd.url)
             if (interaction.options.getUser('target')) {
                 const user = interaction.options.getUser('target'), from = interaction.user
-                embed.setDescription(from.toString() + de[4] + " " + interaction.options.getString('sfw_w').trim() + ", " + user.toString() + ". :3")
+                embed.setDescription(from.toString() + de[3] + " " + interaction.options.getString('sfw_w').trim() + ", " + user.toString() + ". :3")
                 try{ await interaction.reply({ content: user.toString(), embeds: [embed]}) }
                 catch{
                     await wait(1000)

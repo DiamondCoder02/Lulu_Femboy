@@ -3,6 +3,7 @@
     "f": "False",
     "d": "Delete message",
     "nsfw": "Sorry, this is a Not Safe For Work command!",
+    "amount": "Amount: If you want to get more then one at a time.",
     "index": {
         "no_dm": "(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.",
         "error": "There was an error while executing this command!",
@@ -22,7 +23,7 @@
     },
     "int_create": "triggered: - triggered a button. - triggered a select menu.",
     "booru": {
-        "slash": "Search imageboards for a picture - Sites to search - Tags to search for (separate multiple with space) - Amount: If you want to get more then one at a time.",
+        "slash": "Search imageboards for a picture - Sites to search - Tags to search for (separate multiple with space)",
         "embed": "Safe - Questionable - Explicit - Unrated - Rating: - Searched for: - Searching",
         "error": "Something went wrong. Make sure you wrote the tag correctly and chosen a site.",
         "long_tag": "Sorry the tags are too long to be displayed.",
@@ -41,8 +42,12 @@
     },
     "nekoslife": {
         "slash_desc": "Nekoslife wholesomes and lewds. - Wholesome pictures from Nekoslife. - Wholesome others from Nekoslife. - Lewds from Nekoslife. - Lewds art, ero, characthers and others from Nekoslife.",
-        "desc": "Wholesome category - Lewd category - Ping your friend if you want. - Amount: If you want to get more than one at a time. - sends you a nice",
+        "desc": "Wholesome category - Lewd category - Ping your friend if you want. - sends you a nice",
         "error_reply": "You need to give a text for OwOify, Spoiler and 8ball."
+    },
+    "phub": {
+        "slash": "Discord porn database with more than 5000 elements - 66 categories you might be interested. Write only ONE - If you want something specific file (.gif, .jpg, .mp4,...)",
+        "reply": "Random from Discord phub - These are the available catogories and types - Category - Type - You cannot have that combination. Sorry!"
     },
     "ping": "Days: - Time: - Calculating ping... - **Ping calculated!** - Ping and uptime - Uptime: - Server ping calculation.",
     "prune": "You need to input a number between 1 and 99. - Successfully deleted - messages. - Number of messages to delete/clean/prune - Purge/clean/prune up to 99 messages.",

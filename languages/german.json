@@ -3,6 +3,7 @@
     "f": "Falsch",
     "d": "Nachricht löschen",
     "nsfw": "Tut mir leid, das ist ein unartiger Befehl!",
+    "amount": "Anzahl: Wenn Sie mehr als eines auf einmal erhalten möchten.",
     "index": {
         "no_dm": "(* ￣︿￣) Das Ausführen dieses Befehls in DMs ist deaktiviert. Bitte verwenden Sie diesen Befehl auf einem Server.",
         "error": "Beim Ausführen dieses Befehls ist ein Fehler aufgetreten!",
@@ -22,7 +23,7 @@
     },
     "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "booru": {
-        "slash": "Bildtafeln nach einem Bild durchsuchen - Zu durchsuchende Websites - Zu suchende Tags (mehrere durch Leerzeichen trennen) - Anzahl: Wenn Sie mehr als eines auf einmal erhalten möchten.",
+        "slash": "Bildtafeln nach einem Bild durchsuchen - Zu durchsuchende Websites - Zu suchende Tags (mehrere durch Leerzeichen trennen)",
         "embed": "Sicher - Fragwürdig - Explizit - Nicht bewertet - Bewertung: - Gesucht nach: - Suchen",
         "error": "Etwas ist schief gelaufen. Stellen Sie sicher, dass Sie das Tag richtig geschrieben und eine Seite ausgewählt haben.",
         "long_tag": "Leider sind die Tags zu lang, um angezeigt zu werden.",
@@ -41,8 +42,12 @@
     },
     "nekoslife": {
         "slash_desc": "Nekoslife gesunde und anzügliche. - Gesunde Bilder aus Nekoslife. - Gesunde andere aus Nekoslife. - Anzügliche aus Nekoslife. - Anzügliche Kunst, Erotik, Charaktere und andere aus Nekoslife.",
-        "desc": "Gesunde Kategorie - Anzügliche Kategorie - Pingen Sie Ihren Freund, wenn Sie möchten. - Betrag: Wenn Sie mehr als einen auf einmal erhalten möchten. - schickt Ihnen ein nettes",
+        "desc": "Gesunde Kategorie - Anzügliche Kategorie - Pingen Sie Ihren Freund, wenn Sie möchten. - schickt Ihnen ein nettes",
         "error_reply": "Sie müssen einen Text für OwOify, Spoiler und 8ball eingeben."
+    },
+    "phub": {
+        "slash": "Discord Pornodatenbank mit mehr als 5000 Elementen - 66 Kategorien, die Sie interessieren könnten. Schreiben Sie nur EINE - Wenn Sie eine bestimmte Datei (.gif, .jpg, .mp4, ...) möchten",
+        "reply": "Random from Discord phub - Dies sind die verfügbaren Kategorien und Typen - Kategorie - Typ - Sie können diese Kombination nicht haben. Tut mir leid!"
     },
     "ping": "Tage: - Uhrzeit: - Ping wird berechnet... - **Ping berechnet!** - Ping und Betriebszeit - Betriebszeit: - Server-Ping-Berechnung.",
     "prune": "Sie müssen eine Zahl zwischen 1 und 99 eingeben. - Erfolgreich gelöscht - Nachrichten. - Anzahl der Nachrichten zum Löschen/Säubern/Pruning - Löschen/Säubern/Pruning bis zu 99 Nachrichten.",
