@@ -22,6 +22,10 @@
         "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
     "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
+    "Akinator": {
+        "slash": "Spiele das Akinator-Spiel. - Gib eine Sprache ein (Standard: en) - Wenn du den Kindermodus möchtest (Standard: wahr) - Gib einen Spieltyp ein (Standard: Charakter) - Wenn du eine Schaltfläche möchtest (Standard: wahr) - Tiere - Charaktere - Objekt",
+        "error": "Ein Fehler ist aufgetreten. Stellen Sie sicher, dass Sie die richtige Sprache auswählen."
+    },
     "booru": {
         "slash": "Bildtafeln nach einem Bild durchsuchen - Zu durchsuchende Websites - Zu suchende Tags (mehrere durch Leerzeichen trennen)",
         "embed": "Sicher - Fragwürdig - Explizit - Nicht bewertet - Bewertung: - Gesucht nach: - Suchen",

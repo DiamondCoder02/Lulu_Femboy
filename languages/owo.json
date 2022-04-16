@@ -22,6 +22,10 @@
         "embed": "Bot stawt! - Bot has bween stawted - Twat was"
     },
     "int_create": "twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
+    "akinator": {
+        "slash": "Pway the Akinatow game. - Entew a wanguage (defauwt: en) - Ff you want chiwd mode (defauwt: twue) - Entew a game type (defauwt: chawactew) - If you want a button (defauwt: twue) - Animaws - Chawactews - Object",
+        "error": "An ewwow occuwed. Make suwe you choose a cowwect wanguage"
+    },
     "booru": {
         "slash": "Seawch imageboawds fow a pictuwe - Sites to seawch - Tags to seawch fow (sepawate muwtipwe tags with space)",
         "embed": "Safe - Questionabwe - Expwicit - Unwated - Rating: - Seawched fow: - Seawching UwU",

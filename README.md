@@ -12,14 +12,12 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - Get both Client ID and Token, copy and paste into the config.json file.
 - (Temporarly you need to have a channel id where it can send one message where it sends a ready message.)
 - If you want you can change the stop password for your desire but it's only used for the stop command( for now).
-- You can select a language with writing the filename you want from the language folder( without the file extension / .json)
 - Invite the bot into the server with this link. Replace TEXT with client id: ( https://discord.com/api/oauth2/authorize?client_id=TEXT&permissions=2415930432&scope=bot%20applications.commands )
-- After all this save and run start.bat
+- After all this save and run start.bat ( It will ask you what language you want and how you want to activate commands. Recommended: 1.)
 
 "Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.
 
 ### Future (maybe) ideas:
-- [x] Even more 18+ 
 - [ ] reminder
 - [ ] Music
 - [ ] Better role handling
@@ -29,3 +27,11 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 ### Currently I know broken or needs a bit of fixing:
 - [ ] Better error handling for things 
 - [ ] nHentai broke
+
+## Credits (Package name - command name)
+- [Discord.js Akinator - Akinator](https://www.npmjs.com/package/discord.js-akinator)
+- [Booru](https://www.npmjs.com/package/booru)
+- [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
+- [sHentai - nHentai](https://www.npmjs.com/package/shentai)
+- [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
+- [Translate](https://www.npmjs.com/package/translate)

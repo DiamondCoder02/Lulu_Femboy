@@ -22,6 +22,10 @@
         "embed": "Bot elindítva! - Bot el lett indítva - Ez volt "
     },
     "int_create": "csatornában aktiválta: - csatornában aktivált egy gombot. - csatornában aktivált egy menüt.",
+    "akinator": {
+        "slash": "Akinator játék. - Írj be egy nyelvet (Alapértelmezett: en) - Gyermekmódot szeretnél (Alapértelmezett: Igaz) - Adj meg egy játéktípust (Alapértelmezett: karakter) - Ha szeretnél egy gombot (Alapértelmezett: Igaz) - Állatok - Karakterek - Tárgy",
+        "error": "Hiba történt. Győződ meg róla, hogy megfelelő nyelvet választottál"
+    },
     "booru": {
         "slash": "Képek keresése képtáblákon - Keresendő webhelyek - Keresendő címkék (több címkét szóközzel válasszad el)",
         "embed": "Család barát - Kérdéses - Perverz - Nincs besorolva - Értékelés: - Keresettek: - Keresés",

@@ -22,6 +22,10 @@
         "embed": "Bot start! - Bot has been started - That was"
     },
     "int_create": "triggered: - triggered a button. - triggered a select menu.",
+    "akinator": {
+        "slash": "Play the Akinator game. - Enter a language (Default: en) - If you want child mode (Default: true) - Enter a game type (Default: character) - If you want a button (Default: true) - Animals - Characters - Object",
+        "error": "An error occured. Make sure you choose a correct language"
+    },
     "booru": {
         "slash": "Search imageboards for a picture - Sites to search - Tags to search for (separate multiple with space)",
         "embed": "Safe - Questionable - Explicit - Unrated - Rating: - Searched for: - Searching",
