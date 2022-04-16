@@ -42,7 +42,7 @@ module.exports = {
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getSubcommand() === 'server') {
             const owner = await interaction.guild.fetchOwner(); 
-            const afktime = String(interaction.guild.afkTimeout % 60)
+            const afktime = String(interaction.guild.afkTimeout / 60)
             const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
             const botservertime = new Date(interaction.guild.joinedTimestamp).toLocaleString();
             const embed = new MessageEmbed()
