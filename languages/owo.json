@@ -39,7 +39,7 @@
     },
     "clean": "Pwease sewect a numbew to dewete messages. - Successfuwwy deweted messages: - Puwge/cwean/pwune up to 99 messages.",
     "info": {
-        "slash": "Sewvew and usew infowmations! - Info about a usew - The usew - Info about the sewvew - Cheatsheet about the sewvew infos(, pwobabwy won't be twanswated)",
+        "slash": "Sewvew and usew infowmations! - Info about a sewvew, usew ow debug sewvew info - Which usew do you want info abwout",
         "user": "Pwofiwe / Usew infowmations - Hewe awe some uwser infowmation, wequested by: - Usewname: - Cweated timestamp - Usew cweated: - Usewid:",
         "server1": "Sewvew infowmations - Hewe awe some sewvew infowmation, wequested by: - Guiwd name and acwonym: - Sewvew ownew: - Sewvew capacity: - Guiwd cweated: - Is the sewvew wawge? - Sewvew id: - Guiwd descwiption: - Pwemium count and tiew: - Is pwemium pwogwess baw on? - Guiwd cweated at: - Bot joined at:",
         "server2": "Update channew: - Ruwes channew: - System channew: - Afk voice channew: - Voice channew bitwate: - Afk timeout (min): - Expwicit content fiwtew wevew: - Mfa and nsfw wevew: - Guiwd wequiwed vewification wevew: - Pwefewwed sewvew wocawe: - Is guiwd vewified? - Is guiwd pawtnewed?"

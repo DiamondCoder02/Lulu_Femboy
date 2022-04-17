@@ -4,10 +4,11 @@
   "guildId": "guildID",
   "bot_status_channelId": "897097242861789236",
   "welcome_message": "Welcome to the server! Hope you enjoy your stay!",
-  "futureIdeas": "-Even more 18+ \n-reminder \n-Music \n-Better role handling \n-More event listeners \n-Website to edit config \n-Welcome message",
+  "futureIdeas": "-reminder \n-Better role handling \n-More event listeners \n-Website to edit config \n-Welcome message",
   "bugsToFix": "-Better error handling for things \n-nHentai broke",
   "stopPassword": "lolipop",
   "language": "english",
+  "debug_level": 1,
   "sfw_roles": {
     "1": "948322911419265024"
   },

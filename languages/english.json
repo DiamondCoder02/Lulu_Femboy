@@ -39,7 +39,7 @@
     },
     "clean": "Please select a number to delete messages. - Successfully deleted messages: - Purge/clean/prune up to 99 messages.",
     "info": {
-        "slash": "Server and user informations! - Info about a user - The user - Info about the server - Cheatsheet about the server infos(, probably won't be translated)",
+        "slash": "Server and user informations! - Info about a server, user or debug server info - Which user do you want info about",
         "user": "Profile / User Informations - Here are some user information, requested by: - Username: - Created timestamp - User Created: - UserID:",
         "server1": "Server Informations - Here are some server information, requested by: - Guild name and acronym: - Server owner: - Server capacity: - Guild Created: - Is the server large? - Server ID: - Guild description: - Premium count and tier: - Is premium progress bar on? - Guild created at: - Bot joined at:",
         "server2": "Update channel: - Rules channel: - System channel: - Afk voice channel: - Voice channel bitrate: - Afk timeout (min): - Explicit content filter level: - Mfa and nsfw level: - Guild required verification level: - Preferred server locale: - Is guild verified? - Is guild partnered?"

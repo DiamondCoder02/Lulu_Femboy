@@ -7,17 +7,19 @@ module.exports = {
 	data: new SlashCommandBuilder()
         .setName('info')
         .setDescription(sl[0])
-        .addSubcommand(subcommand => subcommand.setName('user').setDescription(sl[1])
-            .addUserOption(option => option.setName('target').setDescription(sl[2]).setRequired(true)))
-        .addSubcommand(subcommand => subcommand.setName('server').setDescription(sl[3]))
-        .addSubcommand(subcommand => subcommand.setName('server_cheat').setDescription(sl[4])),
+        .addStringOption(option => option.setName('search').setDescription(sl[1])
+            .addChoice('user', 'user')
+            .addChoice('server', 'server')
+            .addChoice('server_cheatsheet', 'cheat'))
+        .addUserOption(option => option.setName('target').setDescription(sl[2])),
     async execute(interaction, client) {
         const page = new MessageActionRow().addComponents( new MessageButton().setCustomId('delete').setLabel(lang.d).setStyle('DANGER').setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 10000 });
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
         //User, server, cheatsheet
-        if (interaction.options.getSubcommand() === 'user') {
+        if (interaction.options.getString('search') === 'user') {
+            if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2])}
             const user = interaction.options.getUser('target');
             const profilepic = user.displayAvatarURL();
             const usertime = new Date(user.createdTimestamp).toLocaleString();
@@ -40,7 +42,7 @@ module.exports = {
                     {name: us[5], value: String(user.id), inline:true},
                 )
             await interaction.reply({embeds: [embed], components: [page]})
-        } else if (interaction.options.getSubcommand() === 'server') {
+        } else if (interaction.options.getString('search') === 'server') {
             const owner = await interaction.guild.fetchOwner(); 
             const afktime = String(interaction.guild.afkTimeout / 60)
             const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
@@ -80,10 +82,10 @@ module.exports = {
                 .addField(s2[10],  (interaction.guild.verified ? lang.t : lang.f), true)
                 .addField(s2[11],  (interaction.guild.partnered ? lang.t : lang.f), true)
             await interaction.reply({embeds: [embed], components: [page]})
-        } else if (interaction.options.getSubcommand() === 'server_cheat') {
+        } else if (interaction.options.getString('search') === 'cheat') {
             const embedtest1 = new MessageEmbed()
                 .setColor('#00FF00')
-                .setTitle(sl[4])
+                .setTitle("Cheatsheet that will never be translated")
                 .setDescription(`(Max25 field per embed) 1/?`)
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .addField('01 afkChannel(VoiceChannel)', String(interaction.guild.afkChannel), true)
@@ -113,7 +115,7 @@ module.exports = {
                 .addField("25 PremiumTier(PremiumTier)",  String(interaction.guild.premiumTier), true)
             const embedtest2 = new MessageEmbed()
                 .setColor('#00FF00')
-                .setTitle(sl[4])
+                .setTitle("Cheatsheet that will never be translated")
                 .setDescription(`(Max25 field per embed) 2/?`)
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .addField('26 Presences(PresenceManager)', String(interaction.guild.presences), true)

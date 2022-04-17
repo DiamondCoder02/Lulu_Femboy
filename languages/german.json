@@ -39,7 +39,7 @@
     },
     "clean": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten: - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",
     "info": {
-        "slash": "Server und Benutzerinformationen! - Informationen über einen Benutzer - Der Benutzer - Informationen über den Server - Cheatsheet über die Serverinformationen( wird wahrscheinlich nicht übersetzt)",
+        "slash": "Server und Benutzerinformationen! - Informationen über einen Server, Benutzer oder Debug-Serverinformationen - Über welchen Benutzer möchten Sie Informationen",
         "user": "Profil / Benutzerinformationen - Hier sind einige Benutzerinformationen, angefordert von: - Benutzername: - Erstellter Zeitstempel - Benutzer erstellt: - BenutzerID:",
         "server1": "Serverinformationen - Hier sind einige Serverinformationen, angefordert von: - Gildenname und Akronym: - Serverbesitzer: - Serverkapazität: - Gilde erstellt: - Ist der Server groß? - ServerID: - Gildenbeschreibung: - Premium Anzahl und Stufe: - Ist der Premium-Fortschrittsbalken an? - Gilde erstellt am: - Bot beigetreten am:",
         "server2": "Aktualisierungskanal: - Regelkanal: - Systemkanal: - Afk Sprachkanal: - Sprachkanal Bitrate: - Afk Zeitüberschreitung (min): - Filterstufe für explizite Inhalte: - MFA und nsfw Stufe: - Verifizierungsstufe für Gilde erforderlich : - Bevorzugtes Servergebietsschema: - Ist die Gilde verifiziert? - Ist die Gilde Partner?"

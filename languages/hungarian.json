@@ -39,7 +39,7 @@
     },
     "clean": "Kérlek válasz hogy mennyi üzenet legyen törölve. - Sikeresen törölt üzenetek: - Max 99 üzenetek törlése.",
     "info": {
-        "slash": "Szerver és felhasználó információk - Információ a felhasználoról - Felhasználó - Információ a szerverről - Csallólap a szerver információiról(, valószínűleg nem lesz lefordítva)",
+        "slash": "Szerver és felhasználó információ! - Információ szerver, felhasználó vagy debug szerver infók - Melyik felhasználóról szeretnél infót",
         "user": "Profil / Felhasználó információk - Itt van pár felhasználó információ, kérte: - Felhasználónév: - Felhasználó létrehozva - Felhasználó kreálva: - Felhasználó ID:",
         "server1": "Szerver infromáció - Itt van pár szerver információ, kérte: - Szerver név és acronym: - Szerver tulajdonos: - Szerver kapacitás: - Szerver létrehozva: - Nagy a szerver? - Szerver ID: - Szerver leírás: - Prémiumok száma és szintje: - Van prémium állapotjelző? - A szerver létrehozva: - Bot csatlakozott:",
         "server2": "Frissítési csatorna: - Szabálycsatorna: - Rendszercsatorna: - Afk hangcsatorna: - Hangcsatorna bitsebesség: - Afk időtúllépés (min): - Explicit tartalomszűrő szint: - Mfa és nsfw szint: - Szerver csatlakozásához szükséges ellenőrzési szint: - Előnyben részesített szerver területe: - A szerver ellenőrizve? - A szerver partner?"
