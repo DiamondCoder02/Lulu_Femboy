@@ -44,6 +44,12 @@
         "server1": "Sewvew infowmations - Hewe awe some sewvew infowmation, wequested by: - Guiwd name and acwonym: - Sewvew ownew: - Sewvew capacity: - Guiwd cweated: - Is the sewvew wawge? - Sewvew id: - Guiwd descwiption: - Pwemium count and tiew: - Is pwemium pwogwess baw on? - Guiwd cweated at: - Bot joined at:",
         "server2": "Update channew: - Ruwes channew: - System channew: - Afk voice channew: - Voice channew bitwate: - Afk timeout (min): - Expwicit content fiwtew wevew: - Mfa and nsfw wevew: - Guiwd wequiwed vewification wevew: - Pwefewwed sewvew wocawe: - Is guiwd vewified? - Is guiwd pawtnewed?"
     },
+    "music": {
+        "player_on": "Ewwow emitted fwom the queue: - Ewwow emitted fwom the connection: - Stawted pwaying - Twack queued - I was manuawwy disconnected fwom the voice channew, cweawing queue! - Nobody is in the voice channew, weaving... - Queue finished!",
+        "slash": "Pwaying audio - Entew a uww to be pwayed - Choose an action to be pewfowmed - queue - pause - wesume - skip - disconnect - Vowume fow the audio",
+        "command": "Pwease connect to a voice channew! - No wesuwts wewe found! - Couwd not join youw voice channew! - Loading youw - pwaywist - twack - No music is being pwayed! - Sewvew queue - mowe twack(s) - Now pwaying",
+        "command2": "Paused! - Resumed! - Skipped - Something went wwong! - Stopped the pwayew! -  Vowume set to - Pwease entew a command!"
+    },
     "nekoslife": {
         "slash_desc": "nekoswife whowesomes and wewds. - whowesome pictuwes fwom nekoswife. - whowesome othews fwom nekoswife. - lewds fwom nekoswife. - lewds awt, ewo, chawacthews and othews fwom nekoswife.",
         "desc": "whowesome categowy - lewd categowy - ping youw fwiend if you want. - sends you a nice",

@@ -44,6 +44,12 @@
         "server1": "Serverinformationen - Hier sind einige Serverinformationen, angefordert von: - Gildenname und Akronym: - Serverbesitzer: - Serverkapazität: - Gilde erstellt: - Ist der Server groß? - ServerID: - Gildenbeschreibung: - Premium Anzahl und Stufe: - Ist der Premium-Fortschrittsbalken an? - Gilde erstellt am: - Bot beigetreten am:",
         "server2": "Aktualisierungskanal: - Regelkanal: - Systemkanal: - Afk Sprachkanal: - Sprachkanal Bitrate: - Afk Zeitüberschreitung (min): - Filterstufe für explizite Inhalte: - MFA und nsfw Stufe: - Verifizierungsstufe für Gilde erforderlich : - Bevorzugtes Servergebietsschema: - Ist die Gilde verifiziert? - Ist die Gilde Partner?"
     },
+    "musik": {
+        "player_on": "Von der Warteschlange ausgegebener Fehler: - Von der Verbindung ausgegebener Fehler: - Wiedergabe gestartet - Titel in Warteschlange gestellt - Ich wurde manuell vom Sprachkanal getrennt, Warteschlange wird gelöscht! - Niemand ist im Sprachkanal, verlässt... - Warteschlange beendet!",
+        "slash": "Wiedergabe von Audio - Geben Sie eine abzuspielende URL ein - Wählen Sie eine auszuführende Aktion aus - Warteschlange - Pause - Fortsetzen - Überspringen - Trennen - Lautstärke für das Audio",
+        "command": "Bitte verbinden Sie sich mit einem Sprachkanal! - Es wurden keine Ergebnisse gefunden! - Konnte Ihrem Sprachkanal nicht beitreten! - Laden Sie Ihre - Wiedergabeliste - Titel - Es wird keine Musik abgespielt! - Serverwarteschlange - Weitere Titel - Läuft gerade",
+        "command2": "Pausiert! - Fortgesetzt! - Übersprungen - Etwas ist schief gelaufen! - Player angehalten! - Lautstärke eingestellt auf - Bitte geben Sie einen Befehl ein!"
+    },
     "nekoslife": {
         "slash_desc": "Nekoslife gesunde und anzügliche. - Gesunde Bilder aus Nekoslife. - Gesunde andere aus Nekoslife. - Anzügliche aus Nekoslife. - Anzügliche Kunst, Erotik, Charaktere und andere aus Nekoslife.",
         "desc": "Gesunde Kategorie - Anzügliche Kategorie - Pingen Sie Ihren Freund, wenn Sie möchten. - schickt Ihnen ein nettes",

@@ -44,6 +44,12 @@
         "server1": "Szerver infromáció - Itt van pár szerver információ, kérte: - Szerver név és acronym: - Szerver tulajdonos: - Szerver kapacitás: - Szerver létrehozva: - Nagy a szerver? - Szerver ID: - Szerver leírás: - Prémiumok száma és szintje: - Van prémium állapotjelző? - A szerver létrehozva: - Bot csatlakozott:",
         "server2": "Frissítési csatorna: - Szabálycsatorna: - Rendszercsatorna: - Afk hangcsatorna: - Hangcsatorna bitsebesség: - Afk időtúllépés (min): - Explicit tartalomszűrő szint: - Mfa és nsfw szint: - Szerver csatlakozásához szükséges ellenőrzési szint: - Előnyben részesített szerver területe: - A szerver ellenőrizve? - A szerver partner?"
     },
+    "music": {
+        "player_on": "Hiba a várakozási sorból: - Hiba a kapcsolatból: - Elindult a lejátszás - A következő - Manuálisan lekapcsolódtam a hangcsatornáról, zeneszámok törlése! - Senki sincs a hangcsatornában, kilép... - A zeneszám véget ért!",
+        "slash": "Hang lejátszása - Adja meg a lejátszandó URL-t - Válasszon egy végrehajtandó műveletet - zeneszám - szünet - folytatás - kihagyás - kilépés - Hangerő",
+        "command": "Kérjük, csatlakozzon egy hangcsatornához! - Nem találtunk eredményt! - Nem sikerült csatlakozni a hangcsatornához! - Betöltés - lejátszási lista - szám betöltése - Nincs zene játszásban! - Szerver sor - további szám(ok) - Most játszik",
+        "command2": "Szüneteltetve! - Folytatás! - Kihagyva - Hiba történt! - A lejátszó leállt! - A hangerő beállítása - Kérem, adjon meg egy parancsot!"
+    },
     "nekoslife": {
         "slash_desc": "Nekoslife barátságos és perverz - Barátságos képek Nekoslifeból. - Más barátságos képek Nekoslifeból. - Perverz Nekoslife. - Perverz képek, ero, karakterek és egyebek Nekoslifeból.",
         "desc": "Barátságos kategória - Perverz kategória - Pinggeld meg a barátodat ha szeretnéd - Küld neked egy kellemes",

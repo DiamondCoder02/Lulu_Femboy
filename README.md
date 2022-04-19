@@ -21,25 +21,26 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 0. No trigger messages. Only errors.
 1. Trigger messages. (Default)
 2. Trigger messages and button/menu reactions.
+3. Discord.js debug messages.
 
 "Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.
 
 ### Future (maybe) ideas:
 - [ ] reminder
-- [ ] Music
+- [x] Music
 - [ ] Better role handling
 - [ ] More event listeners
 - [ ] Make website to edit config?
 - [ ] Welcome message to system channel (embed or image?)
 
 ### Currently I know broken or needs a bit of fixing:
-- [ ] Better error handling for things 
+- [x] Better error handling (maybe...?)
 - [ ] nHentai broke
 
 ## Credits (Package name - command name)
 - [Discord.js Akinator - Akinator](https://www.npmjs.com/package/discord.js-akinator)
 - [Booru](https://www.npmjs.com/package/booru)
-- [Discord Player - music](https://www.npmjs.com/package/discord-player)
+- [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [sHentai - nHentai](https://www.npmjs.com/package/shentai)
 - [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)

@@ -40,6 +40,12 @@
         "server1": " -  -  -  -  -  -  -  -  -  -  -  - ",
         "server2": " -  -  -  -  -  -  -  -  -  -  - "
     },
+    "music": {
+        "player_on": " -  -  -  -  -  - ",
+        "slash": " -  -  -  -  -  -  -  - ",
+        "command": " -  -  -  -  -  -  -  -  - ",
+        "command2": " -  -  -  -  -  - "
+    },
     "nekoslife": {
         "slash_desc": " -  -  -  - ",
         "desc": " -  -  - ",

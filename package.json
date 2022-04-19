@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/DiamondPRO02/Femboi_OwO#readme",
   "dependencies": {
+    "@discord-player/extractor": "^3.0.2",
     "@discordjs/builders": "^0.12.0",
     "@discordjs/opus": "^0.5.3",
     "@discordjs/rest": "^0.3.0",

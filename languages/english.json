@@ -44,6 +44,12 @@
         "server1": "Server Informations - Here are some server information, requested by: - Guild name and acronym: - Server owner: - Server capacity: - Guild Created: - Is the server large? - Server ID: - Guild description: - Premium count and tier: - Is premium progress bar on? - Guild created at: - Bot joined at:",
         "server2": "Update channel: - Rules channel: - System channel: - Afk voice channel: - Voice channel bitrate: - Afk timeout (min): - Explicit content filter level: - Mfa and nsfw level: - Guild required verification level: - Preferred server locale: - Is guild verified? - Is guild partnered?"
     },
+    "music": {
+        "player_on": "Error emitted from the queue: - Error emitted from the connection: - Started playing - Track queued - I was manually disconnected from the voice channel, clearing queue! - Nobody is in the voice channel, leaving... - Queue finished!",
+        "slash": "Playing audio - Enter a url to be played - Choose an action to be performed - queue - pause - resume - skip - disconnect - Volume for the audio",
+        "command": "Please connect to a voice channel! - No results were found! - Could not join your voice channel! - Loading your - playlist - track - No music is being played! - Server Queue - more track(s) - Now Playing",
+        "command2": "Paused! - Resumed! - Skipped - Something went wrong! - Stopped the player! -  Volume set to - Please enter a command!"
+    },
     "nekoslife": {
         "slash_desc": "Nekoslife wholesomes and lewds. - Wholesome pictures from Nekoslife. - Wholesome others from Nekoslife. - Lewds from Nekoslife. - Lewds art, ero, characthers and others from Nekoslife.",
         "desc": "Wholesome category - Lewd category - Ping your friend if you want. - sends you a nice",

@@ -64,3 +64,6 @@ try{
     if (config.Token == "token") client.login(token)
     else client.login(config.Token)
 }catch{console.log(lang.index.token)}
+
+//error handler
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection: ', error));
