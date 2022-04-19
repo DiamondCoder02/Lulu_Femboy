@@ -5,15 +5,8 @@
   "bot_status_channelId": "897097242861789236",
   "welcome_message": "Welcome to the server! Hope you enjoy your stay!",
   "futureIdeas": "-reminder \n-Better role handling \n-More event listeners \n-Website to edit config \n-Welcome message",
-  "bugsToFix": "-Better error handling for things \n-nHentai broke",
+  "bugsToFix": "-nHentai broke",
   "stopPassword": "lolipop",
   "language": "english",
-  "debug_level": 1,
-  "sfw_roles": {
-    "1": "948322911419265024"
-  },
-  "nsfw_roles": {
-    "1": "NSFW",
-    "2": "956523960474927174"
-  }
+  "debug_level": 1
 }
