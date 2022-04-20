@@ -3,7 +3,7 @@
   "clientId": "clientID",
   "guildId": "guildID",
   "botStatusChannel": "897097242861789236",
-  "welcome": true,
+  "welcome": false,
   "welcomePic": false,
   "welcomeMessage": "Welcome to the server! Hope you enjoy your stay!",
   "futureIdeas": "-reminder \n-Better role handling \n-More event listeners \n-Website to edit config \n-Welcome message",

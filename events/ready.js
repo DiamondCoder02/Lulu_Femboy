@@ -32,7 +32,7 @@ module.exports = {
                 channel.bulkDelete(1, true).catch(error => {console.error(error)})
                 return channel.send({embeds: [embed]})
             } catch {
-                return console.log("No status channel found. Continuing.")
+                return console.log(lang.ready.no_status)
             }
         }
 	}

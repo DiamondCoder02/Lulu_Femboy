@@ -18,6 +18,7 @@
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Új parancsokat tanulok",
+        "no_status": "Nincs státusz csatorna megadva. Folytatás.",
         "console_log": "Bejelentkezve mint - Nyelv: - ClientID: - Jelszó: - Készenlétben: - Szerverek:",
         "embed": "Bot elindítva! - Bot el lett indítva - Ez volt "
     },

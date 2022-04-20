@@ -12,7 +12,6 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - First start setup.bat (You can close the console when done).
 - Make a bot for yourself at [Discord developer portal](https://discord.com/developers/applications).
 - Get both Client ID and Token, copy and paste into the config.json file.
-- (Temporarly you need to have a channel id where it can send one message where it sends a ready message.)
 - If you want you can change the stop password for your desire but it's only used for the stop command( for now).
 - Invite the bot into the server with this link. Replace TEXT with client id: ( https://discord.com/api/oauth2/authorize?client_id=TEXT&permissions=2415930432&scope=bot%20applications.commands )
 - After all this save and run start.bat ( It will ask you what language you want and how you want to activate commands. Recommended: 1.)
@@ -27,11 +26,10 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 
 ### Future (maybe) ideas:
 - [ ] reminder
-- [x] Music
 - [ ] Better role handling
 - [ ] More event listeners
 - [ ] Make website to edit config?
-- [ ] Welcome message to system channel (embed or image?)
+- [ ] Welcome message to system channel (embed or image, both?)
 
 ### Currently I know broken or needs a bit of fixing:
 - [x] Better error handling (maybe...?)

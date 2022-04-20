@@ -18,6 +18,7 @@
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Learning new commands",
+        "no_status": "No status channel given. Continuing.",
         "console_log": "Logged in as - Language: - ClientID: - Password: - Ready at: - Guilds:",
         "embed": "Bot start! - Bot has been started - That was"
     },

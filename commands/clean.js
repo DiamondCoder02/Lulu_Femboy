@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionR
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), cl = lang.clean.split('-')
 module.exports = {
     guildOnly: true,
+    permissions: "MANAGE_MESSAGES",
 	data: new SlashCommandBuilder()
 		.setName('clean')
 		.setDescription(cl[2]),

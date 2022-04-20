@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionR
 module.exports = {
     guildOnly: true,
     cooldown: 60,
+    permissions: "MANAGE_ROLES",
 	data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Gives roles with buttons'),

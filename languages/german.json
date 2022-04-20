@@ -18,6 +18,7 @@
     },
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Lernen Sie neue Befehle",
+        "no_status": "Kein Statuskanal angegeben. Fortfahren.",
         "console_log": "Angemeldet als - Sprache: - KundenID: - Passwort: - Bereit bei: - Gilden:",
         "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
