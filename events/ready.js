@@ -3,14 +3,10 @@ module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
-        const channel = client.channels.cache.get(config.bot_status_channelId);
         let con = lang.ready.console_log.split('-')
         let emb = lang.ready.embed.split('-')
         client.user.setActivity(lang.ready.set_activity)
         console.log(client)
-        //client.on("error", (e) => console.error(e))
-        //client.on("warn", (e) => console.warn(e))
-        //client.on("debug", (e) => console.info(e))
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
         const languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'));
         console.log(eventFiles)
@@ -22,11 +18,22 @@ module.exports = {
             + `\n\t --` + con[3] + config.stopPassword
             + `\n\t --` + con[4] + client.readyAt
             + `\n\t --` + con[5]+" "+ Guilds)
-        channel.bulkDelete(1, true).catch(error => {console.error(error)})
         const embed = new MessageEmbed()
-            .setColor('#00FF00')
-            .setTitle(emb[0])
-            .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
-        channel.send({embeds: [embed]})
+        .setColor('#00FF00')
+        .setTitle(emb[0])
+        .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
+        try { 
+            const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
+            channel.bulkDelete(1, true).catch(error => {console.error(error)})
+            return channel.send({embeds: [embed]})
+        } catch { 
+            try{
+                const channel = client.channels.cache.get(config.botStatusChannel) 
+                channel.bulkDelete(1, true).catch(error => {console.error(error)})
+                return channel.send({embeds: [embed]})
+            } catch {
+                return console.log("No status channel found. Continuing.")
+            }
+        }
 	}
 }
