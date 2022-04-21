@@ -12,7 +12,7 @@ module.exports = {
 		const version_embed = new MessageEmbed()
         .setColor('#00FF00')
         .setTitle(td[0])
-        .setDescription(`**`+td[1]+`** 25%`)
+        .setDescription(`**`+td[1]+`** []~(￣▽￣)~*`)
         .setThumbnail(client.user.displayAvatarURL())
         .addFields(
             { name: fi[0], value: config.futureIdeas, inline:true},

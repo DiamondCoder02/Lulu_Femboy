@@ -43,12 +43,10 @@ client.on('interactionCreate', async interaction => {
         timestamps.set(interaction.user.id, now);
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
         //guild permission check
-        if (command.guildOnly == true) {
-            if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {
-                role = true
-            } else role = false
-            if (!role && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perms})}
-        }
+        if (command.guildOnly) { try{
+                if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
+                if (!r && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perm})}
+        } catch { } }
         //Execute
         try {
             await command.execute(interaction, client, config, lang);
@@ -66,4 +64,10 @@ try{
 }catch{console.log(lang.index.token)}
 
 //error handler
-process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection: ', error));
+console.log(client)
+process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n  ', error));
+client.on("error", console.error)
+client.on("warn", console.warn)
+if (config.debug_level >= 3) {
+    client.on("debug", console.log)
+}

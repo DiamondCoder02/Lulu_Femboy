@@ -16,7 +16,7 @@ module.exports = {
                 .addChoice('Baka', 'baka')
                 .addChoice('Cuddle', 'cuddle')
                 .addChoice('Feed', 'feed')
-                .addChoice('Fox Girl', 'foxGril')
+                .addChoice('Fox Girl', 'foxGirl')
                 .addChoice('Holo', 'holo')
                 .addChoice('Hug', 'hug')
                 .addChoice('Kiss', 'kiss')
@@ -110,11 +110,11 @@ module.exports = {
 	async execute(interaction, client) {
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
-            if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT' && (interaction.options.getString('nsfw_l').trim() || interaction.options.getString('nsfw_o').trim())) {interaction.reply(lang.nsfw); return;}
-            if (interaction.options.getString('nsfw_o')) { c = interaction.options.getString('nsfw_o').trim()}
-            if (interaction.options.getString('nsfw_l')) { c = interaction.options.getString('nsfw_l').trim()}
-            if (interaction.options.getString('sfw_w')) { c = interaction.options.getString('sfw_w').trim()}
-            if (interaction.options.getString('sfw_o')) { c = interaction.options.getString('sfw_o').trim()}
+            if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT' && (interaction.options.getString('nsfw_l') || interaction.options.getString('nsfw_o'))) {interaction.reply(lang.nsfw); return;}
+            if (interaction.options.getString('nsfw_o')) { c = interaction.options.getString('nsfw_o')}
+            if (interaction.options.getString('nsfw_l')) { c = interaction.options.getString('nsfw_l')}
+            if (interaction.options.getString('sfw_w')) { c = interaction.options.getString('sfw_w')}
+            if (interaction.options.getString('sfw_o')) { c = interaction.options.getString('sfw_o')}
             const embed = new MessageEmbed()
                 .setColor('#00FF00')
                 .setTitle("OwO, " + c)
@@ -191,7 +191,7 @@ module.exports = {
             embed.setImage(lewd.url)
             if (interaction.options.getUser('target')) {
                 const user = interaction.options.getUser('target'), from = interaction.user
-                embed.setDescription(from.toString() + de[3] + " " + interaction.options.getString('sfw_w').trim() + ", " + user.toString() + ". :3")
+                embed.setDescription(from.toString() + de[3] + " " + interaction.options.getString('sfw_w') + ", " + user.toString() + ". :3")
                 try{ await interaction.reply({ content: user.toString(), embeds: [embed]}) }
                 catch{
                     await wait(1000)

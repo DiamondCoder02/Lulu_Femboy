@@ -20,7 +20,6 @@ module.exports = {
         collector.on('collect', async i => {
             await interaction.channel.bulkDelete(i.customId, true)
             await interaction.followUp({ content: cl[1] +" "+ i.customId})
-            console.log(cl[1] + i.customId)
             collector.stop()
         })
 	},

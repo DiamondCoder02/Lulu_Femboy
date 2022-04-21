@@ -26,7 +26,6 @@ module.exports = {
 			await interaction.deleteReply()
 			await interaction.channel.bulkDelete(Number(i.values), true)
 			await interaction.followUp({ content: cl[1] +" "+ Number(i.values)})
-			console.log(cl[1] + Number(i.values))
 			collector.stop()
         })
 	}

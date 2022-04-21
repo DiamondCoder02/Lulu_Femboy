@@ -22,6 +22,7 @@ module.exports = {
 		//New member joins a guild
         if(welcome) {} else return
         const channel = member.guild.systemChannel
+        if (channel === null) {return console.log('No system channel found for ' + member.guild.name)}
         if(!welcomePic) {
             const embed = new MessageEmbed()
             .setColor('#00FF00')

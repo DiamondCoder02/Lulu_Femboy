@@ -15,7 +15,7 @@ module.exports = {
     async execute(interaction, client) {
         const page = new MessageActionRow().addComponents( new MessageButton().setCustomId('delete').setLabel(lang.d).setStyle('DANGER').setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 10000 });
+        const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 20000 });
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
         //User, server, cheatsheet
         if (interaction.options.getString('search') === 'user') {
@@ -52,7 +52,6 @@ module.exports = {
                 .setTitle(s1[0])
                 .setThumbnail(interaction.guild.iconURL())
                 .setDescription( s1[1] + interaction.user.tag)
-                .setURL('https://discord.gg/CCXgVGTnSh')
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .setTimestamp()
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })

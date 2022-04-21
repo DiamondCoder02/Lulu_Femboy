@@ -1,6 +1,6 @@
 # Femboi_OwO
 4th trying making a Discorcd bot.
-Please don't use this...(, **unless you know what mess I made here.**)
+Please don't use this...(, **unless you know what mess I make here.**)
 
 #### A bit of explanation:
 Just my own little bot to learn. Early in development. Still not stupid proof but working on it as I don't want it to break often.
@@ -25,15 +25,15 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 "Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.
 
 ### Future (maybe) ideas:
-- [ ] reminder
-- [ ] Better role handling
+- [ ] reminder system
 - [ ] More event listeners
 - [ ] Make website to edit config?
 - [ ] Welcome message to system channel (embed or image, both?)
+- [ ] Server side settings (like language, welcome message, etc.)
 
 ### Currently I know broken or needs a bit of fixing:
-- [x] Better error handling (maybe...?)
 - [ ] nHentai broke
+- [ ] role needs a rewrite
 
 ## Credits (Package name - command name)
 - [Discord.js Akinator - Akinator](https://www.npmjs.com/package/discord.js-akinator)

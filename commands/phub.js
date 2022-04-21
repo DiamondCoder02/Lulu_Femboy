@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { stringify } = require('node:querystring');
 const wait = require('node:timers/promises').setTimeout;
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.phub.slash.split('-') , r = lang.phub.reply.split('-')
 const { RandomPHUB } = require('discord-phub'), nsfw = new RandomPHUB(unique = true);
@@ -28,7 +27,7 @@ module.exports = {
                 if (!c && !t) { random = nsfw.getRandom() }
                 else if (!c && t) { random = nsfw.getRandom(t) }
                 else if (c && !t) { random = nsfw.getRandomInCategory(c) }
-                else if (c && t) { if (nsfw.verifyTypeInCategory(t, c)) {random = nsfw.getRandomInCategory(c, t) } else { return interaction.followUp({content: r[4]}) } }
+                else if (c && t) { if (nsfw.verifyTypeInCategory(t, c)) {random = nsfw.getRandomInCategory(c, t) } else { return interaction.editReply({content: r[4]}) } }
                 const embed = new MessageEmbed()
                     .setTitle("🌐 "+r[0])
                     .setColor('#ff0000')
@@ -57,7 +56,7 @@ module.exports = {
                 .addField("📁 "+r[2]+"2", " "+categ2, true)
                 .addField("📁 "+r[2]+"3", " "+categ3, true)
                 .setTimestamp()
-            return await interaction.followUp({embeds: [embed]})
+            return await interaction.editReply({embeds: [embed]})
         }
     }
 };
