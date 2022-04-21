@@ -35,7 +35,7 @@
         "tag": "Bitte geben Sie mir ein Tag, um ein zufälliges Bild zu finden."
     },
     "bot_info": {
-        "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Bot bereit: - Letztes Update: - Bot Informationen",
+        "tdf": "Hier sind einige Informationen über den Bot und seine Entwicklung: - Quellcode / Ersteller: - Letztes Update: - Bot Informationen",
         "fields": "Liste der Ideen: - Zu beheben / Fehler: - Befehlspräfix: - Sprachen: - Ereignis Listener: - Befehle:"
     },
     "clean": "Bitte wählen Sie eine Nummer aus, um Nachrichten zu löschen. - Erfolgreich gelöschte Nachrichten: - Bis zu 99 Nachrichten Löschen/Säubern/Pruning.",

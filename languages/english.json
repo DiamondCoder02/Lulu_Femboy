@@ -35,7 +35,7 @@
         "tag": "Please give me a tag to find a random picture."
     },
     "bot_info": {
-        "tdf": "Here is some information about the bot and its development: - Bot done: - Last update: - Bot information.",
+        "tdf": "Here is some information about the bot and its development: - Source code / Creator: - Last update: - Bot information.",
         "fields": "Idea list: - To fix / Bugs: - Command prefix: - Languages: - Event listeners: - Commands:"
     },
     "clean": "Please select a number to delete messages. - Successfully deleted messages: - Purge/clean/prune up to 99 messages.",

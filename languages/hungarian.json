@@ -35,7 +35,7 @@
         "tag": "Adj egy tagget hogy rákeressek egy random képre."
     },
     "bot_info": {
-        "tdf": "Itt van egypár információ a bot és fejlesztéséről: - Bot kész: - Utolsó frissítés: - Bot információk.",
+        "tdf": "Itt van egypár információ a bot és fejlesztéséről: - Forráskód / Készítő: - Utolsó frissítés: - Bot információk.",
         "fields": "Ötlet lista: - Javítani / Hibák: - Parancs előjel: - Nyelvek: - Esemény figyelők: - Parancsok:"
     },
     "clean": "Kérlek válasz hogy mennyi üzenet legyen törölve. - Sikeresen törölt üzenetek: - Max 99 üzenetek törlése.",
