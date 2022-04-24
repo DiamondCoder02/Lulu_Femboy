@@ -15,8 +15,9 @@ module.exports = {
         //.addStringOption(option => option.setName('author').setDescription('Search for author.'))
         .addIntegerOption(option => option.setName('id').setDescription('Search for ID.'))
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
-	async execute(interaction) {
-        if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') {interaction.reply('Sorry, this is a Not Safe For Work command!'); return;}
+	async execute(interaction, client, config) {
+        const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
+        if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') {if(!enableNSFW) {return interaction.reply(lang.nsfw)}}
         try {collector.stop()} catch{console.log("No collect")}
         var pageNumber = -1
         const page = new MessageActionRow()

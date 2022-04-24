@@ -7,7 +7,7 @@ module.exports = {
 	execute(client) {
         console.log(eventFiles); console.log(languageFiles)
         client.user.setActivity(lang.ready.set_activity)
-        const Guilds = client.guilds.cache.map(guild => guild.name);
+        const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n --` + con[0] + client.user.tag
             + `\n\t --` + con[1] + config.language
             + `\n\t --` + con[2] + config.clientId

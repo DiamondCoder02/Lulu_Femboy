@@ -4,7 +4,20 @@ const cooldowns = new Collection();
 require('dotenv').config(); var token = process.env.token;
 const client = new Client({ ws: {properties: {$browser: 'Discord iOS'}}, intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES], partials: ["CHANNEL"] });
 client.commands = new Collection();
+const Enmap = require('enmap');
 console.clear();
+
+client.settings = new Enmap({
+    name: "settings",
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep',
+    autoEnsure: {
+        welcome: true,
+        welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
+        enableNSFW: false,
+    }
+});
 
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -17,8 +30,8 @@ for (const file of commandFiles) {
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args))} 
-    else {client.on(event.name, (...args) => event.execute(...args))}
+	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client))} 
+    else {client.on(event.name, (...args) => event.execute(...args, client))}
 }
 
 //Slash command handler
@@ -45,11 +58,11 @@ client.on('interactionCreate', async interaction => {
         //guild permission check
         if (command.guildOnly) { try{
                 if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
-                if (!r && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perm})}
+                if (!r && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`"})}
         } catch { } }
         //Execute
         try {
-            await command.execute(interaction, client, config, lang);
+            await command.execute(interaction, client, config);
         } catch (error) {
             console.error(error);
             await interaction.reply({ content: lang.index.error, ephemeral:true});
