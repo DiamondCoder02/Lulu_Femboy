@@ -17,7 +17,7 @@ module.exports = {
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
 	async execute(interaction, client, config) {
         const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
-        if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') {if(!enableNSFW) {return interaction.reply(lang.nsfw)}}
+        if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}
         try {collector.stop()} catch{console.log("No collect")}
         var pageNumber = -1
         const page = new MessageActionRow()

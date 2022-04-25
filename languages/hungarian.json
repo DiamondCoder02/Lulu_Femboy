@@ -3,6 +3,7 @@
     "f": "Hamis",
     "d": "Üzenet törlése",
     "nsfw": "Bocsi, ez nem egy család barát parancs!",
+    "nsfwdisable": "Nem család barát parancsok nincsenek engedélyezve! ",
     "amount": "Mennyiség: Ha egyszerre többet szeretnél, mint egyet.",
     "index": {
         "no_dm": "(* ￣︿￣) Ezt a parancsot nem lehet privátban használni. Kérlek használd egy szerveren.",

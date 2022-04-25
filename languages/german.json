@@ -3,6 +3,7 @@
     "f": "Falsch",
     "d": "Nachricht löschen",
     "nsfw": "Tut mir leid, das ist ein unartiger Befehl!",
+    "nsfwdisable": "Not Safe For Work-Befehle sind deaktiviert!",
     "amount": "Anzahl: Wenn Sie mehr als eines auf einmal erhalten möchten.",
     "index": {
         "no_dm": "(* ￣︿￣) Das Ausführen dieses Befehls in DMs ist deaktiviert. Bitte verwenden Sie diesen Befehl auf einem Server.",

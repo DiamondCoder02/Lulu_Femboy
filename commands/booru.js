@@ -32,7 +32,7 @@ module.exports = {
         const sites = interaction.options.getString('sites').trim()
         const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib") { }
-        else { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { if(!enableNSFW) {return interaction.reply(lang.nsfw)} } }
+        else { if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
         if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('paheal') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply(lang.booru.tag) }
         else if(!interaction.options.getString('tags')) {tags = ""}
         //else if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply("please don't use tags with this site") }

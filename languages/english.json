@@ -3,6 +3,7 @@
     "f": "False",
     "d": "Delete message",
     "nsfw": "Sorry, this is a Not Safe For Work command!",
+    "nsfwdisable": "Not Safe For Work commands are disabled!",
     "amount": "Amount: If you want to get more then one at a time.",
     "index": {
         "no_dm": "(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.",

@@ -4,7 +4,7 @@
   "guildId": "guildID",
   "botStatusChannel": "897097242861789236",
   "futureIdeas": "-reminder \n-Better role handling \n-More event listeners \n-Website to edit config",
-  "bugsToFix": "-nHentai broke \n-role broken \n-guild member join, canvas error if picture from local file",
+  "bugsToFix": "-nHentai page reading broke \n-role broken",
   "stopPassword": "lolipop",
   "language": "english",
   "debug_level": 1

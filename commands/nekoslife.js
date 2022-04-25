@@ -111,7 +111,7 @@ module.exports = {
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
             const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
-            if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT' && (interaction.options.getString('nsfw_l') || interaction.options.getString('nsfw_o'))) {if(!enableNSFW) {return interaction.reply(lang.nsfw)}}
+            if (interaction.options.getString('nsfw_l') || interaction.options.getString('nsfw_o')) {if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}}
             if (interaction.options.getString('nsfw_o')) { c = interaction.options.getString('nsfw_o')}
             if (interaction.options.getString('nsfw_l')) { c = interaction.options.getString('nsfw_l')}
             if (interaction.options.getString('sfw_w')) { c = interaction.options.getString('sfw_w')}

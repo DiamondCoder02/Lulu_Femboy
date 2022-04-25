@@ -18,7 +18,7 @@ module.exports = {
         .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10)),
     async execute(interaction, client) {
         const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
-        if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { if(!enableNSFW) {return interaction.reply(lang.nsfw)} }
+        if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         if (interaction.options.getString('category')) { var c = interaction.options.getString('category') } else var c = null
         if (interaction.options.getString('type')) { var t = interaction.options.getString('type') } else var t = null

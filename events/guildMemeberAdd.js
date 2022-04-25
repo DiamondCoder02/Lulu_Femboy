@@ -1,14 +1,12 @@
-const { Client, Intents, MessageAttachment, MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'guildMemberAdd',
 	execute(member, client) {
-        //client.settings.ensure(member.guild.id, defaultSettings);
-        let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
         let welcome = client.settings.get(member.guild.id, "welcome");
         if(welcome) {} else return
         const channel = member.guild.systemChannel
         if (channel === null) {return console.log('No system channel found for ' + member.guild.name)}
-
+        let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })

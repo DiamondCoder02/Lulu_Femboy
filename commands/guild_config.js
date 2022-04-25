@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 
 module.exports = {
     guildOnly: true,
-    permissions: "ADMINISTRATOR",
+    //permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
@@ -24,23 +24,25 @@ module.exports = {
                 }
             }
             if (interaction.options.getSubcommand() === 'button') {
+                await interaction.reply({ content:"Loading..." })
                 const filter = i => i.user.id === interaction.user.id
-                const collector = interaction.channel.createMessageComponentCollector({filter, time: 20000 });
-                if (client.settings.get(interaction.guild.id, "welcome")===true) {welc1="SUCCESS"} else {welc1="DANGER"}
-                if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw1="SUCCESS"} else {nsfw1="DANGER"}
-                const test1 = new MessageActionRow().addComponents( 
-                    new MessageButton().setCustomId('welcome').setLabel('Display welcome?').setStyle(welc1),
-                    new MessageButton().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw1),
-                )
-                interaction.reply({components: [test1]})
-                collector.on('collect', async i => {
+                const collector = interaction.channel.createMessageComponentCollector({filter, time: 30000 });
+                async function setting(interaction, client) {
                     if (client.settings.get(interaction.guild.id, "welcome")===true) {welc="SUCCESS"} else {welc="DANGER"}
                     if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw="SUCCESS"} else {nsfw="DANGER"}
-                    const test = new MessageActionRow().addComponents( 
+                    test = new MessageActionRow().addComponents( 
                         new MessageButton().setCustomId('welcome').setLabel('Display welcome?').setStyle(welc),
                         new MessageButton().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw),
                     )
-                    if (client.settings.get(interaction.guild.id, i.customId)===true) {client.settings.set(interaction.guild.id, false, i.customId); await interaction.editReply({components: [test]})} else {client.settings.set(interaction.guild.id, true, i.customId); await interaction.editReply({components: [test]})}
+                    const del = new MessageActionRow().addComponents(new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER'))
+                    interaction.editReply({content: "Buttons to turn features on and off",components: [test, del]})
+                }
+                setting(interaction, client);
+                collector.on('collect', async i => {
+                    if (i.customId === 'delete') {interaction.deleteReply(); collector.stop(); return}
+                    if (client.settings.get(interaction.guild.id, i.customId)===true) { client.settings.set(interaction.guild.id, false, i.customId); await interaction.editReply({components: [test]})
+                    } else { client.settings.set(interaction.guild.id, true, i.customId); await interaction.editReply({components: [test]})}
+                    setting(interaction, client);
                     //await interaction.deleteReply()
                 });
                 collector.on('end', collected => console.log(`Collected ${collected.size} items`))
