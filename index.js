@@ -50,7 +50,7 @@ client.on('interactionCreate', async interaction => {
             const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
-                return interaction.reply({content: lang.index.cooldown + " `"+timeLeft+"`"});
+                return interaction.reply({content: lang.index.cooldown + " `"+timeLeft+"`", ephemeral: true});
             }
         }
         timestamps.set(interaction.user.id, now);
@@ -58,7 +58,7 @@ client.on('interactionCreate', async interaction => {
         //guild permission check
         if (command.guildOnly) { try{
                 if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
-                if (!r && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`"})}
+                if (!r && interaction.channel.type === "GUILD_TEXT") {return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
         } catch { } }
         //Execute
         try {
