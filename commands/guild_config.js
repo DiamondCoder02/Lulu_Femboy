@@ -18,8 +18,6 @@ module.exports = {
         console.log(interaction.options.getRole('welcome_role'))
         console.log(interaction.options.getRole('add_role'))
         console.log(interaction.options.getRole('remove_role'))
-        const a = interaction.options.getRole('welcome_role')
-        console.log(a.id + "\n" + a.guild.id)
         try {
             if (interaction.options.getSubcommand() === 'text') {
                 if(interaction.options.getString('welcome_message')) {
@@ -28,6 +26,14 @@ module.exports = {
                 } else if(interaction.options.getRole('welcome_role')) {
                     a = interaction.options.getRole('welcome_role')
                     client.settings.set(interaction.guild.id, a.id, "welcomeRole");
+                    return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
+                } else if(interaction.options.getRole('add_role')) {
+                    a = interaction.options.getRole('add_role')
+                    client.settings.push(interaction.guild.id, a.id, "freeRoles");
+                    return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
+                } else if(interaction.options.getRole('remove_role')) {
+                    a = interaction.options.getRole('remove_role')
+                    client.settings.remove(interaction.guild.id, a.id, "freeRoles");
                     return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
                 }
                 else {

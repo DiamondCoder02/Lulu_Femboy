@@ -3,6 +3,14 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildMemberAdd',
 	execute(member, client) {
+        try{
+            let ro = client.settings.get(member.guild.id, "welcomeRole");
+            console.log(ro)
+            const role = member.guild.roles.cache.get(ro)
+            console.log(role)
+            member.roles.add(role);
+            console.log('Yay')
+        } catch{console.log('nope')}
         let welcome = client.settings.get(member.guild.id, "welcome");
         if(welcome) {} else return
         const channel = member.guild.systemChannel
