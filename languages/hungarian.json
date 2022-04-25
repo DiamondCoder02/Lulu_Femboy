@@ -17,13 +17,14 @@
         "answer": "A választott guildben a parancsok regisztrálva - Parancsok regisztrálva globálisan - A választott guildben a parancsok törölve - Parancsok dörölve globálisan - Kiléptél a programból. Viszlát!",
         "question": "Válasz egy számot 1 és 5 között: - Parancsok regisztrálása a kiválasztott guildben. - Parancsok regisztrálása globálisan( lehet hogy egy óráig tart míg megjelenik). - Parancsok törlése a kiválasztott guildben - Parancsok törlése globálisan( lehet hogy egy óráig tart míg megjelenik). - Kilépés."
     },
+    "guild_mem_create": "Nincs fő csatorna a guildnek: - A bot csak is per paranccsal működik. - jelet írj hogy lássad a parancsokat. - (nsfw csak is nsfw csatornában működik)",
+    "int_create": "csatornában aktiválta: - csatornában aktivált egy gombot. - csatornában aktivált egy menüt.",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Új parancsokat tanulok",
         "no_status": "Nincs státusz csatorna megadva. Folytatás.",
         "console_log": "Bejelentkezve mint - Nyelv: - ClientID: - Jelszó: - Készenlétben: - Szerverek:",
         "embed": "Bot elindítva! - Bot el lett indítva - Ez volt "
     },
-    "int_create": "csatornában aktiválta: - csatornában aktivált egy gombot. - csatornában aktivált egy menüt.",
     "akinator": {
         "slash": "Akinator játék. - Írj be egy nyelvet (Alapértelmezett: en) - Gyermekmódot szeretnél (Alapértelmezett: Igaz) - Adj meg egy játéktípust (Alapértelmezett: karakter) - Ha szeretnél egy gombot (Alapértelmezett: Igaz) - Állatok - Karakterek - Tárgy",
         "error": "Hiba történt. Győződ meg róla, hogy megfelelő nyelvet választottál"

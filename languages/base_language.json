@@ -17,13 +17,14 @@
         "answer": " -  -  -  - ",
         "question": " -  -  -  -  - "
     },
+    "guild_mem_create": " -  -  - ",
+    "int_create": " -  - ",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* ",
         "no_status": "",
         "console_log": " -  -  -  -  - ",
         "embed": " -  - "
     },
-    "int_create": " -  - ",
     "booru": {
         "slash": " -  - ",
         "embed": " -  -  -  -  -  - ",

@@ -17,13 +17,14 @@
         "answer": "Alle Befehle in der bestimmten Gilde registriert - Alle Befehle global registriert - Alle Befehle in der bestimmten Gilde gelöscht - Alle Befehle global gelöscht - Sie haben sich entschieden, das Programm zu beenden. Auf Wiedersehen!",
         "question": "Bitte wähle eine Zahl zwischen 1 und 5: - Registriere neuen Befehl nur in der bestimmten Gilde. - Registriere Befehl auf allen Servern (es kann eine Stunde dauern, bis er erscheint). - Lösche Befehle nur in der bestimmten Gilde. - Befehle auf allen Servern löschen (kann eine Stunde dauern). - Beenden."
     },
+    "guild_mem_create": "Kein Systemkanal gefunden für - Der Bot funktioniert nur mit Slash-Befehlen. - um die Liste der Befehle zu sehen. - (nsfw nur in nsfw Kanälen)",
+    "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Lernen Sie neue Befehle",
         "no_status": "Kein Statuskanal angegeben. Fortfahren.",
         "console_log": "Angemeldet als - Sprache: - KundenID: - Passwort: - Bereit bei: - Gilden:",
         "embed": "Bot Start! - Bot wurde gestartet - Das war"
     },
-    "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
     "Akinator": {
         "slash": "Spiele das Akinator-Spiel. - Gib eine Sprache ein (Standard: en) - Wenn du den Kindermodus möchtest (Standard: wahr) - Gib einen Spieltyp ein (Standard: Charakter) - Wenn du eine Schaltfläche möchtest (Standard: wahr) - Tiere - Charaktere - Objekt",
         "error": "Ein Fehler ist aufgetreten. Stellen Sie sicher, dass Sie die richtige Sprache auswählen."

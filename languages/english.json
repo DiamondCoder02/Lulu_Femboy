@@ -17,13 +17,14 @@
         "answer": "Registered all commands in the specific guild - Registered all commands globally - Deleted all commands in the specific guild - Deleted all commands globally - You have chosen to exit the program. Goodbye!",
         "question": "Please choose a number between 1 and 5: - Register new command only in the specific guild. - Register command on all servers( might take an hour to appear). - Delete all commands only in the specific guild. - Delete commands on all servers( might take an hour to work). - Exit."
     },
+    "guild_mem_create": "No system channel found for - The bot works with only slash commands. - to see the list of commands. - (nsfw only in nsfw channels)",
+    "int_create": "triggered: - triggered a button. - triggered a select menu.",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Learning new commands",
         "no_status": "No status channel given. Continuing.",
         "console_log": "Logged in as - Language: - ClientID: - Password: - Ready at: - Guilds:",
         "embed": "Bot start! - Bot has been started - That was"
     },
-    "int_create": "triggered: - triggered a button. - triggered a select menu.",
     "akinator": {
         "slash": "Play the Akinator game. - Enter a language (Default: en) - If you want child mode (Default: true) - Enter a game type (Default: character) - If you want a button (Default: true) - Animals - Characters - Object",
         "error": "An error occured. Make sure you choose a correct language"
