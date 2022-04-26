@@ -8,7 +8,13 @@ module.exports = {
         .setName('role')
         .setDescription('Gives roles with buttons'),
     async execute(interaction, client, config) {
-        const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
+        let ro = client.settings.get(interaction.guild.id, "freeRoles");
+        if (Array.isArray(ro)) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
+        console.log(ro)
+        const role = interaction.guild.roles.find(r => r.name == ro)
+        console.log(role)
+        //member.roles.add(role);
+
         const role_embed = new MessageEmbed()
         .setTitle("Self Roles:")
         .setColor("#0099ff")

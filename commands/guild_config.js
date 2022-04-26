@@ -10,14 +10,12 @@ module.exports = {
         .addSubcommand(subcommand => subcommand.setName('text').setDescription('Configure text settings and also display current settings.')
             .addStringOption(option => option.setName('welcome_message').setDescription('What the welcome message should be.'))
             .addRoleOption(option => option.setName('welcome_role').setDescription('What role for new members.(If empty, no role, but once given you cannot remove, only change it)'))
+            .addBooleanOption(option => option.setName('welcome_role_remove').setDescription('You want to remove the welcome role.'))
             .addRoleOption(option => option.setName('add_role').setDescription('What optional rola can people choose from.'))
             .addRoleOption(option => option.setName('remove_role').setDescription('What optional role can people remove.'))
         )
         .addSubcommand(subcommand => subcommand.setName('button').setDescription('Configure button settings.')),
     async execute(interaction, client, config) {
-        console.log(interaction.options.getRole('welcome_role'))
-        console.log(interaction.options.getRole('add_role'))
-        console.log(interaction.options.getRole('remove_role'))
         try {
             if (interaction.options.getSubcommand() === 'text') {
                 if(interaction.options.getString('welcome_message')) {
@@ -25,19 +23,25 @@ module.exports = {
                     return interaction.reply(`Guild configuration item "welcomeMessage" has been changed to: \`${interaction.options.getString('welcome_message')}\``);
                 } else if(interaction.options.getRole('welcome_role')) {
                     a = interaction.options.getRole('welcome_role')
-                    client.settings.set(interaction.guild.id, a.id, "welcomeRole");
+                    client.settings.set(interaction.guild.id, a.name, "welcomeRole");
                     return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
+                } else if(interaction.options.getBoolean('welcome_role_remove')) {
+                    client.settings.set(interaction.guild.id, " ", "welcomeRole");
+                    return interaction.reply(`Guild configuration item "welcomeRole" has been removed.`);
                 } else if(interaction.options.getRole('add_role')) {
                     let ro = client.settings.get(interaction.guild.id, "freeRoles");
                     if (Array.isArray(ro)) { } else { ro = ["test"] }
                     ar = interaction.options.getRole('add_role'); 
-                    ro.push(ar.id);
+                    ro.push(ar.name);
                     if (ro.includes("test")) { ro.splice(ro.indexOf("test"), 1) };
                     client.settings.set(interaction.guild.id, ro, "freeRoles");
                     return interaction.reply(`Guild configuration item "freeRoles" has been added: \`${ar.name}\``);
                 } else if(interaction.options.getRole('remove_role')) {
+                    let ro = client.settings.get(interaction.guild.id, "freeRoles");
+                    if (Array.isArray(ro)) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
                     a = interaction.options.getRole('remove_role')
-                    client.settings.remove(interaction.guild.id, a.id, "freeRoles");
+                    if (ro.includes(a.id)) { } else { return interaction.reply(`Guild role was not found.`) }
+                    client.settings.remove(interaction.guild.id, a.name, "freeRoles");
                     return interaction.reply(`Guild configuration item "freeRoles" has been removed: \`${a.name}\``);
                 }
                 else {

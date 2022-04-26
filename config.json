@@ -3,8 +3,8 @@
   "clientId": "clientID",
   "guildId": "guildID",
   "botStatusChannel": "897097242861789236",
-  "futureIdeas": "-reminder \n-Better role handling \n-More event listeners \n-Website to edit config",
-  "bugsToFix": "-nHentai page reading broke \n-role broken",
+  "futureIdeas": "-reminder \n-More event listeners \n-Website to edit config \n-Google(?) search",
+  "bugsToFix": "-nHentai page reading broke",
   "stopPassword": "lolipop",
   "language": "english",
   "debug_level": 1

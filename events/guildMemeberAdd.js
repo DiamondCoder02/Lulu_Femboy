@@ -6,7 +6,7 @@ module.exports = {
         try{
             let ro = client.settings.get(member.guild.id, "welcomeRole");
             console.log(ro)
-            const role = member.guild.roles.cache.get(ro)
+            const role = member.guild.roles.find(r => r.name == ro)
             console.log(role)
             member.roles.add(role);
             console.log('Yay')
