@@ -17,7 +17,7 @@ client.settings = new Enmap({
         welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
         enableNSFW: false,
         welcomeRole: "",
-        freeRoles: [],
+        freeRoles: [""],
     }
 });
 

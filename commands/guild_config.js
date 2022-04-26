@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 
 module.exports = {
     guildOnly: true,
-    //permissions: "ADMINISTRATOR",
+    permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
@@ -28,19 +28,22 @@ module.exports = {
                     client.settings.set(interaction.guild.id, a.id, "welcomeRole");
                     return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
                 } else if(interaction.options.getRole('add_role')) {
-                    a = interaction.options.getRole('add_role')
-                    client.settings.push(interaction.guild.id, a.id, "freeRoles");
-                    return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
+                    let ro = client.settings.get(interaction.guild.id, "freeRoles");
+                    if (Array.isArray(ro)) { } else { ro = ["test"] }
+                    ar = interaction.options.getRole('add_role'); 
+                    ro.push(ar.id);
+                    if (ro.includes("test")) { ro.splice(ro.indexOf("test"), 1) };
+                    client.settings.set(interaction.guild.id, ro, "freeRoles");
+                    return interaction.reply(`Guild configuration item "freeRoles" has been added: \`${ar.name}\``);
                 } else if(interaction.options.getRole('remove_role')) {
                     a = interaction.options.getRole('remove_role')
                     client.settings.remove(interaction.guild.id, a.id, "freeRoles");
-                    return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
+                    return interaction.reply(`Guild configuration item "freeRoles" has been removed: \`${a.name}\``);
                 }
                 else {
                     const guildConf = client.settings.get(interaction.guild.id);
                     let configProps = Object.keys(guildConf).map(prop => { return `${prop}  :  ${guildConf[prop]}` });
-                    return interaction.reply(`The following are the server's current configuration:
-                    \`\`\`${configProps.join("\n")}\`\`\``);
+                    return interaction.reply(`The following are the server's current configuration:\n\`\`\`${configProps.join("\n")}\`\`\``);
                 }
             }
             if (interaction.options.getSubcommand() === 'button') {

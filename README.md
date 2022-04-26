@@ -28,8 +28,6 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [ ] reminder system
 - [ ] More event listeners
 - [ ] Make website to edit config?
-- [x] Welcome message to system channel (embed ~or image, both?~)
-- [x] Server side settings (like ~language~, welcome message, etc.)
 - [ ] Per server language support
 
 ### Currently I know broken or needs a bit of fixing:

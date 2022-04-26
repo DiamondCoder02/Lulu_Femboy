@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     guildOnly: true,
     cooldown: 60,
@@ -6,22 +7,12 @@ module.exports = {
 	data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Gives roles with buttons'),
-        //.addSubcommand(subcommand => subcommand.setName('safe_for_work').setDescription('Wholesome roles that you can get.'))
-        //.addSubcommand(subcommand => subcommand.setName('not_safe_for_work').setDescription('Lewd roles for all you naughty.')),
-    async execute(interaction, config) {
+    async execute(interaction, client, config) {
+        const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
         const role_embed = new MessageEmbed()
         .setTitle("Self Roles:")
         .setColor("#0099ff")
         .setDescription("`Click some button bellow if you want access to some good stuff!`")
-        /*if (interaction.options.getSubcommand() === 'safe_for_work') {
-            
-        }
-        if (interaction.options.getSubcommand() === 'not_safe_for_work') {
-            if (!interaction.channel.nsfw) { interaction.reply({content:'Sorry, this is a Not Safe For Work command!', ephemeral: true}); return }
-            
-        }*/
-
-
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton().setCustomId('role_sfw').setLabel('sfw').setStyle('SECONDARY').setEmoji('🧒'),

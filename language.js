@@ -1,4 +1,5 @@
 const fs = require('fs'), readline = require('readline'), filename = "./config.json"
+const wait = require('node:timers/promises').setTimeout;
 let languages = [], languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'))
 var a = -1
 
@@ -31,5 +32,6 @@ ask("Choose", (answer) => {
     if (answer > 0 && answer < lan.length) { l = lan[answer] } else { return console.log("no") }
     content.language = l
     fs.writeFileSync(filename, JSON.stringify(content, null, 2))
-    return console.log("Language changed to "+l)
+    console.log("Language changed to "+l)
+    return wait(3000)
 });

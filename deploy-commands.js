@@ -1,4 +1,5 @@
 const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9'), { guildId, clientId, Token, language } = require('./config.json'), lang = require('./languages/' + language + '.json');
+const wait = require('node:timers/promises').setTimeout;
 const e = lang.deploy.error.split('-'), a = lang.deploy.answer.split('-'), q = lang.deploy.question.split('-')
 const commands = [], commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 require('dotenv').config();
@@ -45,7 +46,7 @@ ask(lang.deploy.question, (answer) => {
                 const deleteUrl = `${Routes.applicationGuildCommands(c, g)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
-            return Promise.all(promises).then(() => console.log(a[2]));
+            Promise.all(promises).then(() => console.log(a[2]));
         })
         .catch(console.error);
     } else if (answer == 4) {
@@ -56,12 +57,13 @@ ask(lang.deploy.question, (answer) => {
                 const deleteUrl = `${Routes.applicationCommands(c)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
-            return Promise.all(promises).then(() => console.log(a[3]));
+            Promise.all(promises).then(() => console.log(a[3]));
         })
         .catch(console.error);
     } else if (answer == 5) {
-        return console.log(a[4]);
+        console.log(a[4]);
     } else {
         console.log(e[3]);
     }
+    return wait(3000)
 });
