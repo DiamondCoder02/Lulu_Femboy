@@ -18,7 +18,7 @@
         "question": "Bitte wähle eine Zahl zwischen 1 und 5: - Registriere neuen Befehl nur in der bestimmten Gilde. - Registriere Befehl auf allen Servern (es kann eine Stunde dauern, bis er erscheint). - Lösche Befehle nur in der bestimmten Gilde. - Befehle auf allen Servern löschen (kann eine Stunde dauern). - Beenden."
     },
     "guild_mem_create": "Kein Systemkanal gefunden für - Der Bot funktioniert nur mit Slash-Befehlen. - um die Liste der Befehle zu sehen. - (nsfw nur in nsfw Kanälen)",
-    "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst. - hat ein Auswahlmenü ausgelöst.",
+    "int_create": "Ausgelöst: - eine Schaltfläche ausgelöst - hat ein Auswahlmenü ausgelöst",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Lernen Sie neue Befehle",
         "no_status": "Kein Statuskanal angegeben. Fortfahren.",

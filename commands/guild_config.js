@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 
 module.exports = {
     guildOnly: true,
-    permissions: "ADMINISTRATOR",
+    //permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
@@ -32,15 +32,17 @@ module.exports = {
                     let ro = client.settings.get(interaction.guild.id, "freeRoles");
                     if (Array.isArray(ro)) { } else { ro = ["test"] }
                     ar = interaction.options.getRole('add_role'); 
+                    if (ro.includes(ar.name)) { return interaction.reply(`Role \`${ar.name}\` is already in the list.`) }
                     ro.push(ar.name);
                     if (ro.includes("test")) { ro.splice(ro.indexOf("test"), 1) };
+                    if (ro.includes("")) { ro.splice(ro.indexOf(""), 1) }
                     client.settings.set(interaction.guild.id, ro, "freeRoles");
                     return interaction.reply(`Guild configuration item "freeRoles" has been added: \`${ar.name}\``);
                 } else if(interaction.options.getRole('remove_role')) {
                     let ro = client.settings.get(interaction.guild.id, "freeRoles");
                     if (Array.isArray(ro)) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
                     a = interaction.options.getRole('remove_role')
-                    if (ro.includes(a.id)) { } else { return interaction.reply(`Guild role was not found.`) }
+                    if (ro.includes(a.name)) { } else { return interaction.reply(`Guild role was not found.`) }
                     client.settings.remove(interaction.guild.id, a.name, "freeRoles");
                     return interaction.reply(`Guild configuration item "freeRoles" has been removed: \`${a.name}\``);
                 }

@@ -18,7 +18,7 @@
         "question": "Pwease choose a numbew between 1 and 5: - Registew new command onwy in the specific guiwd. - Registew command on aww sewvews( might take an houw to appeaw). - Dewete all commands onwy in the specific guiwd. - Dewete commands on aww sewvews( might take an houw to wowk). - Exit."
     },
     "guild_mem_create": "No system channew found fow - The bot wowks with onwy swash commands. - to see the wist of commands. - (nsfw onwy in nsfw channews)",
-    "int_create": "twiggewed: - twiggewed a button. - twiggewed a sewect menu.",
+    "int_create": "twiggewed: - twiggewed a button - twiggewed a sewect menu",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Leawning new commands",
         "no_status": "No status channew given. Continuing.",

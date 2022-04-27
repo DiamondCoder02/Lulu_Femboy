@@ -18,8 +18,8 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 
 ##### Debug level in config:
 0. No trigger messages. Only errors.
-1. Trigger messages. (Default)
-2. Trigger messages and button/menu reactions.
+1. Trigger messages.
+2. Trigger messages and button/menu reactions. (Default)
 3. Discord.js debug messages.
 
 "Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.

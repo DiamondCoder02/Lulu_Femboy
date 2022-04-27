@@ -18,7 +18,7 @@
         "question": "Please choose a number between 1 and 5: - Register new command only in the specific guild. - Register command on all servers( might take an hour to appear). - Delete all commands only in the specific guild. - Delete commands on all servers( might take an hour to work). - Exit."
     },
     "guild_mem_create": "No system channel found for - The bot works with only slash commands. - to see the list of commands. - (nsfw only in nsfw channels)",
-    "int_create": "triggered: - triggered a button. - triggered a select menu.",
+    "int_create": "triggered: - triggered a button - triggered a select menu",
     "ready": {
         "set_activity": "[]~(￣▽￣)~* Learning new commands",
         "no_status": "No status channel given. Continuing.",

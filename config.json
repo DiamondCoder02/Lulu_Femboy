@@ -7,5 +7,5 @@
   "bugsToFix": "-nHentai page reading broke",
   "stopPassword": "lolipop",
   "language": "english",
-  "debug_level": 1
+  "debug_level": 2
 }
