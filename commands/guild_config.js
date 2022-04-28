@@ -53,7 +53,7 @@ module.exports = {
                 }
             }
             if (interaction.options.getSubcommand() === 'button') {
-                await interaction.reply({ content:"Loading..." })
+                await interaction.deferReply(`Loading...`);
                 const filter = i => i.user.id === interaction.user.id
                 const collector = interaction.channel.createMessageComponentCollector({filter, time: 30000 });
                 async function setting(interaction, client) {
@@ -67,11 +67,12 @@ module.exports = {
                     interaction.editReply({content: "Buttons to turn features on and off",components: [test, del]})
                 }
                 setting(interaction, client);
-                collector.on('collect', async i => {
-                    if (i.customId === 'delete') {interaction.deleteReply(); collector.stop(); return}
-                    if (client.settings.get(interaction.guild.id, i.customId)===true) { client.settings.set(interaction.guild.id, false, i.customId); await interaction.editReply({components: [test]})
-                    } else { client.settings.set(interaction.guild.id, true, i.customId); await interaction.editReply({components: [test]})}
+                collector.on('collect', async button => {
+                    if (button.customId === 'delete') {interaction.deleteReply(); collector.stop(); return}
+                    if (client.settings.get(interaction.guild.id, button.customId)===true) { client.settings.set(interaction.guild.id, false, button.customId)
+                    } else { client.settings.set(interaction.guild.id, true, button.customId)}
                     setting(interaction, client);
+                    //await interaction.deferReply();
                     //await interaction.deleteReply()
                 });
                 collector.on('end', collected => console.log(`Collected ${collected.size} items`))

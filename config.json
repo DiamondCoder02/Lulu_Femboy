@@ -3,7 +3,7 @@
   "clientId": "clientID",
   "guildId": "guildID",
   "botStatusChannel": "897097242861789236",
-  "futureIdeas": "-reminder \n-More event listeners \n-Website to edit config \n-Google(?) search",
+  "futureIdeas": "-reminder \n-More event listeners \n-Website to edit config \n-Per server language support \n-Dynamic roles \n-Google(?) search \n-Pinging the bot gives help",
   "bugsToFix": "-nHentai page reading broke",
   "stopPassword": "lolipop",
   "language": "english",

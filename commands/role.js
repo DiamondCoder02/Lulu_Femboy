@@ -9,93 +9,42 @@ module.exports = {
         .setDescription('Gives roles with buttons'),
     async execute(interaction, client, config) {
         let ro = client.settings.get(interaction.guild.id, "freeRoles");
-        if (Array.isArray(ro)) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
-        console.log(ro)
-        //member.roles.add(role);
-
+        if (Array.isArray(ro) && ro.length >0 ) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
+        let m = []
         const role_embed = new MessageEmbed()
             .setTitle("Self Roles:")
             .setColor("#0099ff")
             .setDescription("`Click some button for roles!`")
-        let m = []
-        for (let x = 0; x < 5; x++){
-            let roles = interaction.guild.roles.cache.filter(r => r.name == ro[x])
+        await interaction.reply({ embeds: [role_embed] })
+        for (let x = 0; x < ro.length; x++){
+            let role = await interaction.guild.roles.cache.find(r => r.name == ro[x])
             m.push(new MessageButton({
                 customId: x,
                 style: 'PRIMARY',
-                label: roles.name,
+                label: role.name,
             }))
-            console.log(roles)
-            console.log(m)
-            //const current = ro.slice(start, start + 5)
-            /*
-            let row = new MessageActionRow()({ components: [ 
-                new MessageButton({
-                    customId: x,
-                    style: 'PRIMARY',
-                    label: roles.name,
-                })
-            ]})
-            //console.log(current)
-            
-            console.log(row)
-            */
-        };
-        interaction.reply({ embed: role_embed })
-
-		const forwardId = 'forward'
-		const forwardButton = new MessageButton({
-			style: 'SECONDARY',
-			label: 'Forward',
-			emoji: '➡️',
-			customId: forwardId
-		})
-        const generateEmbed = async start => {
-			const current = ro.slice(start, start + 5)
-			return new MessageEmbed({
-				title: `Showing guilds ${start + 1}-${start + current.length} out of ${ro.length}`,
-				fields: await Promise.all( current.map( async ro => ({ name: ro, value: `${ro}` }) ))
-			})
-		}
-        const moreThan5 = ro.length <= 5
-        await interaction.channel.send({
-			embeds: [await generateEmbed(0)],
-			components: moreThan5 ? [] : [new MessageActionRow({ components: [forwardButton] })]
-		})
-		if (moreThan5) return
-
-
-        /*
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton().setCustomId('role_sfw').setLabel('sfw').setStyle('SECONDARY').setEmoji('🧒'),
-                new MessageButton().setCustomId('role_nsfw').setLabel('nsfw').setStyle('SECONDARY').setEmoji('🕵️')
-            )
-        await interaction.reply({ embeds: [role_embed], components: [row], ephemeral: true });
+        }
+        let x = m.length / 5, y = Math.floor(x+1), but = []
+        if (y == x+1) { y-=1 }
+        for (let i = 0; i < y; i++) {
+            but = (new MessageActionRow({
+                components: m.slice(i*5, (i+1)*5)
+            }))
+            console.log(but)
+        }
+        await interaction.editReply({ embed: [role_embed], components: [but] })
         const filter = i => i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 5000 });
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
         collector.on('collect', async i => {
-            if (i.customId === 'role_sfw') {
-                const role = interaction.guild.roles.cache.get("948322911419265024");
-                if (i.member.roles.cache?.has(role)) {
-                    i.member.roles.remove(role)
-                    await i.reply({ content: `${role} was removed from you`, ephemeral: true });
-                } else {
-                    i.member.roles.add(role)
-                    await i.reply({ content: `${role} was added to you`, ephemeral: true });
-                }
-            } else if (i.customId === 'role_nsfw') {
-                const role = interaction.guild.roles.cache.get("948322955883069510");
-                if (i.member.roles.cache?.has(role)) {
-                    i.member.roles.remove(role)
-                    await i.reply({ content: `${role} was removed from you`, ephemeral: true });
-                } else {
-                    i.member.roles.add(role)
-                    await i.reply({ content: `${role} was added to you`, ephemeral: true });
-                }
+            let role = await interaction.guild.roles.cache.find(r => r.name == ro[i.customId])
+            if (interaction.member.roles.cache?.has(role.id)) {
+                interaction.member.roles.remove(role)
+                await interaction.followUp({ content: `${role} was removed from you`, ephemeral: true });
+            } else {
+                interaction.member.roles.add(role)
+                await interaction.followUp({ content: `${role} was added to you`, ephemeral: true });
             }
-        })
+        });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
-        */
     }
 }
