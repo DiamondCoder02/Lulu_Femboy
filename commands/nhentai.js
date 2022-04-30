@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const nHentai = require('shentai'), sHentai = new nHentai
 module.exports = {
     guildOnly: true,
@@ -28,6 +29,7 @@ module.exports = {
         const searchDelete = new MessageActionRow().addComponents(
             new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER').setEmoji('✖️'))
         function searchEmbed(doujin){
+            console.log(doujin)
             const nhentaiEmbed = new MessageEmbed()
             .setColor('#ec2852')
             .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
