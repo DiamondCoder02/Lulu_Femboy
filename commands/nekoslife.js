@@ -133,7 +133,7 @@ module.exports = {
             if (interaction.options.getString('sfw_w') === 'feed') {lewd = await neko.sfw.feed()}
             if (interaction.options.getString('sfw_w') === 'cuddle') {lewd = await neko.sfw.cuddle()}
             if (interaction.options.getString('sfw_w') === 'nekoGif') {lewd = await neko.sfw.nekoGif()}
-            if (interaction.options.getString('sfw_w') === 'holo') {lewd = await neko.sfw.hole()}
+            if (interaction.options.getString('sfw_w') === 'holo') {lewd = await neko.sfw.holo()}
             if (interaction.options.getString('sfw_w') === 'smug') {lewd = await neko.sfw.smug()}
             if (interaction.options.getString('sfw_w') === 'baka') {lewd = await neko.sfw.baka()}
             if (interaction.options.getString('sfw_o') === 'woof') {lewd = await neko.sfw.woof()}
@@ -189,7 +189,7 @@ module.exports = {
             if (interaction.options.getString('nsfw_o') === 'eroKemonomimi') {lewd = await neko.nsfw.eroKemonomimi()}
             if (interaction.options.getString('nsfw_o') === 'eroNeko') {lewd = await neko.nsfw.eroNeko()}
             if (interaction.options.getString('nsfw_o') === 'eroYuri') {lewd = await neko.nsfw.eroYuri()}
-            embed.setImage(lewd.url)
+            if (lewd.msg === '404') {embed.setDescription('**Error: 404**')} else {embed.setImage(lewd.url)}
             if (interaction.options.getUser('target')) {
                 const user = interaction.options.getUser('target'), from = interaction.user
                 embed.setDescription(from.toString() + de[3] + " " + interaction.options.getString('sfw_w') + ", " + user.toString() + ". :3")

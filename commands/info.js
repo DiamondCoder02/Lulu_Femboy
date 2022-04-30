@@ -10,7 +10,7 @@ module.exports = {
         .addStringOption(option => option.setName('search').setDescription(sl[1])
             .addChoice('user', 'user')
             .addChoice('server', 'server')
-            .addChoice('server_cheatsheet', 'cheat'))
+            .addChoice('server_cheatsheet', 'cheat').setRequired(true))
         .addUserOption(option => option.setName('target').setDescription(sl[2])),
     async execute(interaction, client) {
         const page = new MessageActionRow().addComponents( new MessageButton().setCustomId('delete').setLabel(lang.d).setStyle('DANGER').setEmoji('✖️'))
@@ -19,7 +19,7 @@ module.exports = {
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
         //User, server, cheatsheet
         if (interaction.options.getString('search') === 'user') {
-            if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2])}
+            if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2]+"?")}
             const user = interaction.options.getUser('target');
             const profilepic = user.displayAvatarURL();
             const usertime = new Date(user.createdTimestamp).toLocaleString();
