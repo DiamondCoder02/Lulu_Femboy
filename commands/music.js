@@ -92,7 +92,7 @@ module.exports = {
             const success = queue.setVolume(vol.value);
             return void interaction.followUp({ content: success ? `✅ | ${c2[5]} **${vol.value}%**!` : "❌ |" + c2[3] });
         } else {
-            return await interaction.reply({content: c2[6]})
+            return await interaction.editReply({content: c2[6]})
         }
     }
 }
