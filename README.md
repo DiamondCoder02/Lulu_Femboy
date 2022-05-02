@@ -2,7 +2,7 @@
 4th trying making a Discorcd bot.
 Please don't use this...(, **unless you know what mess I make here.**)
 
-**Some stuff is broken, but I have exams so I can only fix them later**
+### Some stuff is broken, but I have exams so I can only fix them later
 
 #### A bit of explanation:
 Just my own little bot to learn. Early in development. Still not stupid proof but working on it as I don't want it to break often.
