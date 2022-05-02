@@ -3,6 +3,7 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildMemberAdd',
 	execute(member, client) {
+        console.log(`${member.user.tag} has joined the guild: ${member.guild.name}`)
         try{
             let ro = client.settings.get(member.guild.id, "welcomeRole");
             console.log(ro)
