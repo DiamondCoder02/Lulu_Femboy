@@ -1,58 +1,61 @@
-# Femboi_OwO
-4th trying making a Discorcd bot.
-Please don't use this...(, **unless you know what mess I make here.**)
+# From my discord notes:
+Task sheet: __***Do not delete!***__
+__**Idea:**__
+- Webpage to edit config
+- Server side language
+- Bot voting?
+- More event listeners
+- Reminders
+- Google search (chrome tabs)
+- In interactionCreate also get other options for console log
+- API and RSS testing?
+- Voice record command?
+- Math solver?
 
-### Some stuff is broken, but I have exams so I can only fix them later
+__**To fix:**__
+- Check if a file or link got deleted
+- Be able to have more than 5 roles
+- Nhentai fix
 
-#### A bit of explanation:
-Just my own little bot to learn. Early in development. Still not stupid proof but working on it as I don't want it to break often.
-Feel free to contribute if you want. I also appriciate every problem report and every help.
-This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
+__**Reminder:**__
+- Write comments in code at some places
+- Find alternate for nsfw nekos.life
+- Do I want to complicate with message check for bot ping?
+- Languages at some commands
+- If bored try to "fix" the 3 excluded from booru
+- Find a way for music to not start at 100 at every song
 
-## Setup
-- Have latest [NodeJs](https://nodejs.org/en/) installed. (Currently developed on 18.0.0)
-- First start setup.bat (You can close the console when done).
-- Make a bot for yourself at [Discord developer portal](https://discord.com/developers/applications).
-- Get both Client ID and Token, copy and paste into the config.json file.
-- If you want you can change the stop password for your desire but it's only used for the stop command( for now).
-- Invite the bot into the server with this link. Replace TEXT with client id: ( https://discord.com/api/oauth2/authorize?client_id=TEXT&permissions=2415930432&scope=bot%20applications.commands )
-- After all this save and run start.bat ( It will ask you what language you want and how you want to activate commands. Recommended: 1.)
+__**To test:**__
+- Test guildMemberAdd role
+- Why is there an empty space at guildMemberAdd
+- Check if phub has temporary or longer error
 
-##### Debug level in config:
-0. No trigger messages. Only errors.
-1. Trigger messages.
-2. Trigger messages and button/menu reactions. (Default)
-3. Discord.js debug messages.
 
-"Easy" language support as usual. In config you can kinda see what I plan and how I'm currently holding.
+[\*] = Ideas
+[  ] = In work
+[/] = basic idea works
+[?]= Does it work? (Needs testing)
+[-] = Needs translation (or small things)
+[+] = Done
+[x] = Broken / Needs fixing
 
-### Future (maybe) ideas:
-- [ ] reminder system
-- [ ] More event listeners
-- [ ] Make website to edit config?
-- [ ] Per server language support
-- [ ] Dynamic self roles
-- [ ] Google(?) search
-- [ ] If you ping the bot it will give help?
+Commands:
+[+] akinator , booru , bot_info , clean , info , music , nekoslife , phub , ping , prune , purge , stop , translate
+[-] guild_config
+[x] nhentai (button reading is broken)
+[/] role
 
-### Currently I know broken or needs a bit of fixing:
-- [ ] nHentai completly broken
-- [x] nekoslife sometimes returns 404
-- [ ] translate has a warning but works?
+Events:
+[-?] guildMemberAdd
+[+] interactionCreate
+[+] ready
 
-#### Limitation:
-- Only works with slash commands
-- Roles cannot have the same name
-- Picture commands can send not working links so nothing is shown in embed
-- Rare case of them sending the same picture twice in a row
-- Booru can post a videos that Discord cannot handle, but still accessible afte you click the link.
+Main: 
+[+] Deploy-commands
+[+] Index
+[+] Language
 
-## Credits (Package name - command name)
-- [Discord.js Akinator - Akinator](https://www.npmjs.com/package/discord.js-akinator)
-- [Booru](https://www.npmjs.com/package/booru)
-- [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
-- [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
-- [sHentai - nHentai](https://www.npmjs.com/package/shentai)
-- [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
-- [Translate](https://www.npmjs.com/package/translate)
-- Also big thanks for Github Copilot. :3
+Other:
+[+] Setup.bat
+[+] Restart_run.bat
+[+] Start.bat
