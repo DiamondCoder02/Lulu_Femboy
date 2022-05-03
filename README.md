@@ -30,32 +30,32 @@ __**To test:**__
 - Why is there an empty space at guildMemberAdd
 - Check if phub has temporary or longer error
 
+#### checklist?:
+- [\*] = Ideas
+- [  ] = In work
+- [/] = basic idea works
+- [?]= Does it work? (Needs testing)
+- [-] = Needs translation (or small things)
+- [+] = Done
+- [x] = Broken / Needs fixing
 
-[\*] = Ideas
-[  ] = In work
-[/] = basic idea works
-[?]= Does it work? (Needs testing)
-[-] = Needs translation (or small things)
-[+] = Done
-[x] = Broken / Needs fixing
+- Commands:
+- [+] akinator , booru , bot_info , clean , info , music , nekoslife , phub , ping , prune , purge , stop , translate
+- [-] guild_config
+- [x] nhentai (button reading is broken)
+- [/] role
 
-Commands:
-[+] akinator , booru , bot_info , clean , info , music , nekoslife , phub , ping , prune , purge , stop , translate
-[-] guild_config
-[x] nhentai (button reading is broken)
-[/] role
+- Events:
+- [-?] guildMemberAdd
+- [+] interactionCreate
+- [+] ready
 
-Events:
-[-?] guildMemberAdd
-[+] interactionCreate
-[+] ready
+- Main: 
+- [+] Deploy-commands
+- [+] Index
+- [+] Language
 
-Main: 
-[+] Deploy-commands
-[+] Index
-[+] Language
-
-Other:
-[+] Setup.bat
-[+] Restart_run.bat
-[+] Start.bat
+- Other:
+- [+] Setup.bat
+- [+] Restart_run.bat
+- [+] Start.bat
