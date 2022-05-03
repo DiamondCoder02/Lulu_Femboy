@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
-const sd = lang.nekoslife.slash_desc.split('-'), de = lang.nekoslife.desc.split('-'), er = lang.nekoslife.error_reply
+const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), sd = lang.nekoslife.slash_desc.split('-'), de = lang.nekoslife.desc.split('-'), er = lang.nekoslife.error_reply
 const wait = require('node:timers/promises').setTimeout;
 const nekoslife = require('nekos.life'), neko = new nekoslife();
 module.exports = {
