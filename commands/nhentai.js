@@ -76,6 +76,7 @@ module.exports = {
                     .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
                 interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
             }
+            i.update({components: interaction.components})
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
         //check arg

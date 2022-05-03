@@ -44,6 +44,7 @@ module.exports = {
                 interaction.member.roles.add(role)
                 await interaction.followUp({ content: `${role} was added to you`, ephemeral: true });
             }
+            i.update({components: interaction.components})
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
     }

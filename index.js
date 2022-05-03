@@ -6,7 +6,7 @@ const client = new Client({ ws: {properties: {$browser: 'Discord iOS'}}, intents
 client.commands = new Collection();
 const Enmap = require('enmap');
 console.clear();
-
+//Enmap - server side settings
 client.settings = new Enmap({
     name: "settings",
     fetchAll: false,
@@ -20,14 +20,12 @@ client.settings = new Enmap({
         freeRoles: [""],
     }
 });
-
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const command_files = require(`./commands/${file}`);
 	client.commands.set(command_files.data.name, command_files);
 }
-
 //event handler
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
@@ -35,7 +33,6 @@ for (const file of eventFiles) {
 	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client))} 
     else {client.on(event.name, (...args) => event.execute(...args, client))}
 }
-
 //Slash command handler
 client.on('interactionCreate', async interaction => {
     if (interaction.isCommand) {
@@ -60,8 +57,8 @@ client.on('interactionCreate', async interaction => {
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
         //guild permission check
         if (command.guildOnly) { try{
-                if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
-                if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(":)");return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
+            if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
+            if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(":)");return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
         } catch { } }
         //Execute
         try {
@@ -72,18 +69,11 @@ client.on('interactionCreate', async interaction => {
         }
     }
 });
-
 //Bot token
-try{
-    if (config.Token == "token") client.login(token)
-    else client.login(config.Token)
-}catch{console.log(lang.index.token)}
-
+try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log(lang.index.token)}
 //error handler
 console.log(client)
 process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n  ', error));
 client.on("error", console.error)
 client.on("warn", console.warn)
-if (config.debug_level >= 3) {
-    client.on("debug", console.log)
-}
+if (config.debug_level >= 3) { client.on("debug", console.log) }
