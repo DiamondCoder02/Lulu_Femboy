@@ -10,7 +10,7 @@ Feel free to contribute if you want. I also appriciate every problem report and 
 This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
 
 ## Setup
-- Have latest [NodeJs](https://nodejs.org/en/) installed. (Tested on 18.0.0)
+- Have latest [NodeJs](https://nodejs.org/en/) installed. (Currently developed on 18.0.0)
 - First start setup.bat (You can close the console when done).
 - Make a bot for yourself at [Discord developer portal](https://discord.com/developers/applications).
 - Get both Client ID and Token, copy and paste into the config.json file.
@@ -35,9 +35,9 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [ ] Google(?) search
 - [ ] If you ping the bot it will give help?
 
-### Currently I know broken or needs a bit of fixing: (Because I updated to node 18.0.0 some things broke...)
+### Currently I know broken or needs a bit of fixing:
 - [ ] nHentai completly broken
-- [ ] nekoslife sometimes returns 404
+- [x] nekoslife sometimes returns 404
 - [ ] translate has a warning but works?
 
 #### Limitation:

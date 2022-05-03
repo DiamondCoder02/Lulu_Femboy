@@ -30,7 +30,7 @@
     "dotenv": "^16.0.0",
     "enmap": "^5.9.0",
     "ffmpeg-static": "^4.4.1",
-    "nekos.life": "^2.0.9",
+    "nekos.life": "^3.0.0",
     "shentai": "^2.0.3",
     "translate": "^1.4.1"
   }
