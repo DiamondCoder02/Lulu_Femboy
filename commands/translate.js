@@ -30,6 +30,6 @@ module.exports = {
                 .setDescription("--------------------\n"+text+"\n--------------------")
                 .addField(lang.translate.embed2+":", "*"+interaction.options.getString('text')+"*")
             await interaction.reply({embeds: [embed]})
-        } catch { return interaction.reply({content: lang.translate.error}) }
+        } catch { return interaction.reply({content: lang.translate.error+"\nhttps://cloud.google.com/translate/docs/languages"}) }
     }
 }

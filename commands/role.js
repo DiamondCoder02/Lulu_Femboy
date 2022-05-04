@@ -26,13 +26,21 @@ module.exports = {
         }
         let x = m.length / 5, y = Math.floor(x+1), but = []
         if (y == x+1) { y-=1 }
-        for (let i = 0; i < y; i++) {
-            but = (new MessageActionRow({
-                components: m.slice(i*5, (i+1)*5)
-            }))
-            console.log(but)
-        }
-        await interaction.editReply({ embed: [role_embed], components: [but] })
+        for (let i = 0; i < y; i++) { but.push(new MessageActionRow({ components: m.slice(i*5, (i+1)*5) })) }
+		if (but.length === 1) {
+			await interaction.editReply({ embed: [role_embed], components: but })
+		} else if (but.length == 2) {
+			await interaction.editReply({ embed: [role_embed], components: [but[0], but[1]] })
+		} else if (but.length == 3) {
+			await interaction.editReply({ embed: [role_embed], components: [but[0], but[1], but[2]] })
+		} else if (but.length == 4) {
+			await interaction.editReply({ embed: [role_embed], components: [but[0], but[1], but[2], but[3]] })
+		} else if (but.length == 5) {
+			await interaction.editReply({ embed: [role_embed], components: [but[0], but[1], but[2], but[3], but[4]] })
+		} else {
+			console.log("God help you.")
+			await interaction.editReply({ content: "Sorry, cannot have more than 25 roles" })
+		}
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
         collector.on('collect', async i => {

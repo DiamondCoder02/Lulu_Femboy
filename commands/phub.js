@@ -29,7 +29,7 @@ module.exports = {
                 else if (!c && t) { random = nsfw.getRandom(t) }
                 else if (c && !t) { random = nsfw.getRandomInCategory(c) }
                 else if (c && t) { if (nsfw.verifyTypeInCategory(t, c)) {random = nsfw.getRandomInCategory(c, t) } else { return interaction.editReply({content: r[4]}) } }
-                console.log(random)
+                //console.log(random)
                 const embed = new MessageEmbed()
                     .setTitle("🌐 "+r[0])
                     .setColor('#ff0000')
