@@ -61,7 +61,8 @@ module.exports = {
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
                     .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
-                interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
+                await i.update({components: interaction.components})
+                await interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
             }if (i.customId === 'left') {
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
                 if (pageNumber <= 0) {pageNumber = 0} else {pageNumber -=1}
@@ -74,9 +75,10 @@ module.exports = {
                     .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
                     .setImage(String(doujin.pages[pageNumber]))
                     .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+doujin.pages.length })
-                interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
+                await i.update({components: interaction.components})
+                await interaction.editReply({embeds: [readEmbed], components: [page, searchDelete]})
             }
-            i.update({components: interaction.components})
+            //i.update({components: interaction.components})
         });
         collector.on('end', collected => console.log(`Collected ${collected.size} items`));
         //check arg
@@ -168,6 +170,8 @@ module.exports = {
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id)+" -Pages: "+(pageNumber+1)+"/"+(doujin.pages).length })
             interaction.reply({embeds: [readEm], components: [page, searchDelete]})
+        } else {
+            return interaction.reply({content: 'Instruction not found'})
         }
         /*    
         // Next Page (id, english titles, cover [About 25 pages]) ???????????????

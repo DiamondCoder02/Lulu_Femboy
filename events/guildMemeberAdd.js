@@ -9,6 +9,7 @@ module.exports = {
             console.log(ro)
             const role = member.guild.roles.find(r => r.name == ro)
             console.log(role)
+            console.log(member)
             member.roles.add(role);
             console.log('Yay')
         } catch{ }

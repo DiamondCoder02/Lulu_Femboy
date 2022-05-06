@@ -63,7 +63,7 @@ module.exports = {
                     normalizer2: !queue.getFiltersEnabled().includes('bassboost') // because we need to toggle it with bass
                 });
                 setTimeout(() => {
-                    return void interaction.followUp({ content: `🎵 | Bassboost ${queue.getFiltersEnabled().includes('bassboost') ? 'Enabled' : 'Disabled'}!` });
+                    return void interaction.followUp({ content: `🎵 | Bassboost ${queue.getFiltersEnabled().includes('bassboost') ? '✅' : '❌'}!` });
                 }, queue.options.bufferingTimeout);
             }
             if (interaction.options.getString('control') === 'queue') {

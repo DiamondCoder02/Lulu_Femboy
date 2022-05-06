@@ -33,6 +33,11 @@ for (const file of eventFiles) {
 	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client))} 
     else {client.on(event.name, (...args) => event.execute(...args, client))}
 }
+//how to use bot if it get's a ping
+client.on('messageCreate', message => {
+    if (message.author.bot) return;
+    if (message.mentions.has(client.user)) { return message.channel.send(`Here's how to use the bot: \nhttps://imgur.com/a/dStRp6Y`); }
+});
 //Slash command handler
 client.on('interactionCreate', async interaction => {
     if (interaction.isCommand) {

@@ -3,19 +3,20 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
     guildOnly: true,
     cooldown: 60,
-    permissions: "MANAGE_ROLES",
+    //permissions: "MANAGE_ROLES",
 	data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Gives roles with buttons'),
     async execute(interaction, client, config) {
         let ro = client.settings.get(interaction.guild.id, "freeRoles");
-        if (Array.isArray(ro) && ro.length >0 ) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
+        if (Array.isArray(ro) && ro.length >0) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
+        if (ro.includes('')) { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
         let m = []
         const role_embed = new MessageEmbed()
             .setTitle("Self Roles:")
             .setColor("#0099ff")
             .setDescription("`Click some button for roles!`")
-        await interaction.reply({ embeds: [role_embed] })
+        await interaction.reply({ embeds: [role_embed], ephemeral: true })
         for (let x = 0; x < ro.length; x++){
             let role = await interaction.guild.roles.cache.find(r => r.name == ro[x])
             m.push(new MessageButton({
@@ -39,7 +40,7 @@ module.exports = {
 			await interaction.editReply({ embed: [role_embed], components: [but[0], but[1], but[2], but[3], but[4]] })
 		} else {
 			console.log("God help you.")
-			await interaction.editReply({ content: "Sorry, cannot have more than 25 roles" })
+			await interaction.editReply({ content: "Sorry, cannot have more than 25 roles", ephemeral: true })
 		}
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
