@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), pr = lang.prune.split('-')
 module.exports = {
 	guildOnly: true,
-	//permissions: "MANAGE_MESSAGES",
+	permissions: "MANAGE_MESSAGES",
 	data: new SlashCommandBuilder()
 		.setName('prune')
 		.setDescription(pr[3])
