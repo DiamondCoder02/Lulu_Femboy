@@ -54,5 +54,6 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [sHentai - nHentai](https://www.npmjs.com/package/shentai)
 - [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
+- [CTK-WARRIOR youtube - record](https://www.youtube.com/watch?v=h7CC-8kTsGI), code: [Gist.github](https://gist.github.com/CTK-WARRIOR/dcf9bdeee01ddf2a6f6cf0004ebd20ff)
 - [Translate](https://www.npmjs.com/package/translate)
 - Also big thanks for Github Copilot. :3
