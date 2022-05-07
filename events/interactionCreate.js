@@ -4,7 +4,7 @@ module.exports = {
 		const {language, debug_level} = require('../config.json'), lang = require('../languages/' + language + '.json');
 		const i_c = lang.int_create.split('-'), i = interaction
 		if (debug_level >= 1) {
-			try { console.log(i.options) } catch { console.log('empty') }
+			if (i.options === undefined) { } else {console.log(i.options)}
 			if (i.channel.type === 'DM') {
 				return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] DM "+ i_c[0] + i.commandName);
 			}
