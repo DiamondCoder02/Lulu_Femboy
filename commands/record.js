@@ -37,14 +37,11 @@ module.exports = {
                 await entersState(connection, VoiceConnectionStatus.Ready, 20e3);
                 const receiver = connection.receiver;
                 /* When user speaks in vc*/
-                
                 receiver.speaking.on('start', (userId) => {
                     if(userId !== interaction.user.id) return;
                     //create live stream to save audio
                     createListeningStream(receiver, userId, client.users.cache.get(userId));
                 });
-                
-                //createListeningStream(receiver, interaction.user.id, client.users.cache.get(interaction.user.id));
                 /* Return success message */
                 return interaction.reply(`🎙️ I am now recording ${voiceChannel.name}`);
                 /* If the bot is in voice channel */

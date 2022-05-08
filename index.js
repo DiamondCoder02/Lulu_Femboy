@@ -36,7 +36,7 @@ for (const file of eventFiles) {
 //how to use bot if it get's a ping
 client.on('messageCreate', message => {
     if (message.author.bot) return;
-    if (message.mentions.has(client.user)) { return message.channel.send(`Here's how to use the bot: \nhttps://imgur.com/a/dStRp6Y`); }
+    if (message.mentions.has(client.user)) { return message.channel.send(`Here's how to use the bot. \nPlease open the link for full instructions: \nhttps://imgur.com/a/dStRp6Y`); }
 });
 //Slash command handler
 client.on('interactionCreate', async interaction => {
