@@ -1,18 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), gmc = lang.guild_mem_create.split('-')
 module.exports = {
-	name: 'guildMemberAdd',
+	name: 'guildMemberRemove',
 	execute(member, client) {
-        console.log(`${member.user.tag} has joined the guild: ${member.guild.name}`)
-        try{
-            let ro = client.settings.get(member.guild.id, "welcomeRole");
-            console.log(ro)
-            const role = member.guild.roles.find(r => r.name == ro)
-            console.log(role)
-            console.log(member)
-            member.roles.add(role);
-            console.log('Yay')
-        } catch { console.log('Error') }
+        console.log(`${member.user.tag} has left the guild: ${member.guild.name}`)
+        /*
         let welcome = client.settings.get(member.guild.id, "welcome");
         if(welcome) {} else return
         const channel = member.guild.systemChannel
@@ -25,5 +17,6 @@ module.exports = {
             .setThumbnail(member.user.displayAvatarURL())
             .setTimestamp()
         channel.send({content: member.user.toString(),embeds: [embed]})
+        */
 	}
 };

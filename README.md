@@ -22,16 +22,22 @@ __**To test:**__
 - Test guildMemberAdd role
 - Why is there an empty space at guildMemberAdd
 - ~~Nhentai fix~~ (Fixed itself?)
+- guildCreate (joined a guild)
+- guildMemberRemove
+- guildDelete (leave guild)
 
 
-##### Commands:
+Commands:
 akinator , booru , bot_info , clean , guild_config , info , music , nekoslife , nhentai  , phub , ping , prune , purge , record , role , stop , translate
 
-##### Events:
-guildMemberAdd , interactionCreate , ready
+Events:
+guildCreate , guildMemberRemove , guildMemberAdd , interactionCreate , ready
 
-##### Main: 
+Languages:
+english , german , hungarian , owo
+
+Main: 
 Deploy-commands , Index , Language
 
-##### Other:
+Other:
 Setup.bat , Restart_run.bat , Start.bat
