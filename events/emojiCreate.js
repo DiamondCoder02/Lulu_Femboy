@@ -1,8 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
-	name: 'guildCreate',
-	execute(guild) {
-        console.log(`Bot joined guild: ${guild.name}`)
+	name: 'emojiCreate',
+	execute(emoji) {
+		console.log(emoji)
+        console.log(`Guild emoji created: ${emoji.name}`)
 	}
 };

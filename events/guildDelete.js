@@ -3,6 +3,6 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildDelete',
 	execute(client) {
-        console.log(`Guild: ${client.guild.name}`)
+        console.log(`Bot left guild: ${client.guild.name}`)
 	}
 };

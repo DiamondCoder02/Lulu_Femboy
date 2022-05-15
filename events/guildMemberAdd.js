@@ -12,7 +12,7 @@ module.exports = {
             console.log(member)
             member.roles.add(role);
             console.log('Yay')
-        } catch { console.log('Error') }
+        } catch { console.log('No welcome role') }
         let welcome = client.settings.get(member.guild.id, "welcome");
         if(welcome) {} else return
         const channel = member.guild.systemChannel

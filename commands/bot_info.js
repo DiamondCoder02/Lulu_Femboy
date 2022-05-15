@@ -23,7 +23,7 @@ module.exports = {
             { name: fi[5], value: ","+String(comArray), inline:true},
         )
         .setTimestamp()
-        .setFooter({text: td[2]+` 2022.April.21`});
+        .setFooter({text: td[2]+` 2022.May.10`});
         await interaction.reply({embeds: [version_embed]})
     }
 }

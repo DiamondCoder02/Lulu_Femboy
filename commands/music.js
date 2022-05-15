@@ -35,7 +35,8 @@ module.exports = {
         if(!interaction.member.voice.channel) return interaction.reply(c1[0]);
         await interaction.deferReply();
         if (interaction.options.getString('play')) {
-            const query = interaction.options.get("play").value;
+            const url = interaction.options.getString('play');
+            const query = url.split("&")[0];
             const searchResult = await player
                 .search(query, {
                     requestedBy: interaction.user,
@@ -56,6 +57,10 @@ module.exports = {
             if (!queue.playing) await queue.play();
         } else if (interaction.options.getString('control')) {
             const queue = player.getQueue(interaction.guild);
+            if (interaction.options.getString('control') === 'disconnect') {
+                queue.destroy();
+                return void interaction.followUp({ content: "🛑 |" + c2[4] });
+            }
             if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ |" + c1[6] });
             if (interaction.options.getString('control') === 'bassboost') {
                 await queue.setFilters({
@@ -81,19 +86,19 @@ module.exports = {
                         }
                     ]
                 });
-            } else if (interaction.options.getString('control') === 'pause') {
+            }
+            if (interaction.options.getString('control') === 'pause') {
                 const paused = queue.setPaused(true);
                 return void interaction.followUp({ content: paused ? "⏸ | " + c2[0] : "❌ |" + c2[3] });
-            } else if (interaction.options.getString('control') === 'resume') {
+            }
+            if (interaction.options.getString('control') === 'resume') {
                 const paused = queue.setPaused(false);
                 return void interaction.followUp({ content: !paused ? "❌ |" + c2[3] : "▶ |" + c2[1] });
-            } else if (interaction.options.getString('control') === 'skip') {
+            }
+            if (interaction.options.getString('control') === 'skip') {
                 const currentTrack = queue.current;
                 const success = queue.skip();
                 return void interaction.followUp({ content: success ? `✅ | ${c2[2]} **${currentTrack}**!` : "❌ |" + c2[3] });
-            } else if (interaction.options.getString('control') === 'disconnect') {
-                queue.destroy();
-                return void interaction.followUp({ content: "🛑 |" + c2[4] });
             }
         } else if (interaction.options.getInteger('volume')) {
             const queue = player.getQueue(interaction.guild);

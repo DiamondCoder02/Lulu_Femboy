@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 
 module.exports = {
     guildOnly: true,
-    //permissions: "ADMINISTRATOR",
+    permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
@@ -58,9 +58,11 @@ module.exports = {
                 const collector = interaction.channel.createMessageComponentCollector({filter, time: 30000 });
                 async function setting(interaction, client) {
                     if (client.settings.get(interaction.guild.id, "welcome")===true) {welc="SUCCESS"} else {welc="DANGER"}
+                    if (client.settings.get(interaction.guild.id, "goodbye")===true) {goodbye="SUCCESS"} else {goodbye="DANGER"}
                     if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw="SUCCESS"} else {nsfw="DANGER"}
                     test = new MessageActionRow().addComponents( 
-                        new MessageButton().setCustomId('welcome').setLabel('Display welcome?').setStyle(welc),
+                        new MessageButton().setCustomId('welcome').setLabel('Welcome message').setStyle(welc),
+                        new MessageButton().setCustomId('goodbye').setLabel('Goodbye message').setStyle(goodbye),
                         new MessageButton().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw),
                     )
                     const del = new MessageActionRow().addComponents(new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER'))

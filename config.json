@@ -3,8 +3,8 @@
   "clientId": "clientID",
   "guildId": "guildID",
   "botStatusChannel": "897097242861789236",
-  "futureIdeas": "-reminder \n-More event listeners \n-Website to edit config \n-Per server language support \n-Dynamic roles \n-Google(?) search \n-Pinging the bot gives help",
-  "bugsToFix": "-nHentai page reading broke",
+  "futureIdeas": "-reminder \n-bot voting \n-More event listeners \n-Website to edit config \n-Google(?) search \n-API and rss? \n-math solver",
+  "bugsToFix": "-testing",
   "stopPassword": "lolipop",
   "language": "english",
   "debug_level": 2

@@ -20,18 +20,15 @@ __**Reminder:**__
 
 __**To test:**__
 - Test guildMemberAdd role
-- Why is there an empty space at guildMemberAdd
 - ~~Nhentai fix~~ (Fixed itself?)
-- guildCreate (joined a guild)
-- guildMemberRemove
-- guildDelete (leave guild)
+- emojiCreate , emojiDelete , guildBanAdd , guildCreate , guildDelete , guildMemberRemove , guildMemberAdd , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , stickerCreate , stickerDelete
 
 
 Commands:
 akinator , booru , bot_info , clean , guild_config , info , music , nekoslife , nhentai  , phub , ping , prune , purge , record , role , stop , translate
 
 Events:
-guildCreate , guildMemberRemove , guildMemberAdd , interactionCreate , ready
+emojiCreate , emojiDelete , guildBanAdd , guildCreate , guildDelete , guildMemberRemove , guildMemberAdd , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , interactionCreate , ready , stickerCreate , stickerDelete
 
 Languages:
 english , german , hungarian , owo

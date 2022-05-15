@@ -2,10 +2,15 @@
 const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
 const cooldowns = new Collection();
 require('dotenv').config(); var token = process.env.token;
-const client = new Client({ ws: {properties: {$browser: 'Discord iOS'}}, intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES], partials: ["CHANNEL"] });
+const client = new Client({ 
+    ws: {properties: {$browser: 'Discord iOS'}}, 
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_SCHEDULED_EVENTS],
+    partials: ["CHANNEL"]
+});
 client.commands = new Collection();
 const Enmap = require('enmap');
 console.clear();
+
 //Enmap - server side settings
 client.settings = new Enmap({
     name: "settings",
@@ -14,18 +19,21 @@ client.settings = new Enmap({
     cloneLevel: 'deep',
     autoEnsure: {
         welcome: true,
+        goodbye: true,
         welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
         enableNSFW: false,
         welcomeRole: "",
         freeRoles: [""],
     }
 });
+
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const command_files = require(`./commands/${file}`);
 	client.commands.set(command_files.data.name, command_files);
 }
+
 //event handler
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
@@ -33,11 +41,15 @@ for (const file of eventFiles) {
 	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client))} 
     else {client.on(event.name, (...args) => event.execute(...args, client))}
 }
+
 //how to use bot if it get's a ping
 client.on('messageCreate', message => {
     if (message.author.bot) return;
-    if (message.mentions.has(client.user)) { return message.channel.send(`Here's how to use the bot. \nPlease open the link for full instructions: \nhttps://imgur.com/a/dStRp6Y`); }
+    if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
+    if (!message.mentions.has(client.user)) return;
+    if (message.content.split(/ +/).length === 1) { return message.channel.send(`Here's how to use the bot. \nPlease open the link for full instructions: \nhttps://imgur.com/a/dStRp6Y`); }
 });
+
 //Slash command handler
 client.on('interactionCreate', async interaction => {
     if (interaction.isCommand) {
@@ -61,10 +73,12 @@ client.on('interactionCreate', async interaction => {
         timestamps.set(interaction.user.id, now);
         setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
         //guild permission check
-        if (command.guildOnly) { try{
-            if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
-            if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(":)");return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
-        } catch { } }
+        if (command.guildOnly) { 
+            try{
+                if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
+                if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(":)");return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
+            } catch { } 
+        }
         //Execute
         try {
             await command.execute(interaction, client, config);
@@ -74,11 +88,13 @@ client.on('interactionCreate', async interaction => {
         }
     }
 });
+
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log(lang.index.token)}
+
 //error handler
 console.log(client)
-process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n  ', error));
+process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n', error));
 client.on("error", console.error)
 client.on("warn", console.warn)
 if (config.debug_level >= 3) { client.on("debug", console.log) }
