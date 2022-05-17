@@ -3,7 +3,7 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'emojiCreate',
 	execute(emoji) {
-		console.log(emoji)
-        console.log(`Guild emoji created: ${emoji.name}`)
+		//console.log(emoji)
+        console.log(`${emoji.guild.name} guild emoji created: "${emoji.name}" (${emoji.id}) [${emoji.animated?'animated':'not animated'}]`)
 	}
 };
