@@ -9,6 +9,7 @@ module.exports = {
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
         .addSubcommand(subcommand => subcommand.setName('text').setDescription('Configure text settings and also display current settings.')
             .addStringOption(option => option.setName('welcome_message').setDescription('What the welcome message should be.'))
+            .addChannelOption(option => option.setName('moderation_channel').setDescription('Change mod channel.'))
             .addRoleOption(option => option.setName('welcome_role').setDescription('What role for new members.(If empty, no role, but once given you cannot remove, only change it)'))
             .addBooleanOption(option => option.setName('welcome_role_remove').setDescription('You want to remove the welcome role.'))
             .addRoleOption(option => option.setName('add_role').setDescription('What optional rola can people choose from.'))
@@ -21,6 +22,9 @@ module.exports = {
                 if(interaction.options.getString('welcome_message')) {
                     client.settings.set(interaction.guild.id, interaction.options.getString('welcome_message'), "welcomeMessage");
                     return interaction.reply(`Guild configuration item "welcomeMessage" has been changed to: \`${interaction.options.getString('welcome_message')}\``);
+                } else if(interaction.options.getChannel('moderation_channel')) {
+                    client.settings.set(interaction.guild.id, interaction.options.getChannel('moderation_channel').id, "moderationChannel");
+                    return interaction.reply(`Guild configuration item "moderationChannel" has been changed to: \`${interaction.options.getChannel('moderation_channel')}\``);
                 } else if(interaction.options.getRole('welcome_role')) {
                     a = interaction.options.getRole('welcome_role')
                     client.settings.set(interaction.guild.id, a.name, "welcomeRole");

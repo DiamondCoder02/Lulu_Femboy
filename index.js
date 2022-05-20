@@ -4,7 +4,18 @@ const cooldowns = new Collection();
 require('dotenv').config(); var token = process.env.token;
 const client = new Client({ 
     ws: {properties: {$browser: 'Discord iOS'}}, 
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_SCHEDULED_EVENTS],
+    intents: [
+        Intents.FLAGS.GUILDS, 
+        Intents.FLAGS.GUILD_MEMBERS, 
+        Intents.FLAGS.GUILD_BANS, 
+        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, 
+        Intents.FLAGS.GUILD_INTEGRATIONS, 
+        Intents.FLAGS.GUILD_WEBHOOKS, 
+        Intents.FLAGS.GUILD_INVITES, 
+        Intents.FLAGS.GUILD_VOICE_STATES, 
+        Intents.FLAGS.GUILD_MESSAGES, 
+        Intents.FLAGS.GUILD_SCHEDULED_EVENTS
+    ],
     partials: ["CHANNEL"]
 });
 client.commands = new Collection();
@@ -24,6 +35,7 @@ client.settings = new Enmap({
         enableNSFW: false,
         welcomeRole: "",
         freeRoles: [""],
+        moderationChannel: "",
     }
 });
 
@@ -36,10 +48,11 @@ for (const file of commandFiles) {
 
 //event handler
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const guildInvites = new Map()
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client))} 
-    else {client.on(event.name, (...args) => event.execute(...args, client))}
+	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites))} 
+    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites))}
 }
 
 //how to use bot if it get's a ping

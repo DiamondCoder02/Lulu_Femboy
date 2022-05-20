@@ -4,7 +4,15 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 module.exports = {
 	name: 'ready',
 	once: true,
-	execute(client) {
+	execute(arg, client, guildInvites) {
+        client.guilds.cache.forEach(guild => {
+            guild.invites.fetch().then(invites => {
+                if (config.debug_level >= 2) { console.log(`INVITES CACHED ${guild.name}`); }
+                const codeUses = new Map();
+                invites.each(inv => codeUses.set(inv.code, inv.uses));
+                guildInvites.set(guild.id, codeUses);
+            }).catch(err => { console.log("Ready Error:", err) })
+        })
         console.log(eventFiles); console.log(languageFiles)
         client.user.setActivity(lang.ready.set_activity)
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');

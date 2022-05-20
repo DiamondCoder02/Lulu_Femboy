@@ -4,7 +4,7 @@ module.exports = {
 		const {language, debug_level} = require('../config.json'), lang = require('../languages/' + language + '.json');
 		const i_c = lang.int_create.split('-'), i = interaction
 		if (debug_level >= 1) {
-			console.log(i.options)
+			//console.log(i.options)
 			try {
 				/*const string = interaction.options.getString();
 				const integer = interaction.options.getInteger();
@@ -18,8 +18,8 @@ module.exports = {
 				const subcommand = interaction.options.getSubcommand();
 				console.log(string + '\n' + integer + '\n' + number + '\n' + boolean + '\n' + user + '\n' + member + '\n' + channel + '\n' + role + '\n' + mentionable + '\n' + subcommand);
 				*/
-				const subcommand = interaction.options.getSubcommand();
-				console.log(subcommand);
+				//const subcommand = interaction.options.getSubcommand();
+				//console.log(subcommand);
 			}catch(error) {
 				console.log(error.name)
 			}
