@@ -2,7 +2,7 @@
 4th trying making a Discorcd bot.
 Please don't use this...(, **unless you know what mess I make here.**)
 
-### Some stuff is broken, but I have exams so I can only fix them later
+If you ping the bot it will give you a small help how to use it
 
 #### A bit of explanation:
 Just my own little bot to learn. Early in development. Still not stupid proof but working on it as I don't want it to break often.
@@ -55,6 +55,7 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [sHentai - nHentai](https://www.npmjs.com/package/shentai)
 - [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
+- [CTK-WARRIOR youtube - record](https://www.youtube.com/watch?v=h7CC-8kTsGI), code: [Gist.github](https://gist.github.com/CTK-WARRIOR/dcf9bdeee01ddf2a6f6cf0004ebd20ff)
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
