@@ -48,11 +48,13 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - Booru can post a videos that Discord cannot handle, but still accessible afte you click the link.
 
 ## Credits (Package name - command name)
-- [Discord.js Akinator - Akinator](https://www.npmjs.com/package/discord.js-akinator)
-- [Booru](https://www.npmjs.com/package/booru)
+- [Discord.js Akinator - akinator](https://www.npmjs.com/package/discord.js-akinator)
+- [Anime-images API - anime_images](https://anime-api.hisoka17.repl.co/)
+- [Booru - booru](https://www.npmjs.com/package/booru)
 - [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [sHentai - nHentai](https://www.npmjs.com/package/shentai)
 - [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
-- [Translate](https://www.npmjs.com/package/translate)
+- [Translate - translate](https://www.npmjs.com/package/translate)
+- [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
