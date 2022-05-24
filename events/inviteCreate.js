@@ -10,7 +10,7 @@ module.exports = {
         //console.log(invite)
 		console.log("["+new Date(invite.createdTimestamp).toLocaleString() + "] "+`Invite created ${invite.guild.name} code: ${invite.code} from ${invite.inviter.tag} with ${invite.maxUses} uses`)
 		try{
-			if (invite.guild.systemChannel) {channel = invite.guild.systemChannel} else {channel = client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))}
+			if (client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))} else {channel = invite.guild.systemChannel}
 			return channel.send({ content: `[\`${new Date(invite.createdTimestamp).toLocaleString('hu-HU')}\`] \nInvite created with code \`${invite.code}\` from \`${invite.inviter.tag}\` with \`${invite.maxUses}\` uses (0 = infinite).`});
 		} catch(error) { 
 			//console.log(error) 

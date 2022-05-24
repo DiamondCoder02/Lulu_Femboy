@@ -29,7 +29,7 @@ ask(lang.deploy.question, (answer) => {
     if (answer == 1) {
         try { if (guildId !== "guildID") var g = guildId; else var g = gId} catch {console.log(e[2])}
         rest.put(Routes.applicationGuildCommands(c, g), { body: commands })
-        .then(() => console.log(a[0]))
+        .then(() => console.log(a[0]+" => "+g))
         .catch(console.error);
         console.log(commands)
     } else if (answer == 2) {
@@ -46,7 +46,7 @@ ask(lang.deploy.question, (answer) => {
                 const deleteUrl = `${Routes.applicationGuildCommands(c, g)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
-            Promise.all(promises).then(() => console.log(a[2]));
+            Promise.all(promises).then(() => console.log(a[2]+" => "+g)).catch(console.error);
         })
         .catch(console.error);
     } else if (answer == 4) {
@@ -57,7 +57,7 @@ ask(lang.deploy.question, (answer) => {
                 const deleteUrl = `${Routes.applicationCommands(c)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
-            Promise.all(promises).then(() => console.log(a[3]));
+            Promise.all(promises).then(() => console.log(a[3])).catch(console.error);
         })
         .catch(console.error);
     } else if (answer == 5) {

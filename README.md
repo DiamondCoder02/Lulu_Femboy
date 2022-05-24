@@ -20,7 +20,6 @@ __**Reminder:**__
 
 __**To test:**__
 - Test guildMemberAdd role
-- ~~Nhentai fix~~ (Fixed itself?)
 - emojiCreate , emojiDelete , guildBanAdd , guildCreate , guildDelete , guildMemberRemove , guildMemberAdd , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , stickerCreate , stickerDelete
 
 

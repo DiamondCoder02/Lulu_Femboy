@@ -12,7 +12,7 @@ module.exports = {
             .setColor('#00FF00')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
             .setDescription(`**${member.user.tag}**, has left the server.`)
-            .setThumbnail(member.user.displayAvatarURL())
+            //.setThumbnail(member.user.displayAvatarURL())
             .setTimestamp()
         channel.send({embeds: [embed]})
 	}

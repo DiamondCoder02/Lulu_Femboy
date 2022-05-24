@@ -42,8 +42,8 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
-            .setDescription("**"+new Date(member.joinedTimestamp).toLocaleString()+" - "+welcomeMessage+"**" + "\n" + gmc[1] +'\n "/"'+ gmc[2] +'\n'+ gmc[3])
-            .setThumbnail(member.user.displayAvatarURL())
+            .setDescription("**"+welcomeMessage+"**" + "\n" + gmc[1] +'\n "/"'+ gmc[2] +'\n'+ gmc[3])
+            //.setThumbnail(member.user.displayAvatarURL())
             .setTimestamp()
         channel.send({content: member.user.toString(),embeds: [embed]})
 	}
