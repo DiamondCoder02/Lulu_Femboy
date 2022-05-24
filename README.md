@@ -4,7 +4,6 @@ Task sheet: __***Do not delete!***__
 __**Idea:**__
 - Webpage to edit config
 - Bot voting?
-- More event listeners
 - Reminders
 - Google search (chrome tabs)
 - In interactionCreate also get other options for console log
@@ -20,20 +19,24 @@ __**Reminder:**__
 
 __**To test:**__
 - Test guildMemberAdd role
-- emojiCreate , emojiDelete , guildBanAdd , guildCreate , guildDelete , guildMemberRemove , guildMemberAdd , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , stickerCreate , stickerDelete
+- __guildScheduledEventCreate__ , __guildScheduledEventDelete__ , __guildScheduledEventUpdate__
 
 
 Commands:
-akinator , booru , bot_info , clean , guild_config , info , music , nekoslife , nhentai  , phub , ping , prune , purge , record , role , stop , translate
+akinator , anime_images , booru , bot_info , clean , guild_config , info , music , nekoslife , nhentai  , phub , ping , prune , purge , record , role , stop , translate , waifu_pics
 
 Events:
-emojiCreate , emojiDelete , guildBanAdd , guildCreate , guildDelete , guildMemberRemove , guildMemberAdd , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , interactionCreate , ready , stickerCreate , stickerDelete
+emojiCreate , emojiDelete , emojiBanAdd , emojiBanDelete , guildCreate , guildDelete , guildMemberAdd , guildMemberRemove , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , interactionCreate , inviteCreate , ready , stickerCreate , stickerDelete
 
 Languages:
 english , german , hungarian , owo
 
 Main: 
-Deploy-commands , Index , Language
+- Deploy-commands.js => That enables slash commands for the servers
+- Index.js => Brain and handler for the whole bot
+- Language.js => Just a stupid language changer, you still need to restart the bot
 
 Other:
-Setup.bat , Restart_run.bat , Start.bat
+- Setup.bat => To install the node modules
+- Restart_run.bat => To make sure the server restart automatically
+- Start.bat => Just start the bot once

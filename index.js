@@ -69,7 +69,7 @@ client.on('interactionCreate', async interaction => {
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
         //OnlyGuild
-        if (command.guildOnly && interaction.channel.type === 'DM') {console.log(":/");return interaction.reply(lang.index.no_dm)}
+        if (command.guildOnly && interaction.channel.type === 'DM') {console.log("Execute in DMs, why?");return interaction.reply(lang.index.no_dm)}
         //Cooldown
         if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection());}
         const now = Date.now();
@@ -79,7 +79,7 @@ client.on('interactionCreate', async interaction => {
             const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
             if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
-                console.log(":(");
+                console.log("Cooldown time left, maybe spam?");
                 return interaction.reply({content: lang.index.cooldown + " `"+timeLeft+"`", ephemeral: true});
             }
         }
@@ -89,7 +89,7 @@ client.on('interactionCreate', async interaction => {
         if (command.guildOnly) { 
             try{
                 if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
-                if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(":)");return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
+                if (!r && interaction.channel.type === "GUILD_TEXT") {console.log("Not enough permission, what was the plan?");return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
             } catch { } 
         }
         //Execute
