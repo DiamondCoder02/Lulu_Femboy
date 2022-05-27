@@ -10,7 +10,7 @@ module.exports = {
             //console.log("Cached", [...cachedInvites.keys()])
             //console.log("New", [...newInvites.values()].map(inv => inv.code))
             //console.log("Used", usedInvite)
-            if (member.guild.systemChannel) {channel = invite.guild.systemChannel} else {channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))}
+            if (client.settings.get(member.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {channel = invite.guild.systemChannel}
             if (usedInvite) {
                 console.log(`Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.username} (${usedInvite.uses}/${usedInvite.maxUses})`)
                 channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.username}\`. Invites:${usedInvite.uses}/${usedInvite.maxUses}`});
@@ -25,15 +25,15 @@ module.exports = {
         newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));
         guildInvites.set(member.guild.id, cachedInvites);
         console.log(`[${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}] ${member.user.tag} has joined the guild: ${member.guild.name}`)
-        try{
+        if(client.settings.get(member.guild.id, "welcomeRole")) {
             let ro = client.settings.get(member.guild.id, "welcomeRole");
-            //console.log(ro)
+            console.log(ro)
             const role = member.guild.roles.cache.find(r => r.name == ro)
             console.log(role)
-            console.log(member)
+            //console.log(member)
             member.roles.add(role);
             console.log('Yay')
-        } catch { console.log('No welcome role') }
+        }
         let welcome = client.settings.get(member.guild.id, "welcome");
         if(welcome) {} else return
         const channel = member.guild.systemChannel
@@ -44,6 +44,7 @@ module.exports = {
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
             .setDescription("**"+welcomeMessage+"**" + "\n" + gmc[1] +'\n "/"'+ gmc[2] +'\n'+ gmc[3])
             //.setThumbnail(member.user.displayAvatarURL())
+            .setFooter({ text: `Member count: ${member.guild.memberCount-1} => ${member.guild.memberCount}` })
             .setTimestamp()
         channel.send({content: member.user.toString(),embeds: [embed]})
 	}

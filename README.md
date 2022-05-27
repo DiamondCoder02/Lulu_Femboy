@@ -26,7 +26,7 @@ Commands:
 akinator , anime_images , booru , bot_info , clean , guild_config , info , music , nekoslife , nhentai  , phub , ping , prune , purge , record , role , stop , translate , waifu_pics
 
 Events:
-emojiCreate , emojiDelete , emojiBanAdd , emojiBanDelete , guildCreate , guildDelete , guildMemberAdd , guildMemberRemove , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , interactionCreate , inviteCreate , ready , stickerCreate , stickerDelete
+emojiCreate , emojiDelete , guildBanAdd , guildBanDelete , guildCreate , guildDelete , guildMemberAdd , guildMemberRemove , guildScheduledEventCreate , guildScheduledEventDelete , guildScheduledEventUpdate , interactionCreate , inviteCreate , messageCreate , messageDelete , messageUpdate , ready , stickerCreate , stickerDelete
 
 Languages:
 english , german , hungarian , owo

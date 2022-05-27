@@ -1,7 +1,6 @@
+console.clear();
 //basic loaders
 const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
-const cooldowns = new Collection();
-require('dotenv').config(); var token = process.env.token;
 const client = new Client({ 
     ws: {properties: {$browser: 'Discord iOS'}}, 
     intents: [
@@ -10,7 +9,7 @@ const client = new Client({
         Intents.FLAGS.GUILD_BANS, 
         Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, 
         Intents.FLAGS.GUILD_INTEGRATIONS, 
-        Intents.FLAGS.GUILD_WEBHOOKS, 
+        //Intents.FLAGS.GUILD_WEBHOOKS, 
         Intents.FLAGS.GUILD_INVITES, 
         Intents.FLAGS.GUILD_VOICE_STATES, 
         Intents.FLAGS.GUILD_MESSAGES, 
@@ -18,11 +17,11 @@ const client = new Client({
     ],
     partials: ["CHANNEL"]
 });
+require('dotenv').config(); var token = process.env.token;
+const cooldowns = new Collection();
 client.commands = new Collection();
-const Enmap = require('enmap');
-console.clear();
-
 //Enmap - server side settings
+const Enmap = require('enmap');
 client.settings = new Enmap({
     name: "settings",
     fetchAll: false,
@@ -54,14 +53,6 @@ for (const file of eventFiles) {
 	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites))} 
     else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites))}
 }
-
-//how to use bot if it get's a ping
-client.on('messageCreate', message => {
-    if (message.author.bot) return;
-    if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
-    if (!message.mentions.has(client.user)) return;
-    if (message.content.split(/ +/).length === 1) { return message.channel.send(`Here's how to use the bot. \nPlease open the link for full instructions: \nhttps://imgur.com/a/dStRp6Y`); }
-});
 
 //Slash command handler
 client.on('interactionCreate', async interaction => {
