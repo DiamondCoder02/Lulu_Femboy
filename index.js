@@ -27,8 +27,11 @@ client.settings = new Enmap({
     autoFetch: true,
     cloneLevel: 'deep',
     autoEnsure: {
-        welcome: true,
-        goodbye: true,
+        welcome: false,
+        goodbye: false,
+        messageLogs: false,
+        invitesLogs: false,
+        schedulesLogs: false,
         welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
         enableNSFW: false,
         welcomeRole: "",

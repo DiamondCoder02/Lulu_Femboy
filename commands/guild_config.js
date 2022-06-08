@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
-
+const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     guildOnly: true,
     //permissions: "ADMINISTRATOR",
@@ -64,13 +64,21 @@ module.exports = {
                     if (client.settings.get(interaction.guild.id, "welcome")===true) {welc="SUCCESS"} else {welc="DANGER"}
                     if (client.settings.get(interaction.guild.id, "goodbye")===true) {goodbye="SUCCESS"} else {goodbye="DANGER"}
                     if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw="SUCCESS"} else {nsfw="DANGER"}
+                    if (client.settings.get(interaction.guild.id, "messageLogs")===true) {msgUD="SUCCESS"} else {msgUD="DANGER"}
+                    if (client.settings.get(interaction.guild.id, "invitesLogs")===true) {inv="SUCCESS"} else {inv="DANGER"}
+                    if (client.settings.get(interaction.guild.id, "schedulesLogs")===true) {sch="SUCCESS"} else {sch="DANGER"}
                     test = new MessageActionRow().addComponents( 
                         new MessageButton().setCustomId('welcome').setLabel('Welcome message').setStyle(welc),
                         new MessageButton().setCustomId('goodbye').setLabel('Goodbye message').setStyle(goodbye),
                         new MessageButton().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw),
                     )
+                    test2 = new MessageActionRow().addComponents(
+                        new MessageButton().setCustomId('messageLogs').setLabel('Message updates').setStyle(msgUD),
+                        new MessageButton().setCustomId('invitesLogs').setLabel('Invites').setStyle(inv),
+                        new MessageButton().setCustomId('schedulesLogs').setLabel('Schedules').setStyle(sch),
+                    )
                     const del = new MessageActionRow().addComponents(new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER'))
-                    interaction.editReply({content: "Buttons to turn features on and off",components: [test, del]})
+                    interaction.editReply({content: "Buttons to turn features on and off \n*2nd row for message and other logging for checking*",components: [test, test2, del]})
                 }
                 setting(interaction, client);
                 collector.on('collect', async button => {

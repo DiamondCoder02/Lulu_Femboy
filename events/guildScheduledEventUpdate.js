@@ -10,6 +10,8 @@ module.exports = {
         console.log(`Guild event new updated: ${newGuildScheduledEvent.name}`)
 		*/
 		console.log(`[${new Date(newGuildScheduledEvent.createdTimestamp).toLocaleString('hu-HU')}] ${newGuildScheduledEvent.guild.name} event updated: ${newGuildScheduledEvent.name}.`)
+		const schedulesLogs = client.settings.get(oldGuildScheduledEvent.guild.id, "schedulesLogs");
+		if(schedulesLogs) { } else return
 		try{
 			if (client.channels.cache.get(client.settings.get(newGuildScheduledEvent.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(newGuildScheduledEvent.guild.id, "moderationChannel"))} else {channel = newGuildScheduledEvent.guild.systemChannel}
 			if (oldGuildScheduledEvent.scheduledEndTimestamp === null) {oldend = "-"} else {oldend = new Date(oldGuildScheduledEvent.scheduledEndTimestamp).toLocaleString('hu-HU')}
