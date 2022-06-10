@@ -28,24 +28,18 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 
 ### Future (maybe) ideas:
 - [ ] reminder system
-- [ ] More event listeners
 - [ ] Make website to edit config?
 - [ ] Per server language support
-- [ ] Dynamic self roles
 - [ ] Google(?) search
-- [ ] If you ping the bot it will give help?
 
 ### Currently I know broken or needs a bit of fixing:
-- [ ] nHentai completly broken
-- [x] nekoslife sometimes returns 404
-- [ ] translate has a warning but works?
+- [x] ???
 
 #### Limitation:
 - Only works with slash commands
 - Roles cannot have the same name
-- Picture commands can send not working links so nothing is shown in embed
-- Rare case of them sending the same picture twice in a row
-- Booru can post a videos that Discord cannot handle, but still accessible afte you click the link.
+- Rare case of them sending the same picture twice in a row. (To test)
+- Booru can post a videos that Discord cannot handle, but still accessible afte you click the link. (To test)
 
 ## Credits (Package name - command name)
 - [Discord.js Akinator - akinator](https://www.npmjs.com/package/discord.js-akinator)
