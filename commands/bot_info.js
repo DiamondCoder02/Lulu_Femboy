@@ -12,7 +12,7 @@ module.exports = {
 		const version_embed = new MessageEmbed()
         .setColor('#00FF00')
         .setTitle(td[0])
-        .setDescription(td[1] + `https://github.com/DiamondPRO02/Femboi_OwO`)
+        .setDescription(td[1] + `https://github.com/DiamondPRO02/Femboi_OwO \nhttps://imgur.com/a/dStRp6Y`)
         .setThumbnail(client.user.displayAvatarURL())
         .addFields(
             { name: fi[0], value: config.futureIdeas, inline:true},
@@ -23,7 +23,7 @@ module.exports = {
             { name: fi[5], value: ","+String(comArray), inline:true},
         )
         .setTimestamp()
-        .setFooter({text: td[2]+` 2022.April.21`});
+        .setFooter({text: td[2]+` 2022.May.22`});
         await interaction.reply({embeds: [version_embed]})
     }
 }

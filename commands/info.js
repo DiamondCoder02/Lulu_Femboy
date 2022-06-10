@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
-const sl = lang.info.slash.split('-'), us = lang.info.user.split('-'), s1 = lang.info.server1.split('-'), s2 = lang.info.server2.split('-')
+const sl = lang.info.slash.split('-'), us = lang.info.user.split('-'), s1 = lang.info.server1.split('-'), s2 = lang.info.server2.split('-'), c1 = lang.music.command.split('-')
 module.exports = {
     guildOnly: true,
     cooldown: 10,
@@ -9,6 +9,8 @@ module.exports = {
         .setDescription(sl[0])
         .addStringOption(option => option.setName('search').setDescription(sl[1])
             .addChoice('user', 'user')
+            .addChoice('text_channel', 'text')
+            .addChoice('voice_channel', 'voice')
             .addChoice('server', 'server')
             .addChoice('server_cheatsheet', 'cheat').setRequired(true))
         .addUserOption(option => option.setName('target').setDescription(sl[2])),
@@ -41,6 +43,41 @@ module.exports = {
                     {name: "**"+us[4]+"**", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline:true},
                     {name: us[5], value: String(user.id), inline:true},
                 )
+            await interaction.reply({embeds: [embed], components: [page]})
+        } else if (interaction.options.getString('search') === 'text') {
+            console.log(interaction.channel)
+            const embed = new MessageEmbed()
+                .setColor('#00FF00')
+                .setTitle("Info about the channel:")
+                .setDescription("**#"+interaction.channel.name+"**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
+                .addFields(
+                    {name: "Position:", value: String(interaction.channel.rawPosition+1), inline:true},
+                    {name: "NSFW?", value: (interaction.channel.nsfw ? lang.t : lang.f), inline:true},
+                    {name: "ID:", value: interaction.channel.id, inline:true},
+                    {name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" +" seconds", inline:true},
+                    {name: "Type:", value: interaction.channel.type, inline:true},
+                )
+                .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
+                .setTimestamp()
+            await interaction.reply({embeds: [embed], components: [page]})
+        } else if (interaction.options.getString('search') === 'voice') {
+            if(!interaction.member.voice.channel) return interaction.reply(c1[0]);
+            console.log(interaction.member.voice.channel)
+            if (interaction.member.voice.channel.userLimit === 0) { ul = "10000" } else { ul = interaction.member.voice.channel.userLimit }
+            const embed = new MessageEmbed()
+                .setColor('#00FF00')
+                .setTitle("Info about the channel:")
+                .setDescription("**"+interaction.member.voice.channel.name+"**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
+                .addFields(
+                    {name: "Position:", value: String(interaction.member.voice.channel.rawPosition+1), inline:true},
+                    {name: "ID:", value: interaction.member.voice.channel.id, inline:true},
+                    {name: "Type:", value: interaction.member.voice.channel.type, inline:true},
+                    {name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate%100)+"kbps", inline:true},
+                    {name: "UserLimit:", value: String(interaction.member.voice.channel.userLimit) + " members", inline:true},
+                    {name: "rtcRegion:", value: interaction.member.voice.channel.rtcRegion ? interaction.member.voice.channel.rtcRegion : "Automatic", inline:true},
+                )
+                .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
+                .setTimestamp()
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'server') {
             const owner = await interaction.guild.fetchOwner(); 

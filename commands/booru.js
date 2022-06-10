@@ -21,7 +21,7 @@ module.exports = {
             .addChoice('safebooru.org <18', 'safebooru')
             .addChoice('tbib.org <18', 'tbib')
             .addChoice('xbooru.com 18+', 'xbooru')
-            //.addChoice('rule34.paheal.net 18+ (🚫tag)', 'paheal')
+            .addChoice('rule34.paheal.net 18+ (🚫tag)', 'paheal')
             .addChoice('derpibooru.org 18+', 'derpibooru')
             .addChoice('realbooru.net 18+', 'realbooru')
             .setRequired(true)
@@ -31,12 +31,12 @@ module.exports = {
     async execute(interaction, client) {
         const sites = interaction.options.getString('sites').trim()
         const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
-        if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib") { }
+        if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib" || sites=="hypnohub" || sites=="danbooru"|| sites=="paheal") { }
         else { if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
-        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('paheal') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply(lang.booru.tag) }
+        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply(lang.booru.tag) }
         else if(!interaction.options.getString('tags')) {tags = ""}
-        //else if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply("please don't use tags with this site") }
         else { tags = interaction.options.getString('tags').trim().split(' ')}
+        if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply("Please don't use tags with this site") }
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         await interaction.reply(e[6]+"...")
         for (let a = 0; a < amount; ) {
