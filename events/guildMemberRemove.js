@@ -3,7 +3,7 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildMemberRemove',
 	execute(member, client) {
-        console.log(member)
+        //console.log(member)
         console.log(`[${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}]${member.user.tag} has left the guild: ${member.guild.name}`)
         let goodbye = client.settings.get(member.guild.id, "goodbye");
         if(goodbye) {} else return

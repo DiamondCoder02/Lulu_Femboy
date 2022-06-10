@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     guildOnly: true,
-    //permissions: "ADMINISTRATOR",
+    permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
