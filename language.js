@@ -8,7 +8,7 @@ for (const file of languageFiles) {
     const fileName = file.split('.')[0]
     languages.push(a+" "+fileName)
 }
-languages.shift()
+//languages.shift()
 console.log("Please choose a language: \n"+languages.join('\n'))
 
 const ask = (question, callback) => {
@@ -29,7 +29,7 @@ ask("Choose", (answer) => {
     }
     var file_content = fs.readFileSync(filename);
     var content = JSON.parse(file_content);
-    if (answer > 0 && answer < lan.length) { l = lan[answer] } else { return console.log("no") }
+    if (answer > -1 && answer < lan.length) { l = lan[answer] } else { return console.log("no") }
     content.language = l
     fs.writeFileSync(filename, JSON.stringify(content, null, 2))
     console.log("Language changed to "+l)

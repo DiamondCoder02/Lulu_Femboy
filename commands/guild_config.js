@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     guildOnly: true,
-    permissions: "ADMINISTRATOR",
+    //permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
@@ -67,6 +67,7 @@ module.exports = {
                     if (client.settings.get(interaction.guild.id, "messageLogs")===true) {msgUD="SUCCESS"} else {msgUD="DANGER"}
                     if (client.settings.get(interaction.guild.id, "invitesLogs")===true) {inv="SUCCESS"} else {inv="DANGER"}
                     if (client.settings.get(interaction.guild.id, "schedulesLogs")===true) {sch="SUCCESS"} else {sch="DANGER"}
+                    if (client.settings.get(interaction.guild.id, "banKickLogs")===true) {banK="SUCCESS"} else {banK="DANGER"}
                     test = new MessageActionRow().addComponents( 
                         new MessageButton().setCustomId('welcome').setLabel('Welcome message').setStyle(welc),
                         new MessageButton().setCustomId('goodbye').setLabel('Goodbye message').setStyle(goodbye),
@@ -76,6 +77,7 @@ module.exports = {
                         new MessageButton().setCustomId('messageLogs').setLabel('Message updates').setStyle(msgUD),
                         new MessageButton().setCustomId('invitesLogs').setLabel('Invites').setStyle(inv),
                         new MessageButton().setCustomId('schedulesLogs').setLabel('Schedules').setStyle(sch),
+                        new MessageButton().setCustomId('banKickLogs').setLabel('Ban/Kick').setStyle(banK),
                     )
                     const del = new MessageActionRow().addComponents(new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER'))
                     interaction.editReply({content: "Buttons to turn features on and off \n*2nd row for message and other logging for checking*",components: [test, test2, del]})

@@ -8,7 +8,7 @@ module.exports = {
 		invites.each(inv => codeUses.set(inv.code, inv.uses));
 		guildInvites.set(invite.guild.id, codeUses);
         //console.log(invite)
-		console.log("["+new Date(invite.createdTimestamp).toLocaleString() + "] "+`Invite created ${invite.guild.name} code: ${invite.code} from ${invite.inviter.tag} with ${invite.maxUses} uses`)
+		console.log("["+new Date(invite.createdTimestamp).toLocaleString('hu-HU') + "] "+`Invite created ${invite.guild.name} code: ${invite.code} from ${invite.inviter.tag} with ${invite.maxUses} uses`)
 		const invitesLogs = client.settings.get(invite.guild.id, "invitesLogs");
 		if(invitesLogs) { 
 			try{

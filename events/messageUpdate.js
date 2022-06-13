@@ -15,7 +15,7 @@ Message edited in ${c.guild.name} <#${c.name}> (${newMessage.author.tag}) =>
 From: "${oldMessage.content}" 
 To:   "${newMessage.content}"`});
 			} catch(error) { 
-				//console.log(error) 
+				console.log(error) 
 				console.log("message Update Error")
 			}
 		}

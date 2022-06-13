@@ -32,6 +32,7 @@ client.settings = new Enmap({
         messageLogs: false,
         invitesLogs: false,
         schedulesLogs: false,
+        banKickLogs: false,
         welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
         enableNSFW: false,
         welcomeRole: "",

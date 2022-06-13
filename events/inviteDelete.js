@@ -8,7 +8,7 @@ module.exports = {
 		const codeUses = new Map();
 		invites.each(inv => codeUses.set(inv.code, inv.uses));
 		guildInvites.set(invite.guild.id, codeUses);
-		console.log(`Invite deleted ${invite.guild.name} code: ${invite.code}`)
+		console.log("["+new Date(invite.createdTimestamp).toLocaleString('hu-HU') + "] " + `Invite deleted ${invite.guild.name} code: ${invite.code}`)
 		const invitesLogs = client.settings.get(invite.guild.id, "invitesLogs");
 		if(invitesLogs) { 
 			try{

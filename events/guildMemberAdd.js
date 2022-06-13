@@ -5,22 +5,26 @@ module.exports = {
 	async execute(member, client, guildInvites) {
         const cachedInvites = guildInvites.get(member.guild.id)
         const newInvites = await member.guild.invites.fetch();
-        try {
-            const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code) < inv.uses);
-            //console.log("Cached", [...cachedInvites.keys()])
-            //console.log("New", [...newInvites.values()].map(inv => inv.code))
-            //console.log("Used", usedInvite)
-            if (client.settings.get(member.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {channel = invite.guild.systemChannel}
-            if (usedInvite) {
-                console.log(`Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.username} (${usedInvite.uses}/${usedInvite.maxUses})`)
-                channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.username}\`. Invites:${usedInvite.uses}/${usedInvite.maxUses}`});
-            } else {
-                console.log(`${member.user.username} joined without using a one time invite.`)
-                channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.username}\` joined without using a one time invite.`});
+        const invitesLogs = client.settings.get(member.guild.id, "invitesLogs");
+		if(invitesLogs) { 
+            try {
+                const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code) < inv.uses);
+                //console.log("Cached", [...cachedInvites.keys()])
+                //console.log("New", [...newInvites.values()].map(inv => inv.code))
+                //console.log("Used", usedInvite)
+                let channel = ""
+                if (client.settings.get(member.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {channel = member.guild.systemChannel}
+                if (usedInvite) {
+                    console.log(`Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.tag} (${usedInvite.uses}/${usedInvite.maxUses})`)
+                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`. \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
+                } else {
+                    console.log(`${member.user.username} joined without using a one time invite.`)
+                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.username}\` joined without using a one time invite.`});
+                }
+            } catch (err) {
+                console.log(`[${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err.name)
+                //console.log("OnGuildMemberAdd Error:", err)
             }
-        } catch (err) {
-            console.log("OnGuildMemberAdd no channel:"+err.name)
-            //console.log("OnGuildMemberAdd Error:", err)
         }
         newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));
         guildInvites.set(member.guild.id, cachedInvites);
