@@ -1,4 +1,4 @@
-# Femboi_OwO
+# Femboi_OwO (Soon this readme will be rewriten)
 4th trying making a Discorcd bot.
 Please don't use this...(, **unless you know what mess I make here.**)
 
@@ -9,7 +9,7 @@ Just my own little bot to learn. Early in development. Still not stupid proof bu
 Feel free to contribute if you want. I also appriciate every problem report and every help.
 This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
 
-## Setup
+## Self Setup
 - Have latest [NodeJs](https://nodejs.org/en/) installed. (Currently developed on 18.0.0)
 - First start setup.bat (You can close the console when done).
 - Make a bot for yourself at [Discord developer portal](https://discord.com/developers/applications).
