@@ -28,6 +28,7 @@ client.settings = new Enmap({
     cloneLevel: 'deep',
     autoEnsure: {
         welcome: false,
+        welcomeUserCheck: false,
         goodbye: false,
         messageLogs: false,
         invitesLogs: false,

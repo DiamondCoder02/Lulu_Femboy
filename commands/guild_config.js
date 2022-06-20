@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = req
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     guildOnly: true,
-    //permissions: "ADMINISTRATOR",
+    permissions: "ADMINISTRATOR",
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
@@ -15,7 +15,11 @@ module.exports = {
             .addRoleOption(option => option.setName('add_role').setDescription('What optional rola can people choose from.'))
             .addRoleOption(option => option.setName('remove_role').setDescription('What optional role can people remove.'))
         )
-        .addSubcommand(subcommand => subcommand.setName('button').setDescription('Configure button settings.')),
+        .addSubcommand(subcommand => subcommand.setName('button').setDescription('Configure button settings.'))
+        .addSubcommand(subcommand => subcommand.setName('emit_event').setDescription('For testing purposes.')
+            .addStringOption(option => option.setName('event').setDescription('Event to emit.').setRequired(true))
+            .addStringOption(option => option.setName('data').setDescription('If more data needed'))
+        ),
     async execute(interaction, client, config) {
         try {
             if (interaction.options.getSubcommand() === 'text') {
@@ -63,6 +67,7 @@ module.exports = {
                 async function setting(interaction, client) {
                     if (client.settings.get(interaction.guild.id, "welcome")===true) {welc="SUCCESS"} else {welc="DANGER"}
                     if (client.settings.get(interaction.guild.id, "goodbye")===true) {goodbye="SUCCESS"} else {goodbye="DANGER"}
+                    if (client.settings.get(interaction.guild.id, "welcomeUserCheck")===true) {wUC="SUCCESS"} else {wUC="DANGER"}
                     if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw="SUCCESS"} else {nsfw="DANGER"}
                     if (client.settings.get(interaction.guild.id, "messageLogs")===true) {msgUD="SUCCESS"} else {msgUD="DANGER"}
                     if (client.settings.get(interaction.guild.id, "invitesLogs")===true) {inv="SUCCESS"} else {inv="DANGER"}
@@ -72,6 +77,7 @@ module.exports = {
                         new MessageButton().setCustomId('welcome').setLabel('Welcome message').setStyle(welc),
                         new MessageButton().setCustomId('goodbye').setLabel('Goodbye message').setStyle(goodbye),
                         new MessageButton().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw),
+                        new MessageButton().setCustomId('welcomeUserCheck').setLabel('Welcome user check').setStyle(wUC),
                     )
                     test2 = new MessageActionRow().addComponents(
                         new MessageButton().setCustomId('messageLogs').setLabel('Message updates').setStyle(msgUD),
@@ -91,6 +97,25 @@ module.exports = {
                     setting(interaction, client);
                 });
                 collector.on('end', collected => console.log(`Collected ${collected.size} items`))
+            }
+            if (interaction.options.getSubcommand() === 'emit_event') {
+                const event = interaction.options.getString('event'); 
+                //console.log(interaction);               
+                try {
+                    switch (event) {
+                        //case "emojiCreate": { client.emit('emojiCreate', interaction.member.guild.emoji); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        //case "emojiDelete": { client.emit('emojiDelete', interaction.member.guild.emoji); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildBanAdd": { client.emit('guildBanAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildBanRemove": { client.emit('guildBanRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildCreate": { client.emit('guildCreate', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildDelete": { client.emit('guildDelete', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildMemberAdd": { client.emit('guildMemberAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildMemberRemove": { client.emit('guildMemberRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                    }
+                } catch (err) {
+                    console.log(err);
+                    return interaction.reply(`This is only for development, do not use!!! \nEvent \`${event}\` has failed to emit. \nHere are the events: https://discord.js.org/#/docs/discord.js/stable/class/Client`);
+                }
             }
         }catch(error) {
             console.log(error)

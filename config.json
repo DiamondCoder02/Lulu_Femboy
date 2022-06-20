@@ -2,6 +2,7 @@
   "Token": "token",
   "clientId": "clientID",
   "guildId": "guildID",
+  "botOwnerId": "botOwnerID",
   "botStatusChannel": "897097242861789236",
   "futureIdeas": "-reminder \n-bot voting \n-Website to edit config \n-Google(?) search \n-API and rss? \n-math solver",
   "bugsToFix": "-testing",

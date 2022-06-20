@@ -1,5 +1,6 @@
 const { Collection } = require('discord.js'), config = require('../config.json'), lang = require('../languages/' + config.language + '.json');
 const cooldowns = new Collection();
+require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client, guildInvites) {
@@ -41,7 +42,7 @@ module.exports = {
 			//guild permission check
 			if (command.guildOnly) { 
 				try{
-					if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
+					if ((interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) || interaction.member.id === b_o_Id || interaction.member.id === config.botOwnerId) {r=true} else {r=false}
 					if (!r && interaction.channel.type === "GUILD_TEXT") {console.log("Not enough permission, what was the plan?"); return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
 				} catch { } 
 			}

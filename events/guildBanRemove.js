@@ -3,7 +3,7 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildBanRemove',
 	execute(ban, client) {
-        console.log(ban)
+        //console.log(ban)
         const banKickLogs = client.settings.get(ban.guild.id, "banKickLogs");
         console.log("["+new Date().toLocaleString('hu-HU') + "] " + `${ban.user.tag} unbanned from ${ban.guild.name}`)
 		if(banKickLogs) { 
