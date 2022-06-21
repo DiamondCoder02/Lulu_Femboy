@@ -68,8 +68,8 @@ module.exports = {
                     {name: '\u200B', value: '\u200B', inline: true},
                 )
                 .addFields(
-                    {name: "User joined timestamp", value: `<t:${Math.floor(member.guild.joinedTimestamp / 1000)}:F>`},
-                    {name: "User joined", value: `~<t:${Math.floor(member.guild.joinedTimestamp / 1000)}:R>`},
+                    {name: "User joined timestamp", value: `<t:${Math.floor(member.joinedTimestamp / 1000)}:F>`},
+                    {name: "User joined", value: `~<t:${Math.floor(member.joinedTimestamp / 1000)}:R>`},
                 )
             let cha = ""
             if (client.settings.get(member.guild.id, "moderationChannel")) {cha = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {cha = member.guild.systemChannel}
