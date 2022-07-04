@@ -21,7 +21,7 @@ module.exports = {
                 .addChoice('pat', 'pat')
                 .addChoice('kill', 'kill')
                 .addChoice('cuddle', 'cuddle')
-                .addChoice('waifu', 'waifu')
+                //.addChoice('waifu', 'waifu')
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription('Select a user'))
             .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
@@ -58,7 +58,7 @@ module.exports = {
                 if (category === 'hentai') {img = await images.nsfw.hentai()}
                 if (category === 'boobs') {img = await images.nsfw.boobs()}
                 if (category === 'lesbian') {img = await images.nsfw.lesbian()}
-                console.log(img)
+                //console.log(img)
                 const embed = new MessageEmbed()
                     .setImage(img.image)
                     .setFooter({text: `${category} - ${a+1}/${amount}`})

@@ -14,20 +14,20 @@ module.exports = {
                 let channel = ""
                 if (client.settings.get(member.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {channel = member.guild.systemChannel}
                 if (usedInvite) {
-                    console.log(`Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.tag} (${usedInvite.uses}/${usedInvite.maxUses})`)
+                    console.log(`[${new Date().toLocaleString('hu-HU')}] Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.tag} (${usedInvite.uses}/${usedInvite.maxUses})`)
                     channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`. \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
                 } else {
-                    console.log(`${member.user.username} joined without using an invite.`)
+                    console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.username} joined without using an invite.`)
                     channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.username}\` joined without using an invite.`});
                 }
             } catch (err) {
-                console.log(`[${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err.name)
+                console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err.name)
                 //console.log("OnGuildMemberAdd Error:", err)
             }
         }
         newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));
         guildInvites.set(member.guild.id, cachedInvites);
-        console.log(`[${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}] ${member.user.tag} has joined the guild: ${member.guild.name}`)
+        console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} has joined the guild: ${member.guild.name}`)
         if( client.settings.get(member.guild.id, "welcomeRole") ) {
             let ro = client.settings.get(member.guild.id, "welcomeRole");
             const role = member.guild.roles.cache.find(r => r.name == ro)
@@ -35,7 +35,7 @@ module.exports = {
         }
         if( client.settings.get(member.guild.id, "welcome") ) {
             const channel = member.guild.systemChannel
-            if (channel === null) { console.log(gmc[0] + member.guild.name) }
+            if (channel === null) { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + gmc[0] + member.guild.name) }
             else {
                 let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
                 const embed = new MessageEmbed()
@@ -69,7 +69,7 @@ module.exports = {
                 )
                 .addFields(
                     {name: "User joined timestamp", value: `<t:${Math.floor(member.joinedTimestamp / 1000)}:F>`},
-                    {name: "User joined", value: `~<t:${Math.floor(member.joinedTimestamp / 1000)}:R>`},
+                    {name: "User joined", value: `<t:${Math.floor(member.joinedTimestamp / 1000)}:R>`},
                 )
             let cha = ""
             if (client.settings.get(member.guild.id, "moderationChannel")) {cha = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {cha = member.guild.systemChannel}

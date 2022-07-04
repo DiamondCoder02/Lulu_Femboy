@@ -4,11 +4,11 @@ module.exports = {
 	name: 'guildMemberRemove',
 	execute(member, client) {
         //console.log(member)
-        console.log(`[${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}]${member.user.tag} has left the guild: ${member.guild.name}`)
+        console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} has left the guild: ${member.guild.name}`)
         let goodbye = client.settings.get(member.guild.id, "goodbye");
         if(goodbye) {} else return
         const channel = member.guild.systemChannel
-        if (channel === null) {return console.log(gmc[0] + member.guild.name)}
+        if (channel === null) {return console.log(`[${new Date().toLocaleString('hu-HU')}]` + gmc[0] + member.guild.name)}
         const embed = new MessageEmbed()
             .setColor('#00FF00')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })

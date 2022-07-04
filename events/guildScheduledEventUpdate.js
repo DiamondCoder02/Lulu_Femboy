@@ -9,7 +9,7 @@ module.exports = {
 		console.log(newGuildScheduledEvent)
         console.log(`Guild event new updated: ${newGuildScheduledEvent.name}`)
 		*/
-		console.log(`[${new Date(newGuildScheduledEvent.createdTimestamp).toLocaleString('hu-HU')}] ${newGuildScheduledEvent.guild.name} event updated: ${newGuildScheduledEvent.name}.`)
+		console.log(`[${new Date().toLocaleString('hu-HU')}] ${newGuildScheduledEvent.guild.name} event updated: ${newGuildScheduledEvent.name}.`)
 		const schedulesLogs = client.settings.get(oldGuildScheduledEvent.guild.id, "schedulesLogs");
 		if(schedulesLogs) { } else return
 		try{

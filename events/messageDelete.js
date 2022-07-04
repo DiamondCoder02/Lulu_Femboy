@@ -3,13 +3,14 @@ module.exports = {
 	async execute(message, client) {
 		if (!message.guild) return;
 		if (message.author.tag === client.user.tag) return;
+		if (message.author.bot) return;
 		/*
 		console.log("Delete")
 		console.log(message)
 		console.log("Delete2")
 		*/
         let c = client.channels.cache.get(message.channelId)
-        process.stdout.write(`[${new Date(message.createdTimestamp).toLocaleString('hu-HU')}] Message deleted in ${c.guild.name} <#${c.name}> (${message.author.tag}) => "${message.content}"`);
+        process.stdout.write(`[${new Date().toLocaleString('hu-HU')}] Message deleted in ${c.guild.name} <#${c.name}> (${message.author.tag}) => "${message.content}"`);
 
 		if (message.embeds.length) { process.stdout.write(" //Embed deleted//") }
 		if (message.attachments.size) { process.stdout.write(" //Attachment deleted//") }
@@ -32,7 +33,7 @@ module.exports = {
 		if(messageLogs) { 
 			try{
 				if (client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))} else {channel = message.guild.systemChannel}
-				channel.send({ content: `[${new Date(message.createdTimestamp).toLocaleString('hu-HU')}] 
+				channel.send({ content: `[${new Date().toLocaleString('hu-HU')}] 
 Message deleted in <#${c.name}> (${message.author.tag}) => 
 "${message.content}"`
 + "\nEmbed:" + (message.embeds.length?"✅":"❌") + " Attachment:" + (message.attachments.size?"✅":"❌") + " Components:" + (message.components.length?"✅":"❌") + " Stickers:" + (message.stickers.size?"✅":"❌") + " Interaction:" + (message.interaction?"✅":"❌")

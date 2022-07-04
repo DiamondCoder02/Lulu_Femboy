@@ -31,6 +31,7 @@ client.settings = new Enmap({
         welcomeUserCheck: false,
         goodbye: false,
         messageLogs: false,
+        memberUpdateLogs: false,
         invitesLogs: false,
         schedulesLogs: false,
         banKickLogs: false,

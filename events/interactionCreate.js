@@ -23,28 +23,30 @@ module.exports = {
 			const command = client.commands.get(interaction.commandName);
 			if (!command) return;
 			//OnlyGuild
-			if (command.guildOnly && interaction.channel.type === 'DM') {console.log("Execute in DMs, why?"); return interaction.reply(lang.index.no_dm)}
-			//Cooldown
-			if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection());}
-			const now = Date.now();
-			const timestamps = cooldowns.get(interaction.commandName);
-			const cooldownAmount = (command.cooldown || 1) * 1000;
-			if (timestamps.has(interaction.user.id)) {
-				const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
-				if (now < expirationTime) {
-					const timeLeft = (expirationTime - now) / 1000;
-					console.log("Cooldown time left, maybe spam?");
-					return interaction.reply({content: lang.index.cooldown + " `"+timeLeft+"`", ephemeral: true});
+			if (command.guildOnly && interaction.channel.type === 'DM') {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Execute in DMs, why?"); return interaction.reply(lang.index.no_dm)}
+			if ( interaction.member.id === b_o_Id || interaction.member.id === config.botOwnerId ) {} else {
+				//Cooldown
+				if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection());}
+				const now = Date.now();
+				const timestamps = cooldowns.get(interaction.commandName);
+				const cooldownAmount = (command.cooldown || 1) * 1000;
+				if (timestamps.has(interaction.user.id)) {
+					const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
+					if (now < expirationTime) {
+						const timeLeft = (expirationTime - now) / 1000;
+						console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Cooldown time left, maybe spam?");
+						return interaction.reply({content: lang.index.cooldown + " `"+timeLeft+"`", ephemeral: true});
+					}
 				}
-			}
-			timestamps.set(interaction.user.id, now);
-			setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
-			//guild permission check
-			if (command.guildOnly) { 
-				try{
-					if ((interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) || interaction.member.id === b_o_Id || interaction.member.id === config.botOwnerId) {r=true} else {r=false}
-					if (!r && interaction.channel.type === "GUILD_TEXT") {console.log("Not enough permission, what was the plan?"); return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
-				} catch { } 
+				timestamps.set(interaction.user.id, now);
+				setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+				//guild permission check
+				if (command.guildOnly) { 
+					try{
+						if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
+						if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Not enough permission, what was the plan?"); return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
+					} catch { } 
+				}
 			}
 			//Execute
 			try {

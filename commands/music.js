@@ -9,8 +9,8 @@ const player = new Player(client, {
         }
     }
 });
-player.on("error", (queue, error) => { console.log(queue.guild.name +" "+ po[0] + error.message); });
-player.on("connectionError", (queue, error) => { console.log(queue.guild.name + po[1] + error.message); });
+player.on("error", (queue, error) => { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + queue.guild.name +" "+ po[0] + error.message); });
+player.on("connectionError", (queue, error) => { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + queue.guild.name + po[1] + error.message); });
 player.on("trackStart", (queue, track) => { queue.metadata.send(`🎶 |`+po[2]+": **"+track.title+"** => **"+queue.connection.channel.name+"**!"); });
 player.on("trackAdd", (queue, track) => { queue.metadata.send(`🎶 |`+po[3]+": **"+track.title+"**"); });
 player.on("botDisconnect", (queue) => { queue.metadata.send("❌ |"+po[4]); });

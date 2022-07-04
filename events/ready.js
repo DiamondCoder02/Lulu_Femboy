@@ -22,6 +22,7 @@ module.exports = {
             + `\n\t --` + con[3] + config.stopPassword
             + `\n\t --` + con[4] + client.readyAt
             + `\n\t --` + con[5]+" "+ Guilds)
+        return
         const embed = new MessageEmbed()
         .setColor('#00FF00')
         .setTitle(emb[0])

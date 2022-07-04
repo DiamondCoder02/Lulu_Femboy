@@ -3,6 +3,6 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildCreate',
 	execute(guild) {
-        console.log(`Bot joined guild: ${guild.name}`)
+        console.log(`[${new Date().toLocaleString('hu-HU')}] Bot joined guild: ${guild.name}`)
 	}
 };

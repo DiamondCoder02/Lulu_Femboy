@@ -23,8 +23,15 @@ module.exports = {
         if (interaction.options.getString('search') === 'user') {
             if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2]+"?")}
             const user = interaction.options.getUser('target');
+            /*
+            const tes = client.users.cache.find(u => u.id === user.id)
+            console.log(tes)
+            console.log(user.joinedTimestamp)
+            console.log(user.joinedAt)
+            console.log(tes.joinedTimestamp)
+            console.log(tes.joinedAt)
+            */
             const profilepic = user.displayAvatarURL();
-            const usertime = new Date(user.createdTimestamp).toLocaleString();
             const embed = new MessageEmbed()
                 .setColor('#00FF00')
                 .setTitle(us[0])
@@ -34,15 +41,26 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
                 .addFields(
-                    {name: us[2], value: user.username, inline:true},
-                    {name: "Tag:", value: user.tag, inline:true},
-                    {name: "Bot?", value: (user.bot ? lang.t : lang.f)}
+                    {name: us[2], value: user.username, inline: true},
+                    {name: "Tag:", value: user.tag, inline: true},
+                    {name: '\u200B', value: '\u200B', inline: true},
                 )
                 .addFields(
-                    {name: us[3], value: String(usertime), inline:true},
-                    {name: "**"+us[4]+"**", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline:true},
-                    {name: us[5], value: String(user.id), inline:true},
+                    {name: "Bot?", value: (user.bot ? lang.t : lang.f), inline: true},
+                    {name: us[5], value: String(user.id), inline: true},
+                    {name: '\u200B', value: '\u200B', inline: true},
                 )
+                .addFields(
+                    {name: "User created timestamp", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:F>`, inline: true},
+                    {name: "User created", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline: true},
+                    {name: '\u200B', value: '\u200B', inline: true},
+                )
+                /*
+                .addFields(
+                    {name: "User joined timestamp", value: `<t:${new Date(user.joinedTimestamp).toLocaleString('hu-HU')}:F>`, inline: true},
+                    {name: "User joined", value: `<t:${new Date(user.joinedTimestamp).toLocaleString('hu-HU')}:R>`, inline: true},
+                )
+                */
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'text') {
             console.log(interaction.channel)

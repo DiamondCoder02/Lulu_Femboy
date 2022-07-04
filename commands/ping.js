@@ -11,7 +11,7 @@ module.exports = {
 		let hours = Math.floor( (totalSeconds %= 86400) / 3600);
 		let minutes = Math.floor( (totalSeconds%= 3600) / 60);
 		let seconds = Math.floor(totalSeconds % 60);
-        let uptime = p[0] + "\`" + days + "\`, \n" +p[1]+ "\`" + hours + ":" + minutes + ":" + seconds + "\`"
+        let uptime = p[0] + "\`" + days + "\`,\n" +p[1]+ "\`" + hours + ":" + minutes + ":" + seconds + "\`"
         const msg = await interaction.reply({content: p[2], fetchReply:true});
         ping = msg.createdTimestamp - interaction.createdTimestamp;
 		const embed = new MessageEmbed()

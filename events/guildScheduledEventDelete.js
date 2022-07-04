@@ -4,7 +4,7 @@ module.exports = {
 	name: 'guildScheduledEventDelete',
 	execute(guildScheduledEvent, client) {
 		//console.log(guildScheduledEvent)
-        console.log(`[${new Date(guildScheduledEvent.createdTimestamp).toLocaleString('hu-HU')}] ${guildScheduledEvent.guild.name} event deleted: "${guildScheduledEvent.name}".`)
+        console.log(`[${new Date().toLocaleString('hu-HU')}] ${guildScheduledEvent.guild.name} event deleted: "${guildScheduledEvent.name}".`)
 		const schedulesLogs = client.settings.get(guildScheduledEvent.guild.id, "schedulesLogs");
 		if(schedulesLogs) { } else return
 		try{
