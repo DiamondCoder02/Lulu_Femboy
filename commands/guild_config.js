@@ -113,6 +113,7 @@ module.exports = {
                         case "guildDelete": { client.emit('guildDelete', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
                         case "guildMemberAdd": { client.emit('guildMemberAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
                         case "guildMemberRemove": { client.emit('guildMemberRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+                        case "guildMemberUpdate": { client.emit('guildMemberUpdate', interaction.member, interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
                     }
                 } catch (err) {
                     console.log(err);

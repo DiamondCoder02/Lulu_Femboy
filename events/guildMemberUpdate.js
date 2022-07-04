@@ -1,7 +1,6 @@
 module.exports = {
     name: 'guildMemberUpdate',
     execute(oldMember, newMember, client) {
-        if (oldMember.author.bot) return;
         console.log(oldMember)
         console.log("NYAAAAAAAAAAAAAAAAAAAAA")
         console.log(newMember)
