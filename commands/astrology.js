@@ -26,7 +26,7 @@ module.exports = {
             const type = interaction.options.getString('signs');
             sign = await fetch(`https://ohmanda.com/api/horoscope/${type}/`).then(res => res.text()).then(data => JSON.parse(data));
             const embed = new MessageEmbed()
-                .setTitle('Horoscope: ' + sign.sign + '\n' + sign.date)
+                .setTitle('Horoscope: ' + sign.sign)
                 .setDescription(sign.horoscope)
                 .setTimestamp()
             if (type === 'capricorn') { embed.setColor('#C0C0C0').setFooter({ text: 'Date: Dec.22-Jan.19' }).setThumbnail("https://static.vecteezy.com/system/resources/previews/003/808/499/non_2x/zodiac-sign-capricorn-isolated-icon-zodiac-symbol-with-starry-gradient-design-astrological-element-vector.jpg") }
