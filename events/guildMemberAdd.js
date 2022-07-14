@@ -72,8 +72,11 @@ module.exports = {
                     {name: "User joined", value: `<t:${Math.floor(member.joinedTimestamp / 1000)}:R>`},
                 )
             let cha = ""
-            if (client.settings.get(member.guild.id, "moderationChannel")) {cha = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {cha = member.guild.systemChannel}
-            cha.send({embeds: [userInfo]})
+            try { 
+                if (client.settings.get(member.guild.id, "moderationChannel")) {cha = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {cha = member.guild.systemChannel} 
+                cha.send({embeds: [userInfo]})
+            } catch (err) {console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err.name)}
+            
         }
 	}
 };

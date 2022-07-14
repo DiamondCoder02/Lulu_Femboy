@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('astrology')
-        .setDescription('Astrology.')
+        .setDescription('Astrology. (Updates around every UTC+2 at 9am)')
         .addStringOption(option => option.setName('signs').setDescription('Enter a horoscope')
             .addChoice('Capricorn (Dec.22-Jan.19)', 'capricorn')
             .addChoice('Aquarius (Jan.20-Feb.18)', 'aquarius')
