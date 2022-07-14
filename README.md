@@ -1,5 +1,5 @@
 # Femboi_OwO (Soon this readme will be rewriten)
-4th trying making a Discorcd bot.
+4th try making a Discorcd bot.
 
 If you ping the bot it will give you a small help how to use it.( Bot itself, not the role.)
 
