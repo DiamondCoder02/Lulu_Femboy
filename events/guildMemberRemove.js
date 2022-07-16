@@ -10,7 +10,7 @@ module.exports = {
         const channel = member.guild.systemChannel
         if (channel === null) {return console.log(`[${new Date().toLocaleString('hu-HU')}]` + gmc[0] + member.guild.name)}
         const embed = new MessageEmbed()
-            .setColor('#00FF00')
+            .setColor('#FFFF00 ')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
             .setDescription(`**${member.user.tag}**, has left the server.`)
             //.setThumbnail(member.user.displayAvatarURL())

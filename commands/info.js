@@ -33,7 +33,7 @@ module.exports = {
             */
             const profilepic = user.displayAvatarURL();
             const embed = new MessageEmbed()
-                .setColor('#00FF00')
+                .setColor('#FFFF00')
                 .setTitle(us[0])
                 .setThumbnail(profilepic)
                 .setDescription(us[1] + interaction.user.tag)
@@ -65,7 +65,7 @@ module.exports = {
         } else if (interaction.options.getString('search') === 'text') {
             console.log(interaction.channel)
             const embed = new MessageEmbed()
-                .setColor('#00FF00')
+                .setColor('#FFFF00')
                 .setTitle("Info about the channel:")
                 .setDescription("**#"+interaction.channel.name+"**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
                 .addFields(
@@ -83,7 +83,7 @@ module.exports = {
             console.log(interaction.member.voice.channel)
             if (interaction.member.voice.channel.userLimit === 0) { ul = "10000" } else { ul = interaction.member.voice.channel.userLimit }
             const embed = new MessageEmbed()
-                .setColor('#00FF00')
+                .setColor('#FFFF00')
                 .setTitle("Info about the channel:")
                 .setDescription("**"+interaction.member.voice.channel.name+"**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
                 .addFields(
@@ -103,7 +103,7 @@ module.exports = {
             const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
             const botservertime = new Date(interaction.guild.joinedTimestamp).toLocaleString();
             const embed = new MessageEmbed()
-                .setColor('#00FF00')
+                .setColor('#FFFF00')
                 .setTitle(s1[0])
                 .setThumbnail(interaction.guild.iconURL())
                 .setDescription( s1[1] + interaction.user.tag)
@@ -138,7 +138,7 @@ module.exports = {
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'cheat') {
             const embedtest1 = new MessageEmbed()
-                .setColor('#00FF00')
+                .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
                 .setDescription(`(Max25 field per embed) 1/?`)
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
@@ -168,7 +168,7 @@ module.exports = {
                 .addField("24 PremiumSubscriptionCount(number)",  String(interaction.guild.premiumSubscriptionCount), true)
                 .addField("25 PremiumTier(PremiumTier)",  String(interaction.guild.premiumTier), true)
             const embedtest2 = new MessageEmbed()
-                .setColor('#00FF00')
+                .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
                 .setDescription(`(Max25 field per embed) 2/?`)
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })

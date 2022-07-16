@@ -20,7 +20,7 @@ module.exports = {
 			client.destroy()
 		} else {
 			const embed = new MessageEmbed()
-				.setColor('#0099ff')
+				.setColor('#FFFF00 ')
 				.setTitle(st[5])
 				.setDescription(st[2] + interaction.user.tag)
 				await interaction.reply({content: st[2], ephemeral: true})

@@ -81,7 +81,7 @@ module.exports = {
                         {
                             title: c1[7],
                             description: `${tracks.join("\n")} ${queue.tracks.length > tracks.length ? `\n...${queue.tracks.length - tracks.length}` + `${c1[8]}` : "" }`,
-                            color: 0xff0000,
+                            color: 0x00FF00,
                             fields: [{ name: c1[9], value: `🎶 | **${currentTrack.title}** ([link](${currentTrack.url}))` }]
                         }
                     ]

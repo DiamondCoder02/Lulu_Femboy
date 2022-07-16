@@ -10,7 +10,7 @@ module.exports = {
 		.setDescription(td[3]),
 	async execute(interaction, client, config) {
 		const version_embed = new MessageEmbed()
-        .setColor('#00FF00')
+        .setColor('#FFFF00')
         .setTitle(td[0])
         .setDescription(td[1] + `https://github.com/DiamondPRO02/Femboi_OwO \nhttps://imgur.com/a/dStRp6Y`)
         .setThumbnail(client.user.displayAvatarURL())

@@ -22,22 +22,23 @@ module.exports = {
             + `\n\t --` + con[3] + config.stopPassword
             + `\n\t --` + con[4] + client.readyAt
             + `\n\t --` + con[5]+" "+ Guilds)
-        return
-        const embed = new MessageEmbed()
-        .setColor('#00FF00')
-        .setTitle(emb[0])
-        .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
-        try { 
-            const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
-            channel.bulkDelete(1, true).catch(error => {console.error(error)})
-            return channel.send({embeds: [embed]})
-        } catch { 
-            try{
-                const channel = client.channels.cache.get(config.botStatusChannel) 
+        if (config.botReadyStatus) {
+            const embed = new MessageEmbed()
+                .setColor('#FFFF00')
+                .setTitle(emb[0])
+                .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
+            try { 
+                const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
                 channel.bulkDelete(1, true).catch(error => {console.error(error)})
                 return channel.send({embeds: [embed]})
-            } catch {
-                return console.log(lang.ready.no_status)
+            } catch { 
+                try{
+                    const channel = client.channels.cache.get(config.botStatusChannel) 
+                    channel.bulkDelete(1, true).catch(error => {console.error(error)})
+                    return channel.send({embeds: [embed]})
+                } catch {
+                    return console.log(lang.ready.no_status)
+                }
             }
         }
 	}

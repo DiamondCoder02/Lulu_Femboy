@@ -25,7 +25,7 @@ module.exports = {
             const text = await translate(interaction.options.getString('text'), {cache: 10000, from: from, to: to });
             if (text.length > 1024) { return interaction.reply({content: lang.translate.longEmbed}) }
             const embed = new MessageEmbed()
-                .setColor('#00ffff')
+                .setColor('#00FF00')
                 .setTitle(lang.translate.embed +": "+ eng +"\n"+ from + " -> " + to)
                 .setDescription("--------------------\n"+text+"\n--------------------")
                 .addField(lang.translate.embed2+":", "*"+interaction.options.getString('text')+"*")

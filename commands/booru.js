@@ -52,7 +52,7 @@ module.exports = {
                     else { r = "-"}
                 const embed = new MessageEmbed()
                     .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
-                    .setColor('#ff0000')
+                    .setColor('#A020F0')
                     .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
                     .addField("⚖️"+e[4], r, true)
                     .addField("🔍"+e[5], "*"+tags+"*", true)

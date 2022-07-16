@@ -75,6 +75,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setImage(img.url)
                     .setFooter({text: `${category} - ${a+1}/${amount}`})
+                    .setColor('#A020F0 ')
                 if (interaction.options.getUser('target')) {
                     const user = interaction.options.getUser('target'), from = interaction.user
                     embed.setDescription(from.toString() + " sends you a nice " + category + ", " + user.toString() + ". :3")

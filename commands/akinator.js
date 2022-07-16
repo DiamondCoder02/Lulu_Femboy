@@ -24,10 +24,10 @@ module.exports = {
         //const childMode = false; //Whether to use Akinator's Child Mode
         //const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
         //const useButtons = true; //Whether to use Discord's Buttons
-        const embedColor = "#1F1E33"; //The Color of the Message Embeds
+        //const embedColor = "#1F1E33"; //The Color of the Message Embeds
 
         akinator(interaction, {
-            //embedColor: embedColor, //Defaults to "RANDOM"
+            embedColor: "#00FF00", //Defaults to "RANDOM"
             language: lang, //Defaults to "en"
             childMode: childMode, //Defaults to "false"
             gameType: gameType, //Defaults to "character"

@@ -18,8 +18,12 @@ module.exports = {
 			if (newGuildScheduledEvent.scheduledEndTimestamp === null) {newend = "-"} else {newend = new Date(newGuildScheduledEvent.scheduledEndTimestamp).toLocaleString('hu-HU')}
 			return channel.send({ content: `[\`${new Date(newGuildScheduledEvent.createdTimestamp).toLocaleString('hu-HU')}\`] Guild event updated to: 
 Name: \`${oldGuildScheduledEvent.name}\` => \`${newGuildScheduledEvent.name}\` 
-Description: \`${oldGuildScheduledEvent.description}\` 
-	=>	  \`${newGuildScheduledEvent.description}\` 
+Description: 
+
+\`${oldGuildScheduledEvent.description}\` 
+***=>***
+\`${newGuildScheduledEvent.description}\`
+
 Place: \`${oldGuildScheduledEvent.entityType}\` => \`${newGuildScheduledEvent.entityType}\` 
 Status: \`${oldGuildScheduledEvent.status}\` = > \`${newGuildScheduledEvent.status}\`
 Start: \`${new Date(oldGuildScheduledEvent.scheduledStartTimestamp).toLocaleString('hu-HU')}\` => \`${new Date(newGuildScheduledEvent.scheduledStartTimestamp).toLocaleString('hu-HU')}\`

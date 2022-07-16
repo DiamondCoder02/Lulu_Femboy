@@ -31,7 +31,7 @@ module.exports = {
         function searchEmbed(doujin){
             console.log(doujin)
             const nhentaiEmbed = new MessageEmbed()
-            .setColor('#ec2852')
+            .setColor('#A020F0')
             .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
             .setTimestamp()
             .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
@@ -54,7 +54,7 @@ module.exports = {
                 if ((pageNumber+1) === doujin.pages.length) {pageNumber = ((doujin.pages.length)-1)} else {pageNumber +=1}
                 console.log(pageNumber +" / "+ (doujin.pages.length))
                 const readEmbed = new MessageEmbed()
-                    .setColor('#ec2852')
+                    .setColor('#A020F0')
                     .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
                     .setTimestamp()
                     .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
@@ -68,7 +68,7 @@ module.exports = {
                 if (pageNumber <= 0) {pageNumber = 0} else {pageNumber -=1}
                 console.log(pageNumber +" / "+ doujin.pages.length)
                 const readEmbed = new MessageEmbed()
-                    .setColor('#ec2852')
+                    .setColor('#A020F0')
                     .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
                     .setTimestamp()
                     .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
@@ -98,7 +98,7 @@ module.exports = {
                 return new MessageEmbed({
                     title: `Showing new doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
-                    color: '#ec2852',
+                    color: '#A020F0',
                     fields: await Promise.all(
                         current.map(async doujins => ({
                             name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
@@ -119,7 +119,7 @@ module.exports = {
                 return new MessageEmbed({
                     title: `Showing popular doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
-                    color: '#ec2852',
+                    color: '#A020F0',
                     fields: await Promise.all(
                         current.map(async doujins => ({
                             name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
@@ -145,7 +145,7 @@ module.exports = {
                 return new MessageEmbed({
                     title: `Showing author doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
-                    color: '#ec2852',
+                    color: '#A020F0',
                     fields: await Promise.all(
                         current.map(async doujins => ({
                             name: `*ID:*  -  ${doujins.id}`, value: `**Title:**  ${doujins.titles.english}`
@@ -162,7 +162,7 @@ module.exports = {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
             const readEm = new MessageEmbed()
-            .setColor('#ec2852')
+            .setColor('#A020F0')
             .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
             .setTimestamp()
             .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))

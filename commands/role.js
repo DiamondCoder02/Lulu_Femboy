@@ -14,7 +14,7 @@ module.exports = {
         let m = []
         const role_embed = new MessageEmbed()
             .setTitle("Self Roles:")
-            .setColor("#0099ff")
+            .setColor("#00FF00 ")
             .setDescription("`Click some button for roles!`")
         await interaction.reply({ embeds: [role_embed], ephemeral: true })
         for (let x = 0; x < ro.length; x++){
