@@ -1,4 +1,4 @@
-const { Collection } = require('discord.js'), config = require('../config.json'), lang = require('../languages/' + config.language + '.json');
+const { Collection, InteractionType } = require('discord.js'), config = require('../config.json'), lang = require('../languages/' + config.language + '.json');
 const cooldowns = new Collection();
 require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
 module.exports = {
@@ -9,17 +9,17 @@ module.exports = {
 			if (i.channel.type === 'DM') {
 				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] DM "+ i_c[0] + i.commandName);
 			}
-			if (i.isCommand()) {
+			if (i.type === InteractionType.ApplicationCommand) {
 				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" "+ i_c[0] + i.commandName);
 			}
-			if (i.isButton() && config.debug_level >= 2) {
-				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"=> "+ i.customId);
+			if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
+				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"=> "+ i.componentType);
 			} 
-			if (i.isSelectMenu() && config.debug_level >= 2) {
+			if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
 				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[2] +"=> "+ i.value);
 			}
 		}
-		if (i.isCommand) {
+		if (i.type === InteractionType.ApplicationCommand) {
 			const command = client.commands.get(interaction.commandName);
 			if (!command) return;
 			//OnlyGuild

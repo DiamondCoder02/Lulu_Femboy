@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageButton, Message } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { ButtonBuilder, Message } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     guildOnly: true,

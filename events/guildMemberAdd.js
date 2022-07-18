@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), gmc = lang.guild_mem_create.split('-')
 module.exports = {
 	name: 'guildMemberAdd',
@@ -37,7 +37,7 @@ module.exports = {
             if (channel === null) { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + gmc[0] + member.guild.name) }
             else {
                 let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setColor('#FFFF00 ')
                     .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
                     .setDescription("**"+welcomeMessage+"**" + "\n" + gmc[1] +'\n "/"'+ gmc[2] +'\n'+ gmc[3])
@@ -50,7 +50,7 @@ module.exports = {
         if( client.settings.get(member.guild.id, "welcomeUserCheck") ) {
             //console.log(member)
             const profilepic = member.displayAvatarURL();
-            const userInfo = new MessageEmbed()
+            const userInfo = new EmbedBuilder()
                 .setColor('#FFFF00 ')
                 .setTitle("New " + (member.user.bot ? "bot" : "user") + " joined:")
                 .setThumbnail(profilepic)

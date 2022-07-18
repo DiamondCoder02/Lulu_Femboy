@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.booru.slash.split('-') , e = lang.booru.embed.split('-')
@@ -8,31 +8,32 @@ module.exports = {
         .setName('booru')
         .setDescription(s[0])
         .addStringOption(option => option.setName('sites').setDescription(s[1])
-            .addChoice('e621.net 18+', 'e621')
-            .addChoice('e926.net <18', 'e926')
-            //.addChoice('hypnohub.net 18+ (🚫tag)', 'hypnohub')
-            //.addChoice('danbooru.donmai.us 18+ (🚫tag)', 'danbooru')
-            .addChoice('konachan.com 18+', 'konac')
-            .addChoice('konachan.net <18', 'konan')
-            .addChoice('yande.re 18+', 'yandere')
-            //random false unless a tag is given:
-            .addChoice('gelbooru.com 18+', 'gelbooru')
-            .addChoice('rule34.xxx 18+', 'rule34')
-            .addChoice('safebooru.org <18', 'safebooru')
-            .addChoice('tbib.org <18', 'tbib')
-            .addChoice('xbooru.com 18+', 'xbooru')
-            .addChoice('rule34.paheal.net 18+ (🚫tag)', 'paheal')
-            .addChoice('derpibooru.org 18+', 'derpibooru')
-            .addChoice('realbooru.net 18+', 'realbooru')
+            .addChoices(
+                { name: "e621.net 18+", value: 'e621' },
+                { name: "e926.net <18", value: 'e926' },
+                //{ name: "hypnohub.net 18+ (🚫tag)", value: 'hypnohub' },
+                //{ name: "danbooru.donmai.us 18+ (🚫tag)", value: 'danbooru' },
+                { name: "konachan.com 18+", value: 'konac' },
+                { name: "konachan.net <18", value: 'konan' },
+                { name: "yande.re 18+", value: 'yandere' },
+                //random false unless a tag is given:
+                { name: "gelbooru.com 18+", value: 'gelbooru' },
+                { name: "rule34.xxx 18+", value: 'rule34' },
+                { name: "safebooru.org <18", value: 'safebooru' },
+                { name: "tbib.org <18", value: 'tbib' },
+                { name: "xbooru.com 18+", value: 'xbooru' },
+                { name: "rule34.paheal.net 18+ (🚫tag)", value: 'paheal' },
+                { name: "derpibooru.org 18+", value: 'derpibooru' },
+                { name: "realbooru.net 18+", value: 'realbooru' }
+            )
             .setRequired(true)
         )
         .addStringOption(option => option.setName('tags').setDescription(s[2]))
         .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10)),
     async execute(interaction, client) {
         const sites = interaction.options.getString('sites').trim()
-        const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib" || sites=="hypnohub" || sites=="danbooru"|| sites=="paheal") { }
-        else { if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
+        else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
         if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply(lang.booru.tag) }
         else if(!interaction.options.getString('tags')) {tags = ""}
         else { tags = interaction.options.getString('tags').trim().split(' ')}
@@ -50,16 +51,18 @@ module.exports = {
                     else if (posts.first.rating == 'e') { r = e[2]}
                     else if (posts.first.rating == 'u') { r = e[3]} 
                     else { r = "-"}
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
                     .setColor('#A020F0')
                     .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
-                    .addField("⚖️"+e[4], r, true)
-                    .addField("🔍"+e[5], "*"+tags+"*", true)
+                    .addFields(
+                        { name: "⚖️"+e[4], value: r, inline: true },
+                        { name: "🔍"+e[5], value: "*"+tags+"*", inline: true }
+                    )
                     .setTimestamp()
-                if (posts.first.tags.join(', ').length > 1000) {embed.addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ').substring(0,999)+"...`")} else {embed.addField("📄"+"Tags: ", "`"+posts.first.tags.join(', ')+"`")}
-                const buttons = new MessageActionRow().addComponents(
-                    new MessageButton().setURL(posts[0].fileUrl).setLabel('Link').setStyle('LINK').setEmoji('🖥️'))
+                if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}
+                const buttons = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder().setURL(posts[0].fileUrl).setLabel('Link').setStyle(ButtonStyle.Link).setEmoji('🖥️'))
                 if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")|| posts[0].fileUrl.includes(".gif")) {
                     await interaction.followUp({embeds: [embed], components: [buttons]})
                     await interaction.followUp({content: posts[0].fileUrl});

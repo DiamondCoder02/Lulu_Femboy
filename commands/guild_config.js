@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     guildOnly: true,
@@ -65,29 +65,29 @@ module.exports = {
                 const filter = i => i.user.id === interaction.user.id
                 const collector = interaction.channel.createMessageComponentCollector({filter, time: 30000 });
                 async function setting(interaction, client) {
-                    if (client.settings.get(interaction.guild.id, "welcome")===true) {welc="SUCCESS"} else {welc="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "goodbye")===true) {goodbye="SUCCESS"} else {goodbye="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "welcomeUserCheck")===true) {wUC="SUCCESS"} else {wUC="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw="SUCCESS"} else {nsfw="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "messageLogs")===true) {msgUD="SUCCESS"} else {msgUD="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "invitesLogs")===true) {inv="SUCCESS"} else {inv="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "schedulesLogs")===true) {sch="SUCCESS"} else {sch="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "banKickLogs")===true) {banK="SUCCESS"} else {banK="DANGER"}
-                    if (client.settings.get(interaction.guild.id, "memberUpdateLogs")===true) {mul="SUCCESS"} else {mul="DANGER"}
-                    test = new MessageActionRow().addComponents( 
-                        new MessageButton().setCustomId('welcome').setLabel('Welcome message').setStyle(welc),
-                        new MessageButton().setCustomId('goodbye').setLabel('Goodbye message').setStyle(goodbye),
-                        new MessageButton().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw),
-                        new MessageButton().setCustomId('welcomeUserCheck').setLabel('Welcome user check').setStyle(wUC),
+                    if (client.settings.get(interaction.guild.id, "welcome")===true) {welc=ButtonStyle.Success} else {welc=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "goodbye")===true) {goodbye=ButtonStyle.Success} else {goodbye=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "welcomeUserCheck")===true) {wUC=ButtonStyle.Success} else {wUC=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "enableNSFW")===true) {nsfw=ButtonStyle.Success} else {nsfw=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "messageLogs")===true) {msgUD=ButtonStyle.Success} else {msgUD=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "invitesLogs")===true) {inv=ButtonStyle.Success} else {inv=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "schedulesLogs")===true) {sch=ButtonStyle.Success} else {sch=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "banKickLogs")===true) {banK=ButtonStyle.Success} else {banK=ButtonStyle.Danger}
+                    if (client.settings.get(interaction.guild.id, "memberUpdateLogs")===true) {mul=ButtonStyle.Success} else {mul=ButtonStyle.Danger}
+                    test = new ActionRowBuilder().addComponents( 
+                        new ButtonBuilder().setCustomId('welcome').setLabel('Welcome message').setStyle(welc),
+                        new ButtonBuilder().setCustomId('goodbye').setLabel('Goodbye message').setStyle(goodbye),
+                        new ButtonBuilder().setCustomId('enableNSFW').setLabel('NSFW').setStyle(nsfw),
+                        new ButtonBuilder().setCustomId('welcomeUserCheck').setLabel('Welcome user check').setStyle(wUC),
                     )
-                    test2 = new MessageActionRow().addComponents(
-                        new MessageButton().setCustomId('messageLogs').setLabel('Message updates').setStyle(msgUD),
-                        new MessageButton().setCustomId('invitesLogs').setLabel('Invites').setStyle(inv),
-                        new MessageButton().setCustomId('schedulesLogs').setLabel('Schedules').setStyle(sch),
-                        new MessageButton().setCustomId('banKickLogs').setLabel('Ban/Kick').setStyle(banK),
-                        new MessageButton().setCustomId('memberUpdateLogs').setLabel('Member updates').setStyle(mul),
+                    test2 = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('messageLogs').setLabel('Message updates').setStyle(msgUD),
+                        new ButtonBuilder().setCustomId('invitesLogs').setLabel('Invites').setStyle(inv),
+                        new ButtonBuilder().setCustomId('schedulesLogs').setLabel('Schedules').setStyle(sch),
+                        new ButtonBuilder().setCustomId('banKickLogs').setLabel('Ban/Kick').setStyle(banK),
+                        new ButtonBuilder().setCustomId('memberUpdateLogs').setLabel('Member updates').setStyle(mul),
                     )
-                    const del = new MessageActionRow().addComponents(new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER'))
+                    const del = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('delete').setLabel('Delete message').setStyle(ButtonStyle.Danger))
                     interaction.editReply({content: "Buttons to turn features on and off \n*2nd row for message and other logging for checking*",components: [test, test2, del]})
                 }
                 setting(interaction, client);

@@ -1,24 +1,29 @@
 console.clear();
 //basic loaders
-const fs = require('fs'), { Client, Collection, Intents } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
+const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
 const client = new Client({ 
     ws: {properties: {$browser: 'Discord iOS'}}, 
     intents: [
-        Intents.FLAGS.GUILDS, 
-        Intents.FLAGS.GUILD_MEMBERS, 
-        Intents.FLAGS.GUILD_BANS, 
-        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, 
-        Intents.FLAGS.GUILD_INTEGRATIONS, 
-        //Intents.FLAGS.GUILD_WEBHOOKS, 
-        Intents.FLAGS.GUILD_INVITES, 
-        Intents.FLAGS.GUILD_VOICE_STATES,
-        Intents.FLAGS.GUILD_PRESENCES, 
-        Intents.FLAGS.GUILD_MESSAGES, 
-        //Intents.FLAGS.GUILD_MESSAGE_REACTIONS
-        //Intents.FLAGS.GUILD_MESSAGE_TYPING
-        Intents.FLAGS.GUILD_SCHEDULED_EVENTS
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.Guilds, 
+        GatewayIntentBits.GuildMembers, 
+        GatewayIntentBits.GuildBans, 
+        GatewayIntentBits.GuildEmojisAndStickers, 
+        GatewayIntentBits.GuildIntegrations, 
+        //GatewayIntentBits.GuildWebhooks, 
+        GatewayIntentBits.GuildInvites, 
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildPresences, 
+        GatewayIntentBits.GuildMessages, 
+        GatewayIntentBits.GuildScheduledEvents,
+        //GatewayIntentBits.GuildMessageReactions,
+        //GatewayIntentBits.GuildMessageTyping,
+        //GatewayIntentBits.GuildVoiceStates,
+        //GatewayIntentBits.DirectMessages,
+        //GatewayIntentBits.DirectMessageReactions,
+        //GatewayIntentBits.DirectMessageTyping
     ],
-    partials: ["CHANNEL"]
+    partials: [Partials.Channel]
 });
 require('dotenv').config(); var token = process.env.token;
 client.commands = new Collection();

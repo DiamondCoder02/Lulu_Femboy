@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), gmc = lang.guild_mem_create.split('-')
 module.exports = {
 	name: 'guildMemberRemove',
@@ -9,7 +9,7 @@ module.exports = {
         if(goodbye) {} else return
         const channel = member.guild.systemChannel
         if (channel === null) {return console.log(`[${new Date().toLocaleString('hu-HU')}]` + gmc[0] + member.guild.name)}
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('#FFFF00 ')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
             .setDescription(`**${member.user.tag}**, has left the server.`)

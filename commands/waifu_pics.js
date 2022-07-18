@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const { EmbedBuilder, ChannelType } = require('discord.js');
 const fetch = require('node-fetch')
 const wait = require('node:timers/promises').setTimeout;
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
@@ -9,53 +9,59 @@ module.exports = {
         .setDescription('Pictures from waifu.pics')
         .addSubcommand(subcommand => subcommand.setName('sfw').setDescription('SFW pictures')
             .addStringOption(option => option.setName('category').setDescription('SFW a category')
-                .addChoice('waifu', 'waifu')
-                .addChoice('neko', 'neko')
-                .addChoice('shinobu', 'shinobu')
-                .addChoice('megumin', 'megumin')
-                .addChoice('bully', 'bully')
-                .addChoice('cuddle', 'cuddle')
-                .addChoice('cry', 'cry')
-                .addChoice('hug', 'hug')
-                .addChoice('awoo', 'awoo')
-                .addChoice('kiss', 'kiss')
-                .addChoice('lick', 'lick')
-                .addChoice('pat', 'pat')
-                .addChoice('smug', 'smug')
-                .addChoice('bonk', 'bonk')
-                .addChoice('yeet', 'yeet')
-                .addChoice('blush', 'blush')
-                .addChoice('smile', 'smile')
-                .addChoice('wave', 'wave')
-                .addChoice('highfive', 'highfive')
-                .addChoice('handhold', 'handhold')
+                .addChoices(
+                    { name: 'waifu', value: 'waifu' },
+                    { name: 'neko', value: 'neko' },
+                    { name: 'shinobu', value: 'shinobu' },
+                    { name: 'megumin', value: 'megumin' },
+                    { name: 'bully', value: 'bully' },
+                    { name: 'cuddle', value: 'cuddle' },
+                    { name: 'cry', value: 'cry' },
+                    { name: 'hug', value: 'hug' },
+                    { name: 'awoo', value: 'awoo' },
+                    { name: 'kiss', value: 'kiss' },
+                    { name: 'lick', value: 'lick' },
+                    { name: 'pat', value: 'pat' },
+                    { name: 'smug', value: 'smug' },
+                    { name: 'bonk', value: 'bonk' },
+                    { name: 'yeet', value: 'yeet' },
+                    { name: 'blush', value: 'blush' },
+                    { name: 'smile', value: 'smile' },
+                    { name: 'wave', value: 'wave' },
+                    { name: 'highfive', value: 'highfive' },
+                    { name: 'handhold', value: 'handhold' }
+                )
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription("Ping your friend if you want."))
             .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         )
         .addSubcommand(subcommand => subcommand.setName('sfw2').setDescription('SFW pictures')
             .addStringOption(option => option.setName('category').setDescription('SFW a category')
-                .addChoice('nom', 'nom')
-                .addChoice('bite', 'bite')
-                .addChoice('glomp', 'glomp')
-                .addChoice('slap', 'slap')
-                .addChoice('kill', 'kill')
-                .addChoice('kick', 'kick')
-                .addChoice('happy', 'happy')
-                .addChoice('wink', 'wink')
-                .addChoice('poke', 'poke')
-                .addChoice('dance', 'dance')
-                .addChoice('cringe', 'cringe')
+                .addChoices(
+                    { name: 'nom', value: 'nom' },
+                    { name: 'bite', value: 'bite' },
+                    { name: 'glomp', value: 'glomp' },
+                    { name: 'slap', value: 'slap' },
+                    { name: 'kill', value: 'kill' },
+                    { name: 'kick', value: 'kick' },
+                    { name: 'happy', value: 'happy' },
+                    { name: 'wink', value: 'wink' },
+                    { name: 'poke', value: 'poke' },
+                    { name: 'dance', value: 'dance' },
+                    { name: 'cringe', value: 'cringe' }
+                )
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription("Ping your friend if you want."))
             .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         )
         .addSubcommand(subcommand => subcommand.setName('nsfw').setDescription('NSFW pictures')
             .addStringOption(option => option.setName('category').setDescription('NSFW category')
-                .addChoice('waifu', 'waifu')
-                .addChoice('neko', 'neko')
-                .addChoice('trap', 'trap')
-                .addChoice('blowjob', 'blowjob')
+                .addChoices(
+                    { name: 'waifu', value: 'waifu' },
+                    { name: 'neko', value: 'neko' },
+                    { name: 'trap', value: 'trap' },
+                    { name: 'blowjob', value: 'blowjob' }
+                )
                 .setRequired(true))
             .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
         ),
@@ -63,16 +69,15 @@ module.exports = {
         try {
             interaction.options.getSubcommand() === 'sfw2' ? type = 'sfw' : type = interaction.options.getSubcommand();
             const category = interaction.options.getString('category');
-            const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
             if (type=="sfw") { }
-            else { if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
+            else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             await interaction.reply("Waifu.pics []~(￣▽￣)~*")
             for (let a = 0; a < amount; a++ ) {
                 let response = await fetch(`https://api.waifu.pics/${type}/${category}`);
                 let data = await response.text();
                 const img = JSON.parse(data)
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setImage(img.url)
                     .setFooter({text: `${category} - ${a+1}/${amount}`})
                     .setColor('#A020F0 ')

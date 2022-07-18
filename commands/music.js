@@ -1,14 +1,9 @@
-const { SlashCommandBuilder } = require("@discordjs/builders"), { MessageEmbed, Client, Intents } = require("discord.js"), { Player, QueryType } = require("discord-player");
-const client = new Client({ intents: [Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS] });
+const { SlashCommandBuilder } = require("@discordjs/builders"), { EmbedBuilder, Client, GatewayIntentBits } = require("discord.js"), { Player, QueryType } = require("discord-player");
+const client = new Client({ intents: [GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.Guilds] });
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const po = lang.music.player_on.split('-'), sl = lang.music.slash.split('-'), c1 = lang.music.command.split('-'), c2 = lang.music.command2.split('-')
-const player = new Player(client, {
-    ytdlOptions: {
-        headers: {
-            cookie: process.env.YT_COOKIE
-        }
-    }
-});
+/*
+const player = new Player(client, { ytdlOptions: { headers: { cookie: process.env.YT_COOKIE } }, });
 player.on("error", (queue, error) => { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + queue.guild.name +" "+ po[0] + error.message); });
 player.on("connectionError", (queue, error) => { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + queue.guild.name + po[1] + error.message); });
 player.on("trackStart", (queue, track) => { queue.metadata.send(`🎶 |`+po[2]+": **"+track.title+"** => **"+queue.connection.channel.name+"**!"); });
@@ -16,6 +11,7 @@ player.on("trackAdd", (queue, track) => { queue.metadata.send(`🎶 |`+po[3]+": 
 player.on("botDisconnect", (queue) => { queue.metadata.send("❌ |"+po[4]); });
 player.on("channelEmpty", (queue) => { queue.metadata.send("❌ |"+po[5]); });
 player.on("queueEnd", (queue) => { queue.metadata.send("✅ |"+po[6]); });
+*/
 module.exports = {
     guildOnly: true,
     cooldown: 3,
@@ -24,14 +20,17 @@ module.exports = {
         .setDescription(sl[0]+'(YT/Spotify/SoundCloud | test: vimeo/reverbnation/FB/attachment link/lyrics)')
         .addStringOption(option => option.setName('play').setDescription(sl[1]))
         .addStringOption(option => option.setName('control').setDescription(sl[2])
-            .addChoice("Bass Boost", 'bassboost')
-            .addChoice(sl[3], 'queue')
-            .addChoice(sl[4], 'pause')
-            .addChoice(sl[5], 'resume')
-            .addChoice(sl[6], 'skip')
-            .addChoice(sl[7], 'disconnect'))
+            .addChoices(
+                { name: "Bass Boost", value: 'bassboost' },
+                { name: sl[3], value: 'queue' },
+                { name: sl[4], value: 'pause' },
+                { name: sl[5], value: 'resume' },
+                { name: sl[6], value: 'skip' },
+                { name: sl[7], value: 'disconnect' }
+            )
+        )
         .addIntegerOption(option => option.setName('volume').setDescription(sl[8]).setMinValue(1).setMaxValue(100)),
-    async execute(interaction) {
+    async execute(interaction) { /*
         if(!interaction.member.voice.channel) return interaction.reply(c1[0]);
         await interaction.deferReply();
         if (interaction.options.getString('play')) {
@@ -109,5 +108,7 @@ module.exports = {
         } else {
             return await interaction.editReply({content: c2[6]})
         }
+        */
+        interaction.reply("Command under refactoring");
     }
 }

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'presenceUpdate',
@@ -11,7 +11,7 @@ module.exports = {
         const memberUpdateLogs = client.settings.get(oldMember.guild.id, "memberUpdateLogs");
 		if(memberUpdateLogs) { 
             //client.users.cache.find(user => user.id === 'USER-ID')
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle('Member update has been detected')
                 .setDescription(`${oldMember.user.tag} (${newMember.user.tag}) has been updated`)

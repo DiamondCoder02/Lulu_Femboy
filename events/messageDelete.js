@@ -4,11 +4,11 @@ module.exports = {
 		if (!message.guild) return;
 		if (message.author.tag === client.user.tag) return;
 		if (message.author.bot) return;
-		/*
+		
 		console.log("Delete")
 		console.log(message)
 		console.log("Delete2")
-		*/
+		
         let c = client.channels.cache.get(message.channelId)
         process.stdout.write(`[${new Date().toLocaleString('hu-HU')}] Message deleted in ${c.guild.name} <#${c.name}> (${message.author.tag}) => "${message.content}"`);
 
@@ -17,8 +17,8 @@ module.exports = {
 		if (message.components.length) { process.stdout.write(" //Components deleted//") }
 		if (message.stickers.size) { process.stdout.write(" //Stickers deleted//") }
 		if (message.interaction) { process.stdout.write(" //Interaction deleted//") }
-
-		let fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 'MESSAGE_DELETE'});
+		// Due to v14 Message_Delete type is now number 72
+		let fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 72});
 		// Since there's only 1 audit log entry in this collection, grab the first one
 		let deletionLog = fetchedLogs.entries.first();
 		// Perform a coherence check to make sure that there's *something*

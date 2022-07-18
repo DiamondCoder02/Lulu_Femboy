@@ -7,9 +7,11 @@ module.exports = {
         .addStringOption(option => option.setName('lang').setDescription(s[1]))
         .addBooleanOption(option => option.setName('child_mode').setDescription(s[2]))
         .addStringOption(option => option.setName('game_type').setDescription(s[3])
-            .addChoice(s[5], 'animal')
-            .addChoice(s[6], 'character')
-            .addChoice(s[7], 'object'))
+            .addChoices(
+                { name: s[5], value: 'animal' },
+                { name: s[6], value: 'character' },
+                { name: s[7], value: 'object' },
+            ))
 		.addBooleanOption(option => option.setName('button').setDescription(s[4])),
     async execute(interaction) {
         if (interaction.options.getBoolean('button') === false) {useButtons = false} else {useButtons = true}

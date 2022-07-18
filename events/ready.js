@@ -1,4 +1,4 @@
-const config = require('../config.json'), { MessageEmbed } = require('discord.js'), fs = require('fs')
+const config = require('../config.json'), { EmbedBuilder } = require('discord.js'), fs = require('fs')
 const lang = require('../languages/' + config.language + '.json'), con = lang.ready.console_log.split('-'), emb = lang.ready.embed.split('-')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'));
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
             + `\n\t --` + con[4] + client.readyAt
             + `\n\t --` + con[5]+" "+ Guilds)
         if (config.botReadyStatus) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle(emb[0])
                 .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)

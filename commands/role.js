@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     guildOnly: true,
@@ -12,22 +12,22 @@ module.exports = {
         if (Array.isArray(ro) && ro.length >0) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
         if (ro.includes('')) { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
         let m = []
-        const role_embed = new MessageEmbed()
+        const role_embed = new EmbedBuilder()
             .setTitle("Self Roles:")
             .setColor("#00FF00 ")
             .setDescription("`Click some button for roles!`")
         await interaction.reply({ embeds: [role_embed], ephemeral: true })
         for (let x = 0; x < ro.length; x++){
             let role = await interaction.guild.roles.cache.find(r => r.name == ro[x])
-            m.push(new MessageButton({
+            m.push(new ButtonBuilder({
                 customId: x,
-                style: 'PRIMARY',
+                style: ButtonStyle.Primary,
                 label: role.name,
             }))
         }
         let x = m.length / 5, y = Math.floor(x+1), but = []
         if (y == x+1) { y-=1 }
-        for (let i = 0; i < y; i++) { but.push(new MessageActionRow({ components: m.slice(i*5, (i+1)*5) })) }
+        for (let i = 0; i < y; i++) { but.push(new ActionRowBuilder({ components: m.slice(i*5, (i+1)*5) })) }
 		if (but.length === 1) { await interaction.editReply({ embed: [role_embed], components: but })
 		} else if (but.length == 2) { await interaction.editReply({ embed: [role_embed], components: [but[0], but[1]] })
 		} else if (but.length == 3) { await interaction.editReply({ embed: [role_embed], components: [but[0], but[1], but[2]] })

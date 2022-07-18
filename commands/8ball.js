@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('8ball')
@@ -10,7 +10,7 @@ module.exports = {
         var item = items[Math.floor(Math.random()*items.length)];
         console.log(item)
         const string = interaction.options.getString('question');
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('#00FF00')
             .setDescription(`**${string}**` +"\n8ball says: " + item)
         await interaction.reply({embeds: [embed]})

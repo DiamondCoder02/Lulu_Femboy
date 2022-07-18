@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
 	name: 'guildDelete',

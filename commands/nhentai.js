@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const nHentai = require('shentai'), sHentai = new nHentai
 module.exports = {
@@ -8,35 +8,36 @@ module.exports = {
 		.setName('nhentai')
 		.setDescription('nHentai reading for you.')
         .addStringOption(option => option.setName('get').setDescription('Choose one you want to see:')
-            .addChoice('Random', 'random')
-            .addChoice('Top 25 New', 'new')
-            .addChoice('Top 5 Popular', 'popular')
+            .addChoices(
+                { name: "Random", value: 'random' },
+                { name: "Top 25 New", value: 'new' },
+                { name: "Top 5 Popular", value: 'popular' }
+            )
         )
         .addStringOption(option => option.setName('name').setDescription('Search for name.'))
         //.addStringOption(option => option.setName('author').setDescription('Search for author.'))
         .addIntegerOption(option => option.setName('id').setDescription('Search for ID.'))
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
 	async execute(interaction, client, config) {
-        const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
-        if(enableNSFW) { if (!interaction.channel.nsfw && interaction.channel.type === 'GUILD_TEXT') { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}
+        if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}
         try {collector.stop()} catch{console.log("No collect")}
         var pageNumber = -1
-        const page = new MessageActionRow()
+        const page = new ActionRowBuilder()
             .addComponents(
-                new MessageButton().setCustomId('left').setLabel('Left').setStyle('SECONDARY').setEmoji('⬅️').setDisabled(false),
-                new MessageButton().setCustomId('right').setLabel('Right').setStyle('PRIMARY').setEmoji('➡️').setDisabled(false)
+                new ButtonBuilder().setCustomId('left').setLabel('Left').setStyle(ButtonStyle.Secondary).setEmoji('⬅️').setDisabled(false),
+                new ButtonBuilder().setCustomId('right').setLabel('Right').setStyle(ButtonStyle.Primary).setEmoji('➡️').setDisabled(false)
             )
-        const searchDelete = new MessageActionRow().addComponents(
-            new MessageButton().setCustomId('delete').setLabel('Delete message').setStyle('DANGER').setEmoji('✖️'))
+        const searchDelete = new ActionRowBuilder().addComponents(
+            new ButtonBuilder().setCustomId('delete').setLabel('Delete message').setStyle(ButtonStyle.Danger).setEmoji('✖️'))
         function searchEmbed(doujin){
             console.log(doujin)
-            const nhentaiEmbed = new MessageEmbed()
+            const nhentaiEmbed = new EmbedBuilder()
             .setColor('#A020F0')
             .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
             .setTimestamp()
             .setTitle(String((doujin.titles.english? doujin.titles.english : "-")))
             .setDescription(String((doujin.titles.original? doujin.titles.original : "-")))
-            .addField("tags:", String(doujin.tags))
+            .addFields( { name: "tags:", value: String(doujin.tags) } )
             .setImage(doujin.cover)
             .setFooter({ text: "ID: "+String(doujin.id) })
             interaction.reply({embeds: [nhentaiEmbed], components: [searchDelete]})
@@ -53,7 +54,7 @@ module.exports = {
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
                 if ((pageNumber+1) === doujin.pages.length) {pageNumber = ((doujin.pages.length)-1)} else {pageNumber +=1}
                 console.log(pageNumber +" / "+ (doujin.pages.length))
-                const readEmbed = new MessageEmbed()
+                const readEmbed = new EmbedBuilder()
                     .setColor('#A020F0')
                     .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
                     .setTimestamp()
@@ -67,7 +68,7 @@ module.exports = {
                 const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
                 if (pageNumber <= 0) {pageNumber = 0} else {pageNumber -=1}
                 console.log(pageNumber +" / "+ doujin.pages.length)
-                const readEmbed = new MessageEmbed()
+                const readEmbed = new EmbedBuilder()
                     .setColor('#A020F0')
                     .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
                     .setTimestamp()
@@ -91,11 +92,11 @@ module.exports = {
             const doujins = await sHentai.getNew()
             /**
              * @param {number} start
-             * @returns {Promise<MessageEmbed>}
+             * @returns {Promise<EmbedBuilder>}
              */
             const generateEmbed = async start => {
                 const current = doujins.slice(start, start + 25)
-                return new MessageEmbed({
+                return new EmbedBuilder({
                     title: `Showing new doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
                     color: '#A020F0',
@@ -112,11 +113,11 @@ module.exports = {
             const doujins = await sHentai.getPopular()
             /**
              * @param {number} start
-             * @returns {Promise<MessageEmbed>}
+             * @returns {Promise<EmbedBuilder>}
              */
             const generateEmbed = async start => {
                 const current = doujins.slice(start, start + 5)
-                return new MessageEmbed({
+                return new EmbedBuilder({
                     title: `Showing popular doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
                     color: '#A020F0',
@@ -138,11 +139,11 @@ module.exports = {
             const doujins = await sHentai.byAuthor(interaction.options.getString('author'))
             /**
              * @param {number} start
-             * @returns {Promise<MessageEmbed>}
+             * @returns {Promise<EmbedBuilder>}
              */
             const generateEmbed = async start => {
                 const current = doujins.slice(start, start + 10)
-                return new MessageEmbed({
+                return new EmbedBuilder({
                     title: `Showing author doujins:`,
                     author: {name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/'},
                     color: '#A020F0',
@@ -161,7 +162,7 @@ module.exports = {
         }else if (interaction.options.getInteger('to_read_id')) {
             // Search number, in async function (id, author.empty, both titles, pages, tags, cover)
             const doujin = await sHentai.getDoujin(String(interaction.options.getInteger('to_read_id')))
-            const readEm = new MessageEmbed()
+            const readEm = new EmbedBuilder()
             .setColor('#A020F0')
             .setAuthor({ name: 'nHentai', iconURL: 'https://emblemsbf.com/img/min/94079.webp', url: 'https://nhentai.net/' })
             .setTimestamp()

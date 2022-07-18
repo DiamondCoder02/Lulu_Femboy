@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), p = lang.ping.split('-')
 module.exports = {
     cooldown: 30,
@@ -14,7 +14,7 @@ module.exports = {
         let uptime = p[0] + "\`" + days + "\`,\n" +p[1]+ "\`" + hours + ":" + minutes + ":" + seconds + "\`"
         const msg = await interaction.reply({content: p[2], fetchReply:true});
         ping = msg.createdTimestamp - interaction.createdTimestamp;
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle(p[4])
             .setTimestamp()

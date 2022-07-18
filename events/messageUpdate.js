@@ -20,12 +20,12 @@ To:   "${newMessage.content}"`});
 			}
 		}
 
-        /*
+        
         console.log("NYUUUUUUUUUUUUUUUUUUUUU")
         console.log(oldMessage);
         console.log("NYAAAAAAAAAAAAAAAAAAAAA")
         console.log(newMessage);
         console.log("NYUUUUUUUUUUUUUUUUUUUUU")
-        */
+        
     }
 };

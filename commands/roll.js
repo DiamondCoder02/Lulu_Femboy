@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -23,7 +23,7 @@ module.exports = {
                 allResults.push(rollDice());
             }
             
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#00FF00')
                 .setTitle(`${amount} times got rolled with min:${min} - max:${max}`)
                 .setDescription(`Numbers: ${String(allResults.join(', '))} \nTotal: ${String(allResults.reduce((a, b) => a + b, 0))}`)
