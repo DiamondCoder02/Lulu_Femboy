@@ -2,28 +2,37 @@ console.clear();
 //basic loaders
 const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
 const client = new Client({ 
-    ws: {properties: {$browser: 'Discord iOS'}}, 
+    ws: {
+        properties: {$browser: 'Discord iOS'}
+    }, 
     intents: [
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.Guilds, 
-        GatewayIntentBits.GuildMembers, 
-        GatewayIntentBits.GuildBans, 
-        GatewayIntentBits.GuildEmojisAndStickers, 
-        GatewayIntentBits.GuildIntegrations, 
-        //GatewayIntentBits.GuildWebhooks, 
-        GatewayIntentBits.GuildInvites, 
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildPresences, 
-        GatewayIntentBits.GuildMessages, 
-        GatewayIntentBits.GuildScheduledEvents,
+        //GatewayIntentBits.DirectMessageReactions,
+        //GatewayIntentBits.DirectMessageTyping,
+        //GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.GuildBans,
+        GatewayIntentBits.GuildEmojisAndStickers,
+        GatewayIntentBits.GuildIntegrations,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildMembers,
         //GatewayIntentBits.GuildMessageReactions,
         //GatewayIntentBits.GuildMessageTyping,
-        //GatewayIntentBits.GuildVoiceStates,
-        //GatewayIntentBits.DirectMessages,
-        //GatewayIntentBits.DirectMessageReactions,
-        //GatewayIntentBits.DirectMessageTyping
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildScheduledEvents,
+        GatewayIntentBits.GuildVoiceStates,
+        //GatewayIntentBits.GuildWebhooks,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.MessageContent,
     ],
-    partials: [Partials.Channel]
+    partials: [
+        Partials.Channel, 
+        Partials.GuildMember, 
+        Partials.GuildScheduledEvent, 
+        Partials.Message, 
+        //Partials.Reaction, 
+        Partials.User, 
+        //Partials.ThreadMember
+    ]
 });
 require('dotenv').config(); var token = process.env.token;
 client.commands = new Collection();

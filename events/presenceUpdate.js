@@ -7,7 +7,8 @@ module.exports = {
         console.log(oldPresence)
         console.log("NYAAAAAAAAAAAAAAAAAAAAA")
         console.log(newPresence)
-        
+        */
+        /*
         const memberUpdateLogs = client.settings.get(oldMember.guild.id, "memberUpdateLogs");
 		if(memberUpdateLogs) { 
             //client.users.cache.find(user => user.id === 'USER-ID')

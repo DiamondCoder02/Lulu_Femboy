@@ -12,8 +12,7 @@ module.exports = {
 	async execute(interaction, client, config) {
         const packDependence = Object.entries(package.dependencies)
         const npmPackages = packDependence.join(', \n')
-const GaInBi = `
-MessageContent,
+const GaInBi = `MessageContent,
 Guilds, 
 GuildMembers, 
 GuildBans, 
@@ -30,7 +29,14 @@ GuildScheduledEvents,
 ~~GuildVoiceStates,~~
 ~~DirectMessages,~~
 ~~DirectMessageReactions,~~
-~~DirectMessageTyping~~
+~~DirectMessageTyping~~`
+const pars = `Channel,
+GuildMember,
+GuildScheduledEvent,
+Message,
+~~Reaction,~~
+User,
+~~ThreadMember~~
 `
 		const version_embed = new EmbedBuilder()
             .setColor('#FFFF00')
@@ -54,9 +60,10 @@ GuildScheduledEvents,
                 { name: "Project homepage:", value: package.homepage},
                 { name: "npm packages:", value: npmPackages, inline:true},
                 { name: "GatewayIntentBits:", value: GaInBi, inline:true},
+                { name: "Partials:", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: td[2]+` 2022.July.18`});
+            .setFooter({text: td[2]+` 2022.July.20`});
         await interaction.reply({embeds: [version_embed]})
     }
 }

@@ -1,4 +1,4 @@
-const { Collection, InteractionType } = require('discord.js'), config = require('../config.json'), lang = require('../languages/' + config.language + '.json');
+const { Collection, InteractionType, ChannelType } = require('discord.js'), config = require('../config.json'), lang = require('../languages/' + config.language + '.json');
 const cooldowns = new Collection();
 require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
 module.exports = {
@@ -13,9 +13,10 @@ module.exports = {
 				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" "+ i_c[0] + i.commandName);
 			}
 			if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
-				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"=> "+ i.componentType);
+				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"-commandName:"+ i.message.interaction.commandName +" => "+ i.customId);
 			} 
 			if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
+				console.log(i)
 				console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[2] +"=> "+ i.value);
 			}
 		}
@@ -44,7 +45,7 @@ module.exports = {
 				if (command.guildOnly) { 
 					try{
 						if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) {r=true} else {r=false}
-						if (!r && interaction.channel.type === "GUILD_TEXT") {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Not enough permission, what was the plan?"); return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
+						if (!r && interaction.channel.type === ChannelType.DM) {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Not enough permission, what was the plan?"); return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
 					} catch { } 
 				}
 			}

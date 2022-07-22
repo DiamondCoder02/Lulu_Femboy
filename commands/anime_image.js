@@ -48,7 +48,6 @@ module.exports = {
             if (type=="sfw") { }
             else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
-            await interaction.reply("Anime images []~(￣▽￣)~*")
             for (let a = 0; a < amount; a++ ) {
                 if (category === 'hug') {img = await images.sfw.hug()}
                 if (category === 'kiss') {img = await images.sfw.kiss()}
@@ -70,9 +69,11 @@ module.exports = {
                 if (interaction.options.getUser('target')) {
                     const user = interaction.options.getUser('target'), from = interaction.user
                     embed.setDescription(from.toString() + " sends you a nice " + category + ", " + user.toString() + ". :3")
-                    await interaction.followUp({ content: user.toString(), embeds: [embed]})
+                    try { await interaction.followUp({ content: user.toString(), embeds: [embed]}) }
+                    catch { await interaction.reply({ content: user.toString(), embeds: [embed]}) } 
                 } else {
-                    await interaction.followUp({ embeds: [embed]})
+                    try { await interaction.followUp({ embeds: [embed]}) }
+                    catch { await interaction.reply({ embeds: [embed]}) } 
                 }
                 await wait(1000);
             }

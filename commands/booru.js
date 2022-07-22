@@ -39,7 +39,6 @@ module.exports = {
         else { tags = interaction.options.getString('tags').trim().split(' ')}
         if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply("Please don't use tags with this site") }
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
-        await interaction.reply(e[6]+"...")
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
@@ -64,12 +63,26 @@ module.exports = {
                 const buttons = new ActionRowBuilder().addComponents(
                     new ButtonBuilder().setURL(posts[0].fileUrl).setLabel('Link').setStyle(ButtonStyle.Link).setEmoji('🖥️'))
                 if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")|| posts[0].fileUrl.includes(".gif")) {
-                    await interaction.followUp({embeds: [embed], components: [buttons]})
-                    await interaction.followUp({content: posts[0].fileUrl});
+                    try { 
+                        await interaction.followUp({embeds: [embed], components: [buttons]})
+                        await interaction.followUp({content: posts[0].fileUrl}); 
+                    } catch { 
+                        await interaction.reply({embeds: [embed], components: [buttons]})
+                        await interaction.reply({content: posts[0].fileUrl}); 
+                    }
                 } else {
                     await embed.setImage(posts[0].fileUrl)
-                    await interaction.followUp({embeds: [embed], components: [buttons]})
+                    try { await interaction.followUp({embeds: [embed], components: [buttons]}) }
+                    catch { await interaction.reply({embeds: [embed], components: [buttons]}) }
                 }
+
+                /*
+                try { await interaction.followUp({ content: user.toString(), embeds: [embed]}) }
+                    catch { await interaction.reply({ content: user.toString(), embeds: [embed]}) } 
+                } else {
+                    try { await interaction.followUp({ embeds: [embed]}) }
+                    catch { await interaction.reply({ embeds: [embed]}) } 
+                */
             }
             booruSearch(sites, tags, 1, true).catch(err => { 
                 if (err instanceof BooruError) { console.error(err) } 

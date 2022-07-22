@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const sl = lang.info.slash.split('-'), us = lang.info.user.split('-'), s1 = lang.info.server1.split('-'), s2 = lang.info.server2.split('-'), c1 = lang.music.command.split('-')
 module.exports = {
@@ -20,25 +20,18 @@ module.exports = {
     async execute(interaction, client) {
         const page = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('delete').setLabel(lang.d).setStyle(ButtonStyle.Danger).setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ componentType: 'BUTTON', filter, time: 20000 });
+        const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 20000 });
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
         //User, server, cheatsheet
         if (interaction.options.getString('search') === 'user') {
             if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2]+"?")}
             const user = interaction.options.getUser('target');
-            /*
-            const tes = client.users.cache.find(u => u.id === user.id)
-            console.log(tes)
-            console.log(user.joinedTimestamp)
-            console.log(user.joinedAt)
-            console.log(tes.joinedTimestamp)
-            console.log(tes.joinedAt)
-            */
             const profilepic = user.displayAvatarURL();
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle(us[0])
-                .setThumbnail(profilepic)
+                //.setThumbnail(profilepic)
+                .setImage(profilepic)
                 .setDescription(us[1] + interaction.user.tag)
                 .setAuthor({ name: user.tag, iconURL: profilepic })
                 .setTimestamp()
@@ -100,6 +93,7 @@ module.exports = {
                 .setTimestamp()
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'server') {
+            const botUser = client.user
             const owner = await interaction.guild.fetchOwner(); 
             const afktime = String(interaction.guild.afkTimeout / 60)
             const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
@@ -107,7 +101,8 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle(s1[0])
-                .setThumbnail(interaction.guild.iconURL())
+                //.setThumbnail(interaction.guild.iconURL())
+                .setImage(interaction.guild.iconURL())
                 .setDescription( s1[1] + interaction.user.tag)
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .setTimestamp()
@@ -123,7 +118,7 @@ module.exports = {
                     { name: s1[9], value: `${interaction.guild.premiumSubscriptionCount} / ` + String(interaction.guild.premiumTier), inline:true },
                     { name: s1[10], value: (interaction.guild.premiumProgressBarEnabled ? lang.t : lang.f), inline:true },
                     { name: s1[11], value: servertime },
-                    { name: 'Bot:', value: String(interaction.guild.me), inline:true },
+                    { name: 'Bot:', value: botUser.toString(), inline:true },
                     { name: s1[12], value: botservertime, inline:true },
                     { name: '\u200B', value: '\u200B', inline:true },
                     { name: s2[0], value: String(interaction.guild.publicUpdatesChannel), inline:true },
@@ -141,6 +136,7 @@ module.exports = {
                 )
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'cheat') {
+            const botUser = client.user
             const embedtest1 = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
@@ -161,7 +157,7 @@ module.exports = {
                     { name: '12 large(boolean)', value: (interaction.guild.large ? lang.t : lang.f), inline:true },
                     { name: '13 maximumBitrate(number)', value: String(interaction.guild.maximumBitrate), inline:true },
                     { name: '14 maximumMembers(number)', value: String(interaction.guild.maximumMembers), inline:true },
-                    { name: '15 me(GuildMember)[The client user as a GuildMember of this guild]', value: String(interaction.guild.me), inline:true },
+                    { name: '15 [Bot, not debug]', value: botUser.toString(), inline:true },
                     { name: '16 memberCount(number)', value: String(interaction.guild.memberCount), inline:true },
                     { name: '17 mfaLevel(MFALevel)', value: String(interaction.guild.mfaLevel), inline:true },
                     { name: '18 name', value: interaction.guild.name, inline:true },
@@ -202,7 +198,8 @@ module.exports = {
                     { name: '46 WidgetChannelId', value: String(interaction.guild.widgetChannelId), inline:true },
                     { name: '47 WidgetEnabled(boolean)', value: (interaction.guild.widgetEnabled ? lang.t : lang.f), inline:true },
                     { name: '-- OwnerId(snowflake)', value: String(interaction.guild.ownerId), inline:true },
-                    { name: '-- Invites(GuildInviteManager)', value: String(interaction.guild.invites), inline:true }
+                    { name: '-- Invites(GuildInviteManager)', value: String(interaction.guild.invites), inline:true },
+                    { name: '---', value: "---", inline:true }
                 )
             await interaction.reply({content: sl[4], embeds: [embedtest1, embedtest2], components: [page]})
         }

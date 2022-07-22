@@ -23,7 +23,6 @@ module.exports = {
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         if (interaction.options.getString('category')) { var c = interaction.options.getString('category') } else var c = null
         if (interaction.options.getString('type')) { var t = interaction.options.getString('type') } else var t = null
-        await interaction.reply("Searching"+"...")
         try{
             for (var i = 0; i < amount; i++) {
                 if (!c && !t) { random = nsfw.getRandom() }
@@ -42,11 +41,13 @@ module.exports = {
                     .setTimestamp()
                 const buttons = new ActionRowBuilder().addComponents( new ButtonBuilder().setURL(random.url).setLabel('Link').setStyle(ButtonStyle.Link).setEmoji('🖥️'))
                 if (random.url.includes(".mp4")) {
-                    await interaction.followUp({embeds: [embed], components: [buttons]})
+                    try{ await interaction.followUp({embeds: [embed], components: [buttons]}) } 
+                    catch { await interaction.reply({embeds: [embed], components: [buttons]}) }
                     await interaction.followUp({content: random.url});
                 } else {
                     embed.setImage(random.url)
-                    await interaction.followUp({embeds: [embed], components: [buttons]})
+                    try{ await interaction.followUp({embeds: [embed], components: [buttons]}) }
+                    catch { await interaction.reply({embeds: [embed], components: [buttons]}) }
                 }
                 await wait(2000);
             }

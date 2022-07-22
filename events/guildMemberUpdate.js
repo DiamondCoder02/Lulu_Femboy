@@ -32,7 +32,10 @@ module.exports = {
                 try {
                     if (client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
                     channel.send({embeds: [embed]})
-                } catch (error) { console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "guildMemberUpdate no channel:"+err.name) }
+                } catch (error) { 
+                    console.log(error)
+                    console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "guildMemberUpdate no channel:"+err.name) 
+                }
             }
         }
     }
