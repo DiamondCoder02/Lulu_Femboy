@@ -29,6 +29,8 @@ module.exports = {
                     embed.setThumbnail(oldMember.displayAvatarURL())
                     embed.setImage(newMember.displayAvatarURL())
                 }
+                if (oldMember.premiumSince !== newMember.premiumSince) { 
+                    embed.addFields( { name: 'Premium removed: ', value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` } ) }
                 try {
                     if (client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
                     channel.send({embeds: [embed]})
