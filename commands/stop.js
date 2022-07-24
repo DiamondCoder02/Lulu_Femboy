@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.stopSlash.split('-'), st = lang.stop.split('-')
 module.exports = {
-	permissions: "ADMINISTRATOR",
+	permissions: PermissionsBitField.Flags.Administrator,
 	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('stop')

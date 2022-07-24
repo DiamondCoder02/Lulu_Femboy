@@ -6,7 +6,7 @@
   "botReadyStatus": false,
   "botStatusChannel": "897097242861789236",
   "futureIdeas": "-reminder \n-bot voting \n-Website to edit config \n-Google(?) search \n-API and rss? \n-math solver \n-In interactionCreate also get other options for console log \n-Get that fucking console color package so it looks better \n-Dad jokes \n-Currency or xp system \n-Reverse image search",
-  "bugsToFix": "-Wrong recording only record if one person talks \n-Remove the annoying first message from pic sending commands(anime_images) \n-Music and recording fucked untill npm package update",
+  "bugsToFix": "-Wrong recording only record if one person talks \n-Remove the annoying first message from pic sending commands(anime_images) \n-Music, nhentai and recording fucked untill npm package update",
   "stopPassword": "lolipop",
   "language": "english",
   "debug_level": 2

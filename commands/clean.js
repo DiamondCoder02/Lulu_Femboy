@@ -1,8 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { ButtonBuilder, Message } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { ButtonBuilder, Message, PermissionsBitField } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     guildOnly: true,
-    permissions: "MANAGE_MESSAGES",
+    permissions: PermissionsBitField.Flags.ManageMessages,
 	data: new SlashCommandBuilder()
         .setName('clean')
 		.setDescription("Clean/Purge/Prune up to 99 messages")

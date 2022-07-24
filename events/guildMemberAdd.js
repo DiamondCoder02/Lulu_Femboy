@@ -17,8 +17,8 @@ module.exports = {
                     console.log(`[${new Date().toLocaleString('hu-HU')}] Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.tag} (${usedInvite.uses}/${usedInvite.maxUses})`)
                     channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`. \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
                 } else {
-                    console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.username} joined without using an invite or with a limited useable invite **or** with custom invite link.`)
-                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.username}\` joined without using an invite or with a limited useable invite **or** with custom invite link.`});
+                    console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined without using an invite or with a limited useable invite **or** with custom invite link.`)
+                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined without using an invite or with a limited useable invite **or** with custom invite link.`});
                 }
             } catch (err) {
                 console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err.name)
