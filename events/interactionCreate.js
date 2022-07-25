@@ -44,10 +44,10 @@ module.exports = {
 					setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 					//guild permission check
 					if (command.guildOnly) { 
-						try{
+						if (command.permissions) {
 							if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) { r=true } else { r=false }
 							if (!r || interaction.channel.type === ChannelType.DM) {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Not enough permission, what was the plan?"); return interaction.reply({content: lang.index.perm+" => `"+command.permissions+"`", ephemeral: true})}
-						} catch (e) { return console.log(e) } 
+						}
 					}
 				}
 				//Execute

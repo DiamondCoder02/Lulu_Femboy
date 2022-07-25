@@ -26,7 +26,7 @@ GuildMessages,
 GuildScheduledEvents,
 ~~GuildMessageReactions,~~
 ~~GuildMessageTyping,~~
-~~GuildVoiceStates,~~
+GuildVoiceStates,
 ~~DirectMessages,~~
 ~~DirectMessageReactions,~~
 ~~DirectMessageTyping~~`
@@ -58,12 +58,12 @@ User,
                 { name: "Project main file:", value: package.main, inline:true},
                 { name: "Project description:", value: package.description},
                 { name: "Project homepage:", value: package.homepage},
-                { name: "npm packages:", value: npmPackages, inline:true},
-                { name: "GatewayIntentBits:", value: GaInBi, inline:true},
-                { name: "Partials:", value: pars, inline:true},
+                { name: "__npm packages__", value: npmPackages, inline:true},
+                { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
+                { name: "__Partials__", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: td[2]+` 2022.July.20`});
+            .setFooter({text: td[2]+` 2022.July.25`});
         await interaction.reply({embeds: [version_embed]})
     }
 }
