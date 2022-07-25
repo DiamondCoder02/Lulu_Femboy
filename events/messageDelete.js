@@ -7,7 +7,6 @@ module.exports = {
 		console.log("Delete2")
 		*/
 		if (!message.guild) return;
-		if (message.author.tag === client.user.tag) return;
 		if (message.author.bot) return;
 		
         let c = client.channels.cache.get(message.channelId)

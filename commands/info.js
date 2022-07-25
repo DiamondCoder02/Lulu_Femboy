@@ -26,22 +26,20 @@ module.exports = {
         if (interaction.options.getString('search') === 'user') {
             if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2]+"?")}
             const user = interaction.options.getUser('target');
-            const profilepic = user.displayAvatarURL();
+            const userMember = interaction.guild.members.cache.get(user.id);
+            const roleOfMember = userMember.roles.cache.map((role) => role.toString()).join(', ');
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle(us[0])
-                //.setThumbnail(profilepic)
-                .setImage(profilepic)
-                .setDescription(us[1] + interaction.user.tag)
-                .setAuthor({ name: user.tag, iconURL: profilepic })
+                .setImage(user.displayAvatarURL())
+                .setDescription(us[1] + interaction.user.tag+"\n\n**Current Server Roles:**\n"+String(roleOfMember))
+                .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
                 .setTimestamp()
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
                 .addFields(
-                    {name: us[2], value: user.username, inline: true},
+                    {name: "Nickname", value: userMember.nickname ? userMember.nickname : "-", inline: true},
                     {name: "Tag:", value: user.tag, inline: true},
                     {name: '\u200B', value: '\u200B', inline: true},
-                )
-                .addFields(
                     {name: "Bot?", value: (user.bot ? lang.t : lang.f), inline: true},
                     {name: us[5], value: String(user.id), inline: true},
                     {name: '\u200B', value: '\u200B', inline: true},
@@ -50,11 +48,12 @@ module.exports = {
                     {name: "User created timestamp", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:F>`, inline: true},
                     {name: "User created", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline: true},
                     {name: '\u200B', value: '\u200B', inline: true},
+                    {name: "User joined timestamp", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:F>`, inline: true},
+                    {name: "User joined", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:R>`, inline: true},
                 )
                 /*
                 .addFields(
-                    {name: "User joined timestamp", value: `<t:${new Date(user.joinedTimestamp).toLocaleString('hu-HU')}:F>`, inline: true},
-                    {name: "User joined", value: `<t:${new Date(user.joinedTimestamp).toLocaleString('hu-HU')}:R>`, inline: true},
+                    {name: "Current Server Roles:", value: String(roleOfMember)},
                 )
                 */
             await interaction.reply({embeds: [embed], components: [page]})
@@ -93,6 +92,7 @@ module.exports = {
                 .setTimestamp()
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'server') {
+            const serverRoles = client.guilds.cache.flatMap((guild) => guild.roles.cache).map((role) => role.name).join(', @');
             const botUser = client.user
             const owner = await interaction.guild.fetchOwner(); 
             const afktime = String(interaction.guild.afkTimeout / 60)
@@ -101,10 +101,8 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle(s1[0])
-                //.setThumbnail(interaction.guild.iconURL())
                 .setImage(interaction.guild.iconURL())
                 .setDescription( s1[1] + interaction.user.tag)
-                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .setTimestamp()
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
                 .addFields( 
@@ -112,7 +110,6 @@ module.exports = {
                     { name: s1[3], value: String(owner.user.tag), inline:true },
                     { name: s1[4], value: `${interaction.guild.memberCount} / ` + interaction.guild.maximumMembers, inline:true },
                     { name: s1[5], value: `<t:${Math.floor(interaction.guild.createdTimestamp / 1000)}:R>`, inline:true },
-                    { name: s1[6], value: (interaction.guild.large ? lang.t : lang.f), inline:true },
                     { name: s1[7], value: String(interaction.guild.id), inline:true },
                     { name: s1[8], value: String(interaction.guild.description) },
                     { name: s1[9], value: `${interaction.guild.premiumSubscriptionCount} / ` + String(interaction.guild.premiumTier), inline:true },
@@ -125,17 +122,18 @@ module.exports = {
                     { name: s2[1], value: String(interaction.guild.rulesChannel), inline:true },
                     { name: s2[2], value: `${interaction.guild.systemChannel}`, inline:true },
                     { name: s2[3], value: String(interaction.guild.afkChannel), inline:true },
-                    { name: s2[4], value: `${interaction.guild.maximumBitrate}`, inline:true },
                     { name: s2[5], value: afktime, inline:true },
                     { name: s2[6], value: `${interaction.guild.explicitContentFilter}`, inline:true },
                     { name: s2[7], value: `${interaction.guild.mfaLevel} / ` + String(interaction.guild.nsfwLevel), inline:true },
                     { name: s2[8], value: String(interaction.guild.verificationLevel), inline:true },
                     { name: s2[9], value: String(interaction.guild.preferredLocale), inline:true },
                     { name: s2[10], value: (interaction.guild.verified ? lang.t : lang.f), inline:true },
-                    { name: s2[11], value: (interaction.guild.partnered ? lang.t : lang.f), inline:true }
+                    { name: s2[11], value: (interaction.guild.partnered ? lang.t : lang.f), inline:true },
+                    { name: "Roles:", value: String(serverRoles) },
                 )
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'cheat') {
+            const serverRoles = client.guilds.cache.flatMap((guild) => guild.roles.cache).map((role) => role.name).join(', @');
             const botUser = client.user
             const embedtest1 = new EmbedBuilder()
                 .setColor('#FFFF00')
@@ -201,7 +199,15 @@ module.exports = {
                     { name: '-- Invites(GuildInviteManager)', value: String(interaction.guild.invites), inline:true },
                     { name: '---', value: "---", inline:true }
                 )
-            await interaction.reply({content: sl[4], embeds: [embedtest1, embedtest2], components: [page]})
+            const embedtest3 = new EmbedBuilder()
+                .setColor('#FFFF00')
+                .setTitle("Cheatsheet that will never be translated")
+                .setDescription(`(Max25 field per embed) 3/?`)
+                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: '' })
+                .addFields(
+                    { name: "Roles:", value: String(serverRoles) },
+                )
+            await interaction.reply({content: sl[4], embeds: [embedtest1, embedtest2, embedtest3], components: [page]})
         }
     }
 }

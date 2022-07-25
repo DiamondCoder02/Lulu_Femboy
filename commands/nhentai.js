@@ -19,6 +19,7 @@ module.exports = {
         .addIntegerOption(option => option.setName('id').setDescription('Search for ID.'))
         .addIntegerOption(option => option.setName('to_read_id').setDescription('To read a manga by ID.')),
 	async execute(interaction, client, config) {
+        return interaction.reply("Command under refactoring");
         if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}
         try {collector.stop()} catch{console.log("No collect")}
         var pageNumber = -1
