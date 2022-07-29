@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'messageCreate',
 	execute(message, client) {
-		if (message.author.bot) return;
+		try { if (message.author.bot) return } catch { return console.log("Bot is null, messageCreate, WHAT THE FUCK?"); }
         if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
         if (!message.mentions.has(client.user)) return;
 		//if (message.mentions.users.first() === undefined ) return

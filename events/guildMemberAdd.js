@@ -2,9 +2,11 @@ const { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), gmc = lang.guild_mem_create.split('-')
 module.exports = {
 	name: 'guildMemberAdd',
-	async execute(member, client, guildInvites) {
+	async execute(member, client, guildInvites, vanityInvites) {
         const cachedInvites = guildInvites.get(member.guild.id)
         const newInvites = await member.guild.invites.fetch();
+        const cachedVanityInvites = vanityInvites.get(member.guild.id)
+        const newVanityInvites = await member.guild.fetchVanityData();
 		if( client.settings.get(member.guild.id, "invitesLogs") ) { 
             try {
                 const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code) < inv.uses);
@@ -16,12 +18,15 @@ module.exports = {
                 if (usedInvite) {
                     console.log(`[${new Date().toLocaleString('hu-HU')}] Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.tag} (${usedInvite.uses}/${usedInvite.maxUses})`)
                     channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`. \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
+                } else if (cachedVanityInvites.uses < newVanityInvites.uses) {
+                    console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined with custom invite link.`)
+                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link.`});
                 } else {
-                    console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined without using an invite or with a limited useable invite **or** with custom invite link.`)
-                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined without using an invite or with a limited useable invite **or** with custom invite link.`});
+                    console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined without using an invite or with a limited useable invite.`)
+                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined without using an invite or with a limited useable invite.`});
                 }
             } catch (err) {
-                console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err.name)
+                console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "OnGuildMemberAdd no channel:"+err)
             }
         }
         newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));

@@ -70,10 +70,11 @@ for (const file of commandFiles) {
 //event handler
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 const guildInvites = new Map()
+const vanityInvites = new Map()
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites))} 
-    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites))}
+	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))} 
+    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
 }
 
 //Bot token
@@ -84,9 +85,7 @@ console.log(client)
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
 process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n', error));
-//client.on("error", console.error)
-//client.on("warn", console.warn)
+process.on('uncaughtException', error => console.error('-----\nUncaught Exception:\n-----\n', error));
 if (config.debug_level >= 3) { 
-    //client.on("debug", console.log) 
     client.on("debug", (e) => console.log(e))
 }

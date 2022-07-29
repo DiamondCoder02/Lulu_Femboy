@@ -4,15 +4,7 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 module.exports = {
 	name: 'ready',
 	once: true,
-	execute(arg, client, guildInvites) {
-        client.guilds.cache.forEach(guild => {
-            guild.invites.fetch().then(invites => {
-                if (config.debug_level >= 2) { console.log(`INVITES CACHED ${guild.name}`); }
-                const codeUses = new Map();
-                invites.each(inv => codeUses.set(inv.code, inv.uses));
-                guildInvites.set(guild.id, codeUses);
-            }).catch(err => { console.log("Ready Error:", err) })
-        })
+	execute(arg, client, guildInvites, vanityInvites) {
         console.log(eventFiles); console.log(languageFiles)
         client.user.setActivity(lang.ready.set_activity)
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
@@ -22,6 +14,22 @@ module.exports = {
             + `\n\t --` + con[3] + config.stopPassword
             + `\n\t --` + con[4] + client.readyAt
             + `\n\t --` + con[5]+" "+ Guilds)
+        client.guilds.cache.forEach(guild => {
+            guild.invites.fetch().then(invites => {
+                const codeUses = new Map();
+                invites.each(inv => codeUses.set(inv.code, inv.uses));
+                guildInvites.set(guild.id, codeUses);
+                if (config.debug_level >= 2) { console.log(`INVITES CACHED ${guild.name}`); }
+            }).catch(err => { console.log("Ready invite Error:", err) })
+
+            if (guild.vanityURLCode != null) {
+                guild.fetchVanityData().then(invites => {
+                    vanityInvites.set(guild.id, invites);
+                    if (config.debug_level >= 2) { console.log(`Vanity cached ${guild.name}`); }
+                }).catch(err => { console.log("Ready vanity Error:", err) })
+            } else { console.log(`Vanity URL: ${guild.name} has no vanity URL`) }
+            
+        })
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
