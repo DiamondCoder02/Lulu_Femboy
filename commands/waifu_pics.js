@@ -4,6 +4,7 @@ const fetch = require('node-fetch')
 const wait = require('node:timers/promises').setTimeout;
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
+    cooldown: 5,
 	data: new SlashCommandBuilder()
         .setName('waifu_pics')
         .setDescription('Pictures from waifu.pics')

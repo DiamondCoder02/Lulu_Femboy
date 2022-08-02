@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType, ChannelType } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const sl = lang.info.slash.split('-'), us = lang.info.user.split('-'), s1 = lang.info.server1.split('-'), s2 = lang.info.server2.split('-'), c1 = lang.music.command.split('-')
 module.exports = {
@@ -14,6 +14,8 @@ module.exports = {
                 { name: 'voice_channel', value: 'voice' },
                 { name: 'server', value: 'server' },
                 { name: 'server_cheatsheet', value: 'cheat' },
+                //{ name: 'sticker', value: 'sticker' },
+                //{ name: 'emoji', value: 'emoji' },
             )
             .setRequired(true))
         .addUserOption(option => option.setName('target').setDescription(sl[2])),
@@ -22,7 +24,6 @@ module.exports = {
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
         collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
-        //User, server, cheatsheet
         if (interaction.options.getString('search') === 'user') {
             if (!interaction.options.getUser('target')) {return await interaction.reply(sl[2]+"?")}
             const user = interaction.options.getUser('target');
@@ -51,22 +52,22 @@ module.exports = {
                     {name: "User joined timestamp", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:F>`, inline: true},
                     {name: "User joined", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:R>`, inline: true},
                 )
-                /*
-                .addFields(
-                    {name: "Current Server Roles:", value: String(roleOfMember)},
-                )
-                */
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'text') {
-            //console.log(interaction.channel)
+            /*
+            console.log(ChannelType)
+            console.log(interaction.channel)
+            console.log(interaction.channel.type)
+            */
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle("Info about the channel:")
+                .setTitle("Info about the text channel:")
                 .setDescription("**#"+interaction.channel.name+"**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
                 .addFields(
                     {name: "Position:", value: String(interaction.channel.rawPosition+1), inline:true},
                     {name: "NSFW?", value: (interaction.channel.nsfw ? lang.t : lang.f), inline:true},
                     {name: "ID:", value: interaction.channel.id, inline:true},
+                    {name: "Type:", value: String(interaction.channel.type), inline:true},
                     {name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" +" seconds", inline:true},
                 )
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
@@ -75,18 +76,18 @@ module.exports = {
         } else if (interaction.options.getString('search') === 'voice') {
             if(!interaction.member.voice.channel) return interaction.reply(c1[0]);
             //console.log(interaction.member.voice.channel)
-            if (interaction.member.voice.channel.userLimit === 0) { ul = "10000" } else { ul = interaction.member.voice.channel.userLimit }
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle("Info about the channel:")
+                .setTitle("Info about the voice channel:")
                 .setDescription("**"+interaction.member.voice.channel.name+"**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
                 .addFields(
                     {name: "Position:", value: String(interaction.member.voice.channel.rawPosition+1), inline:true},
                     {name: "ID:", value: String(interaction.member.voice.channel.id), inline:true},
                     {name: "Type:", value: String(interaction.member.voice.channel.type), inline:true},
-                    {name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate%100)+"kbps", inline:true},
+                    {name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate/100)+"kbps", inline:true},
                     {name: "UserLimit:", value: String(interaction.member.voice.channel.userLimit) + " members", inline:true},
                     {name: "rtcRegion:", value: interaction.member.voice.channel.rtcRegion ? interaction.member.voice.channel.rtcRegion : "Automatic", inline:true},
+                    {name: "VideoQuality:", value: interaction.member.voice.channel.videoQualityMode ? (interaction.member.voice.channel.videoQualityMode===2 ? "720p": "Automatic" ) : "Automatic" , inline:true},
                 )
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
                 .setTimestamp()
@@ -134,6 +135,10 @@ module.exports = {
         } else if (interaction.options.getString('search') === 'cheat') {
             const serverRoles = interaction.guild.roles.cache.map(role => role.name).join(', @');
             const botUser = client.user
+            const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');
+            const serverStickers = sSticker.split(', ').sort().join(' // ')
+            const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(', ');
+            const serverEmojis = sEmoji.split(', ').sort().join(' // ')
             const embedtest1 = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
@@ -196,17 +201,31 @@ module.exports = {
                     { name: '47 WidgetEnabled(boolean)', value: (interaction.guild.widgetEnabled ? lang.t : lang.f), inline:true },
                     { name: '-- OwnerId(snowflake)', value: String(interaction.guild.ownerId), inline:true },
                     { name: '-- Invites(GuildInviteManager)', value: String(interaction.guild.invites), inline:true },
-                    //{ name: "Roles:", value: String(serverRoles) },
+                    { name: "Stickers name:", value: String(serverStickers) },
                 )
             const embedtest3 = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
-                .setDescription(`(Max25 field per embed) 3/? \nRoles:\n` + String(serverRoles))
+                .setDescription(`(Max25 field per embed) 3/? \n\n**Roles:**\n` + String(serverRoles))
                 .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
                 .addFields(
-                    //{ name: "Roles:", value: String(serverRoles) },
+                    { name: "Emoji names:", value: String(serverEmojis) },
                 )
             await interaction.reply({content: sl[4], embeds: [embedtest1, embedtest2, embedtest3], components: [page]})
+        } else if (interaction.options.getString('search') === 'sticker') {
+            console.log(interaction.guild)
+            const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');
+            const serverStickers = sSticker.split(', ').sort().join(', ');
+            console.log(serverStickers)
+            const sStickers = interaction.guild.stickers.cache
+            console.log(sStickers)
+        } else if (interaction.options.getString('search') === 'emoji') {
+            console.log(interaction.guild)
+            const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(', ');
+            const serverEmojis = sEmoji.split(', ').sort()
+            console.log(serverEmojis)
+            const sEmojis = interaction.guild.emojis.cache
+            console.log(sEmojis)
         }
     }
 }

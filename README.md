@@ -36,10 +36,12 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - Only works with slash commands
 - Roles cannot have the same name
 
-## Credits (Package name - command name)
+## Credits (Package or API name - command name)
 - [Discord.js Akinator - akinator](https://www.npmjs.com/package/discord.js-akinator)
 - [Anime-images API - anime_images](https://anime-api.hisoka17.repl.co/)
+- [Astrology free API - astrology](https://ohmanda.com/api/horoscope)
 - [Booru - booru](https://www.npmjs.com/package/booru)
+- [Catboys - catboys](https://catboys.com/api)
 - [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [sHentai - nHentai](https://www.npmjs.com/package/shentai)

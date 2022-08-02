@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder } = require('discord.js'), fs = require('fs')
+const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require('discord.js'), fs = require('fs')
 let languagesFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json')), lanArray = languagesFiles.map(x => {return x.replace('.json',"\n")})
 let eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), eventArray = eventFiles.map(x => {return x.replace('.js','\n')})
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')), comArray = commandFiles.map(x => {return x.replace('.js','\n')})
@@ -38,6 +38,10 @@ Message,
 User,
 ~~ThreadMember~~
 `
+        const page = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('delete').setLabel(lang.d).setStyle(ButtonStyle.Danger).setEmoji('✖️'))
+        const filter = i => i.user.id === interaction.user.id;
+        const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
+        collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
 		const version_embed = new EmbedBuilder()
             .setColor('#FFFF00')
             .setTitle(td[0])
@@ -63,7 +67,7 @@ User,
                 { name: "__Partials__", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: td[2]+` 2022.July.26`});
-        await interaction.reply({embeds: [version_embed]})
+            .setFooter({text: td[2]+` 2022.August.02`});
+        await interaction.reply({embeds: [version_embed], components: [page]})
     }
 }

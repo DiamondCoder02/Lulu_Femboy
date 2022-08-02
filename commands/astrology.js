@@ -46,7 +46,7 @@ module.exports = {
             if (type === 'sagittarius') { embed.setColor('#A020F0').setFooter({ text: 'Date: Nov.22-Dec.21' }).setThumbnail("https://static.vecteezy.com/system/resources/previews/003/808/501/non_2x/zodiac-sign-sagittarius-isolated-icon-zodiac-symbol-with-starry-gradient-design-astrological-element-vector.jpg") }
             await interaction.reply({ embeds: [embed] })
         }catch(error) {
-            interaction.reply(`Something went wrong with ${type}!` + error.name)
+            interaction.reply(`Something went wrong with ${type}! ` + error.name)
             console.log(error)
         }
     }
