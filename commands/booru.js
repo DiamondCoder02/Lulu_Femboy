@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.booru.slash.split('-') , e = lang.booru.embed.split('-')
@@ -42,7 +42,7 @@ module.exports = {
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
-                if (posts.length === 0) { return interaction.followUp({content: lang.booru.error})}
+                if (posts.length === 0) { return interaction.reply({content: lang.booru.error})}
                 //console.log(posts +"\n"+ posts[0].fileUrl)
                 //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
                 if (posts.first.rating == 's') { r = e[0]}
@@ -50,6 +50,9 @@ module.exports = {
                     else if (posts.first.rating == 'e') { r = e[2]}
                     else if (posts.first.rating == 'u') { r = e[3]} 
                     else { r = "-"}
+                if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText && (posts.first.rating == 'e' || posts.first.rating == 'q')) {
+                    return interaction.reply({content: "Sorry this is an explixit picture that got somehow sent here"})
+                }
                 const embed = new EmbedBuilder()
                     .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
                     .setColor('#A020F0')
@@ -61,32 +64,29 @@ module.exports = {
                     .setTimestamp()
                 if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}
                 const buttons = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder().setURL(posts[0].fileUrl).setLabel('Link').setStyle(ButtonStyle.Link).setEmoji('🖥️'))
+                    new ButtonBuilder().setURL(posts[0].fileUrl).setLabel('Link').setStyle(ButtonStyle.Link).setEmoji('🖥️'),
+                    new ButtonBuilder().setCustomId('delete').setLabel(lang.d).setStyle(ButtonStyle.Danger).setEmoji('✖️')
+                )
+                const filter = i => i.user.id === interaction.user.id;
+                const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
+                collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
                 if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")|| posts[0].fileUrl.includes(".gif")) {
                     try { 
                         await interaction.followUp({embeds: [embed], components: [buttons]})
                         await interaction.followUp({content: posts[0].fileUrl}); 
                     } catch { 
                         await interaction.reply({embeds: [embed], components: [buttons]})
-                        await interaction.reply({content: posts[0].fileUrl}); 
+                        await interaction.followUp({content: posts[0].fileUrl}); 
                     }
                 } else {
                     await embed.setImage(posts[0].fileUrl)
                     try { await interaction.followUp({embeds: [embed], components: [buttons]}) }
                     catch { await interaction.reply({embeds: [embed], components: [buttons]}) }
                 }
-
-                /*
-                try { await interaction.followUp({ content: user.toString(), embeds: [embed]}) }
-                    catch { await interaction.reply({ content: user.toString(), embeds: [embed]}) } 
-                } else {
-                    try { await interaction.followUp({ embeds: [embed]}) }
-                    catch { await interaction.reply({ embeds: [embed]}) } 
-                */
             }
             booruSearch(sites, tags, 1, true).catch(err => { 
                 if (err instanceof BooruError) { console.error(err) } 
-                else { console.error(err) ; return interaction.followUp({content: lang.booru.error})}
+                else { console.error(err) ; return interaction.reply({content: lang.booru.error})}
             })
             a+=1
             await wait(2000);
