@@ -28,12 +28,14 @@ module.exports = {
         //const useButtons = true; //Whether to use Discord's Buttons
         //const embedColor = "#1F1E33"; //The Color of the Message Embeds
 
-        akinator(interaction, {
-            embedColor: "#00FF00", //Defaults to "RANDOM"
-            language: lang, //Defaults to "en"
-            childMode: childMode, //Defaults to "false"
-            gameType: gameType, //Defaults to "character"
-            useButtons: useButtons //Defaults to "false"
-        })
+        try {
+            akinator(interaction, {
+                embedColor: "#00FF00", //Defaults to "RANDOM"
+                language: lang, //Defaults to "en"
+                childMode: childMode, //Defaults to "false"
+                gameType: gameType, //Defaults to "character"
+                useButtons: useButtons //Defaults to "false"
+            })
+        } catch (error) { console.log("Akinator had a stroke: "+error) }
     }
 }

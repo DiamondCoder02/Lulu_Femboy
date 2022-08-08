@@ -10,8 +10,8 @@ module.exports = {
         .addSubcommand(subcommand => subcommand.setName('text').setDescription('Configure text settings and also display current settings.')
             .addStringOption(option => option.setName('welcome_message').setDescription('What the welcome message should be.'))
             .addChannelOption(option => option.setName('moderation_channel').setDescription('Change mod channel.'))
-            .addRoleOption(option => option.setName('welcome_role').setDescription('What role for new members.(If empty, no role, but once given you cannot remove, only change it)'))
-            .addBooleanOption(option => option.setName('welcome_role_remove').setDescription('You want to remove the welcome role.'))
+            .addRoleOption(option => option.setName('welcome_roles').setDescription('What role for new members.(If empty, no role)'))
+            .addRoleOption(option => option.setName('welcome_roles_remove').setDescription('You want to remove the welcome role.'))
             .addRoleOption(option => option.setName('add_role').setDescription('What optional rola can people choose from.'))
             .addRoleOption(option => option.setName('remove_role').setDescription('What optional role can people remove.'))
         )
@@ -29,13 +29,22 @@ module.exports = {
                 } else if(interaction.options.getChannel('moderation_channel')) {
                     client.settings.set(interaction.guild.id, interaction.options.getChannel('moderation_channel').id, "moderationChannel");
                     return interaction.reply(`Guild configuration item "moderationChannel" has been changed to: \`${interaction.options.getChannel('moderation_channel')}\``);
-                } else if(interaction.options.getRole('welcome_role')) {
-                    a = interaction.options.getRole('welcome_role')
-                    client.settings.set(interaction.guild.id, a.name, "welcomeRole");
-                    return interaction.reply(`Guild configuration item "welcomeRole" has been changed to: \`${a.name}\``);
-                } else if(interaction.options.getBoolean('welcome_role_remove')) {
-                    client.settings.set(interaction.guild.id, " ", "welcomeRole");
-                    return interaction.reply(`Guild configuration item "welcomeRole" has been removed.`);
+                } else if(interaction.options.getRole('welcome_roles')) {
+                    let ro = client.settings.get(interaction.guild.id, "welcomeRoles");
+                    if (Array.isArray(ro)) { } else { ro = [""] }
+                    ar = interaction.options.getRole('welcome_roles'); 
+                    if (ro.includes(ar.name)) { return interaction.reply(`Role \`${ar.name}\` is already in the list.`) }
+                    ro.push(ar.name);
+                    if (ro.includes("")) { ro.splice(ro.indexOf(""), 1) }
+                    client.settings.set(interaction.guild.id, ro, "welcomeRoles");
+                    return interaction.reply(`Guild configuration item "welcomeRoles" has been added: \`${ar.name}\``);
+                } else if(interaction.options.getRole('welcome_roles_remove')) {
+                    let ro = client.settings.get(interaction.guild.id, "welcomeRoles");
+                    if (Array.isArray(ro)) { } else { return interaction.reply(`Guild configuration item "welcomeRoles" has not been set.`) }
+                    a = interaction.options.getRole('welcome_roles_remove')
+                    if (ro.includes(a.name)) { } else { return interaction.reply(`Guild role was not found.`) }
+                    client.settings.remove(interaction.guild.id, a.name, "welcomeRoles");
+                    return interaction.reply(`Guild configuration item "welcomeRoles" has been removed: \`${a.name}\``);
                 } else if(interaction.options.getRole('add_role')) {
                     let ro = client.settings.get(interaction.guild.id, "freeRoles");
                     if (Array.isArray(ro)) { } else { ro = ["test"] }
@@ -98,7 +107,7 @@ module.exports = {
                     button.update({components: interaction.components})
                     setting(interaction, client);
                 });
-                collector.on('end', collected => console.log(`Collected ${collected.size} items`))
+                //collector.on('end' , collected => console.log(`Collected ${collected.size} items`) )
             }
             if (interaction.options.getSubcommand() === 'emit_event') {
                 const event = interaction.options.getString('event'); 

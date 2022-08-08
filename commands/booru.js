@@ -33,16 +33,16 @@ module.exports = {
     async execute(interaction, client) {
         const sites = interaction.options.getString('sites').trim()
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib" || sites=="hypnohub" || sites=="danbooru"|| sites=="paheal") { }
-        else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
-        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply(lang.booru.tag) }
+        else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply({content: lang.nsfw})} } else {return interaction.reply({content: lang.nsfwdisable})}  }
+        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply({content: lang.booru.tag}) }
         else if(!interaction.options.getString('tags')) {tags = ""}
         else { tags = interaction.options.getString('tags').trim().split(' ')}
-        if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply("Please don't use tags with this site") }
+        if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply({content: "Please don't use tags with this site"}) }
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
-                if (Number(posts.length) === 0) { return interaction.reply(lang.booru.error) }
+                if (Number(posts.length) === 0) { return interaction.reply({content: lang.booru.error}) }
                 //console.log(posts +"\n"+ posts.length)
                 //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
                 if (posts.first.rating == 's') { r = e[0]}

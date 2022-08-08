@@ -48,6 +48,6 @@ module.exports = {
             }
             i.update({components: interaction.components})
         });
-        collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+        //collector.on('end', collected => console.log(`Collected ${collected.size} items`));
     }
 }

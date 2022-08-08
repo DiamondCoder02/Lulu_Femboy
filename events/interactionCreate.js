@@ -14,7 +14,8 @@ module.exports = {
 					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" "+ i_c[0] + i.commandName);
 				}
 				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"-commandName:"+ (i.message.interaction.commandName?i.message.interaction.commandName:"-akinator?-") +" => "+ i.customId);
+					if (i.message.interaction === null) { nameOfCommand = "-akinator?-" } else { nameOfCommand = i.message.interaction.commandName }
+					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"-commandName:"+ nameOfCommand +" => "+ i.customId);
 				} 
 				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
 					console.log(i)

@@ -8,7 +8,7 @@ module.exports = {
 			console.log("Delete2")
 			*/
 			if (!message.guild) return;
-			try { if (message.author.bot) return } catch { return console.log("Bot and others are null, messageDelete, WHAT THE FUCK? \n", message); }
+			try { if (message.author.bot) return } catch { return console.log("Bot and others are null, messageDelete, unchached message deleted?"); }
 			
 			let c = client.channels.cache.get(message.channelId)
 			process.stdout.write(`[${new Date().toLocaleString('hu-HU')}] Message deleted in ${c.guild.name} <#${c.name}> (${message.author.tag}) => "${message.content}"`);

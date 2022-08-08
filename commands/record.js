@@ -13,7 +13,7 @@ module.exports = {
         .addSubcommand(subcommand => subcommand.setName('start').setDescription('Record voice/talk'))
         .addSubcommand(subcommand => subcommand.setName('end').setDescription('Stop recording voice/talk')),
     async execute(interaction, client, config) {
-        /*
+        return interaction.reply("Command broken / under refactoring");
         client.voiceManager = new Collection()
         const voiceChannel = interaction.member.voice.channel
         if(!voiceChannel) return interaction.reply("You must be in a voice channel to use this command!")
@@ -74,8 +74,6 @@ module.exports = {
         }catch(error) {
             console.log(error)
         }
-        */
-        interaction.reply("Command under refactoring");
     }
 }
 /* Function to write audio to file (from discord.js example) */

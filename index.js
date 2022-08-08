@@ -54,7 +54,7 @@ client.settings = new Enmap({
         banKickLogs: false,
         welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
         enableNSFW: false,
-        welcomeRole: "",
+        welcomeRoles: [""],
         freeRoles: [""],
         moderationChannel: "",
     }

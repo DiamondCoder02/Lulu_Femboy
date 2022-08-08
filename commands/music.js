@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders"), { EmbedBuilder, 
 const client = new Client({ intents: [GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.Guilds] });
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const po = lang.music.player_on.split('-'), sl = lang.music.slash.split('-'), c1 = lang.music.command.split('-'), c2 = lang.music.command2.split('-')
-/*
+
 const player = new Player(client, { ytdlOptions: { headers: { cookie: process.env.YT_COOKIE } }, });
 player.on("error", (queue, error) => { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + queue.guild.name +" "+ po[0] + error.message); });
 player.on("connectionError", (queue, error) => { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + queue.guild.name + po[1] + error.message); });
@@ -11,7 +11,7 @@ player.on("trackAdd", (queue, track) => { queue.metadata.send(`🎶 |`+po[3]+": 
 player.on("botDisconnect", (queue) => { queue.metadata.send("❌ |"+po[4]); });
 player.on("channelEmpty", (queue) => { queue.metadata.send("❌ |"+po[5]); });
 player.on("queueEnd", (queue) => { queue.metadata.send("✅ |"+po[6]); });
-*/
+
 module.exports = {
     guildOnly: true,
     cooldown: 3,
@@ -30,7 +30,8 @@ module.exports = {
             )
         )
         .addIntegerOption(option => option.setName('volume').setDescription(sl[8]).setMinValue(1).setMaxValue(100)),
-    async execute(interaction) { /*
+    async execute(interaction) { 
+        //return interaction.reply("Command under refactoring");
         if(!interaction.member.voice.channel) return interaction.reply(c1[0]);
         await interaction.deferReply();
         if (interaction.options.getString('play')) {
@@ -108,7 +109,5 @@ module.exports = {
         } else {
             return await interaction.editReply({content: c2[6]})
         }
-        */
-        interaction.reply("Command under refactoring");
     }
 }
