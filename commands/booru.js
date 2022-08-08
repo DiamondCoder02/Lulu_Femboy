@@ -42,8 +42,8 @@ module.exports = {
         for (let a = 0; a < amount; ) {
             async function booruSearch(sites, tags, limit = 1, random = true) {
                 const posts = await Booru.search(sites, tags, {limit, random})
-                if (posts.length === 0) { return interaction.reply({content: lang.booru.error})}
-                //console.log(posts +"\n"+ posts[0].fileUrl)
+                if (Number(posts.length) === 0) { return interaction.reply(lang.booru.error) }
+                //console.log(posts +"\n"+ posts.length)
                 //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
                 if (posts.first.rating == 's') { r = e[0]}
                     else if (posts.first.rating == 'q') { r = e[1]}
@@ -85,8 +85,8 @@ module.exports = {
                 }
             }
             booruSearch(sites, tags, 1, true).catch(err => { 
-                if (err instanceof BooruError) { console.error(err) } 
-                else { console.error(err) ; return interaction.reply({content: lang.booru.error})}
+                if (err instanceof BooruError) { a=amount; console.error("-"+err) } 
+                else { console.error(err); a=amount ; return interaction.reply({content: lang.booru.error})}
             })
             a+=1
             await wait(2000);
