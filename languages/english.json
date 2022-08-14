@@ -32,7 +32,7 @@
     "booru": {
         "slash": "Search imageboards for a picture - Sites to search - Tags to search for (separate multiple with space)",
         "embed": "Safe - Questionable - Explicit - Unrated - Rating: - Searched for: - Searching",
-        "error": "Something went wrong. Make sure you wrote the tag correctly and chosen a site.",
+        "error": "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces.",
         "long_tag": "Sorry the tags are too long to be displayed.",
         "tag": "Please give me a tag to find a random picture."
     },

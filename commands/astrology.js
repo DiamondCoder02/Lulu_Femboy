@@ -1,8 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
-const fetch = require('node-fetch')
+const { language } = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('astrology')
@@ -25,7 +23,26 @@ module.exports = {
             .setRequired(true)
         ),
     async execute(interaction, client, config) {
+        console.log(interaction.guild)
         const type = interaction.options.getString('signs');
+        /*
+        if(interaction.guild.preferredLocale == "hu") {
+            //https://www.astronet.hu/horoszkop/kos-napi-horoszkop/
+            let sign = await fetch(`https://www.astronet.hu/horoszkop/kos-napi-horoszkop/`).then(res => res.text())//.then(data => JSON.parse(data));
+            console.log(sign)
+            const date = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Budapest" }));
+            const starsign = "kos"
+            const html = parse(
+                await ( await fetch(
+                    `https://www.astronet.hu/horoszkop/${starsign}-napi-horoszkop/${date.getFullYear()}-${months[date.getMonth()]}-${date
+                        .getDate()
+                        .toString()
+                        .padStart(2, "0")}/`
+                ) ).text()
+            )
+            console.log(html)
+        }
+        */
         try {
             let sign = await fetch(`https://ohmanda.com/api/horoscope/${type}/`).then(res => res.text()).then(data => JSON.parse(data));
             const embed = new EmbedBuilder()
