@@ -24,17 +24,17 @@ GuildVoiceStates,
 GuildPresences,
 GuildMessages,
 GuildScheduledEvents,
-~~GuildMessageReactions,~~
+GuildMessageReactions,
 ~~GuildMessageTyping,~~
 GuildVoiceStates,
-~~DirectMessages,~~
-~~DirectMessageReactions,~~
+DirectMessages,
+DirectMessageReactions,
 ~~DirectMessageTyping~~`
 const pars = `Channel,
 GuildMember,
 GuildScheduledEvent,
 Message,
-~~Reaction,~~
+Reaction,
 User,
 ~~ThreadMember~~
 `
@@ -67,7 +67,7 @@ User,
                 { name: "__Partials__", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: td[2]+` 2022.August.09`});
+            .setFooter({text: td[2]+` 2022.August.15.`});
         await interaction.reply({embeds: [version_embed], components: [page]})
     }
 }

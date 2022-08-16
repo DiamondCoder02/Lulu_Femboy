@@ -51,15 +51,13 @@ module.exports = {
                 .addFields( { name: 'Reported by ID:', value: `${interaction.user.id}`, inline: true } )
                 .setTimestamp()
                 .setFooter({ text: `React with emoji to delete` });
-            if (reporter) {
-                report.setAuthor({ name: `Reported by ${String(reporter.tag)}`, iconURL: reporter.displayAvatarURL()})
-                    .setThumbnail(reporter.displayAvatarURL());
-            }
+            if (reporter) { report.setAuthor({ name: `Reported by ${String(reporter.tag)}`, iconURL: reporter.displayAvatarURL() }) }
             if (interaction.options.getSubcommand() === 'guild') {
                 report.setTitle('Guild Report about ' + problem_with);
                 if (client.settings.get(interaction.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(interaction.guild.id, "moderationChannel"))} else {channel = interaction.guild.systemChannel}
                 if (channel) {
-                    await channel.send({embeds: [report]})
+                    const s = await channel.send({embeds: [report], fetchReply: true})
+                    s.react('<:red_cross:1008725354296389723>')
                     await interaction.reply({content: "Report has been sent to moderators", ephemeral: true})
                 } else {
                     console.log("Unable to find a channel to send the report to for " + interaction.guild.name)
@@ -73,10 +71,12 @@ module.exports = {
                     require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
                     if(config.botOwnerId === "botOwnerID"){
                         const user = await client.users.fetch(b_o_Id);
-                        await user.send({embeds: [report]})
+                        const m = await user.send({embeds: [report], fetchReply: true})
+                        m.react('<:red_cross:1008725354296389723>')
                     } else {
                         const user = await client.users.fetch(config.botOwnerId);
-                        await user.send({embeds: [report]})
+                        const m = await user.send({embeds: [report], fetchReply: true})
+                        m.react('<:red_cross:1008725354296389723>')
                     }
                     await interaction.reply({content: "Report has been sent to bot owner", ephemeral: true})
                 } catch {

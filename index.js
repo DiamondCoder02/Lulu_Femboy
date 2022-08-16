@@ -1,20 +1,20 @@
 console.clear();
 //basic loaders
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
+const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
 const client = new Client({ 
     ws: {
         properties: {$browser: 'Discord iOS'}
     }, 
     intents: [
-        //GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.DirectMessageReactions,
         //GatewayIntentBits.DirectMessageTyping,
-        //GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.DirectMessages,
         GatewayIntentBits.GuildBans,
         GatewayIntentBits.GuildEmojisAndStickers,
         GatewayIntentBits.GuildIntegrations,
         GatewayIntentBits.GuildInvites,
         GatewayIntentBits.GuildMembers,
-        //GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildMessageReactions,
         //GatewayIntentBits.GuildMessageTyping,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildPresences,
@@ -29,7 +29,7 @@ const client = new Client({
         Partials.GuildMember, 
         Partials.GuildScheduledEvent, 
         Partials.Message, 
-        //Partials.Reaction, 
+        Partials.Reaction, 
         Partials.User, 
         //Partials.ThreadMember
     ]
@@ -57,6 +57,18 @@ client.settings = new Enmap({
         welcomeRoles: [""],
         freeRoles: [""],
         moderationChannel: "",
+    }
+});
+
+client.on('messageReactionAdd', async (reaction, user) => {
+    if (user.bot) return;
+	if (reaction.partial) {
+		try { await reaction.fetch(); } 
+        catch (error) { return console.error('Something went wrong when fetching the message:', error); }
+	}
+    const u = await reaction.users.fetch(), us = u.map(u => u.id)
+    if (reaction.emoji.name === "red_cross" && reaction.emoji.id === "1008725354296389723" && reaction.count === 2 && reaction.message.author.id === client.user.id && us.includes(client.user.id)) {
+        reaction.message.delete()
     }
 });
 
