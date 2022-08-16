@@ -134,7 +134,6 @@ module.exports = {
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'cheat') {
             const serverRoles = interaction.guild.roles.cache.map(role => role.name).join(', @');
-            const botUser = client.user
             const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');
             const serverStickers = sSticker.split(', ').sort().join(' // ')
             const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(', ');
@@ -159,7 +158,7 @@ module.exports = {
                     { name: '12 large(boolean)', value: (interaction.guild.large ? lang.t : lang.f), inline:true },
                     { name: '13 maximumBitrate(number)', value: String(interaction.guild.maximumBitrate), inline:true },
                     { name: '14 maximumMembers(number)', value: String(interaction.guild.maximumMembers), inline:true },
-                    { name: '15 [Bot, not debug]', value: botUser.toString(), inline:true },
+                    { name: '15 [Bot, not debug]', value: client.user.toString(), inline:true },
                     { name: '16 memberCount(number)', value: String(interaction.guild.memberCount), inline:true },
                     { name: '17 mfaLevel(MFALevel)', value: String(interaction.guild.mfaLevel), inline:true },
                     { name: '18 name', value: interaction.guild.name, inline:true },

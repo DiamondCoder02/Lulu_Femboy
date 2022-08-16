@@ -42,10 +42,8 @@ module.exports = {
         ),
 	async execute(interaction, client) {
         try {
-            const type = interaction.options.getSubcommand();
             const category = interaction.options.getString('category');
-            const enableNSFW = client.settings.get(interaction.guild.id, "enableNSFW");
-            if (type=="sfw") { }
+            if (interaction.options.getSubcommand() == "sfw") { }
             else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             for (let a = 0; a < amount; a++ ) {
