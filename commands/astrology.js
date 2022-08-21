@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 const { language } = require('../config.json'), lang = require('../languages/' + language + '.json')
+const fetch = require('node-fetch')
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('astrology')
@@ -23,7 +24,7 @@ module.exports = {
             .setRequired(true)
         ),
     async execute(interaction, client, config) {
-        console.log(interaction.guild)
+        //console.log(interaction.guild)
         const type = interaction.options.getString('signs');
         /*
         if(interaction.guild.preferredLocale == "hu") {

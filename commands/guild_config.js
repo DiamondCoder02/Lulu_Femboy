@@ -104,7 +104,7 @@ module.exports = {
                     if (button.customId === 'delete') {interaction.deleteReply(); collector.stop(); return}
                     if (client.settings.get(interaction.guild.id, button.customId)===true) { client.settings.set(interaction.guild.id, false, button.customId)
                     } else { client.settings.set(interaction.guild.id, true, button.customId)}
-                    button.update({components: interaction.components})
+                    await button.update({components: interaction.components})
                     setting(interaction, client);
                 });
                 //collector.on('end' , collected => console.log(`Collected ${collected.size} items`) )

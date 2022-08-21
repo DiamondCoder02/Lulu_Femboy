@@ -133,6 +133,7 @@ module.exports = {
                 )
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'cheat') {
+            //if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}            
             const serverRoles = interaction.guild.roles.cache.map(role => role.name).join(', @');
             const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');
             const serverStickers = sSticker.split(', ').sort().join(' // ')

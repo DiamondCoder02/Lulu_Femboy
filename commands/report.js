@@ -3,6 +3,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType,
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     cooldown: 60,
+    guildOnly: true,
 	data: new SlashCommandBuilder()
         .setName('report')
         .setDescription('Report a problem to admins or report a bot bug to me.')
@@ -18,7 +19,6 @@ module.exports = {
                 ).setRequired(true)
             )
             .addStringOption(option => option.setName('description').setDescription('Describe the problem.').setRequired(true))
-            .addUserOption(option => option.setName('reporter').setDescription('If you want to get notified/credited for reporting.'))
             .addStringOption(option => option.setName('description_2').setDescription('If you want to add more details, describe them here.'))
             .addStringOption(option => option.setName('fix').setDescription('Do you have a fix? If so, describe it here.'))
         )
@@ -34,13 +34,11 @@ module.exports = {
                 ).setRequired(true)
             )
             .addStringOption(option => option.setName('description').setDescription('Describe the problem.').setRequired(true))
-            .addUserOption(option => option.setName('reporter').setDescription('If you want to get notified about the fix, select yourself.'))
             .addStringOption(option => option.setName('description_2').setDescription('If you want to add more details, describe them here.'))
             .addStringOption(option => option.setName('fix').setDescription('Do you have a fix? If so, describe it here.'))
         ),
     async execute(interaction, client, config) {
         try {
-            const reporter = interaction.options.getUser('reporter');
             const problem_with = interaction.options.getString('problem_with');
             const description = interaction.options.getString('description');
             const description_2 = interaction.options.getString('description_2');
@@ -50,8 +48,8 @@ module.exports = {
                 .setColor(0xFF0000)
                 .addFields( { name: 'Reported by ID:', value: `${interaction.user.id}`, inline: true } )
                 .setTimestamp()
-                .setFooter({ text: `React with emoji to delete` });
-            if (reporter) { report.setAuthor({ name: `Reported by ${String(reporter.tag)}`, iconURL: reporter.displayAvatarURL() }) }
+                .setFooter({ text: `React with emoji to delete` })
+                .setAuthor({ name: `Reported by ${String(interaction.user.tag)}`, iconURL: interaction.user.displayAvatarURL() });
             if (interaction.options.getSubcommand() === 'guild') {
                 report.setTitle('Guild Report about ' + problem_with);
                 if (client.settings.get(interaction.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(interaction.guild.id, "moderationChannel"))} else {channel = interaction.guild.systemChannel}

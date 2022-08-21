@@ -67,7 +67,7 @@ User,
                 { name: "__Partials__", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: td[2]+` 2022.August.15.`});
+            .setFooter({text: td[2]+` 2022.August.21.`});
         await interaction.reply({embeds: [version_embed], components: [page]})
     }
 }

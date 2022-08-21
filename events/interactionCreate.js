@@ -6,22 +6,6 @@ module.exports = {
 	async execute(interaction, client, guildInvites) {
 		try {
 			const i_c = lang.int_create.split('-'), i = interaction
-			if (config.debug_level >= 1) {
-				if (i.channel.type === 'DM') {
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] DM "+ i_c[0] + i.commandName);
-				}
-				if (i.type === InteractionType.ApplicationCommand) {
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" "+ i_c[0] + i.commandName);
-				}
-				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
-					if (i.message.interaction === null) { nameOfCommand = "-akinator?-" } else { nameOfCommand = i.message.interaction.commandName }
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"-commandName:"+ nameOfCommand +" => "+ i.customId);
-				} 
-				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
-					console.log(i)
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[2] +"=> "+ i.value);
-				}
-			}
 			if (i.type === InteractionType.ApplicationCommand) {
 				const command = client.commands.get(interaction.commandName);
 				if (!command) return;
@@ -57,6 +41,22 @@ module.exports = {
 				} catch (error) {
 					console.error(error);
 					return await interaction.reply({ content: lang.index.error, ephemeral:true});
+				}
+			}
+			if (config.debug_level >= 1) {
+				if (i.channel.type === 'DM') {
+					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] DM "+ i_c[0] + i.commandName);
+				}
+				if (i.type === InteractionType.ApplicationCommand) {
+					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" "+ i_c[0] + i.commandName);
+				}
+				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
+					if (i.message.interaction === null) { nameOfCommand = "-akinator?-" } else { nameOfCommand = i.message.interaction.commandName }
+					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[1] +"-commandName:"+ nameOfCommand +" => "+ i.customId);
+				} 
+				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
+					console.log(i)
+					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + i_c[2] +"=> "+ i.value);
 				}
 			}
 			if (config.debug_level >= 1) {
