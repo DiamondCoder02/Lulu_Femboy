@@ -1,14 +1,13 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
 	name: 'inviteDelete',
 	async execute(invite, client, guildInvites) {
-        //console.log(invite)
 		const invites = await invite.guild.invites.fetch();
 		const codeUses = new Map();
 		invites.each(inv => codeUses.set(inv.code, inv.uses));
 		guildInvites.set(invite.guild.id, codeUses);
-		console.log("["+new Date(invite.createdTimestamp).toLocaleString('hu-HU') + "] " + `Invite deleted ${invite.guild.name} code: ${invite.code}`)
+		console.log(`[${new Date().toLocaleString('hu-HU')}] ` + `Invite deleted ${invite.guild.name} code: ${invite.code}`)
 		const invitesLogs = client.settings.get(invite.guild.id, "invitesLogs");
 		if(invitesLogs) { 
 			try{

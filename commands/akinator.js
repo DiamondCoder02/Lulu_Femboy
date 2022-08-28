@@ -7,9 +7,11 @@ module.exports = {
         .addStringOption(option => option.setName('lang').setDescription(s[1]))
         .addBooleanOption(option => option.setName('child_mode').setDescription(s[2]))
         .addStringOption(option => option.setName('game_type').setDescription(s[3])
-            .addChoice(s[5], 'animal')
-            .addChoice(s[6], 'character')
-            .addChoice(s[7], 'object'))
+            .addChoices(
+                { name: s[5], value: 'animal' },
+                { name: s[6], value: 'character' },
+                { name: s[7], value: 'object' },
+            ))
 		.addBooleanOption(option => option.setName('button').setDescription(s[4])),
     async execute(interaction) {
         if (interaction.options.getBoolean('button') === false) {useButtons = false} else {useButtons = true}
@@ -24,14 +26,16 @@ module.exports = {
         //const childMode = false; //Whether to use Akinator's Child Mode
         //const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
         //const useButtons = true; //Whether to use Discord's Buttons
-        const embedColor = "#1F1E33"; //The Color of the Message Embeds
+        //const embedColor = "#1F1E33"; //The Color of the Message Embeds
 
-        akinator(interaction, {
-            //embedColor: embedColor, //Defaults to "RANDOM"
-            language: lang, //Defaults to "en"
-            childMode: childMode, //Defaults to "false"
-            gameType: gameType, //Defaults to "character"
-            useButtons: useButtons //Defaults to "false"
-        })
+        try {
+            akinator(interaction, {
+                embedColor: "#00FF00", //Defaults to "RANDOM"
+                language: lang, //Defaults to "en"
+                childMode: childMode, //Defaults to "false"
+                gameType: gameType, //Defaults to "character"
+                useButtons: useButtons //Defaults to "false"
+            })
+        } catch (error) { console.log("Akinator had a stroke: "+error) }
     }
 }

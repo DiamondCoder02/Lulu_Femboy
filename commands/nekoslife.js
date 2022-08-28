@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder } = require('discord.js');
 const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), sd = lang.nekoslife.slash_desc.split('-'), de = lang.nekoslife.desc.split('-'), er = lang.nekoslife.error_reply
 const wait = require('node:timers/promises').setTimeout;
 const nekoslife = require('nekos.life'), neko = new nekoslife();
@@ -12,21 +12,23 @@ module.exports = {
             .setDescription(sd[1])
             .addStringOption(option => option.setName("sfw_w")
                 .setDescription(de[0])
-                .addChoice('Baka', 'baka')
-                .addChoice('Cuddle', 'cuddle')
-                .addChoice('Feed', 'feed')
-                .addChoice('Fox Girl', 'foxGirl')
-                .addChoice('Holo', 'holo')
-                .addChoice('Hug', 'hug')
-                .addChoice('Kiss', 'kiss')
-                .addChoice('Meow', 'meow')
-                .addChoice('Neko', 'neko')
-                .addChoice('Neko Gif', 'nekoGif')
-                .addChoice('Pat', 'pat')
-                .addChoice('Poke', 'poke')
-                .addChoice('Slap', 'slap')
-                .addChoice('Smug', 'smug')
-                .addChoice('Tickle', 'tickle')
+                .addChoices(
+                    { name: "Baka", value: 'baka' },
+                    { name: "Cuddle", value: 'cuddle' },
+                    { name: "Feed", value: 'feed' },
+                    { name: "Fox Girl", value: 'foxGirl' },
+                    { name: "Holo", value: 'holo' },
+                    { name: "Hug", value: 'hug' },
+                    { name: "Kiss", value: 'kiss' },
+                    { name: "Meow", value: 'meow' },
+                    { name: "Neko", value: 'neko' },
+                    { name: "Neko Gif", value: 'nekoGif' },
+                    { name: "Pat", value: 'pat' },
+                    { name: "Poke", value: 'poke' },
+                    { name: "Slap", value: 'slap' },
+                    { name: "Smug", value: 'smug' },
+                    { name: "Tickle", value: 'tickle' },
+                )
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription(de[2]))
             .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
@@ -35,20 +37,22 @@ module.exports = {
             .setDescription(sd[2])
             .addStringOption(option => option.setName("sfw_o")
                 .setDescription(de[0])
-                .addChoice('8ball', 'eightBall')
-                .addChoice('Avatar / Profile Pictures', 'avatar')
-                .addChoice('CatText', 'catText')
-                .addChoice('Fact', 'fact')
-                .addChoice('Genetically Engineered CatGirl', 'gecg')
-                .addChoice('Goose', 'goose')
-                .addChoice('Kemonomimi', 'kemonomini')
-                .addChoice('Lizard', 'lizard')
-                .addChoice('OwOify', 'OwOify')
-                .addChoice('Spoiler', 'spoiler')
-                .addChoice('Waifus', 'waifu')
-                .addChoice('Wallpaper', 'wallpaper')
-                .addChoice('Why', 'why')
-                .addChoice('Woof', 'woof')
+                .addChoices(
+                    { name: "8ball", value: 'eightBall' },
+                    { name: "Avatar / Profile Pictures", value: 'avatar' },
+                    { name: "CatText", value: 'catText' },
+                    { name: "Fact", value: 'fact' },
+                    { name: "Genetically Engineered CatGirl", value: 'gecg' },
+                    { name: "Goose", value: 'goose' },
+                    { name: "Kemonomimi", value: 'kemonomini' },
+                    { name: "Lizard", value: 'lizard' },
+                    { name: "OwOify", value: 'OwOify' },
+                    { name: "Spoiler", value: 'spoiler' },
+                    { name: "Waifus", value: 'waifu' },
+                    { name: "Wallpaper", value: 'wallpaper' },
+                    { name: "Why", value: 'why' },
+                    { name: "Woof", value: 'woof' },
+                )
                 .setRequired(true))
             .addStringOption(option => option.setName('text').setDescription(er))
             .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
@@ -58,7 +62,7 @@ module.exports = {
         for (let a = 0; a < amount; a++) {
             if (interaction.options.getString('sfw_w')) { c = interaction.options.getString('sfw_w')}
             if (interaction.options.getString('sfw_o')) { c = interaction.options.getString('sfw_o')}
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#00FF00')
                 .setTitle("OwO, " + c)
                 .setTimestamp()

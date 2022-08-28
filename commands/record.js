@@ -13,15 +13,16 @@ module.exports = {
         .addSubcommand(subcommand => subcommand.setName('start').setDescription('Record voice/talk'))
         .addSubcommand(subcommand => subcommand.setName('end').setDescription('Stop recording voice/talk')),
     async execute(interaction, client, config) {
+        return interaction.reply("Command broken / under refactoring");
         client.voiceManager = new Collection()
         const voiceChannel = interaction.member.voice.channel
         if(!voiceChannel) return interaction.reply("You must be in a voice channel to use this command!")
-        /* Check if the bot is in voice channel */
+        // Check if the bot is in voice channel 
         let connection = client.voiceManager.get(interaction.channel.guild.id)
         try {
-            /* If the bot is not in voice channel */
+            // If the bot is not in voice channel 
             if (interaction.options.getSubcommand() === 'start') {
-                /* Join voice channel*/
+                // Join voice channel
                 connection = joinVoiceChannel({
                     channelId: voiceChannel.id,
                     guildId: voiceChannel.guild.id,
@@ -29,30 +30,30 @@ module.exports = {
                     selfMute: true,
                     adapterCreator: voiceChannel.guild.voiceAdapterCreator,
                 });
-                /* Add voice state to collection */
+                // Add voice state to collection 
                 client.voiceManager.set(interaction.channel.guild.id, connection);
                 await entersState(connection, VoiceConnectionStatus.Ready, 20e3);
                 const receiver = connection.receiver;
-                /* When user speaks in vc*/
+                // When user speaks in vc
                 receiver.speaking.on('start', (userId) => {
                     if(userId !== interaction.user.id) return;
                     //create live stream to save audio
                     createListeningStream(receiver, userId, client.users.cache.get(userId));
                 });
-                /* Return success message */
+                // Return success message 
                 return interaction.reply(`🎙️ I am now recording ${voiceChannel.name}`);
-                /* If the bot is in voice channel */
+                // If the bot is in voice channel 
             }
             if (interaction.options.getSubcommand() === 'end') {
-                /* Send waiting message */
+                // Send waiting message 
                 interaction.reply("Please wait while I am preparing your recording...")
-                /* disconnect the bot from voice channel */
+                // disconnect the bot from voice channel 
                 const connect = getVoiceConnection(interaction.channel.guild.id);
                 connect.destroy();
-                /* Remove voice state from collection */
+                // Remove voice state from collection 
                 await client.voiceManager.delete(interaction.channel.guild.id)
                 const filename = `./recordings/${interaction.user.id}`;
-                /* Create ffmpeg command to convert pcm to mp3 */
+                // Create ffmpeg command to convert pcm to mp3 
                 const process = new ffmpeg(`${filename}.pcm`);
                 await process.then(function (audio) {
                     audio.fnExtractSoundToMP3(`${filename}.mp3`, async function (error, file) {
@@ -66,7 +67,7 @@ module.exports = {
                         fs.unlinkSync(`${filename}.mp3`)
                     });
                 }, function (err) {
-                    /* handle error by sending error message to discord */
+                    // handle error by sending error message to discord 
                     return interaction.followUp(`❌ An error occurred while processing your recording: ${err.message}`);
                 });
             }

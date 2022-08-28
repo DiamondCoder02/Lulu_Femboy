@@ -3,9 +3,10 @@
   "clientId": "clientID",
   "guildId": "guildID",
   "botOwnerId": "botOwnerID",
+  "botReadyStatus": false,
   "botStatusChannel": "897097242861789236",
-  "futureIdeas": "-reminder \n-bot voting \n-Website to edit config \n-Google(?) search \n-API and rss? \n-math solver",
-  "bugsToFix": "-testing",
+  "futureIdeas": "-reminder \n-bot voting \n-Website to edit config \n-Google(?) search \n-API and rss? \n-math solver \n-Get that fucking console color package so it looks better \n-Currency or xp system \n-Reverse image search",
+  "bugsToFix": "-recording fucked untill npm package update \n-",
   "stopPassword": "lolipop",
   "language": "english",
   "debug_level": 2
