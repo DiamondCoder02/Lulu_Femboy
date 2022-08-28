@@ -35,12 +35,12 @@ module.exports = {
 					.setTitle('Guild event updated has been detected')
 					.setDescription(`Name: \`${oldGuildScheduledEvent.name}\``)
 					.setTimestamp()
-				if(oldGuildScheduledEvent.name !== newGuildScheduledEvent.name) { embed.addFields( { name: 'Name update detected:', value: `\`${oldGuildScheduledEvent.name}\` → \`${newGuildScheduledEvent.name}\`` } ) }
-				if(oldGuildScheduledEvent.description !== newGuildScheduledEvent.description) { embed.addFields( { name: 'Description update detected:', value: `\`${oldGuildScheduledEvent.description}\` → \`${newGuildScheduledEvent.description}\`` } ) }
-				if(oldGuildScheduledEvent.entityType !== newGuildScheduledEvent.entityType) { embed.addFields( { name: 'Entity type update detected:', value: `\`${scType}\` → \`${newscType}\`` } ) }
-				if(oldGuildScheduledEvent.status !== newGuildScheduledEvent.status) { embed.addFields( { name: 'Status update detected:', value: `\`${staType}\` → \`${newstaType}\`` } ) }
-				if(oldGuildScheduledEvent.scheduledStartTimestamp !== newGuildScheduledEvent.scheduledStartTimestamp) { embed.addFields( { name: 'Scheduled start update detected:', value: `\`${new Date(oldGuildScheduledEvent.scheduledStartTimestamp).toLocaleString('hu-HU')}\` → \`${new Date(newGuildScheduledEvent.scheduledStartTimestamp).toLocaleString('hu-HU')}\`` } ) }
-				if(oldGuildScheduledEvent.scheduledEndTimestamp !== newGuildScheduledEvent.scheduledEndTimestamp) { embed.addFields( { name: 'Scheduled end update detected:', value: `\`${oldend}\` → \`${newend}\`` } ) }
+				if(oldGuildScheduledEvent.name !== newGuildScheduledEvent.name) { scheduleEmbed.addFields( { name: 'Name update detected:', value: `\`${oldGuildScheduledEvent.name}\` → \`${newGuildScheduledEvent.name}\`` } ) }
+				if(oldGuildScheduledEvent.description !== newGuildScheduledEvent.description) { scheduleEmbed.addFields( { name: 'Description update detected:', value: `\`${oldGuildScheduledEvent.description}\` → \`${newGuildScheduledEvent.description}\`` } ) }
+				if(oldGuildScheduledEvent.entityType !== newGuildScheduledEvent.entityType) { scheduleEmbed.addFields( { name: 'Entity type update detected:', value: `\`${scType}\` → \`${newscType}\`` } ) }
+				if(oldGuildScheduledEvent.status !== newGuildScheduledEvent.status) { scheduleEmbed.addFields( { name: 'Status update detected:', value: `\`${staType}\` → \`${newstaType}\`` } ) }
+				if(oldGuildScheduledEvent.scheduledStartTimestamp !== newGuildScheduledEvent.scheduledStartTimestamp) { scheduleEmbed.addFields( { name: 'Scheduled start update detected:', value: `\`${new Date(oldGuildScheduledEvent.scheduledStartTimestamp).toLocaleString('hu-HU')}\` → \`${new Date(newGuildScheduledEvent.scheduledStartTimestamp).toLocaleString('hu-HU')}\`` } ) }
+				if(oldGuildScheduledEvent.scheduledEndTimestamp !== newGuildScheduledEvent.scheduledEndTimestamp) { scheduleEmbed.addFields( { name: 'Scheduled end update detected:', value: `\`${oldend}\` → \`${newend}\`` } ) }
 				return channel.send({ embeds: [scheduleEmbed] })
 			}
 		} catch(error) { 
