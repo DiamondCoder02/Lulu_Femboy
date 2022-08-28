@@ -26,7 +26,6 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
-- [CTK-WARRIOR youtube - record](https://www.youtube.com/watch?v=h7CC-8kTsGI), code: [Gist.github](https://gist.github.com/CTK-WARRIOR/dcf9bdeee01ddf2a6f6cf0004ebd20ff)
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
