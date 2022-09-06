@@ -22,7 +22,7 @@
     "booru": "^2.6.2",
     "discord-phub": "^1.0.7",
     "discord-player": "^5.3.1",
-    "discord.js": "^14.2.0",
+    "discord.js": "^14.3.0",
     "discord.js-akinator": "^4.0.1",
     "dotenv": "^16.0.1",
     "enmap": "^5.9.0",
