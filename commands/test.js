@@ -55,8 +55,8 @@ module.exports = {
 		),
 	async execute(interaction, client, config) {
 		if (interaction.options.getSubcommand() === 'debug_event_test') {
-			console.log(interaction.guild)
-			console.log(interaction)
+			//console.log(interaction.guild)
+			//console.log(interaction)
 			//console.log(client)
 
 			const channel = client.channels.cache.get(interaction.channelId);
@@ -74,9 +74,8 @@ module.exports = {
 			//await client.emit('guildScheduledEventCreate', interaction.guild); await channel.send(`Event guildScheduledEventCreate has been emitted.`)
 			//await client.emit('guildScheduledEventDelete', interaction.guild); await channel.send(`Event guildScheduledEventDelete has been emitted.`)
 			//await client.emit('guildScheduledEventUpdate', interaction.guild); await channel.send(`Event guildScheduledEventUpdate has been emitted.`)
-			const t = await interaction.channel.createInvite({ maxAge: 60000, maxUses: 0 });
-			await client.emit('inviteCreate', t); await channel.send(`Event inviteCreate has been emitted.`)
-			await client.emit('inviteDelete', t); await channel.send(`Event inviteDelete has been emitted.`)
+			const t = await interaction.channel.createInvite({ maxAge: 60000, maxUses: 0 });await channel.send(`Event inviteCreate has been emitted.`)
+			await interaction.guild.invites.fetch().then(is => { is.each(i => {if (i.code == t.code){ i.delete() }}) });await channel.send(`Event inviteDelete has been emitted.`)
 			//await client.emit('messageCreate', interaction); await channel.send(`Event messageCreate has been emitted.`)
 			//await client.emit('messageDelete', interaction); await channel.send(`Event messageDelete has been emitted.`)
 			//await client.emit('messageUpdate', interaction); await channel.send(`Event messageUpdate has been emitted.`)

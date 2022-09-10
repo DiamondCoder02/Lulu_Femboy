@@ -4,14 +4,14 @@ require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client, guildInvites) {
+		//console.log(interaction)
 		try {
 			const i_c = lang.int_create.split('-'), i = interaction
 			if (i.type === InteractionType.ApplicationCommand) {
 				const command = client.commands.get(interaction.commandName);
 				if (!command) return;
-				//OnlyGuild
-				if (command.guildOnly && interaction.channel.type === 'DM') {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Execute in DMs, why?"); return interaction.reply(lang.index.no_dm)}
-				if ( interaction.member.id === b_o_Id || interaction.member.id === config.botOwnerId ) {} else {
+				if (command.guildOnly && interaction.guildId === null) {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Execute in DMs, why: " + i.commandName); return interaction.reply(lang.index.no_dm)}
+				if ( interaction.user.id === b_o_Id || interaction.user.id === config.botOwnerId ) {} else {
 					//Cooldown
 					if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection());}
 					const now = Date.now();
@@ -44,8 +44,8 @@ module.exports = {
 				}
 			}
 			if (config.debug_level >= 1) {
-				if (i.channel.type === 'DM') {
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] DM "+ i_c[0] + i.commandName);
+				if (i.guildId === null) {
+					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] DM? "+ i_c[0] + i.commandName);
 				}
 				if (i.type === InteractionType.ApplicationCommand) {
 					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" "+ i_c[0] + i.commandName);

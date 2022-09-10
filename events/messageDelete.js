@@ -49,13 +49,12 @@ module.exports = {
 			if(messageLogs) { 
 				if (client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))} else {channel = message.guild.systemChannel}
 				channel.send({
-					content: `[${new Date().toLocaleString('hu-HU')}] 
-Message deleted in <#${message.channelId}> (${message.author.toString()}) => 
+					content: `Message deleted in <#${message.channelId}> (${message.author.toString()}) => 
 "${message.content}"`
-+ "\nEmbed:" + (message.embeds.length?"✅":"❌") + " Attachment:" + (message.attachments.size?"✅":"❌") + " Components:" + (message.components.length?"✅":"❌") + " Stickers:" + (message.stickers.size?"✅":"❌")
-+ (deletionLog ?  (target.id === message.author.id ? `\ndeleted by ${executor.tag}.` : `\ndeleted, but we don't know by who, probably themselves.`) : `\ndeleted, but no relevant audit logs were found.`),
-					embeds: [embed]
++ (deletionLog ?  (target.id === message.author.id ? `\ndeleted by ${executor.tag}. ` : `\nWe don't know by who, probably themselves. `) : `\nNo relevant audit logs were found. `)
++ (message.embeds.length?"Embed detected✅ ":"") + (message.attachments.size?"Attachment detected✅ ":"") + (message.components.length?"Components detected✅ ":"") + (message.stickers.size?"Stickers detected✅":""),
 				});
+				embed.data.fields ? channel.send({ embeds: [embed] }) : null
 			}
 		} catch(error) { 
 			console.log("message Delete Error")

@@ -29,11 +29,11 @@ From: "${oldMessage.content}"
 To:   "${newMessage.content}"`});
                 } catch(error) { 
                     console.log(error) 
-                    console.log("message Update Error")
+                    console.log("message Update Error1")
                 }
             }
         } catch(error) {
-            console.log("message Update Error")
+            console.log("message Update Error2")
             console.log(error)
         }
 
