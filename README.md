@@ -29,3 +29,4 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
+- [Discord-dashboard](https://www.npmjs.com/package/discord-dashboard), [site]()https://learnit.assistantscenter.com/

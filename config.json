@@ -3,6 +3,7 @@
   "clientId": "clientID",
   "guildId": "guildID",
   "clientSecret": "clientSecret",
+  "dbd_license": "dbd_license",
   "botOwnerId": "botOwnerID",
   "botReadyStatus": false,
   "botStatusChannel": "897097242861789236",

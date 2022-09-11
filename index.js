@@ -94,25 +94,29 @@ for (const file of eventFiles) {
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log(lang.index.token)}
 
-
+/* --- PRE_DASHBOARD --- */
 const DarkDashboard = require('dbd-dark-dashboard');
-const DBD = require("discord-dashboard");
+const wait = require('node:timers/promises').setTimeout;
+
 let langsSettings = {};
 
 var cliId = process.env.cid;
 var cliSecret = process.env.ClientSecret;
-try{ if (config.clientId == "clientId") { cID = cliId } else cID = config.clientId }catch{ return console.log("clientID error")}
-try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("Token error")}
+var dbd_key = process.env.dbd;
+try{ if (config.clientId == "clientId") { clientID = String(cliId) } else clientID = String(config.clientId) }catch{ return console.log("clientID error")}
+try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("clientSecret error")}
+try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
 
 /* --- DASHBOARD --- */
 (async ()=>{
     let DBD = require('discord-dashboard');
-    await DBD.useLicense('Discord-Dashboard License');
+    await DBD.useLicense(dbd_lic);
     DBD.Dashboard = DBD.UpdatedClass();
+    await wait(1000)
     const Dashboard = new DBD.Dashboard({
         port: 80,
         client: {
-            id: cID,
+            id: client.user.id,
             secret: cSec
         },
         redirectUri: 'http://localhost/discord/callback',
