@@ -2,6 +2,7 @@
   "Token": "token",
   "clientId": "clientID",
   "guildId": "guildID",
+  "clientSecret": "clientSecret",
   "botOwnerId": "botOwnerID",
   "botReadyStatus": false,
   "botStatusChannel": "897097242861789236",

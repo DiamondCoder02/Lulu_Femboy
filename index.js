@@ -94,6 +94,58 @@ for (const file of eventFiles) {
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log(lang.index.token)}
 
+
+const DarkDashboard = require('dbd-dark-dashboard');
+const DBD = require("discord-dashboard");
+let langsSettings = {};
+
+var cliId = process.env.cid;
+var cliSecret = process.env.ClientSecret;
+try{ if (config.clientId == "clientId") { cID = cliId } else cID = config.clientId }catch{ return console.log("clientID error")}
+try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("Token error")}
+
+/* --- DASHBOARD --- */
+(async ()=>{
+    let DBD = require('discord-dashboard');
+    await DBD.useLicense('Discord-Dashboard License');
+    DBD.Dashboard = DBD.UpdatedClass();
+    const Dashboard = new DBD.Dashboard({
+        port: 80,
+        client: {
+            id: cID,
+            secret: cSec
+        },
+        redirectUri: 'http://localhost/discord/callback',
+        domain: 'http://localhost',
+        bot: client,
+        theme: DarkDashboard(DBD.default_configs.dbdDarkDashboard),
+        settings: [
+            {
+                categoryId: 'setup',
+                categoryName: "Setup",
+                categoryDescription: "Setup your bot with default settings!",
+                categoryOptionsList: [
+                    {
+                        optionId: 'lang',
+                        optionName: "Language",
+                        optionDescription: "Change bot's language easily",
+                        optionType: DBD.formTypes.select({"Polish": 'pl', "English": 'en', "French": 'fr'}),
+                        getActualSet: async ({guild}) => {
+                            return langsSettings[guild.id] || null;
+                        },
+                        setNew: async ({guild,newData}) => {
+                            langsSettings[guild.id] = newData;
+                            return;
+                        }
+                    },
+                ]
+            },
+        ]
+    });
+    Dashboard.init();
+})();
+
+
 //error handler
 console.log(client)
 client.on("error", (e) => console.error(e));
