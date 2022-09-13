@@ -60,6 +60,7 @@ client.settings = new Enmap({
     }
 });
 
+/*
 client.on('messageReactionAdd', async (reaction, user) => {
     if (user.bot) return;
 	if (reaction.partial) {
@@ -73,6 +74,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
         }
     } catch (error) { console.error("messageReactionAdd error", error); }
 });
+*/
 
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
