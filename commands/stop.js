@@ -18,6 +18,7 @@ module.exports = {
 			await interaction.reply({content: st[0], ephemeral: true})
 			await interaction.followUp({embeds: [embed]})
 			client.destroy()
+			process.exit()
 		} else {
 			const embed = new EmbedBuilder()
 				.setColor('#FFFF00 ')

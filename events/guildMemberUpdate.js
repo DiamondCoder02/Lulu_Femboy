@@ -4,11 +4,11 @@ module.exports = {
     name: 'guildMemberUpdate',
     execute(oldMember, newMember, client) {
         if (oldMember.user.bot) return;
-        /*
+        
         console.log(oldMember)
         console.log("NYAAAAAAAAAAAAAAAAAAAAA")
         console.log(newMember)
-        */
+        
         const memberUpdateLogs = client.settings.get(oldMember.guild.id, "memberUpdateLogs");
 		if(memberUpdateLogs) { 
             const embed = new EmbedBuilder()

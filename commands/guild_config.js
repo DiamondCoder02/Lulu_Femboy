@@ -6,7 +6,7 @@ module.exports = {
     permissions: PermissionsBitField.Flags.Administrator,
 	data: new SlashCommandBuilder()
         .setName('guild_config')
-        .setDescription('Configure the bot for your server. Only give one at a time. (No option gives current config)')
+        .setDescription('Configure the bot for your server. Only give one at a time')
         .addSubcommand(subcommand => subcommand.setName('text').setDescription('Configure text settings and also display current settings.')
             .addStringOption(option => option.setName('welcome_message').setDescription('What the welcome message should be.'))
             .addChannelOption(option => option.setName('moderation_channel').setDescription('Change mod channel.'))
@@ -107,7 +107,6 @@ module.exports = {
                     await button.update({components: interaction.components})
                     setting(interaction, client);
                 });
-                //collector.on('end' , collected => console.log(`Collected ${collected.size} items`) )
             }
             if (interaction.options.getSubcommand() === 'emit_event') {
                 const event = interaction.options.getString('event'); 

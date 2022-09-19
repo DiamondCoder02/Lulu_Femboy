@@ -60,27 +60,13 @@ client.settings = new Enmap({
     }
 });
 
-/*
-client.on('messageReactionAdd', async (reaction, user) => {
-    if (user.bot) return;
-	if (reaction.partial) {
-		try { await reaction.fetch(); } 
-        catch (error) { return console.error('Something went wrong when fetching the message:', error); }
-	}
-    try {
-        const u = await reaction.users.fetch(), us = u.map(u => u.id)
-        if (reaction.emoji.name === "red_cross" && reaction.emoji.id === "1008725354296389723" && reaction.count === 2 && reaction.message.author.id === client.user.id && us.includes(client.user.id)) {
-            reaction.message.delete()
-        }
-    } catch (error) { console.error("messageReactionAdd error", error); }
-});
-*/
-
+let commandFuck = []
 //command file reader
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const command_files = require(`./commands/${file}`);
 	client.commands.set(command_files.data.name, command_files);
+    commandFuck.push(command_files.data)
 }
 
 //event handler
@@ -89,68 +75,12 @@ const guildInvites = new Map()
 const vanityInvites = new Map()
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))} 
-    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
+	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites, commandFuck))} 
+    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites, commandFuck))}
 }
 
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log(lang.index.token)}
-
-/* --- PRE_DASHBOARD --- */
-const DarkDashboard = require('dbd-dark-dashboard');
-const wait = require('node:timers/promises').setTimeout;
-
-let langsSettings = {};
-
-var cliId = process.env.cid;
-var cliSecret = process.env.ClientSecret;
-var dbd_key = process.env.dbd;
-try{ if (config.clientId == "clientId") { clientID = String(cliId) } else clientID = String(config.clientId) }catch{ return console.log("clientID error")}
-try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("clientSecret error")}
-try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
-
-/* --- DASHBOARD --- */
-(async ()=>{
-    let DBD = require('discord-dashboard');
-    await DBD.useLicense(dbd_lic);
-    DBD.Dashboard = DBD.UpdatedClass();
-    await wait(1000)
-    const Dashboard = new DBD.Dashboard({
-        port: 80,
-        client: {
-            id: client.user.id,
-            secret: cSec
-        },
-        redirectUri: 'http://localhost/discord/callback',
-        domain: 'http://localhost',
-        bot: client,
-        theme: DarkDashboard(DBD.default_configs.dbdDarkDashboard),
-        settings: [
-            {
-                categoryId: 'setup',
-                categoryName: "Setup",
-                categoryDescription: "Setup your bot with default settings!",
-                categoryOptionsList: [
-                    {
-                        optionId: 'lang',
-                        optionName: "Language",
-                        optionDescription: "Change bot's language easily",
-                        optionType: DBD.formTypes.select({"Polish": 'pl', "English": 'en', "French": 'fr'}),
-                        getActualSet: async ({guild}) => {
-                            return langsSettings[guild.id] || null;
-                        },
-                        setNew: async ({guild,newData}) => {
-                            langsSettings[guild.id] = newData;
-                            return;
-                        }
-                    },
-                ]
-            },
-        ]
-    });
-    Dashboard.init();
-})();
-
 
 //error handler
 console.log(client)

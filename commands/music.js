@@ -17,7 +17,7 @@ module.exports = {
     cooldown: 3,
 	data: new SlashCommandBuilder()
         .setName('music')
-        .setDescription(sl[0]+'(YT/Spotify/SoundCloud | test: vimeo/reverbnation/FB/attachment link/lyrics)')
+        .setDescription(sl[0]+'(YT/Spotify/SoundCloud | test: vimeo/FB/attachment links)')
         .addStringOption(option => option.setName('play').setDescription(sl[1]))
         .addStringOption(option => option.setName('control').setDescription(sl[2])
             .addChoices(

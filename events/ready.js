@@ -6,7 +6,8 @@ module.exports = {
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
         console.log(eventFiles); console.log(languageFiles)
-        client.user.setActivity(lang.ready.set_activity)
+        client.user.setActivity("Web dashboard testing...")
+        //client.user.setActivity("[]~(￣▽￣)~* Learning new commands")
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n --` + con[0] + client.user.tag
             + `\n\t --` + con[1] + config.language

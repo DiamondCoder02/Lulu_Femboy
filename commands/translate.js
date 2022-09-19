@@ -5,7 +5,7 @@ module.exports = {
     cooldown: 10,
 	data: new SlashCommandBuilder()
 		.setName('translate')
-		.setDescription(lang.translate.setDesc)
+		.setDescription("Translate messages")
         .addStringOption(option => option.setName('text').setDescription(o[0]).setRequired(true))
 		.addStringOption(option => option.setName('from').setDescription(o[1]))
         .addStringOption(option => option.setName('to').setDescription(o[2]))

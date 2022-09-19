@@ -3,6 +3,7 @@ const {language} = require('../config.json'), lang = require('../languages/' + l
 module.exports = {
 	name: 'guildMemberAdd',
 	async execute(member, client, guildInvites, vanityInvites) {
+        console.log(member)
         const cachedInvites = guildInvites.get(member.guild.id)
         const newInvites = await member.guild.invites.fetch();
 		if( client.settings.get(member.guild.id, "invitesLogs") ) { 

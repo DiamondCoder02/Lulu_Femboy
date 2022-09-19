@@ -6,7 +6,7 @@ module.exports = {
     cooldown: 5,
 	data: new SlashCommandBuilder()
 		.setName('nekoslife')
-		.setDescription(sd[0])
+		.setDescription("Get wholesome Nekoslife images")
         .addSubcommand(subcommand => subcommand
             .setName('wholesome')
             .setDescription(sd[1])
