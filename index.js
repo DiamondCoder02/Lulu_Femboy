@@ -1,6 +1,6 @@
 console.clear();
 //basic loaders
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention } = require('discord.js'), config = require('./config.json'), lang = require('./languages/' + config.language + '.json');
+const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention } = require('discord.js'), config = require('./config.json');
 const client = new Client({ 
     ws: {
         properties: {$browser: 'Discord iOS'}
@@ -80,7 +80,7 @@ for (const file of eventFiles) {
 }
 
 //Bot token
-try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log(lang.index.token)}
+try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log("Please provide a bot token.")}
 
 //error handler
 console.log(client)

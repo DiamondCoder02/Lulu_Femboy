@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     cooldown: 60,
     guildOnly: true,

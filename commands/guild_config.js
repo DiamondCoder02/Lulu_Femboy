@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     guildOnly: true,
     permissions: PermissionsBitField.Flags.Administrator,

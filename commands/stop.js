@@ -1,30 +1,29 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.stopSlash.split('-'), st = lang.stop.split('-')
 module.exports = {
 	permissions: PermissionsBitField.Flags.Administrator,
 	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName('stop')
-		.setDescription(s[0])
-		.addStringOption(option => option.setName('password').setDescription(s[1]).setRequired(true)),
+		.setDescription("Stops the bot with a password.")
+		.addStringOption(option => option.setName('password').setDescription("Enter a password to stop the bot").setRequired(true)),
 	async execute(interaction, client, config) {
 		if (config.stopPassword === interaction.options.getString('password').trim()){
-			console.log(`-------------------------\n` + `[${new Date().toLocaleString('hu-HU')}] ` + st[0] + `\n` + st[1] +`: ` + interaction.user.tag 
-				+ st[3] + interaction.guild.name+", #"+interaction.channel.name + st[4] + interaction.createdAt + `\n-------------------------`)
+			console.log(`-------------------------\n` + `[${new Date().toLocaleString('hu-HU')}] The bot has stopped! \nBot has been stopped by: ` + interaction.user.tag 
+				+ "\nGuild: " + interaction.guild.name+", #"+interaction.channel.name + "\nTime:" + interaction.createdAt + `\n-------------------------`)
 			const embed = new EmbedBuilder()
 				.setColor('#ff0000')
-				.setTitle(st[0])
-				.setDescription(st[1] + interaction.user.tag)
-			await interaction.reply({content: st[0], ephemeral: true})
+				.setTitle("The bot has stopped!")
+				.setDescription("Bot has been stopped by " + interaction.user.tag)
+			await interaction.reply({content: "The bot has stopped!", ephemeral: true})
 			await interaction.followUp({embeds: [embed]})
 			client.destroy()
 			process.exit()
 		} else {
 			const embed = new EmbedBuilder()
 				.setColor('#FFFF00 ')
-				.setTitle(st[5])
-				.setDescription(st[2] + interaction.user.tag)
-				await interaction.reply({content: st[2], ephemeral: true})
+				.setTitle("Wrong password!")
+				.setDescription("You gave a wrong password" + interaction.user.tag)
+				await interaction.reply({content: "You gave a wrong password", ephemeral: true})
 				await interaction.followUp({embeds: [embed]})
 		}
 	}

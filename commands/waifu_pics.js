@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ChannelType } = require('discord.js');
 const fetch = require('node-fetch')
 const wait = require('node:timers/promises').setTimeout;
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     cooldown: 5,
 	data: new SlashCommandBuilder()
@@ -34,7 +33,7 @@ module.exports = {
                 )
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription("Ping your friend if you want."))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         )
         .addSubcommand(subcommand => subcommand.setName('sfw2').setDescription('SFW pictures')
             .addStringOption(option => option.setName('category').setDescription('SFW a category')
@@ -53,7 +52,7 @@ module.exports = {
                 )
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription("Ping your friend if you want."))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         )
         .addSubcommand(subcommand => subcommand.setName('nsfw').setDescription('NSFW pictures')
             .addStringOption(option => option.setName('category').setDescription('NSFW category')
@@ -64,14 +63,14 @@ module.exports = {
                     { name: 'blowjob', value: 'blowjob' }
                 )
                 .setRequired(true))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         ),
     async execute(interaction, client, config) {
         try {
             interaction.options.getSubcommand() === 'sfw2' ? type = 'sfw' : type = interaction.options.getSubcommand();
             const category = interaction.options.getString('category');
             if (type=="sfw") { }
-            else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
+            else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply("Sorry, this is a Not Safe For Work command!")} } else {return interaction.reply("Not Safe For Work commands are disabled!")}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             for (let a = 0; a < amount; a++ ) {
                 let response = await fetch(`https://api.waifu.pics/${type}/${category}`);

@@ -26,7 +26,7 @@ module.exports = {
                 )
                 .setRequired(true))
             .addUserOption(option => option.setName('target').setDescription('Select a user'))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('nsfw')
             .setDescription("Get a random NSFW image")
@@ -38,13 +38,13 @@ module.exports = {
                     { name: "lesbian", value: "lesbian" },
                 )
                 .setRequired(true))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         ),
 	async execute(interaction, client) {
         try {
             const category = interaction.options.getString('category');
             if (interaction.options.getSubcommand() == "sfw") { }
-            else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply(lang.nsfw)} } else {return interaction.reply(lang.nsfwdisable)}  }
+            else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply("Sorry, this is a Not Safe For Work command!")} } else {return interaction.reply("Not Safe For Work commands are disabled!")}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             for (let a = 0; a < amount; a++ ) {
                 if (category === 'hug') {img = await images.sfw.hug()}

@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-
 module.exports = {
     name: 'guildMemberUpdate',
     execute(oldMember, newMember, client) {

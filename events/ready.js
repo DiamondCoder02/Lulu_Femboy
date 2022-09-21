@@ -1,5 +1,4 @@
 const config = require('../config.json'), { EmbedBuilder } = require('discord.js'), fs = require('fs')
-const lang = require('../languages/' + config.language + '.json'), con = lang.ready.console_log.split('-'), emb = lang.ready.embed.split('-')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'));
 module.exports = {
 	name: 'ready',
@@ -9,12 +8,11 @@ module.exports = {
         client.user.setActivity("Web dashboard testing...")
         //client.user.setActivity("[]~(￣▽￣)~* Learning new commands")
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
-		console.log(`\n --` + con[0] + client.user.tag
-            + `\n\t --` + con[1] + config.language
-            + `\n\t --` + con[2] + config.clientId
-            + `\n\t --` + con[3] + config.stopPassword
-            + `\n\t --` + con[4] + client.readyAt
-            + `\n\t --` + con[5]+" "+ Guilds)
+		console.log(`\n -- Logged in as: ` + client.user.tag
+            + `\n\t -- Client_ID: ` + client.user.id
+            + `\n\t -- Password: ` + config.stopPassword
+            + `\n\t -- Ready at: ` + client.readyAt
+            + `\n\t -- Guilds joined: ` + Guilds)
         client.guilds.cache.forEach(guild => {
             guild.invites.fetch().then(invites => {
                 const codeUses = new Map();
@@ -34,8 +32,8 @@ module.exports = {
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle(emb[0])
-                .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
+                .setTitle("Bot has started!")
+                .setDescription(`Bot has been started: \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \nThat was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
             try { 
                 const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
                 channel.bulkDelete(1, true).catch(error => {console.error(error)})
@@ -46,7 +44,7 @@ module.exports = {
                     channel.bulkDelete(1, true).catch(error => {console.error(error)})
                     return channel.send({embeds: [embed]})
                 } catch {
-                    return console.log(lang.ready.no_status)
+                    return console.log("No status channel given. Continuing...")
                 }
             }
         }

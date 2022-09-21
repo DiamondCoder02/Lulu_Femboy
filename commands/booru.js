@@ -1,13 +1,12 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), s = lang.booru.slash.split('-') , e = lang.booru.embed.split('-')
 module.exports = {
 	cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('booru')
-        .setDescription(s[0])
-        .addStringOption(option => option.setName('sites').setDescription(s[1])
+        .setDescription("Search imageboards for a picture")
+        .addStringOption(option => option.setName('sites').setDescription("Sites to search")
             .addChoices(
                 { name: "e621.net 18+", value: 'e621' },
                 { name: "e926.net <18", value: 'e926' },
@@ -28,13 +27,13 @@ module.exports = {
             )
             .setRequired(true)
         )
-        .addStringOption(option => option.setName('tags').setDescription(s[2]))
-        .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10)),
+        .addStringOption(option => option.setName('tags').setDescription("Tags to search for (separate multiple with space)"))
+        .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
     async execute(interaction, client) {
         const sites = interaction.options.getString('sites').trim()
         if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib" || sites=="hypnohub" || sites=="danbooru"|| sites=="paheal") { }
-        else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply({content: lang.nsfw})} } else {return interaction.reply({content: lang.nsfwdisable})}  }
-        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply({content: lang.booru.tag}) }
+        else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply({content: "Sorry, this is a Not Safe For Work command!"})} } else {return interaction.reply({content: "Not Safe For Work commands are disabled!"})}  }
+        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply({content: "Please give me a tag to find a random picture."}) }
         else if(!interaction.options.getString('tags')) {tags = ""}
         else { tags = interaction.options.getString('tags').trim().split(' ')}
         if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply({content: "Please don't use tags with this site"}) }
@@ -42,19 +41,19 @@ module.exports = {
         for (let a = 0; a < amount; a++) {
             await booruSearch(sites, tags, 1, true).catch(err => { 
                 if (err instanceof BooruError) { a=amount; console.error("-"+err) } 
-                else { console.error(err); a=amount ; return interaction.reply({content: lang.booru.error})}
+                else { console.error(err); a=amount ; return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."})}
             })
             await wait(2000);
         }
         async function booruSearch(sites, tags, limit = 1, random = true) {
             const posts = await Booru.search(sites, tags, {limit, random})
-            if (Number(posts.length) === 0) { return interaction.reply({content: lang.booru.error}) }
+            if (Number(posts.length) === 0) { return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."}) }
             //console.log(posts +"\n"+ posts.length)
             //Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
-            if (posts.first.rating == 's') { r = e[0]}
-                else if (posts.first.rating == 'q') { r = e[1]}
-                else if (posts.first.rating == 'e') { r = e[2]}
-                else if (posts.first.rating == 'u') { r = e[3]} 
+            if (posts.first.rating == 's') { r = "Safe"}
+                else if (posts.first.rating == 'q') { r = "Questionable"}
+                else if (posts.first.rating == 'e') { r = "Explicit"}
+                else if (posts.first.rating == 'u') { r = "Unrated"} 
                 else { r = "-"}
             if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText && (posts.first.rating == 'e' || posts.first.rating == 'q')) {
                 return interaction.reply({content: "Sorry this is an explixit or questionable picture that got somehow sent here. This is wholesome only chat :3"})
@@ -64,8 +63,8 @@ module.exports = {
                 .setColor('#A020F0')
                 .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
                 .addFields(
-                    { name: "⚖️"+e[4], value: r, inline: true },
-                    { name: "🔍"+e[5], value: "*"+tags+"*", inline: true }
+                    { name: "⚖️ Rating:", value: r, inline: true },
+                    { name: "🔍 Searched for:", value: "*"+tags+"*", inline: true }
                 )
                 .setTimestamp()
             if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}

@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
 	name: 'emojiDelete',
 	execute(emoji) {

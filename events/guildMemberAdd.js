@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), gmc = lang.guild_mem_create.split('-')
 module.exports = {
 	name: 'guildMemberAdd',
 	async execute(member, client, guildInvites, vanityInvites) {
@@ -49,13 +48,13 @@ module.exports = {
         }
         if( client.settings.get(member.guild.id, "welcome") ) {
             const channel = member.guild.systemChannel
-            if (channel === null) { console.log(`[${new Date().toLocaleString('hu-HU')}] ` + gmc[0] + member.guild.name) }
+            if (channel === null) { console.log(`[${new Date().toLocaleString('hu-HU')}] No system channel found for ` + member.guild.name) }
             else {
                 let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
                 const embed = new EmbedBuilder()
                     .setColor('#FFFF00 ')
                     .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
-                    .setDescription("**"+welcomeMessage+"**" + "\n" + gmc[1] +'\n "/"'+ gmc[2] +'\n'+ gmc[3])
+                    .setDescription("**"+welcomeMessage+"**" + "\nThe bot works with only slash commands.\n(nsfw only in nsfw channels)")
                     .setFooter({ text: `Member count: ${member.guild.memberCount-1} => ${member.guild.memberCount}` })
                     .setTimestamp()
                 channel.send({content: member.user.toString(),embeds: [embed]})
