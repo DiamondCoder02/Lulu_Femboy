@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ChannelType } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 const wait = require('node:timers/promises').setTimeout;
 const API = require('anime-images-api')
 const images = new API() 

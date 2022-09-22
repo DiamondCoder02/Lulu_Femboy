@@ -45,6 +45,7 @@ module.exports = {
         */
         try {
             let sign = await fetch(`https://ohmanda.com/api/horoscope/${type}/`).then(res => res.text()).then(data => JSON.parse(data));
+            console.log(sign)
             const embed = new EmbedBuilder()
                 .setTitle('Horoscope: ' + sign.sign)
                 .setDescription(sign.horoscope)

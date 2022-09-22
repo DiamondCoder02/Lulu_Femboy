@@ -1,4 +1,5 @@
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention, ChannelType } = require('discord.js'), config = require('../config.json')
+const { Client, Collection, GatewayIntentBits, Partials, ChannelType } = require('discord.js'), config = require('../config.json')
+const wait = require('node:timers/promises').setTimeout;
 /* --- PRE_DASHBOARD --- */
 const DarkDashboard = require('dbd-dark-dashboard');
 let DBD = require('discord-dashboard');
@@ -10,13 +11,11 @@ try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec =
 try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
 
 module.exports = {
-	name: 'ready',
     /**
      * @param {Client} client 
      */
-    async execute(arg, client, guildInvites, vanityInvites, commandFuck) {
+    async execute(client, commandFuck) {
         let commandList = []
-
         CommandPushDashboard(commandFuck, commandList)
         await DBD.useLicense(dbd_lic);
         DBD.Dashboard = DBD.UpdatedClass();
@@ -314,7 +313,7 @@ module.exports = {
 }
 
 function CommandPushDashboard(filterredArray, CategoryArray) {
-    filterredArray.forEach(obj => {
+    Array.from(filterredArray).forEach(obj => {
         let cmdObject = {
             commandName: obj.name,
             commandUsage: "/"+obj.name,

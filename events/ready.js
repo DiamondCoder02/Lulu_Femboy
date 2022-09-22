@@ -1,10 +1,10 @@
 const config = require('../config.json'), { EmbedBuilder } = require('discord.js'), fs = require('fs')
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'));
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 module.exports = {
 	name: 'ready',
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
-        console.log(eventFiles); console.log(languageFiles)
+        console.log(eventFiles)
         client.user.setActivity("Web dashboard testing...")
         //client.user.setActivity("[]~(￣▽￣)~* Learning new commands")
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');

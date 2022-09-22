@@ -75,9 +75,12 @@ const guildInvites = new Map()
 const vanityInvites = new Map()
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites, commandFuck))} 
-    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites, commandFuck))}
+	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))} 
+    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
 }
+
+const dashboardInit = require(`./dashboard/dashInit.js`)
+client.on(`ready`, (...args) => dashboardInit.execute(...args, client, commandFuck))
 
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log("Please provide a bot token.")}

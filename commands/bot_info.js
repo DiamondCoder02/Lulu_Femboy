@@ -7,7 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
 		.setName('bot_info')
 		.setDescription("Bot information."),
-	async execute(interaction, client, config) {
+	async execute(interaction, client) {
         const packDependence = Object.entries(package.dependencies)
         const npmPackages = packDependence.join(', \n')
 const GaInBi = `MessageContent,
@@ -46,8 +46,8 @@ User,
             .setDescription(`Source code / Creator: https://github.com/DiamondPRO02/Femboi_OwO \nhttps://imgur.com/a/dStRp6Y`)
             .setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
             .addFields(
-                { name: "Idea list:", value: config.futureIdeas, inline:true},
-                { name: "To fix/bugs:", value: config.bugsToFix, inline:true},
+                { name: "Roadmap of development", value: "https://github.com/users/DiamondPRO02/projects/2/views/1", inline:true},
+                { name: "To fix/bugs:", value: "https://github.com/DiamondPRO02/Femboi_OwO/issues", inline:true},
                 { name: "Command prefix:", value: "/[command_name]"},
                 { name: "Event listeners:", value: ","+String(eventArray), inline:true},
                 { name: "Commands:", value: ","+String(comArray), inline:true},
