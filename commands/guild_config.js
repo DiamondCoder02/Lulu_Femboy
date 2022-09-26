@@ -113,20 +113,20 @@ module.exports = {
                 let members = interaction.guild.members.cache.filter(member => !member.user.bot);
                 if(interaction.options.getBoolean('remove')) {
                     await interaction.reply(`Removing role ${role} from all members...`);
-                    await members.forEach((member,i) => {
+                    members.forEach((member) => {
                         setTimeout(() => {
                             member.roles.remove(role);
-                        }, i*1000);
+                        }, 1000);
                     });
-                    return interaction.editReply(`Removed role ${role}.`);
+                    //return interaction.editReply(`Removed role ${role}.`);
                 } else {
                     await interaction.reply(`Adding role ${role} to all members...`);
-                    await members.forEach((member,i) => {
+                    members.forEach((member) => {
                         setTimeout(() => {
                             member.roles.add(role);
-                        }, i*1000);
+                        }, 1000);
                     });
-                    return interaction.editReply(`Added role ${role}.`);
+                    //return interaction.editReply(`Added role ${role}.`);
                 }
             }
         }catch(error) {
