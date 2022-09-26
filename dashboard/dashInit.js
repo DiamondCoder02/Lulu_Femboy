@@ -1,5 +1,4 @@
 const { Client, Collection, GatewayIntentBits, Partials, ChannelType } = require('discord.js'), config = require('../config.json')
-const wait = require('node:timers/promises').setTimeout;
 /* --- PRE_DASHBOARD --- */
 const DarkDashboard = require('dbd-dark-dashboard');
 let DBD = require('discord-dashboard');
@@ -14,7 +13,7 @@ module.exports = {
     /**
      * @param {Client} client 
      */
-    async execute(client, commandFuck) {
+    async execute(arg, client, commandFuck) {
         let commandList = []
         CommandPushDashboard(commandFuck, commandList)
         await DBD.useLicense(dbd_lic);

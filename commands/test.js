@@ -51,6 +51,9 @@ module.exports = {
 		.addSubcommand(subcommand => subcommand
 			.setName('debug_event_test')
 			.setDescription('Will test most events that is available in events folder.')
+		).addSubcommand(subcommand => subcommand.setName('emit_event').setDescription('For testing purposes.')
+			.addStringOption(option => option.setName('event').setDescription('Event to emit.').setRequired(true))
+			.addStringOption(option => option.setName('data').setDescription('If more data needed'))
 		),
 	async execute(interaction, client, config) {
 		if (interaction.options.getSubcommand() === 'debug_event_test') {
@@ -83,6 +86,27 @@ module.exports = {
 			await client.emit('stickerDelete', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerDelete has been emitted.`)
 
 			return await interaction.followUp('**Debugging events... Done!**');
+		}
+		if (interaction.options.getSubcommand() === 'emit_event') {
+			const event = interaction.options.getString('event'); 
+			//console.log(interaction);               
+			try {
+				switch (event) {
+					//case "emojiCreate": { client.emit('emojiCreate', interaction.member.guild.emoji); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					//case "emojiDelete": { client.emit('emojiDelete', interaction.member.guild.emoji); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildBanAdd": { client.emit('guildBanAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildBanRemove": { client.emit('guildBanRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildCreate": { client.emit('guildCreate', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildDelete": { client.emit('guildDelete', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildMemberAdd": { client.emit('guildMemberAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildMemberRemove": { client.emit('guildMemberRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "guildMemberUpdate": { client.emit('guildMemberUpdate', interaction.member, interaction.guild.members.cache.first()); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+				}
+				return
+			} catch (err) {
+				console.log(err);
+				return interaction.reply(`This is only for development, do not use!!! \nEvent \`${event}\` has failed to emit. \nHere are the events: https://discord.js.org/#/docs/discord.js/stable/class/Client`);
+			}
 		}
 		if (interaction.options.getSubcommand() === 'test2') {
 			console.log('true');

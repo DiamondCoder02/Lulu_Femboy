@@ -2,7 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
 	name: 'guildMemberAdd',
 	async execute(member, client, guildInvites, vanityInvites) {
-        console.log(member)
+        //console.log(member)
         const cachedInvites = guildInvites.get(member.guild.id)
         const newInvites = await member.guild.invites.fetch();
 		if( client.settings.get(member.guild.id, "invitesLogs") ) { 
@@ -39,11 +39,13 @@ module.exports = {
         newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));
         guildInvites.set(member.guild.id, cachedInvites);
         console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} has joined the guild: ${member.guild.name}`)
-        if( client.settings.get(member.guild.id, "welcomeRoles") ) {
-            let ro = client.settings.get(member.guild.id, "welcomeRoles");
-            for (let i = 0; i < ro.length; i++) {
-                let role = member.guild.roles.cache.find(r => r.name == ro[i])
-                member.roles.add(role)
+        if(member.pending === false){    
+            if( client.settings.get(member.guild.id, "welcomeRoles") ) {
+                let ro = client.settings.get(member.guild.id, "welcomeRoles");
+                for (let i = 0; i < ro.length; i++) {
+                    let role = member.guild.roles.cache.find(r => r.name == ro[i])
+                    member.roles.add(role)
+                }
             }
         }
         if( client.settings.get(member.guild.id, "welcome") ) {

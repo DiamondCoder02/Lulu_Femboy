@@ -15,10 +15,11 @@ module.exports = {
             .addRoleOption(option => option.setName('remove_role').setDescription('What optional role can people remove.'))
         )
         .addSubcommand(subcommand => subcommand.setName('button').setDescription('Configure button settings.'))
-        .addSubcommand(subcommand => subcommand.setName('emit_event').setDescription('For testing purposes.')
-            .addStringOption(option => option.setName('event').setDescription('Event to emit.').setRequired(true))
-            .addStringOption(option => option.setName('data').setDescription('If more data needed'))
-        ),
+        .addSubcommand(subcommand => subcommand.setName('role_all_member').setDescription('When you just need to give or remove.')
+            .addRoleOption(option => option.setName('role').setDescription('What role to give or remove.').setRequired(true))
+            .addBooleanOption(option => option.setName('remove').setDescription('Should it rather remove the role?'))
+        )
+        ,
     async execute(interaction, client, config) {
         try {
             if (interaction.options.getSubcommand() === 'text') {
@@ -107,24 +108,25 @@ module.exports = {
                     setting(interaction, client);
                 });
             }
-            if (interaction.options.getSubcommand() === 'emit_event') {
-                const event = interaction.options.getString('event'); 
-                //console.log(interaction);               
-                try {
-                    switch (event) {
-                        //case "emojiCreate": { client.emit('emojiCreate', interaction.member.guild.emoji); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        //case "emojiDelete": { client.emit('emojiDelete', interaction.member.guild.emoji); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildBanAdd": { client.emit('guildBanAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildBanRemove": { client.emit('guildBanRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildCreate": { client.emit('guildCreate', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildDelete": { client.emit('guildDelete', interaction.guild); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildMemberAdd": { client.emit('guildMemberAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildMemberRemove": { client.emit('guildMemberRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                        case "guildMemberUpdate": { client.emit('guildMemberUpdate', interaction.member, interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
-                    }
-                } catch (err) {
-                    console.log(err);
-                    return interaction.reply(`This is only for development, do not use!!! \nEvent \`${event}\` has failed to emit. \nHere are the events: https://discord.js.org/#/docs/discord.js/stable/class/Client`);
+            if(interaction.options.getSubcommand() === 'role_all_member') {
+                let role = interaction.options.getRole('role');
+                let members = interaction.guild.members.cache.filter(member => !member.user.bot);
+                if(interaction.options.getBoolean('remove')) {
+                    await interaction.reply(`Removing role ${role} from all members...`);
+                    await members.forEach((member,i) => {
+                        setTimeout(() => {
+                            member.roles.remove(role);
+                        }, i*1000);
+                    });
+                    return interaction.editReply(`Removed role ${role}.`);
+                } else {
+                    await interaction.reply(`Adding role ${role} to all members...`);
+                    await members.forEach((member,i) => {
+                        setTimeout(() => {
+                            member.roles.add(role);
+                        }, i*1000);
+                    });
+                    return interaction.editReply(`Added role ${role}.`);
                 }
             }
         }catch(error) {
