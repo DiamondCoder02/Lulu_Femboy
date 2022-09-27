@@ -80,6 +80,7 @@ module.exports = {
 			await interaction.guild.invites.fetch().then(is => { is.each(i => {if (i.code == t.code){ i.delete() }}) });await channel.send(`Event inviteDelete has been emitted.`)
 			//await client.emit('messageCreate', interaction); await channel.send(`Event messageCreate has been emitted.`)
 			//await client.emit('messageDelete', interaction); await channel.send(`Event messageDelete has been emitted.`)
+			//await client.emit('messageReactionAdd', interaction); await channel.send(`Event messageReactionAdd has been emitted.`)
 			//await client.emit('messageUpdate', interaction); await channel.send(`Event messageUpdate has been emitted.`)
 			//NO, just don't:  await client.emit('ready', client); await channel.send(`Event ready has been emitted.`)
 			await client.emit('stickerCreate', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerCreate has been emitted.`)

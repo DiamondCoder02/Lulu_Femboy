@@ -31,7 +31,7 @@ module.exports = {
                 .setColor('#FFFF00')
                 .setTitle("Profile / User Informations")
                 .setImage(user.displayAvatarURL())
-                .setDescription("Here are some user information, requested by: " + interaction.user.tag+"\n\n**Current Server Roles:**\n"+String(roleOfMember))
+                .setDescription("Here are some user information, requested by: " + interaction.user.tag+`\n\n**Current Server Roles (${String(userMember.roles.cache.map(role => role.id).length)}) :**\n`+String(roleOfMember))
                 .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
                 .setTimestamp()
                 .setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
@@ -52,11 +52,6 @@ module.exports = {
                 )
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'text') {
-            /*
-            console.log(ChannelType)
-            console.log(interaction.channel)
-            console.log(interaction.channel.type)
-            */
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Info about the text channel:")
@@ -91,7 +86,7 @@ module.exports = {
                 .setTimestamp()
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'server') {
-            const serverRoles = interaction.guild.roles.cache.map(role => role.name).join(', @');
+            const serverRoles = interaction.guild.roles.cache.map((role) => role.toString()).join(', ');
             const botUser = client.user
             const owner = await interaction.guild.fetchOwner(); 
             const afktime = String(interaction.guild.afkTimeout / 60)
@@ -101,7 +96,7 @@ module.exports = {
                 .setColor('#FFFF00')
                 .setTitle("Server Informations")
                 .setImage(interaction.guild.iconURL())
-                .setDescription( "Roles:\n" + String(serverRoles) )
+                .setDescription( String(interaction.guild.roles.cache.map(role => role.id).length) + " roles:\n" + String(serverRoles) )
                 .setTimestamp()
                 .setFooter({ text: "Server info, requested by: " + interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })
                 .addFields( 
