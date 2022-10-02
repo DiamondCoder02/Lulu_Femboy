@@ -51,7 +51,7 @@ module.exports = {
 					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" triggered: " + i.commandName);
 				}
 				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
-					if (i.message.interaction === null) { nameOfCommand = "-akinator?-" } else { nameOfCommand = i.message.interaction.commandName }
+					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
 					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
 				} 
 				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {

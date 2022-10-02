@@ -3,7 +3,6 @@ const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch')
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
-    cooldown: 5,
 	data: new SlashCommandBuilder()
         .setName('catboys')
         .setDescription('Pictures from catboy api')

@@ -2,7 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, 
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
 module.exports = {
-	cooldown: 5,
+	cooldown: 15,
+    hasNSFW: true,
     data: new SlashCommandBuilder()
         .setName('booru')
         .setDescription("Search imageboards for a picture")

@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch')
 module.exports = {
-    cooldown: 5,
 	data: new SlashCommandBuilder()
         .setName('dadjokes')
         .setDescription('Random dadjokes'),

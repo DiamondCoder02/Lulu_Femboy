@@ -3,7 +3,7 @@ console.clear();
 const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention } = require('discord.js'), config = require('./config.json');
 const client = new Client({ 
     ws: {
-        properties: {$browser: 'Discord iOS'}
+        properties: {$browser: 'Discord Android'}
     }, 
     intents: [
         GatewayIntentBits.DirectMessageReactions,
@@ -66,7 +66,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command_files = require(`./commands/${file}`);
 	client.commands.set(command_files.data.name, command_files);
-    commandFuck.push(command_files.data)
+    commandFuck.push(command_files)
 }
 
 //event handler

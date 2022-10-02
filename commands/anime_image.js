@@ -3,7 +3,7 @@ const wait = require('node:timers/promises').setTimeout;
 const API = require('anime-images-api')
 const images = new API() 
 module.exports = {
-    cooldown: 5,
+    hasNSFW: true,
 	data: new SlashCommandBuilder()
 		.setName('anime_image')
 		.setDescription('Pictures from anime-images')

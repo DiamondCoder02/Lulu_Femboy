@@ -1,36 +1,36 @@
 {
-  "name": "femboi_owo",
-  "version": "0.1.0?",
-  "description": "4th time trying to make a discord bot, only slash commands are allowed and making it horrible",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DiamondPRO02/Femboi_OwO.git"
-  },
-  "author": "DiamondCoder",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DiamondPRO02/Femboi_OwO/issues"
-  },
-  "homepage": "https://github.com/DiamondPRO02/Femboi_OwO#readme",
-  "dependencies": {
-    "@discordjs/opus": "^0.8.0",
-    "anime-images-api": "^2.0.0",
-    "booru": "^2.6.2",
-    "dbd-dark-dashboard": "^1.6.591",
-    "discord-dashboard": "^2.3.44",
-    "discord-phub": "^1.0.7",
-    "discord-player": "^5.3.1",
-    "discord.js": "^14.5.0",
-    "discord.js-akinator": "^4.0.1",
-    "dotenv": "^16.0.1",
-    "enmap": "^5.9.0",
-    "ffmpeg": "^0.0.4",
-    "ffmpeg-static": "^5.0.2",
-    "nekos.life": "^3.0.0",
-    "translate": "^1.4.1"
-  }
+    "name": "femboi_owo",
+    "version": "0.0.1-no_release_01",
+    "description": "4th time trying to make a discord bot, only slash commands are allowed and making it horrible",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DiamondPRO02/Femboi_OwO.git"
+    },
+    "author": "DiamondCoder",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/DiamondPRO02/Femboi_OwO/issues"
+    },
+    "homepage": "https://github.com/DiamondPRO02/Femboi_OwO#readme",
+    "dependencies": {
+        "@discordjs/opus": "^0.8.0",
+        "anime-images-api": "^2.0.0",
+        "booru": "^2.6.2",
+        "dbd-dark-dashboard": "^1.6.591",
+        "discord-dashboard": "^2.3.44",
+        "discord-phub": "^1.0.7",
+        "discord-player": "^5.3.1",
+        "discord.js": "^14.5.0",
+        "discord.js-akinator": "^4.0.1",
+        "dotenv": "^16.0.1",
+        "enmap": "^5.9.0",
+        "ffmpeg": "^0.0.4",
+        "ffmpeg-static": "^5.0.2",
+        "nekos.life": "^3.0.0",
+        "translate": "^1.4.1"
+    }
 }

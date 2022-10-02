@@ -2,11 +2,13 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuild
 let eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), eventArray = eventFiles.map(x => {return x.replace('.js','\n')})
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')), comArray = commandFiles.map(x => {return x.replace('.js','\n')})
 const package = require('../package.json');
+const config = require('../config.json');
 module.exports = {
     cooldown: 60,
     data: new SlashCommandBuilder()
 		.setName('bot_info')
-		.setDescription("Bot information."),
+		.setDescription("Bot information.")
+        .addBooleanOption(option => option.setName('owner').setDescription('Warning: This can show potenially sensitive information.')),
 	async execute(interaction, client) {
         const packDependence = Object.entries(package.dependencies)
         const npmPackages = packDependence.join(', \n')
@@ -36,6 +38,8 @@ Reaction,
 User,
 ~~ThreadMember~~
 `
+        let configList = []
+        configOwner(config, configList)
         const page = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('delete').setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
@@ -66,5 +70,33 @@ User,
             .setTimestamp()
             .setFooter({text: `Last update: 2022.Sept.21`});
         await interaction.reply({embeds: [version_embed], components: [page]})
+        //if bot owner, give more info
+        require('dotenv').config(); var bOwnerId = process.env.botOwnerId;
+        if(interaction.user.id === config.botOwnerId || interaction.user.id === bOwnerId) {
+            const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
+            const owner_embed = new EmbedBuilder()
+                .setColor('#FFFF00')
+                .setDescription("Only bot owner should be able to see this:")
+                .addFields(configList)
+                .addFields({name: "Guilds:", value: Guilds})
+            if (interaction.options.getBoolean('owner')) {
+                await interaction.followUp({embeds: [owner_embed], components: [page]})
+            } else {
+                await interaction.followUp({embeds: [owner_embed], ephemeral: true})
+            }
+        }
     }
+}
+function configOwner(configIn, configOut) {
+    var as = Object.entries(configIn)
+    Array.from(as).forEach(obj => {
+        if(obj[0] === 'Token') return;
+        if(obj[0] === 'dbd_license') return;
+        let cmdObject = {
+            name: obj[0],
+            value: String(obj[1]),
+            inline: true
+        }
+        configOut.push(cmdObject)
+    })
 }

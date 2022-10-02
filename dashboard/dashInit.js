@@ -1,4 +1,5 @@
 const { Client, Collection, GatewayIntentBits, Partials, ChannelType } = require('discord.js'), config = require('../config.json')
+const package = require('../package.json');
 /* --- PRE_DASHBOARD --- */
 const DarkDashboard = require('dbd-dark-dashboard');
 let DBD = require('discord-dashboard');
@@ -15,7 +16,9 @@ module.exports = {
      */
     async execute(arg, client, commandFuck) {
         let commandList = []
-        CommandPushDashboard(commandFuck, commandList)
+        let hasNsfw = []
+        let needsPerms = []
+        CommandPushDashboard(commandFuck, commandList, hasNsfw, needsPerms)
         await DBD.useLicense(dbd_lic);
         DBD.Dashboard = DBD.UpdatedClass();
         const Dashboard = new DBD.Dashboard({
@@ -60,7 +63,7 @@ module.exports = {
                     },
                     feeds: {
                         category: "News",
-                        title: "Update info (0.1.0?)",
+                        title: `Update info ${package.version}`,
                         description: `If I'm not lazy, I will write. First release`,
                         footer: "Last edit: 16.09.2022",
                     },
@@ -68,9 +71,21 @@ module.exports = {
                 commands: [
                     {
                         category: `Slash commands ＼(ﾟｰﾟ＼)`,
-                        subTitle: `Here is all the "/" command that should be possible`,
+                        subTitle: `Here is all the "/" command that should be possible ( Cooldown:⌛ )`,
                         aliasesDisabled: true,
                         list: commandList,
+                    },
+                    {
+                        category: `Permission based commands`,
+                        subTitle: `All the commands that require permissions to use`,
+                        aliasesDisabled: true,
+                        list: needsPerms,
+                    },
+                    {
+                        category: `Nsfw commands`,
+                        subTitle: `Not safe for work commands ( Cooldown:⌛ )`,
+                        aliasesDisabled: true,
+                        list: hasNsfw,
                     },
                 ],
                 guilds: {
@@ -311,13 +326,33 @@ module.exports = {
     }
 }
 
-function CommandPushDashboard(filterredArray, CategoryArray) {
+function CommandPushDashboard(filterredArray, commandCate, nsfwCate, permCate) {
+    //console.log(filterredArray)
     Array.from(filterredArray).forEach(obj => {
-        let cmdObject = {
-            commandName: obj.name,
-            commandUsage: "/"+obj.name,
-            commandDescription: obj.description
+        //console.log(obj.permissions)
+        //console.log(obj.hasNSFW)
+        //console.log(obj.cooldown)
+        if (obj.permissions) {
+            let cmdObject = {
+                commandName: obj.data.name,
+                commandUsage: "/"+obj.data.name,
+                commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
+            }
+            permCate.push(cmdObject)
+        } else if (obj.hasNSFW) {
+            let cmdObject = {
+                commandName: obj.data.name,
+                commandUsage: "/"+obj.data.name,
+                commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
+            }
+            nsfwCate.push(cmdObject)
+        } else {
+            let cmdObject = {
+                commandName: obj.data.name,
+                commandUsage: "/"+obj.data.name,
+                commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
+            }
+            commandCate.push(cmdObject)
         }
-        CategoryArray.push(cmdObject)
     })
 }

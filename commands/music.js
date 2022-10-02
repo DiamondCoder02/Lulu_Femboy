@@ -12,7 +12,6 @@ player.on("queueEnd", (queue) => { queue.metadata.send("✅ | Queue finished!");
 
 module.exports = {
     guildOnly: true,
-    cooldown: 3,
 	data: new SlashCommandBuilder()
         .setName('music')
         .setDescription('Playing audio (YT/Spotify/SoundCloud | test: vimeo/FB/attachment links)')

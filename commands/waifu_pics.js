@@ -3,7 +3,8 @@ const { EmbedBuilder, ChannelType } = require('discord.js');
 const fetch = require('node-fetch')
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
-    cooldown: 5,
+    cooldown: 10,
+    hasNSFW: true,
 	data: new SlashCommandBuilder()
         .setName('waifu_pics')
         .setDescription('Pictures from waifu.pics')

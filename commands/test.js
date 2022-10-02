@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const wait = require('node:timers/promises').setTimeout;
 module.exports = {
 	guildOnly: true,
-	cooldown: 3,
 	//permissions: "ADMINISTRATOR",
 	// https://discord.js.org/#/docs/main/stable/class/Permissions
 	data: new SlashCommandBuilder()

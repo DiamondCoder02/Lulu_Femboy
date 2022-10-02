@@ -1,5 +1,7 @@
-const config = require('../config.json'), { EmbedBuilder } = require('discord.js'), fs = require('fs')
+const { EmbedBuilder } = require('discord.js'), fs = require('fs'), configData = fs.readFileSync('./config.json', 'utf8')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
+const packageData = fs.readFileSync('./package.json')
+const config = JSON.parse(configData), package = JSON.parse(packageData)
 module.exports = {
 	name: 'ready',
 	once: true,
@@ -32,20 +34,47 @@ module.exports = {
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle("Bot has started!")
+                .setTitle("Bot has updated!")
                 .setDescription(`Bot has been started: \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \nThat was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
             try { 
                 const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
                 channel.bulkDelete(1, true).catch(error => {console.error(error)})
-                return channel.send({embeds: [embed]})
+                channel.send({embeds: [embed]})
             } catch { 
                 try{
                     const channel = client.channels.cache.get(config.botStatusChannel) 
                     channel.bulkDelete(1, true).catch(error => {console.error(error)})
-                    return channel.send({embeds: [embed]})
+                    channel.send({embeds: [embed]})
                 } catch {
-                    return console.log("No status channel given. Continuing...")
+                    console.log("No status channel given or found. Continuing...")
                 }
+            }
+        }
+        if (config.gotNewUpdate) {
+            const embed = new EmbedBuilder()
+                .setColor('#FFFF00')
+                .setTitle("Bot has gotten an update: " + package.version)
+                .setDescription(`**Bot news:**\n
+- Added a web dashboard (Soon public as soon as I get a domain and place to host)
+- Testing
+`)
+            try{
+                client.guilds.cache.forEach(guild => {
+                    channel = guild.systemChannel
+                    if (channel) { channel.send({embeds: [embed]}) } else {
+                        if (client.settings.get(guild.id, "moderationChannel")) {
+                            channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))
+                            channel.send({embeds: [embed]})
+                        } else {
+                            client.users.fetch(guild.ownerId).then(user => { user.send({embeds: [embed]}) })
+                        }
+                        
+                    }
+                })
+                config.gotNewUpdate = false
+                fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
+            } catch(err) { 
+                console.log("FATAL ERROR THAT SHOULD NEVER HAPPENED: " + err) 
             }
         }
 	}

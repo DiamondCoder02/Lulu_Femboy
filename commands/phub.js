@@ -2,7 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, 
 const wait = require('node:timers/promises').setTimeout;
 const { RandomPHUB } = require('discord-phub'), nsfw = new RandomPHUB(unique = true);
 module.exports = {
-	cooldown: 5,
+	cooldown: 10,
+    hasNSFW: true,
     data: new SlashCommandBuilder()
         .setName('phub')
         .setDescription("Discord 18+ database with more than 5000 elements")
@@ -63,7 +64,7 @@ module.exports = {
                     { name: "📁 Type 3", value: " "+categ3, inline: true },
                 )
                 .setTimestamp()
-            return await interaction.editReply({embeds: [embed]})
+            return await interaction.reply({embeds: [embed]})
         }
     }
 };
