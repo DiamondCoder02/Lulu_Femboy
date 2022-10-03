@@ -101,6 +101,8 @@ module.exports = {
 					case "guildMemberAdd": { client.emit('guildMemberAdd', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
 					case "guildMemberRemove": { client.emit('guildMemberRemove', interaction.member); interaction.reply(`Event \`${event}\` has been emitted.`); break}
 					case "guildMemberUpdate": { client.emit('guildMemberUpdate', interaction.member, interaction.guild.members.cache.first()); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "presseceUpdate": { client.emit('presseceUpdate', interaction.member, interaction.guild.members.cache.first()); interaction.reply(`Event \`${event}\` has been emitted.`); break}
+					case "userUpdate": { client.emit('userUpdate', interaction.member, interaction.guild.members.cache.first()); interaction.reply(`Event \`${event}\` has been emitted.`); break}
 				}
 				return
 			} catch (err) {

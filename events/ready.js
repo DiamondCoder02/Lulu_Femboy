@@ -56,7 +56,8 @@ module.exports = {
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
 - Added a web dashboard (Soon public as soon as I get a domain and place to host)
-- Testing
+- Added more security check for admins
+- Updated cooldown for some commands
 `)
             try{
                 client.guilds.cache.forEach(guild => {
