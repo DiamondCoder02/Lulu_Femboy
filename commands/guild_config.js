@@ -113,6 +113,7 @@ module.exports = {
                 let members = interaction.guild.members.cache.filter(member => !member.user.bot);
                 if(interaction.options.getBoolean('remove')) {
                     await interaction.reply(`Removing role ${role} from all members...`);
+                    members = members.filter(member => member.roles.cache.has(role.id));
                     members.forEach((member) => {
                         setTimeout(() => {
                             member.roles.remove(role);
@@ -121,6 +122,7 @@ module.exports = {
                     //return interaction.editReply(`Removed role ${role}.`);
                 } else {
                     await interaction.reply(`Adding role ${role} to all members...`);
+                    members = members.filter(member => !member.roles.cache.has(role.id));
                     members.forEach((member) => {
                         setTimeout(() => {
                             member.roles.add(role);

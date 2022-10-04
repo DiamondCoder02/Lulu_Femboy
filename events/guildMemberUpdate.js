@@ -27,10 +27,11 @@ module.exports = {
 		if(memberUpdateLogs) { 
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle('Member update has been detected')
-                .setDescription(`${oldMember.user.tag} (${newMember.nickname?newMember.nickname:newMember.user.tag}) has been updated`)
+                .setTitle('Server side profile updated!')
+                .setDescription(`${oldMember.user.tag} (${newMember.nickname?newMember.nickname:newMember.user.tag}) user profile has been updated`)
                 .setFooter({text: `User ID: ${oldMember.user.id}`})
                 .setTimestamp()
+            if (oldMember.nickname !== newMember.nickname || oldMember.avatar !== newMember.avatar || oldMember.displayAvatarURL() !== newMember.displayAvatarURL() || oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) {} else return;
             if (oldMember.nickname !== newMember.nickname) { embed.addFields( { name: 'Server Nickname', value: `${oldMember.nickname?oldMember.nickname:"-"} => ${newMember.nickname?newMember.nickname:"-"}` } ) }
             if (oldMember.avatarURL() !== newMember.avatarURL()) { 
                 embed.addFields( { name: 'Server Avatar', value: `Old: ${oldMember.avatarURL()?oldMember.avatarURL():"-"} => \nNew: ${newMember.avatarURL()?newMember.avatarURL():"-"}` } ) 
