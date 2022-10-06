@@ -38,12 +38,10 @@ module.exports = {
                 .setDescription(`Bot has been started: \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \nThat was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
             try { 
                 const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
-                channel.bulkDelete(1, true).catch(error => {console.error(error)})
                 channel.send({embeds: [embed]})
             } catch { 
                 try{
-                    const channel = client.channels.cache.get(config.botStatusChannel) 
-                    channel.bulkDelete(1, true).catch(error => {console.error(error)})
+                    const channel = client.channels.cache.get(config.botStatusChannel)
                     channel.send({embeds: [embed]})
                 } catch {
                     console.log("No status channel given or found. Continuing...")
