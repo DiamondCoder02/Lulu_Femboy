@@ -40,7 +40,7 @@ client.commands = new Collection();
 const Enmap = require('enmap');
 client.settings = new Enmap({
     name: "settings",
-    fetchAll: false,
+    fetchAll: true,
     autoFetch: true,
     cloneLevel: 'deep',
     autoEnsure: {
@@ -52,11 +52,13 @@ client.settings = new Enmap({
         invitesLogs: false,
         schedulesLogs: false,
         banKickLogs: false,
-        welcomeMessage: "Welcome to the server! Hope you enjoy your stay!",
+        welcomeMessage: "**Welcome to the server!** \nHope you enjoy your stay!",
         enableNSFW: false,
         welcomeRoles: [""],
         freeRoles: [""],
         moderationChannel: "",
+        enableRandomReactions: false,
+        randomReactionChannelBlacklist: [],
     }
 });
 

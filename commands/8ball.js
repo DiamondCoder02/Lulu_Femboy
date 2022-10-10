@@ -27,16 +27,24 @@ module.exports = {
             'Outlook not so good.',
             'Very doubtful.'
         ]
-        /*
-        //have a random very low chance of getting a special response
-        let special = Math.floor(Math.random() * 1000)
-        if (special == 117) {
-            var item = "Diamond said this as a nice quote"
-        } else if (special == 2) {
-            var item = "Finish this with Diamond: *Ki korán kell, aranyat...*"
-        } else {*/
-            var item = items[Math.floor(Math.random()*items.length)];
-        //}
+        if (interaction.guildID === "953982453436018748"){
+            //have a random very low chance of getting a special response
+            let special = Math.floor(Math.random() * 1000)
+            if (special == 117) {
+                var item = "Diamond said this as a nice quote"
+            } else if (special == 2) {
+                var item = "Finish this with Diamond: *Ki korán kell, aranyat...*"
+            } else {
+                var item = items[Math.floor(Math.random()*items.length)];
+            }
+        } else {
+            let special = Math.floor(Math.random() * 1000)
+            if (special == 117) {
+                var item = "Whatever. All I know you are a good person and I support you ^^"
+            } else {
+                var item = items[Math.floor(Math.random()*items.length)];
+            }
+        }
         const string = interaction.options.getString('question');
         const embed = new EmbedBuilder()
             .setColor('#00FF00')

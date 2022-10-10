@@ -53,7 +53,9 @@ module.exports = {
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- soonTM
+- Tried optimzing message reactions ^^'
+- Small update for booru command (now it doesn't show details unless requested)
+- 8ball has a low chance to give you sometimes a secret message
 `)
             try{
                 client.guilds.cache.forEach(guild => {

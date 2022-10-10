@@ -144,8 +144,21 @@ module.exports = {
                             setNew: async ({guild,newData}) => {
                                 client.settings.set(guild.id, newData, "welcomeMessage")
                                 return
+                            }
+                        },
+                        {
+                            optionId: 'enableRandomReactions',
+                            optionDescription: "Should the bot react to messages randomly?",
+                            optionType: DBD.formTypes.switch(),
+                            getActualSet: async ({guild}) => {
+                                client.settings.get(guild.id, "enableRandomReactions")
+                                return client.settings.get(guild.id, "enableRandomReactions")
                             },
-                            themeOptions: { minimalbutton: { last: true, } },
+                            setNew: async ({guild,newData}) => {
+                                client.settings.set(guild.id, newData, "enableRandomReactions")
+                                return
+                            },
+                            //themeOptions: { minimalbutton: { last: true, } },
                         },
                     ]
                 },
@@ -160,11 +173,25 @@ module.exports = {
                             optionDescription: "Secret moderation channel",
                             optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
                             getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "moderationChannel")
+                                //client.settings.get(guild.id, "moderationChannel")
                                 return client.settings.get(guild.id, "moderationChannel")
                             },
                             setNew: async ({guild,newData}) => {
                                 client.settings.set(guild.id, newData, "moderationChannel")
+                                return
+                            },
+                        },
+                        {
+                            optionId: 'randomReactionChannelBlacklist',
+                            optionName: "Random Reaction Channel Blacklist",
+                            optionDescription: "What channels the bot should never post random reactions in",
+                            optionType: DBD.formTypes.channelsMultiSelect(false, false, channelTypes = [ChannelType.GuildText]),
+                            getActualSet: async ({guild}) => {
+                                client.settings.get(guild.id, "randomReactionChannelBlacklist")
+                                return client.settings.get(guild.id, "randomReactionChannelBlacklist")
+                            },
+                            setNew: async ({guild,newData}) => {
+                                client.settings.set(guild.id, newData, "randomReactionChannelBlacklist")
                                 return
                             },
                         },

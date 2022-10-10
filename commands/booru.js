@@ -29,6 +29,7 @@ module.exports = {
             .setRequired(true)
         )
         .addStringOption(option => option.setName('tags').setDescription("Tags to search for (separate multiple with space)"))
+        .addBooleanOption(option => option.setName('detailed_desc').setDescription("If you want to get image details for them"))
         .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
     async execute(interaction, client) {
         const sites = interaction.options.getString('sites').trim()
@@ -60,15 +61,17 @@ module.exports = {
                 return interaction.reply({content: "Sorry this is an explixit or questionable picture that got somehow sent here. This is wholesome only chat :3"})
             }
             const embed = new EmbedBuilder()
-                .setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
-                .setColor('#A020F0')
-                .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
-                .addFields(
-                    { name: "⚖️ Rating:", value: r, inline: true },
-                    { name: "🔍 Searched for:", value: "*"+tags+"*", inline: true }
-                )
                 .setTimestamp()
-            if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}
+                .setColor('#A020F0')
+            if (interaction.options.getBoolean('detailed_desc')) {
+                embed.setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
+                    .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })
+                    .addFields(
+                        { name: "⚖️ Rating:", value: r, inline: true },
+                        { name: "🔍 Searched for:", value: "*"+tags+"*", inline: true }
+                    )
+                if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}
+            }
             const buttons = new ActionRowBuilder().addComponents(
                 new ButtonBuilder().setURL(posts[0].fileUrl).setLabel('Link').setStyle(ButtonStyle.Link).setEmoji('🖥️'),
                 //new ButtonBuilder().setCustomId('delete').setLabel(lang.d).setStyle(ButtonStyle.Danger).setEmoji('✖️')

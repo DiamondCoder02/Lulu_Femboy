@@ -65,7 +65,7 @@ module.exports = {
                 }
                 else {
                     const guildConf = client.settings.get(interaction.guild.id);
-                    let configProps = Object.keys(guildConf).map(prop => { return `${prop}  :  ${guildConf[prop]}` });
+                    let configProps = Object.keys(guildConf).map(prop => { return `**${prop}** :  ${guildConf[prop]}` });
                     return interaction.reply(`The following are the server's current configuration:\n\`\`\`${configProps.join("\n")}\`\`\``);
                 }
             }
