@@ -28,7 +28,7 @@ module.exports = {
                 secret: cSec
             },
             redirectUri: 'http://localhost/discord/callback',
-            domain: 'http://localhost',
+            domain: 'http://femboy.redirectme.net',
             bot: client,
             theme: DarkDashboard({
                 information: {
@@ -353,11 +353,7 @@ module.exports = {
 }
 
 function CommandPushDashboard(filterredArray, commandCate, nsfwCate, permCate) {
-    //console.log(filterredArray)
     Array.from(filterredArray).forEach(obj => {
-        //console.log(obj.permissions)
-        //console.log(obj.hasNSFW)
-        //console.log(obj.cooldown)
         if (obj.permissions) {
             let cmdObject = {
                 commandName: obj.data.name,
