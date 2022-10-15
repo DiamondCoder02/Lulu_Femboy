@@ -15,7 +15,7 @@ module.exports = {
                 let ro = client.settings.get(newMember.guild.id, "welcomeRoles");
                 for (let i = 0; i < ro.length; i++) {
                     try{
-                        let role = newMember.guild.roles.cache.find(r => r.name == ro[i])
+                        let role = newMember.guild.roles.cache.get(ro[i])
                         newMember.roles.add(role)
                     } catch (e) {
                         console.log(e)
@@ -40,7 +40,7 @@ module.exports = {
             }
             //to test
             if (oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) { 
-                embed.addFields( { name: 'Premium removed: ', value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` } ) 
+                embed.addFields( { name: 'Premium changed: ', value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` } ) 
             }
             try {
                 if (client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}

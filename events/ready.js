@@ -29,7 +29,6 @@ module.exports = {
                     if (config.debug_level >= 2) { console.log(`Vanity cached ${guild.name}`); }
                 }).catch(err => { console.log("Ready vanity Error:", err) })
             } else { console.log(`Vanity URL: ${guild.name} has no vanity URL`) }
-            
         })
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()
@@ -53,14 +52,18 @@ module.exports = {
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- **Bot has a web dashboard now: ** http://femboy.redirectme.net
-- Tried optimzing message reactions ^^'
-- Small update for booru command (now it doesn't show details unless requested)
-- 8ball has a low chance to give you sometimes a secret message
-- Fixed bugs ^^"
+- Fixed autamiatic role assignment when someone joins
+- Updated packages
+- Kinda fixed database deletion maybe
+- New single channel message logger
 `)
             try{
                 client.guilds.cache.forEach(guild => {
+                    //todo: make this work
+                    client.settings.set(guild.id, false, "enableBotUpdateMessage")
+                    const tempArra = ["",""]
+                    client.settings.set(guild.id, tempArra, "singleChannelMessageLogger")
+
                     channel = guild.systemChannel
                     if (channel) { channel.send({embeds: [embed]}) } else {
                         if (client.settings.get(guild.id, "moderationChannel")) {

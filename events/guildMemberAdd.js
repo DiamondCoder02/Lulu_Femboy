@@ -15,7 +15,7 @@ module.exports = {
                 if (client.settings.get(member.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel"))} else {channel = member.guild.systemChannel}
                 if (usedInvite) {
                     console.log(`[${new Date().toLocaleString('hu-HU')}] Code ${usedInvite.code} (Created: ${usedInvite.inviter.tag}) used by ${member.user.tag} (${usedInvite.uses}/${usedInvite.maxUses})`)
-                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`. \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
+                    channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`(ID:${member.user.id}). \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
                 } else {
                     try {
                         const cachedVanityInvites = vanityInvites.get(member.guild.id)
@@ -43,7 +43,7 @@ module.exports = {
             if( client.settings.get(member.guild.id, "welcomeRoles") ) {
                 let ro = client.settings.get(member.guild.id, "welcomeRoles");
                 for (let i = 0; i < ro.length; i++) {
-                    let role = member.guild.roles.cache.find(r => r.name == ro[i])
+                    let role = member.guild.roles.cache.get(ro[i])
                     member.roles.add(role)
                 }
             }

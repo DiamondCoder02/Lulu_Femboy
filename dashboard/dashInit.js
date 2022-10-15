@@ -28,7 +28,7 @@ module.exports = {
                 secret: cSec
             },
             redirectUri: 'http://localhost/discord/callback',
-            domain: 'http://femboy.redirectme.net',
+            domain: 'http://localhost/',
             bot: client,
             theme: DarkDashboard({
                 information: {
@@ -64,8 +64,8 @@ module.exports = {
                     feeds: {
                         category: "News",
                         title: `Update info ${package.version}`,
-                        description: `If I'm not lazy, I will write. First release`,
-                        footer: "Last edit: 16.09.2022",
+                        description: `Updated packages and fixed some bugs and maybe fixed some database deletion error.`,
+                        footer: "Last edit: 13.10.2022",
                     },
                 },
                 commands: [
@@ -158,7 +158,21 @@ module.exports = {
                                 client.settings.set(guild.id, newData, "enableRandomReactions")
                                 return
                             },
-                            //themeOptions: { minimalbutton: { last: true, } },
+                            themeOptions: { minimalbutton: { first: true, } },
+                        },
+                        {
+                            optionId: 'enableBotUpdateMessage',
+                            optionDescription: "Should the bot send message when it updates?",
+                            optionType: DBD.formTypes.switch(),
+                            getActualSet: async ({guild}) => {
+                                client.settings.get(guild.id, "enableBotUpdateMessage")
+                                return client.settings.get(guild.id, "enableBotUpdateMessage")
+                            },
+                            setNew: async ({guild,newData}) => {
+                                client.settings.set(guild.id, newData, "enableBotUpdateMessage")
+                                return
+                            },
+                            themeOptions: { minimalbutton: { last: true, } },
                         },
                     ]
                 },
@@ -192,6 +206,38 @@ module.exports = {
                             },
                             setNew: async ({guild,newData}) => {
                                 client.settings.set(guild.id, newData, "randomReactionChannelBlacklist")
+                                return
+                            },
+                        },
+                        {
+                            optionId: 'singleChannelMessageLogger_in',
+                            optionName: "Log messages from a channel",
+                            optionDescription: "Single channel message logger input",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
+                            getActualSet: async ({guild}) => {
+                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
+                                return chanLog[0]
+                            },
+                            setNew: async ({guild,newData}) => {
+                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
+                                chanLog[0] = newData
+                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
+                                return
+                            },
+                        },
+                        {
+                            optionId: 'singleChannelMessageLogger_out',
+                            optionName: "Send logs to the channel",
+                            optionDescription: "Single channel message logger output",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
+                            getActualSet: async ({guild}) => {
+                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
+                                return chanLog[1]
+                            },
+                            setNew: async ({guild,newData}) => {
+                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
+                                chanLog[1] = newData
+                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
                                 return
                             },
                         },

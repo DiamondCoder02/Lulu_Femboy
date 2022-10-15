@@ -2,30 +2,31 @@ module.exports = {
 	name: 'messageCreate',
 	execute(message, client) {
 		//console.log(message);
-		//temp message logger for my server
-		if (message.guildId === "953982453436018748") { 
-			if (message.channelId === "997598105467879524") {
-				client.channels.cache.get('1011037703061651467').send({content: message.author.tag + "* said:\n"+message.content })
+		try { if (message.author.bot) return } catch { return console.log("Bot is null, messageCreate, WHAT THE FUCK?"); }
+        if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
+
+		//single channel logger
+		if (client.settings.get(message.guild.id, "singleChannelMessageLogger")){
+			const channel = client.channels.cache.get(client.settings.get(message.guild.id, "singleChannelMessageLogger"));
+			if (channel[0] == message.channel.id) {
+				client.channels.cache.get(channel[1]).send({content: message.author.tag + "* said:\n"+`${String(message.content)}` })
 				if (message.embeds.length) { 
-					console.log(" //Embed deleted//")
-					client.channels.cache.get('1011037703061651467').send({embeds: [message.embeds[0]]})
+					console.log(" //Embed detected//")
+					client.channels.cache.get(channel[1]).send({embeds: [message.embeds[0]]})
 				}
 				if (message.stickers.size) { 
-					console.log(" //Sticker deleted//")
+					console.log(" //Sticker detected//")
 					const sStic = message.stickers.map(Stickers => Stickers.id);
 					console.log(sStic)
-					try { client.channels.cache.get('1011037703061651467').send(message.channel.send({stickers: [`${sStic}`]})) } 
+					try { client.channels.cache.get(channel[1]).send({stickers: [`${sStic}`]}) } 
 					catch {
 						const sSti = message.stickers.map(Stickers => Stickers.name);
 						console.log(sSti)
-						client.channels.cache.get('1011037703061651467').send("Sticker name: " + sSti)
+						client.channels.cache.get(channel[1]).send("Sticker name: " + sSti)
 					}
 				}
 			}
 		}
-		try { if (message.author.bot) return } catch { return console.log("Bot is null, messageCreate, WHAT THE FUCK?"); }
-        if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
-
 		//random funny respons (Needs more?)
 		if (client.settings.get(message.guild.id, "enableRandomReactions")){
 			const channelBlacklist = client.settings.get(message.guild.id, "randomReactionChannelBlacklist")
