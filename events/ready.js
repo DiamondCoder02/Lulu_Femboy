@@ -52,10 +52,7 @@ module.exports = {
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- Fixed autamiatic role assignment when someone joins
-- Updated packages
-- Kinda fixed database deletion maybe
-- New single channel message logger
+- 
 `)
             try{
                 client.guilds.cache.forEach(guild => {
@@ -63,16 +60,17 @@ module.exports = {
                     client.settings.set(guild.id, false, "enableBotUpdateMessage")
                     const tempArra = ["",""]
                     client.settings.set(guild.id, tempArra, "singleChannelMessageLogger")
-
-                    channel = guild.systemChannel
-                    if (channel) { channel.send({embeds: [embed]}) } else {
-                        if (client.settings.get(guild.id, "moderationChannel")) {
-                            channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))
-                            channel.send({embeds: [embed]})
-                        } else {
-                            client.users.fetch(guild.ownerId).then(user => { user.send({embeds: [embed]}) })
+                    if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
+                        channel = guild.systemChannel
+                        if (channel) { channel.send({embeds: [embed]}) } else {
+                            if (client.settings.get(guild.id, "moderationChannel")) {
+                                channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))
+                                channel.send({embeds: [embed]})
+                            } else {
+                                client.users.fetch(guild.ownerId).then(user => { user.send({embeds: [embed]}) })
+                            }
+                            
                         }
-                        
                     }
                 })
                 config.gotNewUpdate = false
