@@ -22,6 +22,8 @@ module.exports = {
                         const newVanityInvites = await member.guild.fetchVanityData();
                         if (cachedVanityInvites.uses < newVanityInvites.uses) {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined with custom invite link.`)
+                            console.log(cachedVanityInvites)
+                            console.log(newVanityInvites)
                             channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link.`});
                         } else {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} somehow broke my bot logic. WHAT?`)

@@ -8,7 +8,7 @@ module.exports = {
 		//single channel logger
 		const l = client.settings.get(message.guild.id, "singleChannelMessageLogger")
 		if (l[0] != '' && l[1] != '') {
-			const channel = client.channels.cache.get(client.settings.get(message.guild.id, "singleChannelMessageLogger"));
+			const channel = client.settings.get(message.guild.id, "singleChannelMessageLogger")
 			if (channel[0] == message.channel.id) {
 				client.channels.cache.get(channel[1]).send({content: message.author.tag + "* said:\n"+`${String(message.content)}` })
 				if (message.embeds.length) { 

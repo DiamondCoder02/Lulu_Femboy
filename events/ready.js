@@ -13,6 +13,7 @@ module.exports = {
 		console.log(`\n -- Logged in as: ` + client.user.tag
             + `\n\t -- Client_ID: ` + client.user.id
             + `\n\t -- Password: ` + config.stopPassword
+            + `\n\t -- Debug_level: ` + config.debug_level
             + `\n\t -- Ready at: ` + client.readyAt
             + `\n\t -- Guilds joined: ` + Guilds)
         client.guilds.cache.forEach(guild => {
@@ -34,7 +35,10 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Bot has updated!")
-                .setDescription(`Bot has been started: \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \nThat was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
+                .setDescription(`Bot has been started:
+DebugLevel: ${config.debug_level},
+Ready: <t:${Math.floor(client.readyTimestamp / 1000)}:f> 
+That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
             try { 
                 const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
                 channel.send({embeds: [embed]})
@@ -52,14 +56,12 @@ module.exports = {
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- 
+- You can now disable to get bot updates at the web dashboard (default: ON )
 `)
             try{
                 client.guilds.cache.forEach(guild => {
                     //todo: make this work
-                    client.settings.set(guild.id, false, "enableBotUpdateMessage")
-                    const tempArra = ["",""]
-                    client.settings.set(guild.id, tempArra, "singleChannelMessageLogger")
+                    client.settings.set(guild.id, true, "enableBotUpdateMessage")
                     if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
                         channel = guild.systemChannel
                         if (channel) { channel.send({embeds: [embed]}) } else {
