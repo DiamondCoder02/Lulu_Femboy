@@ -39,6 +39,7 @@ module.exports = {
 				};
 			}
 			if (canSend) {
+				//add good morning message when asked?
 				if (message.content.toLowerCase() === "nya" || message.content.toLowerCase() === "nya~" || message.content.toLowerCase() === "nyaa~" || message.content.toLowerCase() === "nya~~") { message.channel.send("https://cdn.discordapp.com/attachments/657545944136417280/920902875364864090/nya.mp4"); }
 				if (message.content.toLowerCase().includes("good bot") || message.content.toLowerCase().includes("okos bot")) { message.channel.send("Thank you! :3"); }
 				if (message.content.toLowerCase().includes("bad bot") || message.content.toLowerCase().includes("rossz bot")) { message.channel.send("I'm sorry. >.<"); }

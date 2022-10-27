@@ -41,13 +41,14 @@ module.exports = {
         if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply({content: "Please don't use tags with this site"}) }
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; a++) {
-            await booruSearch(sites, tags, 1, true).catch(err => { 
+            await booruSearch(sites, tags, a, true).catch(err => { 
                 if (err instanceof BooruError) { a=amount; console.error("-"+err) } 
                 else { console.error(err); a=amount ; return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."})}
             })
             await wait(2000);
         }
-        async function booruSearch(sites, tags, limit = 1, random = true) {
+        async function booruSearch(sites, tags, a, random = true) {
+            let limit=1
             const posts = await Booru.search(sites, tags, {limit, random})
             if (Number(posts.length) === 0) { return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."}) }
             //console.log(posts +"\n"+ posts.length)
@@ -63,6 +64,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTimestamp()
                 .setColor('#A020F0')
+                .setFooter({text: `${a+1}/${amount}`})
             if (interaction.options.getBoolean('detailed_desc')) {
                 embed.setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")
                     .setAuthor({ name: posts.first.booru.domain, url: "https://"+posts.first.booru.domain })

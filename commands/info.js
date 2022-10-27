@@ -125,12 +125,6 @@ module.exports = {
                 )
             await interaction.reply({embeds: [embed], components: [page]})
         } else if (interaction.options.getString('search') === 'cheat') {
-            //if (posts.first.tags.join(', ').length > 1000) {embed.addFields( { name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(', ').substring(0,999)+"...`" } )} else {embed.addFields( { name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(', ')+"`" } )}            
-            const serverRoles = interaction.guild.roles.cache.map(role => role.name).join(', @');
-            const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');
-            const serverStickers = sSticker.split(', ').sort().join(' // ')
-            const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(', ');
-            const serverEmojis = sEmoji.split(', ').sort().join(' // ')
             const embedtest1 = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
@@ -163,6 +157,8 @@ module.exports = {
                     { name: "24 PremiumSubscriptionCount(number)", value: String(interaction.guild.premiumSubscriptionCount), inline:true },
                     { name: "25 PremiumTier(PremiumTier)", value: String(interaction.guild.premiumTier), inline:true }
                 )
+            const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');
+            const serverStickers = sSticker.split(', ').sort().join(' // ')
             const embedtest2 = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Cheatsheet that will never be translated")
@@ -172,14 +168,14 @@ module.exports = {
                     { name: '26 Presences(PresenceManager)', value: String(interaction.guild.presences), inline:true },
                     { name: '27 PublicUpdatesChannel(TextChannel)', value: String(interaction.guild.publicUpdatesChannel), inline:true },
                     { name: '28 PublicUpdatesChannelId(snowflake)', value: String(interaction.guild.publicUpdatesChannelId), inline:true },
-                    { name: '29 Roles(RoleManager)', value: String(interaction.guild.roles), inline:true },
+                    { name: '-- OwnerId(snowflake)', value: String(interaction.guild.ownerId), inline:true },
                     { name: '30 RulesChannel(TextChannel)', value: String(interaction.guild.rulesChannel), inline:true },
                     { name: '31 ScheduledEvents(GuildScheduledEventManager)', value: String(interaction.guild.scheduledEvents), inline:true },
                     { name: '32 Shard(WebSocketShard)', value: String(interaction.guild.shard), inline:true },
                     { name: '33 ShardId(number)', value: String(interaction.guild.shardId), inline:true },
                     { name: '34 Splash', value: String(interaction.guild.splash), inline:true },
                     { name: '35 StageInstances(StageInstanceManager)', value: String(interaction.guild.stageInstances), inline:true },
-                    { name: '36 Stickers(GuildStickerManager)', value: String(interaction.guild.stickers), inline:true },
+                    { name: '-- Invites(GuildInviteManager)', value: String(interaction.guild.invites), inline:true },
                     { name: '37 SystemChannel(TextChannel)', value: String(interaction.guild.systemChannel), inline:true },
                     { name: '38 SystemChannelFlags(Type: Readonly<SystemChannelFlags>)', value: String(interaction.guild.systemChannelFlags), inline:true },
                     { name: '39 SystemChannelId(snowflake)', value: String(interaction.guild.systemChannelId), inline:true },
@@ -191,19 +187,25 @@ module.exports = {
                     { name: '45 WidgetChannel(TextChannel)', value: String(interaction.guild.widgetChannel), inline:true },
                     { name: '46 WidgetChannelId', value: String(interaction.guild.widgetChannelId), inline:true },
                     { name: '47 WidgetEnabled(boolean)', value: (interaction.guild.widgetEnabled ? "True" : "False"), inline:true },
-                    { name: '-- OwnerId(snowflake)', value: String(interaction.guild.ownerId), inline:true },
-                    { name: '-- Invites(GuildInviteManager)', value: String(interaction.guild.invites), inline:true },
                     { name: "Stickers name:", value: String(serverStickers) },
                 )
-            const embedtest3 = new EmbedBuilder()
-                .setColor('#FFFF00')
-                .setTitle("Cheatsheet that will never be translated")
-                .setDescription(`(Max25 field per embed) 3/? \n\n**Roles:**\n` + String(serverRoles))
-                .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: 'https://github.com/DiamondPRO02/Femboi_OwO' })
-                .addFields(
-                    { name: "Emoji names:", value: String(serverEmojis) },
-                )
-            await interaction.reply({content: "Here's all the debug info", embeds: [embedtest1, embedtest2, embedtest3], components: [page]})
+            const serverRoles = interaction.guild.roles.cache.map((role) => role.toString()).join(', ');
+            if (serverRoles.length > 1000) {
+                const serverRoleShort = serverRoles.split(', ').sort().join(' // ').substring(0,999)+"... and many more..."
+                embedtest2.addFields({ name: "Roles name:", value: String(serverRoleShort) })
+            } else {
+                embedtest2.addFields({ name: "Roles name:", value: String(serverRoles) })
+            }
+            const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(', ');
+            const serverEmojis = sEmoji.split(', ').sort().join(' // ')
+            if (serverEmojis.length > 1000) {
+                const serverEmojisShort = sEmoji.split(', ').sort().join(' // ').substring(0,999)+"... and many more..."
+                embedtest2.addFields({ name: "Emojis name:", value: String(serverEmojisShort) })
+            } else {
+                embedtest2.addFields({ name: "Emojis name:", value: String(serverEmojis) })
+            }
+            //note: embedtest2 cannot have more fields
+            await interaction.reply({content: "Here's all the debug info", embeds: [embedtest1, embedtest2], components: [page]})
         } else if (interaction.options.getString('search') === 'sticker') {
             console.log(interaction.guild)
             const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(', ');

@@ -45,18 +45,18 @@ module.exports = {
 			}
 			if (config.debug_level >= 1) {
 				if (i.guildId === null) {
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] Triggered in DMs:" + i.commandName);
+					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] Triggered in DMs:" + i.commandName);
 				}
 				if (i.type === InteractionType.ApplicationCommand) {
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" triggered: " + i.commandName);
+					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name +" triggered: " + i.commandName);
 				}
 				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
 					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
+					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
 				} 
 				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
 					console.log(i)
-					console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + " triggered a select menu => "+ i.value);
+					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + " triggered a select menu => "+ i.value);
 				}
 			}
 			if (config.debug_level >= 1) {

@@ -21,6 +21,7 @@ module.exports = {
                 {name: "Ping:", value: `\`` + ping + 'ms\`', inline:true},
                 {name: "Discord API:", value: '\`' + client.ws.ping + 'ms\`', inline:true},
                 {name: "Uptime:", value: uptime},
+                {name: "Problem?:", value: "Check discord own status: [here](https://discordstatus.com/)"},
             )
         await interaction.editReply({content: "**Ping calculated!**", embeds: [embed]})
 	}
