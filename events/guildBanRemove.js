@@ -7,7 +7,8 @@ module.exports = {
         console.log(`[${new Date().toLocaleString('hu-HU')}] ${ban.user.tag} unbanned from ${ban.guild.name}`)
 		if(banKickLogs) { 
             try{
-				if (client.channels.cache.get(client.settings.get(ban.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(ban.guild.id, "moderationChannel"))} else {channel = ban.guild.systemChannel}
+				if (channel = ban.guild.systemChannel) {channel = ban.guild.systemChannel} 
+				else {channel = client.channels.cache.get(client.settings.get(ban.guild.id, "moderationChannel"))}
 				return channel.send({ content: `[\`${new Date().toLocaleString('hu-HU')}\`] ${ban.user.tag} has been unbanned today.`});
 			} catch(error) { 
 				console.log(error) 

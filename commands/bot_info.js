@@ -47,12 +47,12 @@ User,
 		const version_embed = new EmbedBuilder()
             .setColor('#FFFF00')
             .setTitle("Here is some information about the bot and its development:")
-            .setDescription(`Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO) \nHow to use: [slash commands](https://imgur.com/a/dStRp6Y)`)
+            .setDescription(`Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO)`)
             .setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
             .addFields(
                 { name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondPRO02/projects/2/views/1)", inline:true},
                 { name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondPRO02/Femboi_OwO/issues)", inline:true},
-                { name: "Command prefix:", value: "/[command_name]"},
+                { name: "How to use:", value: "[slash commands](https://imgur.com/a/dStRp6Y)"},
                 { name: "Event listeners:", value: ","+String(eventArray), inline:true},
                 { name: "Commands:", value: ","+String(comArray), inline:true},
                 { name: "Bot Stop Password:", value: "||RickRoll :3||"},
@@ -68,7 +68,7 @@ User,
                 { name: "__Partials__", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: `Last update: 2022.Sept.21`});
+            .setFooter({text: `Last update: 2022.Nov.02.`});
         await interaction.reply({embeds: [version_embed], components: [page]})
         //if bot owner, give more info
         require('dotenv').config(); var bOwnerId = process.env.botOwnerId;

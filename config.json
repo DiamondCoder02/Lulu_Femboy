@@ -4,6 +4,8 @@
   "guildId": "guildID",
   "clientSecret": "clientSecret",
   "dbd_license": "dbd_license",
+  "dbd_domain": ".http://localhost/",
+  "dbd_redirect": ".http://localhost/discord/callback",
   "botOwnerId": "botOwnerID",
   "botReadyStatus": false,
   "botStatusChannel": "897097242861789236",

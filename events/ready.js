@@ -57,6 +57,9 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
 - You can now disable to get bot updates at the web dashboard (default: ON )
+- Guild config command reworked a bit( nearly removed), now the bot relies on the web dashboard mostly
+- For random reactions it checks if channel is sfw or nsfw
+- When you invite the bot, small message will be sent to the owner of the guild
 `)
             try{
                 client.guilds.cache.forEach(guild => {

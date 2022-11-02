@@ -1,11 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
+const config = require('../config.json');
 module.exports = {
 	name: 'shardReady',
 	execute(id, unavailableGuilds, client) {
-		console.log(`[\`${new Date().toLocaleString('hu-HU')}\`] --- shardReady Test ---`);
-        console.log(client)
-		console.log(unavailableGuilds);
-		console.log(id);
-        //client.connect();
+		if (config.debug_level >= 3) { 
+			console.log(`[\`${new Date().toLocaleString('hu-HU')}\`] --- shardReady Test ---`);
+			console.log(client)
+			console.log(unavailableGuilds);
+			console.log(id);
+			//client.connect();
+		}
 	}
 };

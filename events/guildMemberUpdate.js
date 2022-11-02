@@ -40,7 +40,10 @@ module.exports = {
             }
             //to test
             if (oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) { 
-                embed.addFields( { name: 'Premium changed: ', value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` } ) 
+                embed.addFields( { name: 'Premium changed: o!=n', value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` } ) 
+            }
+            if (newMember.premiumSinceTimestamp !== oldMember.premiumSinceTimestamp) { 
+                embed.addFields( { name: 'Premium changed: n!=o', value: `${newMember.premiumSince ? newMember.premiumSince : "-"} => ${oldMember.premiumSince ? oldMember.premiumSince : "-"}` } ) 
             }
             try {
                 if (client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}

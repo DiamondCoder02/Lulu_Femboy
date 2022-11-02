@@ -6,9 +6,13 @@ let DBD = require('discord-dashboard');
 var cliId = process.env.cid;
 var cliSecret = process.env.ClientSecret;
 var dbd_key = process.env.dbd;
+var dbd_domain = process.env.DBdomain;
+var dbd_redirect = process.env.DBredirect;
 try{ if (config.clientId == "clientId") { clientID = String(cliId) } else clientID = String(config.clientId) }catch{ return console.log("clientID error")}
 try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("clientSecret error")}
 try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
+try{ if (config.dbd_domain == ".http://localhost/") { dbd_dom = dbd_domain } else dbd_dom = config.dbd_domain }catch{ return console.log("dbd_domain error")}
+try{ if (config.dbd_redirect == ".http://localhost/discord/callback") { dbd_red = dbd_redirect } else dbd_red = config.dbd_redirect }catch{ return console.log("dbd_redirect error")}
 
 module.exports = {
     /**
@@ -27,13 +31,13 @@ module.exports = {
                 id: client.user.id,
                 secret: cSec
             },
-            redirectUri: 'http://localhost/discord/callback',
-            domain: 'http://localhost/',
+            redirectUri: dbd_red,
+            domain: dbd_dom,
             bot: client,
             theme: DarkDashboard({
                 information: {
                     createdBy: "DiamondCoder",
-                    websiteTitle: "Femboy_OwO discord bot testing",
+                    websiteTitle: "Femboy_OwO discord bot",
                     websiteName: "Femboy_OwO bot",
                     websiteUrl: "https://github.com/DiamondPRO02/Femboi_OwO",
                     dashboardUrl: "http://localhost:3000/",

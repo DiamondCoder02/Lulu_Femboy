@@ -1,6 +1,6 @@
 {
     "name": "femboi_owo",
-    "version": "0.0.1-webpage_03",
+    "version": "0.0.1-webpage_04",
     "description": "4th time trying to make a discord bot, only slash commands are allowed and making it horrible",
     "main": "index.js",
     "scripts": {

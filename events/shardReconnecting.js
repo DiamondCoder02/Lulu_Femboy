@@ -1,10 +1,13 @@
 const { EmbedBuilder } = require('discord.js');
+const config = require('../config.json');
 module.exports = {
 	name: 'shardReconnecting',
 	execute(id, client) {
-		console.log(`[\`${new Date().toLocaleString('hu-HU')}\`] --- shardReconnecting Test ---`);
-        console.log(client)
-		console.log(id);
-        //client.connect();
+		if (config.debug_level >= 3) { 
+			console.log(`[\`${new Date().toLocaleString('hu-HU')}\`] --- shardReconnecting Test ---`);
+			console.log(client)
+			console.log(id);
+			//client.connect();
+		}
 	}
 };

@@ -84,6 +84,7 @@ module.exports = {
 			//NO, just don't:  await client.emit('ready', client); await channel.send(`Event ready has been emitted.`)
 			await client.emit('stickerCreate', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerCreate has been emitted.`)
 			await client.emit('stickerDelete', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerDelete has been emitted.`)
+			await client.emit('userUpdate', interaction.member, interaction.guild.members.cache.first()); await channel.send(`Event userUpdate has been emitted.`)
 
 			return await interaction.followUp('**Debugging events... Done!**');
 		}

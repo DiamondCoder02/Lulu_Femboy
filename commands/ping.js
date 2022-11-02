@@ -20,7 +20,7 @@ module.exports = {
             .addFields(
                 {name: "Ping:", value: `\`` + ping + 'ms\`', inline:true},
                 {name: "Discord API:", value: '\`' + client.ws.ping + 'ms\`', inline:true},
-                {name: "Uptime:", value: uptime},
+                {name: "Uptime:", value: uptime+`\n\n__Since:__ \n<t:${Math.floor(client.readyTimestamp / 1000)}:F> \n(<t:${Math.floor(client.readyTimestamp / 1000)}:R>)`},
                 {name: "Problem?:", value: "Check discord own status: [here](https://discordstatus.com/)"},
             )
         await interaction.editReply({content: "**Ping calculated!**", embeds: [embed]})
