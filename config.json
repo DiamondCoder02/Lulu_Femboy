@@ -2,12 +2,14 @@
   "Token": "token",
   "clientId": "clientID",
   "guildId": "guildID",
+  "clientSecret": "clientSecret",
+  "dbd_license": "dbd_license",
+  "dbd_domain": ".http://localhost/",
+  "dbd_redirect": ".http://localhost/discord/callback",
   "botOwnerId": "botOwnerID",
   "botReadyStatus": false,
   "botStatusChannel": "897097242861789236",
-  "futureIdeas": "-reminder \n-bot voting \n-Website to edit config \n-Google(?) search \n-API and rss? \n-math solver \n-Get that fucking console color package so it looks better \n-Currency or xp system \n-Reverse image search",
-  "bugsToFix": "-",
   "stopPassword": "lolipop",
-  "language": "english",
-  "debug_level": 2
+  "debug_level": 2,
+  "gotNewUpdate": false
 }

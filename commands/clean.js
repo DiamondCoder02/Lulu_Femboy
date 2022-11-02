@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { ButtonBuilder, Message, PermissionsBitField } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     guildOnly: true,
     permissions: PermissionsBitField.Flags.ManageMessages,

@@ -1,17 +1,16 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json'), sd = lang.nekoslife.slash_desc.split('-'), de = lang.nekoslife.desc.split('-'), er = lang.nekoslife.error_reply
 const wait = require('node:timers/promises').setTimeout;
 const nekoslife = require('nekos.life'), neko = new nekoslife();
 module.exports = {
-    cooldown: 5,
+    cooldown: 10,
 	data: new SlashCommandBuilder()
 		.setName('nekoslife')
-		.setDescription(sd[0])
+		.setDescription("Get wholesome Nekoslife images")
         .addSubcommand(subcommand => subcommand
             .setName('wholesome')
-            .setDescription(sd[1])
+            .setDescription("Wholesome pictures from Nekoslife.")
             .addStringOption(option => option.setName("sfw_w")
-                .setDescription(de[0])
+                .setDescription("Wholesome category")
                 .addChoices(
                     { name: "Baka", value: 'baka' },
                     { name: "Cuddle", value: 'cuddle' },
@@ -30,13 +29,13 @@ module.exports = {
                     { name: "Tickle", value: 'tickle' },
                 )
                 .setRequired(true))
-            .addUserOption(option => option.setName('target').setDescription(de[2]))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addUserOption(option => option.setName('target').setDescription("Ping your friend if you want."))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         ).addSubcommand(subcommand => subcommand
             .setName('sfw_other')
-            .setDescription(sd[2])
+            .setDescription("Wholesome others from Nekoslife.")
             .addStringOption(option => option.setName("sfw_o")
-                .setDescription(de[0])
+                .setDescription("Wholesome category")
                 .addChoices(
                     { name: "8ball", value: 'eightBall' },
                     { name: "Avatar / Profile Pictures", value: 'avatar' },
@@ -54,8 +53,8 @@ module.exports = {
                     { name: "Woof", value: 'woof' },
                 )
                 .setRequired(true))
-            .addStringOption(option => option.setName('text').setDescription(er))
-            .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10))
+            .addStringOption(option => option.setName('text').setDescription("You need to give a text for OwOify, Spoiler and 8ball."))
+            .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         ),
 	async execute(interaction, client) {
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
@@ -92,14 +91,14 @@ module.exports = {
             if (interaction.options.getString('sfw_o') === 'kemonomimi') {img = await neko.kemonomimi()}
             if (interaction.options.getString('sfw_o') === 'why') {img = await neko.why(); let text = img.why; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
             if (interaction.options.getString('sfw_o') === 'catText') {img = await neko.catText(); const text = img.cat; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
-            if (interaction.options.getString('sfw_o') === 'OwOify') {img = await neko.OwOify({text: interaction.options.getString('text')}); const text = img.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply(er)}}
-            if (interaction.options.getString('sfw_o') === 'eightBall') {img = await neko.eightBall({text: interaction.options.getString('text')}); const text = img.response ; if(interaction.options.getString('text')){ embed.setDescription("**"+interaction.options.getString('text')+"**\n"+text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply(er)}}
+            if (interaction.options.getString('sfw_o') === 'OwOify') {img = await neko.OwOify({text: interaction.options.getString('text')}); const text = img.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.")}}
+            if (interaction.options.getString('sfw_o') === 'eightBall') {img = await neko.eightBall({text: interaction.options.getString('text')}); const text = img.response ; if(interaction.options.getString('text')){ embed.setDescription("**"+interaction.options.getString('text')+"**\n"+text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.")}}
             if (interaction.options.getString('sfw_o') === 'fact') {img = await neko.fact(); const text = img.fact; embed.setDescription(text); return interaction.reply({embeds: [embed]})}
-            if (interaction.options.getString('sfw_o') === 'spoiler') {img = await neko.spoiler({text: interaction.options.getString('text')}); const text = img.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply(er)}}
+            if (interaction.options.getString('sfw_o') === 'spoiler') {img = await neko.spoiler({text: interaction.options.getString('text')}); const text = img.owo ; if(interaction.options.getString('text')){ embed.setDescription(text); return interaction.reply({embeds: [embed]}) } else{ return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.")}}
             if (img.msg === '404') {embed.setDescription('**Error: 404**')} else {embed.setImage(img.url)}
             if (interaction.options.getUser('target')) {
                 const user = interaction.options.getUser('target'), from = interaction.user
-                embed.setDescription(from.toString() + de[3] + " " + interaction.options.getString('sfw_w') + ", " + user.toString() + ". :3")
+                embed.setDescription(from.toString() + " sends you a nice " + interaction.options.getString('sfw_w') + ", " + user.toString() + ". :3")
                 try{ await interaction.reply({ content: user.toString(), embeds: [embed]}) }
                 catch{
                     await wait(1000)

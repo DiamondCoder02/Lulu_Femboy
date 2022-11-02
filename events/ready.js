@@ -1,19 +1,21 @@
-const config = require('../config.json'), { EmbedBuilder } = require('discord.js'), fs = require('fs')
-const lang = require('../languages/' + config.language + '.json'), con = lang.ready.console_log.split('-'), emb = lang.ready.embed.split('-')
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), languageFiles = fs.readdirSync('./languages').filter(file => file.endsWith('.json'));
+const { EmbedBuilder } = require('discord.js'), fs = require('fs'), configData = fs.readFileSync('./config.json', 'utf8')
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
+const packageData = fs.readFileSync('./package.json')
+const config = JSON.parse(configData), package = JSON.parse(packageData)
 module.exports = {
 	name: 'ready',
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
-        console.log(eventFiles); console.log(languageFiles)
-        client.user.setActivity(lang.ready.set_activity)
+        console.log(eventFiles)
+        client.user.setActivity("Web dashboard testing...")
+        //client.user.setActivity("[]~(￣▽￣)~* Learning new commands")
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
-		console.log(`\n --` + con[0] + client.user.tag
-            + `\n\t --` + con[1] + config.language
-            + `\n\t --` + con[2] + config.clientId
-            + `\n\t --` + con[3] + config.stopPassword
-            + `\n\t --` + con[4] + client.readyAt
-            + `\n\t --` + con[5]+" "+ Guilds)
+		console.log(`\n -- Logged in as: ` + client.user.tag
+            + `\n\t -- Client_ID: ` + client.user.id
+            + `\n\t -- Password: ` + config.stopPassword
+            + `\n\t -- Debug_level: ` + config.debug_level
+            + `\n\t -- Ready at: ` + client.readyAt
+            + `\n\t -- Guilds joined: ` + Guilds)
         client.guilds.cache.forEach(guild => {
             guild.invites.fetch().then(invites => {
                 const codeUses = new Map();
@@ -28,25 +30,58 @@ module.exports = {
                     if (config.debug_level >= 2) { console.log(`Vanity cached ${guild.name}`); }
                 }).catch(err => { console.log("Ready vanity Error:", err) })
             } else { console.log(`Vanity URL: ${guild.name} has no vanity URL`) }
-            
         })
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle(emb[0])
-                .setDescription(emb[1] + ` \n<t:${Math.floor(client.readyTimestamp / 1000)}:f> \n${emb[2]} <t:${Math.floor(client.readyTimestamp / 1000)}:R> \n\n` + con[1] + config.language)
+                .setTitle("Bot has updated!")
+                .setDescription(`Bot has been started:
+DebugLevel: ${config.debug_level},
+Ready: <t:${Math.floor(client.readyTimestamp / 1000)}:f> 
+That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
             try { 
                 const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
-                channel.bulkDelete(1, true).catch(error => {console.error(error)})
-                return channel.send({embeds: [embed]})
+                channel.send({embeds: [embed]})
             } catch { 
                 try{
-                    const channel = client.channels.cache.get(config.botStatusChannel) 
-                    channel.bulkDelete(1, true).catch(error => {console.error(error)})
-                    return channel.send({embeds: [embed]})
+                    const channel = client.channels.cache.get(config.botStatusChannel)
+                    channel.send({embeds: [embed]})
                 } catch {
-                    return console.log(lang.ready.no_status)
+                    console.log("No status channel given or found. Continuing...")
                 }
+            }
+        }
+        if (config.gotNewUpdate) {
+            const embed = new EmbedBuilder()
+                .setColor('#FFFF00')
+                .setTitle("Bot has gotten an update: " + package.version)
+                .setDescription(`**Bot news:**\n
+- You can now disable to get bot updates at the web dashboard (default: ON )
+- Guild config command reworked a bit( nearly removed), now the bot relies on the web dashboard mostly
+- For random reactions it checks if channel is sfw or nsfw
+- When you invite the bot, small message will be sent to the owner of the guild
+`)
+            try{
+                client.guilds.cache.forEach(guild => {
+                    //todo: make this work
+                    client.settings.set(guild.id, true, "enableBotUpdateMessage")
+                    if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
+                        channel = guild.systemChannel
+                        if (channel) { channel.send({embeds: [embed]}) } else {
+                            if (client.settings.get(guild.id, "moderationChannel")) {
+                                channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))
+                                channel.send({embeds: [embed]})
+                            } else {
+                                client.users.fetch(guild.ownerId).then(user => { user.send({embeds: [embed]}) })
+                            }
+                            
+                        }
+                    }
+                })
+                config.gotNewUpdate = false
+                fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
+            } catch(err) { 
+                console.log("FATAL ERROR THAT SHOULD NEVER HAPPENED: " + err) 
             }
         }
 	}

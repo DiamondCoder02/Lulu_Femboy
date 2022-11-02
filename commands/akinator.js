@@ -1,18 +1,17 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), akinator = require("discord.js-akinator"), fs = require('fs')
-const {language} = require('../config.json'), l = require('../languages/' + language + '.json'), s = l.akinator.slash.split('-')
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('akinator')
-        .setDescription(s[0])
-        .addStringOption(option => option.setName('lang').setDescription(s[1]))
-        .addBooleanOption(option => option.setName('child_mode').setDescription(s[2]))
-        .addStringOption(option => option.setName('game_type').setDescription(s[3])
+        .setDescription("Play the Akinator game.")
+        .addStringOption(option => option.setName('lang').setDescription("Enter a language (Default: en)"))
+        .addBooleanOption(option => option.setName('child_mode').setDescription("If you want child mode (Default: true)"))
+        .addStringOption(option => option.setName('game_type').setDescription("Enter a game type (Default: character)")
             .addChoices(
-                { name: s[5], value: 'animal' },
-                { name: s[6], value: 'character' },
-                { name: s[7], value: 'object' },
+                { name: "Animals", value: 'animal' },
+                { name: "Characters", value: 'character' },
+                { name: "Objects", value: 'object' },
             ))
-		.addBooleanOption(option => option.setName('button').setDescription(s[4])),
+		.addBooleanOption(option => option.setName('button').setDescription("If you want a button (Default: true)")),
     async execute(interaction) {
         if (interaction.options.getBoolean('button') === false) {useButtons = false} else {useButtons = true}
         if (interaction.options.getBoolean('child_mode') === false) {childMode = false} else {childMode = true}
@@ -20,7 +19,7 @@ module.exports = {
         if (interaction.options.getString('game_type')) {gameType = interaction.options.getString('game_type')} else {gameType = "character"}
 
         try{ const la = require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) } 
-        catch { return await interaction.reply(l.akinator.error+": \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .")}
+        catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .")}
 
         //const lang = "en"; //The Language of the Game
         //const childMode = false; //Whether to use Akinator's Child Mode

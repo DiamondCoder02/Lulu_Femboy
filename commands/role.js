@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require('discord.js');
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
     guildOnly: true,
     cooldown: 60,
@@ -18,7 +17,7 @@ module.exports = {
             .setDescription("`Click some button for roles!`")
         await interaction.reply({ embeds: [role_embed], ephemeral: true })
         for (let x = 0; x < ro.length; x++){
-            let role = await interaction.guild.roles.cache.find(r => r.name == ro[x])
+            let role = await interaction.guild.roles.cache.get(ro[x])
             m.push(new ButtonBuilder({
                 customId: x,
                 style: ButtonStyle.Primary,

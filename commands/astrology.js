@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
-const { language } = require('../config.json'), lang = require('../languages/' + language + '.json')
 const fetch = require('node-fetch')
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -46,6 +45,7 @@ module.exports = {
         */
         try {
             let sign = await fetch(`https://ohmanda.com/api/horoscope/${type}/`).then(res => res.text()).then(data => JSON.parse(data));
+            //console.log(sign)
             const embed = new EmbedBuilder()
                 .setTitle('Horoscope: ' + sign.sign)
                 .setDescription(sign.horoscope)

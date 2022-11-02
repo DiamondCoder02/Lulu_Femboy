@@ -1,8 +1,7 @@
-# Femboi_OwO (Soon this readme will be rewriten)
-4th try making a Discorcd bot.
+# Femboi_OwO
 
 #### A bit of explanation:
-Just my own little bot to learn. Early in development. Still not stupid proof but working on it as I don't want it to break often.
+Just my own little bot to learn. Early in development.
 Feel free to contribute if you want. I also appriciate every problem report and every help.
 This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
 
@@ -14,7 +13,6 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 
 #### Limitation:
 - Only works with slash commands
-- Roles cannot have the same name
 
 ## Credits (Package or API name - command name)
 - [Discord.js Akinator - akinator](https://www.npmjs.com/package/discord.js-akinator)
@@ -29,3 +27,4 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
+- [Discord-dashboard](https://www.npmjs.com/package/discord-dashboard), and [site](https://learnit.assistantscenter.com/)

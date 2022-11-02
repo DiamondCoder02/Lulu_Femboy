@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     cooldown: 60,
     guildOnly: true,
@@ -58,8 +57,10 @@ module.exports = {
                     s.react('<:red_cross:1008725354296389723>')
                     await interaction.reply({content: "Report has been sent to moderators", ephemeral: true})
                 } else {
-                    console.log("Unable to find a channel to send the report to for " + interaction.guild.name)
-                    await interaction.reply({content: "No admin channel found, please contact mods directly", ephemeral: true})
+                    const user = await client.users.fetch(interaction.guild.ownerId);
+                    const s = await user.send({embeds: [report], fetchReply: true})
+                    s.react('<:red_cross:1008725354296389723>')
+                    await interaction.reply({content: "No admin channel found, server owner got the message", ephemeral: true})
                 }
             }
             if (interaction.options.getSubcommand() === 'bot_bug') {

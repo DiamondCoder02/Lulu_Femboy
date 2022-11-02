@@ -2,9 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch')
 const wait = require('node:timers/promises').setTimeout;
-const {language} = require('../config.json'), lang = require('../languages/' + language + '.json')
 module.exports = {
-    cooldown: 5,
 	data: new SlashCommandBuilder()
         .setName('catboys')
         .setDescription('Pictures from catboy api')
@@ -15,7 +13,7 @@ module.exports = {
                 { name: 'catemoji', value: 'catboy' },
             )
         )
-        .addNumberOption(option => option.setName('repeat').setDescription(lang.amount).setMinValue(1).setMaxValue(10)),
+        .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
     async execute(interaction, client, config) {
         try {
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
