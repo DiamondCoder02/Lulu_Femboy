@@ -2,6 +2,8 @@ const { EmbedBuilder } = require('discord.js'), fs = require('fs'), configData =
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 const packageData = fs.readFileSync('./package.json')
 const config = JSON.parse(configData), package = JSON.parse(packageData)
+var dbd_domain = process.env.DBdomain;
+try{ if (config.dbd_domain == ".http://localhost/") { dbd_dom = dbd_domain } else dbd_dom = config.dbd_domain }catch{ return console.log("dbd_domain error")}
 module.exports = {
 	name: 'ready',
 	once: true,
@@ -56,10 +58,9 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- You can now disable to get bot updates at the web dashboard (default: ON )
-- Guild config command reworked a bit( nearly removed), now the bot relies on the web dashboard mostly
-- For random reactions it checks if channel is sfw or nsfw
-- When you invite the bot, small message will be sent to the owner of the guild
+- 
+- And other small things and fixes
+- ${dbd_dom}
 `)
             try{
                 client.guilds.cache.forEach(guild => {

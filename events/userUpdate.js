@@ -28,18 +28,20 @@ module.exports = {
                         embed.setImage(newUser.avatarURL())
                     }
                     //check banner change
+                    /*
                     if (oldUser.bannerURL() !== newUser.bannerURL()) {
                         embed.addFields( { name: 'Banner', value: `Old: ${oldUser.bannerURL()?oldUser.bannerURL():"-"} => \nNew: ${newUser.bannerURL()?newUser.bannerURL():"-"}` } )
                         embed.setThumbnail(oldUser.bannerURL())
                         embed.setImage(newUser.bannerURL())
                     }
-                }
-                try {
-                    if (client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))} else {return}
-                    channel.send({embeds: [embed]})
-                } catch (error) { 
-                    console.log(error)
-                    console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "userUpdate no channel:"+err.name) 
+                    */
+                    try {
+                        if (client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))} else {return}
+                        channel.send({embeds: [embed]})
+                    } catch (error) { 
+                        console.log(error)
+                        console.log(`[${new Date().toLocaleString('hu-HU')}] `+ "userUpdate no channel:"+error.name) 
+                    }
                 }
             }
         });
