@@ -24,7 +24,7 @@ module.exports = {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined with custom invite link.`)
                             console.log(cachedVanityInvites)
                             console.log(newVanityInvites)
-                            channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link. Used since creation:${newVanityInvites.uses}`});
+                            channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link. \nUsed since creation:${newVanityInvites.uses}`});
                         } else {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} somehow broke my bot logic. WHAT?`)
                             channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` somehow broke my bot logic. WHAT?`});
