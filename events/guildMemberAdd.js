@@ -18,14 +18,13 @@ module.exports = {
                     channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`(ID:${member.user.id}). \nInvites:${usedInvite.uses}/${usedInvite.maxUses}`});
                 } else {
                     try {
-                        const cachedVanityInvites = vanityInvites.get(member.guild.id)
-                        const newVanityInvites = await member.guild.fetchVanityData();
+                        let cachedVanityInvites = vanityInvites.get(member.guild.id)
+                        let newVanityInvites = await member.guild.fetchVanityData();
                         if (cachedVanityInvites.uses < newVanityInvites.uses) {
-                            cachedVanityInvites = newVanityInvites
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined with custom invite link.`)
                             console.log(cachedVanityInvites)
                             console.log(newVanityInvites)
-                            channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link. \nInvites:${newVanityInvites.uses}/${newVanityInvites.uses}`});
+                            channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link. Used since creation:${newVanityInvites.uses}`});
                         } else {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} somehow broke my bot logic. WHAT?`)
                             channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` somehow broke my bot logic. WHAT?`});
