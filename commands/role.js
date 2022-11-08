@@ -37,7 +37,7 @@ module.exports = {
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
         collector.on('collect', async i => {
-            let role = await interaction.guild.roles.cache.find(r => r.name == ro[i.customId])
+            let role = await interaction.guild.roles.cache.get(ro[i.customId])
             if (interaction.member.roles.cache?.has(role.id)) {
                 interaction.member.roles.remove(role)
                 await interaction.followUp({ content: `${role} was removed from you`, ephemeral: true });

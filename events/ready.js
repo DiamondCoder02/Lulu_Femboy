@@ -58,7 +58,8 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- 
+- Fixed /role command
+- Removed phub command as links were broken
 - And other small things and fixes
 - ${dbd_dom}
 `)

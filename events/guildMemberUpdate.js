@@ -18,7 +18,14 @@ module.exports = {
                         let role = newMember.guild.roles.cache.get(ro[i])
                         newMember.roles.add(role)
                     } catch (e) {
-                        console.log(e)
+                        console.log("guildMemberUpdate giveRole "+e.name)
+                        if (client.settings.get(oldMember.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
+                        if (channel) {
+                            channel.send(`An error occured. A role got deleted from welcome roles. Please check the dashboard and edit the settings.`)
+                        } else {
+                            const user = client.users.fetch(oldMember.guild.ownerId);
+                            user.send(`An error occured at ${newMember.guild.name}. A role got deleted from welcome roles. Please check the dashboard and edit the settings.`)
+                        }
                     }
                 }
             }

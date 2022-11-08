@@ -1,4 +1,5 @@
 @ECHO OFF
+call npm prune
 node deploy-commands.js
 node index.js
 :loop

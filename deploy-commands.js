@@ -61,6 +61,38 @@ ask("Ask number 1-5", (answer) => {
         .catch(console.error);
     } else if (answer == 5) {
         console.log("You have chosen to exit the program. Goodbye!");
+    } else if (answer == 6) {
+        console.log("Secret Global Commands reload. Please wait...");
+        rest.get(Routes.applicationCommands(c))
+        .then(data => {
+            const promises = [];
+            for (const command of data) {
+                const deleteUrl = `${Routes.applicationCommands(c)}/${command.id}`;
+                promises.push(rest.delete(deleteUrl));
+            }
+            Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
+        }).then(
+            rest.put(Routes.applicationCommands(c), { body: commands })
+            .then(() => console.log("Registered all commands globally"))
+            .catch(console.error)
+        )
+        .catch(console.error);
+    } else if (answer == 7) {
+        console.log("Secret Guild Commands reload. Please wait...");
+        try { if (guildId !== "guildID") var g = guildId; else var g = gId} catch {console.log("Please provide a GuildID.")}
+        rest.get(Routes.applicationGuildCommands(c, g))
+        .then(data => {
+            const promises = [];
+            for (const command of data) {
+                const deleteUrl = `${Routes.applicationGuildCommands(c, g)}/${command.id}`;
+                promises.push(rest.delete(deleteUrl));
+            }
+            Promise.all(promises).then(() => console.log("Deleted all commands in the specific guild => "+g)).catch(console.error);
+        }).then(
+            rest.put(Routes.applicationCommands(c), { body: commands })
+            .then(() => console.log("Registered all commands globally"))
+            .catch(console.error)
+        ).catch(console.error);
     } else {
         console.log("Error: Please restart the program and enter a number between 1 and 5");
     }

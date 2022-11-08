@@ -1,10 +1,11 @@
+var goodBot = 0; var badBot = 0; 
 module.exports = {
 	name: 'messageCreate',
 	execute(message, client) {
 		//console.log(message);
 		try { if (message.author.bot) return } catch { return console.log("Bot is null, messageCreate, WHAT THE FUCK?"); }
         if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == "REPLY") return;
-
+		
 		//single channel logger
 		const l = client.settings.get(message.guild.id, "singleChannelMessageLogger")
 		if (l[0] != '' && l[1] != '') {
@@ -41,8 +42,8 @@ module.exports = {
 			if (canSend) {
 				//add good morning message when asked?
 				if (message.content.toLowerCase() === "nya" || message.content.toLowerCase() === "nya~" || message.content.toLowerCase() === "nyaa~" || message.content.toLowerCase() === "nya~~") { message.channel.send("https://cdn.discordapp.com/attachments/657545944136417280/920902875364864090/nya.mp4"); }
-				if (message.content.toLowerCase().includes("good bot") || message.content.toLowerCase().includes("okos bot")) { message.channel.send("Thank you! :3"); }
-				if (message.content.toLowerCase().includes("bad bot") || message.content.toLowerCase().includes("rossz bot")) { message.channel.send("I'm sorry. >.<"); }
+				if (message.content.toLowerCase().includes("good bot") || message.content.toLowerCase().includes("okos bot")) { goodBot++; message.channel.send(`Thank you! :3 \n||I was called cute ${goodBot} time(s)||`); }
+				if (message.content.toLowerCase().includes("bad bot") || message.content.toLowerCase().includes("rossz bot")) { badBot++; message.channel.send(`I'm sorry. >.< \n||I was bad ${badBot} time(s)||`); }
 				if ((message.content.toLowerCase().includes("political view") && message.content.toLowerCase().includes("bot")) || (message.content.toLowerCase().includes("politikai nézet") && message.content.toLowerCase().includes("botnak"))) { message.channel.send("Me and my creator/master hates politics. So I don't have any opinion."); }
 				if (message.content.toLowerCase().includes("can i fuck") && message.content.toLowerCase().includes("bot") ) { message.react('<:what_how:961926449806315530>'); } 
 				if (message.content.toLowerCase().includes("uwu") ) { message.react('<:uwu:957683216393855006>'); }

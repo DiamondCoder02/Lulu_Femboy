@@ -91,7 +91,9 @@ function configOwner(configIn, configOut) {
     var as = Object.entries(configIn)
     Array.from(as).forEach(obj => {
         if(obj[0] === 'Token') return;
+        if(obj[0] === 'clientSecret') return;
         if(obj[0] === 'dbd_license') return;
+        if(obj[0] === 'gotNewUpdate') return;
         let cmdObject = {
             name: obj[0],
             value: String(obj[1]),

@@ -1,6 +1,6 @@
 {
     "name": "femboi_owo",
-    "version": "0.0.1-webpage_04",
+    "version": "0.0.1-webpage_05",
     "description": "4th time trying to make a discord bot, only slash commands are allowed and making it horrible",
     "main": "index.js",
     "scripts": {
@@ -22,7 +22,6 @@
         "booru": "^2.6.2",
         "dbd-dark-dashboard": "^1.6.591",
         "discord-dashboard": "^2.3.45",
-        "discord-phub": "^1.0.7",
         "discord-player": "^5.3.1",
         "discord.js": "^14.6.0",
         "discord.js-akinator": "^4.0.1",

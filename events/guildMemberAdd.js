@@ -24,7 +24,7 @@ module.exports = {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} joined with custom invite link.`)
                             console.log(cachedVanityInvites)
                             console.log(newVanityInvites)
-                            channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link. \nUsed since creation:${newVanityInvites.uses}`});
+                            channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` joined with custom invite link. \nUsed since creation: \`${newVanityInvites.uses}\``});
                         } else {
                             console.log(`[${new Date().toLocaleString('hu-HU')}] ${member.user.tag} somehow broke my bot logic. WHAT?`)
                             channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString('hu-HU')}\`] \n\`${member.user.tag}\` somehow broke my bot logic. WHAT?`});
@@ -45,8 +45,19 @@ module.exports = {
             if( client.settings.get(member.guild.id, "welcomeRoles") ) {
                 let ro = client.settings.get(member.guild.id, "welcomeRoles");
                 for (let i = 0; i < ro.length; i++) {
-                    let role = member.guild.roles.cache.get(ro[i])
-                    member.roles.add(role)
+                    try{
+                        let role = member.guild.roles.cache.get(ro[i])
+                        member.roles.add(role)
+                    } catch (e) {
+                        console.log("guildMemberAdd giveRole "+e.name)
+                        if (client.settings.get(oldMember.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
+                        if (channel) {
+                            channel.send(`An error occured. A role got deleted from welcome roles. Please check the dashboard and edit the settings.`)
+                        } else {
+                            const user = client.users.fetch(oldMember.guild.ownerId);
+                            user.send(`An error occured at ${newMember.guild.name}. A role got deleted from welcome roles. Please check the dashboard and edit the settings.`)
+                        }
+                    }
                 }
             }
         }
