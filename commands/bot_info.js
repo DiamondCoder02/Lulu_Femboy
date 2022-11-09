@@ -68,7 +68,7 @@ User,
                 { name: "__Partials__", value: pars, inline:true},
             )
             .setTimestamp()
-            .setFooter({text: `Last update: 2022.Nov.02.`});
+            .setFooter({text: `Last update: 2022.Nov.09.`});
         await interaction.reply({embeds: [version_embed], components: [page]})
         //if bot owner, give more info
         require('dotenv').config(); var bOwnerId = process.env.botOwnerId;

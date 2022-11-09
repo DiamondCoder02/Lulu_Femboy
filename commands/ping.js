@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder } = require('discord.js');
+const package = require('../package.json');
 module.exports = {
     cooldown: 30,
 	data: new SlashCommandBuilder()
@@ -23,6 +24,7 @@ module.exports = {
                 {name: "Uptime:", value: uptime+`\n\n__Since:__ \n<t:${Math.floor(client.readyTimestamp / 1000)}:F> \n(<t:${Math.floor(client.readyTimestamp / 1000)}:R>)`},
                 {name: "Problem?:", value: "Check discord own status: [here](https://discordstatus.com/)"},
             )
+            .setFooter({text: `Version: ${package.version}`});
         await interaction.editReply({content: "**Ping calculated!**", embeds: [embed]})
 	}
 }

@@ -23,7 +23,6 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 - [Dad Joke API - dad_joke](https://icanhazdadjoke.com/)
 - [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
-- [Discord-phub - phub](https://www.npmjs.com/package/discord-phub)
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
