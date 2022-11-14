@@ -58,7 +58,7 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- Added some minigames
+- Added some minigames (rock paper scissors, number guessing, )
 - Fixed /role command
 - Removed phub command as links were broken
 - FUCK BUGS
