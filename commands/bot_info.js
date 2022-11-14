@@ -40,6 +40,7 @@ User,
 `
         let configList = []
         configOwner(config, configList)
+        const guildLength = client.guilds.cache.map(guild => guild.id).length;
         const page = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('delete').setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
@@ -66,6 +67,7 @@ User,
                 { name: "__npm packages__", value: npmPackages, inline:true},
                 { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
                 { name: "__Partials__", value: pars, inline:true},
+                { name: "Current servers:", value: guildLength, inline:true},
             )
             .setTimestamp()
             .setFooter({text: `Last update: 2022.Nov.09.`});
@@ -78,7 +80,7 @@ User,
                 .setColor('#FFFF00')
                 .setDescription("Only bot owner should be able to see this:")
                 .addFields(configList)
-                .addFields({name: "Guilds:", value: Guilds})
+                .addFields({name: `(${String(guildLength)}) guild(s):`, value: Guilds})
             if (interaction.options.getBoolean('owner')) {
                 await interaction.followUp({embeds: [owner_embed], components: [page]})
             } else {

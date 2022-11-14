@@ -1,7 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
+const config = require('../config.json');
 module.exports = {
 	name: 'guildDelete',
-	execute(guild) {
+	async execute(guild, client, guildInvites) {
+		const invites = await guild.invites.fetch();
+		const codeUses = new Map();
+		invites.each(inv => codeUses.set(inv.code, inv.uses));
+		guildInvites.set(guild.id, codeUses);
         console.log(`[${new Date().toLocaleString('hu-HU')}] Bot left guild: ${guild.name}`)
 		const embed = new EmbedBuilder()
 			.setColor('#FFFF00')

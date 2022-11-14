@@ -34,6 +34,7 @@ module.exports = {
             redirectUri: dbd_red,
             domain: dbd_dom,
             bot: client,
+            //useCategorySet: true,
             theme: DarkDashboard({
                 information: {
                     createdBy: "DiamondCoder",
@@ -42,7 +43,7 @@ module.exports = {
                     websiteUrl: "https://github.com/DiamondPRO02/Femboi_OwO",
                     dashboardUrl: "http://localhost:3000/",
                     //supporteMail: "support@imidnight.ml",
-                    //supportServer: "https://discord.gg/no",
+                    supportServer: "https://discord.gg/DcQS9mNEUh",
                     imageFavicon: "https://i.imgur.com/KQyOp8j.png",
                     iconURL: "https://i.imgur.com/KQyOp8j.png",
                     loggedIn: "Successfully signed in OwO.",

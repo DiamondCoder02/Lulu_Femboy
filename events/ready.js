@@ -9,7 +9,7 @@ module.exports = {
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
         console.log(eventFiles)
-        client.user.setActivity("Web dashboard testing...")
+        client.user.setActivity("Nya~")
         //client.user.setActivity("[]~(￣▽￣)~* Learning new commands")
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n -- Logged in as: ` + client.user.tag
@@ -58,6 +58,7 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
+- Fuck bugs
 - Fixed /role command
 - Removed phub command as links were broken
 - And other small things and fixes

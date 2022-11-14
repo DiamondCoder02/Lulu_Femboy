@@ -10,7 +10,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor('#FFFF00 ')
             .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
-            .setDescription(`**${member.user.tag}**, has left the server.`)
+            .setDescription(`**${member.user.tag}**, has left the server \`(${member.user.id})\`.`)
             //.setThumbnail(member.user.displayAvatarURL())
             .setFooter({ text: `Member count: ${member.guild.memberCount+1} => ${member.guild.memberCount}` })
             .setTimestamp()

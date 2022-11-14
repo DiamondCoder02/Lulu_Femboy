@@ -1,7 +1,18 @@
 const { EmbedBuilder } = require('discord.js');
+const config = require('../config.json');
 module.exports = {
 	name: 'guildCreate',
-	execute(guild, client) {
+	async execute(guild, client, guildInvites, vanityInvites) {
+		const invites = await guild.invites.fetch();
+		const codeUses = new Map();
+		invites.each(inv => codeUses.set(inv.code, inv.uses));
+		guildInvites.set(guild.id, codeUses);
+		if (guild.vanityURLCode != null) {
+			guild.fetchVanityData().then(invites => {
+				vanityInvites.set(guild.id, invites);
+				if (config.debug_level >= 2) { console.log(`Vanity cached ${guild.name}`); }
+			}).catch(err => { console.log("Ready vanity Error:", err) })
+		} else { console.log(`Vanity URL: ${guild.name} has no vanity URL`) }
         console.log(`[${new Date().toLocaleString('hu-HU')}] Bot joined guild: ${guild.name}`)
 		bot=client.user
 		try{

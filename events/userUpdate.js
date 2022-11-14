@@ -21,20 +21,13 @@ module.exports = {
                         .setDescription(`${oldUser.tag} (${newUser.tag}) has been updated`)
                         .setFooter({text: `User ID: ${oldUser.id}`})
                         .setTimestamp()
+                    if (oldUser.tag !== newUser.tag || oldUser.avatarURL !== newUser.avatarURL) {} else return;
                     if (oldUser.tag !== newUser.tag) { embed.addFields( { name: 'Tag', value: `${oldUser.tag} => ${newUser.tag}` } ) }
                     if (oldUser.avatarURL() !== newUser.avatarURL()) {
                         embed.addFields( { name: 'Avatar', value: `Old: ${oldUser.avatarURL()?oldUser.avatarURL():"-"} => \nNew: ${newUser.avatarURL()?newUser.avatarURL():"-"}` } )
                         embed.setThumbnail(oldUser.avatarURL())
                         embed.setImage(newUser.avatarURL())
                     }
-                    //check banner change
-                    /*
-                    if (oldUser.bannerURL() !== newUser.bannerURL()) {
-                        embed.addFields( { name: 'Banner', value: `Old: ${oldUser.bannerURL()?oldUser.bannerURL():"-"} => \nNew: ${newUser.bannerURL()?newUser.bannerURL():"-"}` } )
-                        embed.setThumbnail(oldUser.bannerURL())
-                        embed.setImage(newUser.bannerURL())
-                    }
-                    */
                     try {
                         if (client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))} else {return}
                         channel.send({embeds: [embed]})
