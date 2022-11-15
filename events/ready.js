@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js'), fs = require('fs'), configData = fs.readFileSync('./config.json', 'utf8')
+const { EmbedBuilder, Client, PermissionsBitField } = require('discord.js'), fs = require('fs'), configData = fs.readFileSync('./config.json', 'utf8')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 const packageData = fs.readFileSync('./package.json')
 const config = JSON.parse(configData), package = JSON.parse(packageData)
@@ -10,7 +10,6 @@ module.exports = {
 	execute(arg, client, guildInvites, vanityInvites) {
         console.log(eventFiles)
         client.user.setActivity("Nya~")
-        //client.user.setActivity("[]~(￣▽￣)~* Learning new commands")
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n -- Logged in as: ` + client.user.tag
             + `\n\t -- Client_ID: ` + client.user.id
@@ -19,19 +18,22 @@ module.exports = {
             + `\n\t -- Ready at: ` + client.readyAt
             + `\n\t -- Guilds joined: ` + Guilds)
         client.guilds.cache.forEach(guild => {
-            guild.invites.fetch().then(invites => {
-                const codeUses = new Map();
-                invites.each(inv => codeUses.set(inv.code, inv.uses));
-                guildInvites.set(guild.id, codeUses);
-                if (config.debug_level >= 2) { console.log(`INVITES CACHED ${guild.name}`); }
-            }).catch(err => { console.log("Ready invite Error:", err) })
-
-            if (guild.vanityURLCode != null) {
-                guild.fetchVanityData().then(invites => {
-                    vanityInvites.set(guild.id, invites);
-                    if (config.debug_level >= 2) { console.log(`Vanity cached ${guild.name}`); }
-                }).catch(err => { console.log("Ready vanity Error:", err) })
-            } else { console.log(`Vanity URL: ${guild.name} has no vanity URL`) }
+            //check if bot has permissions to view invites
+            const nya = guild.members.cache.get(client.user.id)
+            if(nya.permissions.has(PermissionsBitField.Flags.ManageGuild)){
+                guild.invites.fetch().then(invites => {
+                    const codeUses = new Map();
+                    invites.each(inv => codeUses.set(inv.code, inv.uses));
+                    guildInvites.set(guild.id, codeUses);
+                    if (config.debug_level >= 2) { console.log(`INVITES CACHED ${guild.name}`); }
+                }).catch(err => { console.log("Ready invite Error:", err) })
+                if (guild.vanityURLCode != null) {
+                    guild.fetchVanityData().then(invites => {
+                        vanityInvites.set(guild.id, invites);
+                        if (config.debug_level >= 2) { console.log(`Vanity cached ${guild.name}`); }
+                    }).catch(err => { console.log("Ready vanity Error:", err) })
+                } else { console.log(`Vanity URL: ${guild.name} has no vanity URL`) }
+            } else { console.log(`Ready invite Error: Missing permissions to view invites in ${guild.name}`) }
         })
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()

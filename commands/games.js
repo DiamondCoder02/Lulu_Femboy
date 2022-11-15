@@ -14,7 +14,7 @@ module.exports = {
             )
             .addIntegerOption(option => option.setName('min').setDescription('Minimum number (default 1)'))
             .addIntegerOption(option => option.setName('max').setDescription('Maximum number (default 100)'))
-            .addIntegerOption(option => option.setName('tries').setDescription('How many tries do you have? (default 10)'))
+            .addIntegerOption(option => option.setName('tries').setDescription('How many tries do we want? (default 10)'))
         )
         ,
     async execute(interaction, client, config) {
@@ -64,31 +64,29 @@ module.exports = {
                     .setTitle('Guess the number!')
                     .setColor('#00FF00')
                 if (game_mode === 'bot') {
+                    await interaction.reply("Game start")
+                    var number = Math.floor(Math.random() * (max - min + 1)) + min;
 
-
-
+                    let numbers = []
+                    for (let i = 0; i < 10; i++) { numbers.push(Math.floor(Math.random() * (max - min + 1)) + min) }
+                    const buttons = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId(`${number>=numbers[0]? "higher":"lower"}`).setLabel(`${String(numbers[0])}`).setStyle(ButtonStyle.Secondary),
+                        new ButtonBuilder().setCustomId(`${number>=numbers[1]? "higher":"lower"}`).setLabel(`${String(numbers[1])}`).setStyle(ButtonStyle.Primary),
+                    )
+                    collector.on('collect', async i => {
+                        console.log(i)
+                    })
                     
+                    embed.setDescription('I\'m thinking of a number between '+min+' and '+max+'. Here are 10 random numbers. Take a guess. \n(You have '+tries+' tries to guess it!)')
+                    await interaction.editReply({embeds: [embed]})
                 } else {
-                    const buttons = new ActionRowBuilder()
-                        .addComponents(
-                            new ButtonBuilder()
-                                .setCustomId('high')
-                                .setLabel('Higher')
-                                .setStyle(ButtonStyle.Success)
-                                .setEmoji("⬆️"),
-                            new ButtonBuilder()
-                                .setCustomId('low')
-                                .setLabel('Lower')
-                                .setStyle(ButtonStyle.Danger)
-                                .setEmoji("⬇️"),
-                            new ButtonBuilder()
-                                .setCustomId('equal')
-                                .setLabel('Guessed it')
-                                .setStyle(ButtonStyle.Primary)
-                                .setEmoji("✅"),
-                        )
+                    const buttons = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('high').setLabel('Higher').setStyle(ButtonStyle.Success).setEmoji("⬆️"),
+                        new ButtonBuilder().setCustomId('low').setLabel('Lower').setStyle(ButtonStyle.Danger).setEmoji("⬇️"),
+                        new ButtonBuilder().setCustomId('equal').setLabel('Guessed it').setStyle(ButtonStyle.Primary)
+                    )
                     var guessingNum = Math.floor(Math.random() * (max - min + 1)) + min;
-                    embed.setDescription('I\'m thinking of the number '+guessingNum+"!\n(I have "+tries+" tries left)")
+                    embed.setDescription('I\'m thinking of the number '+guessingNum+"!\nIs your number higher or lower? \n(I have "+tries+" tries left)")
                     interaction.reply({ embeds: [embed], components: [buttons] });
                     const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
                     const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
@@ -104,10 +102,10 @@ module.exports = {
                             tries--
                         }
                         if (i.customId === 'equal') { win = true }
-                        embed.setDescription('I\'m thinking of the number '+guessingNum+"!\n(I have "+tries+" tries left)")
+                        embed.setDescription('I\'m thinking of the number ' + guessingNum + "!\nIs your number higher or lower? \n(I have "+tries+" tries left)")
                         await interaction.editReply({embeds: [embed]})
-                        if (win===true) { embed.setDescription(`You **won**! The number was: ${guessingNum}`); await interaction.editReply({embeds: [embed]}); collector.stop() }
-                        else if (tries===0) { embed.setDescription(`You **lost**! The number was: ${guessingNum}`); await interaction.editReply({embeds: [embed]}); collector.stop() }
+                        if (win===true) { embed.setDescription(`I **won**! The number was: ${guessingNum}.`); await interaction.editReply({embeds: [embed]}); collector.stop() }
+                        else if (tries===0) { embed.setDescription(`I **lost**! I couldn't guess the number.`); await interaction.editReply({embeds: [embed]}); collector.stop() }
                     })
                 }
         }
