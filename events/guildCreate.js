@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const config = require('../config.json');
+const config = require('../botConfigs/config.json');
 module.exports = {
 	name: 'guildCreate',
 	async execute(guild, client, guildInvites, vanityInvites) {

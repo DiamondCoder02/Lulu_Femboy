@@ -2,7 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuild
 let eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), eventArray = eventFiles.map(x => {return x.replace('.js','\n')})
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')), comArray = commandFiles.map(x => {return x.replace('.js','\n')})
 const package = require('../package.json');
-const config = require('../config.json');
+const config = require('../botConfigs/config.json');
+const goodBad = require('../botConfigs/bot_private.json');
 module.exports = {
     cooldown: 60,
     data: new SlashCommandBuilder()
@@ -67,7 +68,10 @@ User,
                 { name: "__npm packages__", value: npmPackages, inline:true},
                 { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
                 { name: "__Partials__", value: pars, inline:true},
-                { name: "Current servers:", value: guildLength, inline:true},
+                { name: "Current servers:", value: guildLength},
+                { name: "I was called good:", value: "\'"+goodBad.goodBot+ "\' time(s)", inline:true},
+                { name: "I was called bad:", value: "\'"+goodBad.badBot+ "\' time(s)", inline:true},
+                { name: "People asked if:", value: "They can fuck my bot \'"+goodBad.badBot+ "\' time(s)", inline:true},
             )
             .setTimestamp()
             .setFooter({text: `Last update: 2022.Nov.09.`});

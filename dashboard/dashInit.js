@@ -1,4 +1,4 @@
-const { Client, Collection, GatewayIntentBits, Partials, ChannelType } = require('discord.js'), config = require('../config.json')
+const { Client, ChannelType } = require('discord.js'), config = require('../botConfigs/config.json');
 const package = require('../package.json');
 /* --- PRE_DASHBOARD --- */
 const DarkDashboard = require('dbd-dark-dashboard');
@@ -34,18 +34,19 @@ module.exports = {
             redirectUri: dbd_red,
             domain: dbd_dom,
             bot: client,
+            requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.MANAGE_GUILD, DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
             //useCategorySet: true,
             theme: DarkDashboard({
                 information: {
                     createdBy: "DiamondCoder",
-                    websiteTitle: "Femboy_OwO discord bot",
-                    websiteName: "Femboy_OwO bot",
+                    websiteTitle: `${client.user.username} discord bot`,
+                    websiteName: `${client.user.username} bot`,
                     websiteUrl: "https://github.com/DiamondPRO02/Femboi_OwO",
                     dashboardUrl: "http://localhost:3000/",
                     //supporteMail: "support@imidnight.ml",
                     supportServer: "https://discord.gg/DcQS9mNEUh",
-                    imageFavicon: "https://i.imgur.com/KQyOp8j.png",
-                    iconURL: "https://i.imgur.com/KQyOp8j.png",
+                    imageFavicon: "https://i.imgur.com/GrXR9z8.png",
+                    iconURL: "https://i.imgur.com/GrXR9z8.png",
                     loggedIn: "Successfully signed in OwO.",
                     mainColor: "#2CA8FF",
                     subColor: "#ebdbdb",
@@ -53,9 +54,9 @@ module.exports = {
                 },
                 index: {
                     card: {
-                        category: "Femboy_OwO Discord bot control panel",
-                        title: `Welcome to the Femboy_OwO control panel. You can edit options and I can learn discord dashboard.`,
-                        image: "https://i.imgur.com/mF37cEE.png",
+                        category: `${client.user.tag} Discord bot control panel`,
+                        title: `Welcome to the ${client.user.tag} control panel. You can edit options and I can learn discord dashboard.`,
+                        image: `https://i.imgur.com/bYYjIZC.png`,
                         footer: "Last edit: 16.09.2022",
                     },
                     information: {

@@ -66,7 +66,7 @@ module.exports = {
             if (interaction.options.getSubcommand() === 'bot_bug') {
                 report.setTitle('Bot Bug Report' + '\n' + problem_with);
                 try{
-                    const config = require('../config.json')
+                    const config = require('../botConfigs/config.json')
                     require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
                     if(config.botOwnerId === "botOwnerID"){
                         const user = await client.users.fetch(b_o_Id);

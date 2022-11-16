@@ -1,4 +1,4 @@
-const { Collection, InteractionType, ChannelType } = require('discord.js'), config = require('../config.json');
+const { Collection, InteractionType, ChannelType } = require('discord.js'), config = require('../botConfigs/config.json');
 const cooldowns = new Collection();
 require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
 module.exports = {
@@ -52,6 +52,7 @@ module.exports = {
 				}
 				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
 					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
+					if (nameOfCommand === "akinator") {return console.log("Bad akinator")}
 					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
 				} 
 				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {

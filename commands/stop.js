@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, PermissionsBitField } = require('discord.js');
+require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
 module.exports = {
 	permissions: PermissionsBitField.Flags.Administrator,
 	guildOnly: true,
@@ -8,23 +9,32 @@ module.exports = {
 		.addStringOption(option => option.setName('password').setDescription("Enter a password to stop the bot").setRequired(true)),
 	async execute(interaction, client, config) {
 		if (config.stopPassword === interaction.options.getString('password').trim()){
-			console.log(`-------------------------\n` + `[${new Date().toLocaleString('hu-HU')}] The bot has stopped! \nBot has been stopped by: ` + interaction.user.tag 
-				+ "\nGuild: " + interaction.guild.name+", #"+interaction.channel.name + "\nTime:" + interaction.createdAt + `\n-------------------------`)
-			const embed = new EmbedBuilder()
-				.setColor('#ff0000')
-				.setTitle("The bot has stopped!")
-				.setDescription("Bot has been stopped by " + interaction.user.tag)
-			await interaction.reply({content: "The bot has stopped!", ephemeral: true})
-			await interaction.followUp({embeds: [embed]})
-			client.destroy()
-			process.exit()
+			if (interaction.user.id === b_o_Id || interaction.user.id === config.botOwnerId) {
+				console.log(`-------------------------\n` + `[${new Date().toLocaleString('hu-HU')}] The bot has stopped! \nBot has been stopped by: ` + interaction.user.tag 
+					+ "\nGuild: " + interaction.guild.name+", #"+interaction.channel.name + "\nTime:" + interaction.createdAt + `\n-------------------------`)
+				const embed = new EmbedBuilder()
+					.setColor('#ff0000')
+					.setTitle("The bot has stopped!")
+					.setDescription("Bot has been stopped by " + interaction.user.tag)
+				await interaction.reply({content: "The bot has stopped!", ephemeral: true})
+				await interaction.followUp({embeds: [embed]})
+				client.destroy()
+				process.exit()
+			}else{
+				const embed = new EmbedBuilder()
+					.setColor('#FFFF00 ')
+					.setTitle("Meh, you though!")
+					.setDescription("Please ping the bot owner a million times to stop the bot " + interaction.user.tag)
+				await interaction.reply({content: "UwU", ephemeral: true})
+				await interaction.followUp({embeds: [embed]})
+			}
 		} else {
 			const embed = new EmbedBuilder()
 				.setColor('#FFFF00 ')
 				.setTitle("Wrong password!")
 				.setDescription("You gave a wrong password" + interaction.user.tag)
-				await interaction.reply({content: "You gave a wrong password", ephemeral: true})
-				await interaction.followUp({embeds: [embed]})
+			await interaction.reply({content: "You gave a wrong password", ephemeral: true})
+			await interaction.followUp({embeds: [embed]})
 		}
 	}
 }

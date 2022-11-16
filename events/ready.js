@@ -1,4 +1,4 @@
-const { EmbedBuilder, Client, PermissionsBitField } = require('discord.js'), fs = require('fs'), configData = fs.readFileSync('./config.json', 'utf8')
+const { EmbedBuilder, Client, PermissionsBitField } = require('discord.js'), fs = require('fs'), configData = fs.readFileSync('./botConfigs/config.json', 'utf8')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 const packageData = fs.readFileSync('./package.json')
 const config = JSON.parse(configData), package = JSON.parse(packageData)
@@ -60,12 +60,14 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- Added some minigames (rock paper scissors, number guessing, )
+- Made good and bad bot counter global and not reset
+- Added new banner and profile picture on web dashboard and Discord
+- Added some minigames (rock-paper-scissors, number guessing )
 - Fixed /role command
 - Removed phub command as links were broken
-- FUCK BUGS
+- Internal changes
 - And other small things and fixes
-- ${dbd_dom}
+[- ${dbd_dom}]
 `)
             try{
                 client.guilds.cache.forEach(guild => {
@@ -73,7 +75,8 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                     client.settings.set(guild.id, true, "enableBotUpdateMessage")
                     if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
                         channel = guild.systemChannel
-                        if (channel) { channel.send({embeds: [embed]}) } else {
+                        if (channel) { channel.send({embeds: [embed]}) } 
+                        else {
                             if (client.settings.get(guild.id, "moderationChannel")) {
                                 channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))
                                 channel.send({embeds: [embed]})
