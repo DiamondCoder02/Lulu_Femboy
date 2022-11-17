@@ -2,6 +2,7 @@ const { EmbedBuilder, Client, PermissionsBitField } = require('discord.js'), fs 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 const packageData = fs.readFileSync('./package.json')
 const config = JSON.parse(configData), package = JSON.parse(packageData)
+const botStat = require('../botConfigs/bot_private.json', 'utf8'); const SetAct = botStat.botStatus
 var dbd_domain = process.env.DBdomain;
 try{ if (config.dbd_domain == ".http://localhost/") { dbd_dom = dbd_domain } else dbd_dom = config.dbd_domain }catch{ return console.log("dbd_domain error")}
 module.exports = {
@@ -9,7 +10,12 @@ module.exports = {
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
         console.log(eventFiles)
-        client.user.setActivity("Nya~")
+        setInterval(() => {
+            //client.user.setActivity("Nya~")
+            let status = SetAct[Math.floor(Math.random() * SetAct.length)]
+            client.user.setActivity(status)
+            console.log("I am now " + status)
+        }, 43200000)
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n -- Logged in as: ` + client.user.tag
             + `\n\t -- Client_ID: ` + client.user.id
@@ -60,19 +66,19 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
+- Support server: https://discord.gg/DcQS9mNEUh
+- Every 12 hour the bot activity will change for fun (Give ideas for more)
 - Made good and bad bot counter global and not reset
 - Added new banner and profile picture on web dashboard and Discord
 - Added some minigames (rock-paper-scissors, number guessing )
 - Fixed /role command
 - Removed phub command as links were broken
-- Internal changes
-- And other small things and fixes
+- Internal changes and other small things and fixes
 [- ${dbd_dom}]
+[- https://discord.gg/DcQS9mNEUh]
 `)
             try{
                 client.guilds.cache.forEach(guild => {
-                    //todo: make this work
-                    client.settings.set(guild.id, true, "enableBotUpdateMessage")
                     if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
                         channel = guild.systemChannel
                         if (channel) { channel.send({embeds: [embed]}) } 

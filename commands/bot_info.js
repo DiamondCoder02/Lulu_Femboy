@@ -69,9 +69,9 @@ User,
                 { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
                 { name: "__Partials__", value: pars, inline:true},
                 { name: "Current servers:", value: guildLength},
-                { name: "I was called good:", value: "\'"+goodBad.goodBot+ "\' time(s)", inline:true},
-                { name: "I was called bad:", value: "\'"+goodBad.badBot+ "\' time(s)", inline:true},
-                { name: "People asked if:", value: "They can fuck my bot \'"+goodBad.badBot+ "\' time(s)", inline:true},
+                { name: "I was called good:", value: "\'"+String(goodBad.goodBot)+ "\' time(s)", inline:true},
+                { name: "I was called bad:", value: "\'"+String(goodBad.badBot)+ "\' time(s)", inline:true},
+                { name: "People asked if:", value: "They can fuck my bot \'"+String(goodBad.canIFuckBot)+ "\' time(s)", inline:true},
             )
             .setTimestamp()
             .setFooter({text: `Last update: 2022.Nov.09.`});

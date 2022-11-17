@@ -35,7 +35,7 @@ module.exports = {
             domain: dbd_dom,
             bot: client,
             requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.MANAGE_GUILD, DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
-            //useCategorySet: true,
+            useCategorySet: true,
             theme: DarkDashboard({
                 information: {
                     createdBy: "DiamondCoder",
@@ -109,75 +109,59 @@ module.exports = {
                     categoryId: 'basic',
                     categoryName: "Basic",
                     categoryDescription: "Some basic settings",
+
+                    getActualSet: async ({guild}) => {
+                        return [
+                            // optionId, must be EXACTLY the same
+                            { optionId: "welcome", data: client.settings.get(guild.id, "welcome") || null },
+                            { optionId: "goodbye", data: client.settings.get(guild.id, "goodbye") || null },
+                            { optionId: "welcomeMessage", data: client.settings.get(guild.id, "welcomeMessage") || null },
+                            { optionId: "enableRandomReactions", data: client.settings.get(guild.id, "enableRandomReactions") || null },
+                            { optionId: "enableBotUpdateMessage", data: client.settings.get(guild.id, "enableBotUpdateMessage") || null },
+                        ]
+                    },
+                    setNew: async ({guild,data}) => { // data = [ { optionId: 'lang', data: 'fr' } ]
+                        for(const option of data) {
+                            if(option.optionId === "welcome") client.settings.set(guild.id, option.data, "welcome");
+                            if(option.optionId === "goodbye") client.settings.set(guild.id, option.data, "goodbye");
+                            if(option.optionId === "welcomeMessage") client.settings.set(guild.id, option.data, "welcomeMessage");
+                            if(option.optionId === "enableRandomReactions") client.settings.set(guild.id, option.data, "enableRandomReactions");
+                            if(option.optionId === "enableBotUpdateMessage") client.settings.set(guild.id, option.data, "enableBotUpdateMessage");
+                        } 
+                        // Errors still work!
+                        // Allowed check still works, but needs to be on the option itself, not the category.
+                        return;
+                    },
+
                     categoryOptionsList: [
                         {
                             optionId: 'welcome',
                             optionName: "Welcome / goodbye message",
                             optionDescription: "Welcome message when someone joins",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "welcome")
-                                return client.settings.get(guild.id, "welcome")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "welcome")
-                                return
-                            },
                             themeOptions: { minimalbutton: { first: true, } },
                         },
                         {
                             optionId: 'goodbye',
                             optionDescription: "Goodbye message when someone leaves",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "goodbye")
-                                return client.settings.get(guild.id, "goodbye")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "goodbye")
-                                return
-                            },
                             themeOptions: { minimalbutton: { last: true, } },
                         },
                         {
                             optionId: 'welcomeMessage',
                             optionDescription: "Max 999 word welcome message when someone joins",
                             optionType: DBD.formTypes.textarea("Max 999 word welcome message", 1, 999, false),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "welcomeMessage")
-                                return client.settings.get(guild.id, "welcomeMessage")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "welcomeMessage")
-                                return
-                            }
                         },
                         {
                             optionId: 'enableRandomReactions',
                             optionDescription: "Should the bot react to messages randomly?",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "enableRandomReactions")
-                                return client.settings.get(guild.id, "enableRandomReactions")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "enableRandomReactions")
-                                return
-                            },
                             themeOptions: { minimalbutton: { first: true, } },
                         },
                         {
                             optionId: 'enableBotUpdateMessage',
                             optionDescription: "Should the bot send message when it updates?",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "enableBotUpdateMessage")
-                                return client.settings.get(guild.id, "enableBotUpdateMessage")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "enableBotUpdateMessage")
-                                return
-                            },
                             themeOptions: { minimalbutton: { last: true, } },
                         },
                     ]
@@ -186,66 +170,57 @@ module.exports = {
                     categoryId: 'channels',
                     categoryName: "Channels settings",
                     categoryDescription: "Channel setups",
+
+                    getActualSet: async ({guild}) => {
+                        return [
+                            { optionId: "moderationChannel", data: client.settings.get(guild.id, "moderationChannel") || null },
+                            { optionId: "randomReactionChannelBlacklist", data: client.settings.get(guild.id, "randomReactionChannelBlacklist") || null },
+                            { optionId: "singleChannelMessageLogger_in", data: client.settings.get(guild.id, "singleChannelMessageLogger")[0] || null },
+                            { optionId: "singleChannelMessageLogger_out", data: client.settings.get(guild.id, "singleChannelMessageLogger")[1] || null },
+                        ]
+                    },
+                    setNew: async ({guild,data}) => {
+                        for(const option of data) {
+                            if(option.optionId === "moderationChannel") client.settings.set(guild.id, option.data, "moderationChannel");
+                            if(option.optionId === "randomReactionChannelBlacklist") client.settings.set(guild.id, option.data, "randomReactionChannelBlacklist");
+                            if(option.optionId === "singleChannelMessageLogger_in") {
+                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
+                                chanLog[0] = option.data
+                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
+                            };
+                            if(option.optionId === "singleChannelMessageLogger_out") {
+                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
+                                chanLog[1] = option.data
+                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
+                            }
+                        } 
+                        return;
+                    },
+
                     categoryOptionsList: [
                         {
                             optionId: 'moderationChannel',
                             optionName: "Moderation Channel",
                             optionDescription: "Secret moderation channel",
                             optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
-                            getActualSet: async ({guild}) => {
-                                //client.settings.get(guild.id, "moderationChannel")
-                                return client.settings.get(guild.id, "moderationChannel")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "moderationChannel")
-                                return
-                            },
                         },
                         {
                             optionId: 'randomReactionChannelBlacklist',
                             optionName: "Random Reaction Channel Blacklist",
                             optionDescription: "What channels the bot should never post random reactions in",
                             optionType: DBD.formTypes.channelsMultiSelect(false, false, channelTypes = [ChannelType.GuildText]),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "randomReactionChannelBlacklist")
-                                return client.settings.get(guild.id, "randomReactionChannelBlacklist")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "randomReactionChannelBlacklist")
-                                return
-                            },
                         },
                         {
                             optionId: 'singleChannelMessageLogger_in',
                             optionName: "Log messages from a channel",
                             optionDescription: "Single channel message logger input",
                             optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
-                            getActualSet: async ({guild}) => {
-                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
-                                return chanLog[0]
-                            },
-                            setNew: async ({guild,newData}) => {
-                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
-                                chanLog[0] = newData
-                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
-                                return
-                            },
                         },
                         {
                             optionId: 'singleChannelMessageLogger_out',
                             optionName: "Send logs to the channel",
                             optionDescription: "Single channel message logger output",
                             optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
-                            getActualSet: async ({guild}) => {
-                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
-                                return chanLog[1]
-                            },
-                            setNew: async ({guild,newData}) => {
-                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
-                                chanLog[1] = newData
-                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
-                                return
-                            },
                         },
                     ]
                 },
@@ -253,34 +228,33 @@ module.exports = {
                     categoryId: 'roles',
                     categoryName: "Roles settings",
                     categoryDescription: "Roles setups",
+
+                    getActualSet: async ({guild}) => {
+                        return [
+                            { optionId: "welcomeRoles", data: client.settings.get(guild.id, "welcomeRoles") || null },
+                            { optionId: "freeRoles", data: client.settings.get(guild.id, "freeRoles") || null },
+                        ]
+                    },
+                    setNew: async ({guild,data}) => {
+                        for(const option of data) {
+                            if(option.optionId === "welcomeRoles") client.settings.set(guild.id, option.data, "welcomeRoles");
+                            if(option.optionId === "freeRoles") client.settings.set(guild.id, option.data, "freeRoles");
+                        } 
+                        return;
+                    },
+
                     categoryOptionsList: [
                         {
                             optionId: 'welcomeRoles',
                             optionName: "Welcome roles",
                             optionDescription: "Roles you get as soon you join guild",
                             optionType: DBD.formTypes.rolesMultiSelect(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "welcomeRoles")
-                                return client.settings.get(guild.id, "welcomeRoles")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "welcomeRoles")
-                                return
-                            },
                         },
                         {
                             optionId: 'freeRoles',
                             optionName: "Self roles",
                             optionDescription: "Roles you let users asign themselves",
                             optionType: DBD.formTypes.rolesMultiSelect(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "freeRoles")
-                                return client.settings.get(guild.id, "freeRoles")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "freeRoles")
-                                return
-                            },
                         },
                     ]
                 },
@@ -288,20 +262,23 @@ module.exports = {
                     categoryId: 'nsfw',
                     categoryName: "NSFW",
                     categoryDescription: "NSFW settings",
+                    getActualSet: async ({guild}) => {
+                        return [
+                            { optionId: "enableNSFW", data: client.settings.get(guild.id, "enableNSFW") || null },
+                        ]
+                    },
+                    setNew: async ({guild,data}) => {
+                        for(const option of data) {
+                            if(option.optionId === "enableNSFW") client.settings.set(guild.id, option.data, "enableNSFW");
+                        } 
+                        return;
+                    },
                     categoryOptionsList: [
                         {
                             optionId: 'enableNSFW',
                             optionName: "NSFW",
                             optionDescription: "Enable nsfw on server?",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "enableNSFW")
-                                return client.settings.get(guild.id, "enableNSFW")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "enableNSFW")
-                                return
-                            },
                         },
                     ]
                 },
@@ -309,34 +286,41 @@ module.exports = {
                     categoryId: 'logs',
                     categoryName: "Logs and security (⌐■_■)",
                     categoryDescription: "Security and spying (Nice logs bro, UwU)",
+
+                    getActualSet: async ({guild}) => {
+                        return [
+                            { optionId: "welcomeUserCheck", data: client.settings.get(guild.id, "welcomeUserCheck") || null },
+                            { optionId: "memberUpdateLogs", data: client.settings.get(guild.id, "memberUpdateLogs") || null },
+                            { optionId: "messageLogs", data: client.settings.get(guild.id, "messageLogs") || null },
+                            { optionId: "invitesLogs", data: client.settings.get(guild.id, "invitesLogs") || null },
+                            { optionId: "schedulesLogs", data: client.settings.get(guild.id, "schedulesLogs") || null },
+                            { optionId: "banKickLogs", data: client.settings.get(guild.id, "banKickLogs") || null },
+                        ]
+                    },
+                    setNew: async ({guild,data}) => {
+                        for(const option of data) {
+                            if(option.optionId === "welcomeUserCheck") client.settings.set(guild.id, option.data, "welcomeUserCheck");
+                            if(option.optionId === "memberUpdateLogs") client.settings.set(guild.id, option.data, "memberUpdateLogs");
+                            if(option.optionId === "messageLogs") client.settings.set(guild.id, option.data, "messageLogs");
+                            if(option.optionId === "invitesLogs") client.settings.set(guild.id, option.data, "invitesLogs");
+                            if(option.optionId === "schedulesLogs") client.settings.set(guild.id, option.data, "schedulesLogs");
+                            if(option.optionId === "banKickLogs") client.settings.set(guild.id, option.data, "banKickLogs");
+                        } 
+                        return;
+                    },
+
                     categoryOptionsList: [
                         {
                             optionId: 'welcomeUserCheck',
                             optionName: "User checking:",
                             optionDescription: "Check new user?",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "welcomeUserCheck")
-                                return client.settings.get(guild.id, "welcomeUserCheck")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "welcomeUserCheck")
-                                return
-                            },
                             themeOptions: { minimalbutton: { first: true, } },
                         },
                         {
                             optionId: 'memberUpdateLogs',
                             optionDescription: "Server profile update",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "memberUpdateLogs")
-                                return client.settings.get(guild.id, "memberUpdateLogs")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "memberUpdateLogs")
-                                return
-                            },
                             themeOptions: { minimalbutton: { last: true, } },
                         },
                         {
@@ -344,56 +328,24 @@ module.exports = {
                             optionName: "Loggings",
                             optionDescription: "Message logs",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "messageLogs")
-                                return client.settings.get(guild.id, "messageLogs")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "messageLogs")
-                                return
-                            },
                             themeOptions: { minimalbutton: { first: true, } },
                         },
                         {
                             optionId: 'invitesLogs',
                             optionDescription: "Invite logging",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "invitesLogs")
-                                return client.settings.get(guild.id, "invitesLogs")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "invitesLogs")
-                                return
-                            },
                             themeOptions: { minimalbutton: true },
                         },
                         {
                             optionId: 'schedulesLogs',
                             optionDescription: "Schedule Logging",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "schedulesLogs")
-                                return client.settings.get(guild.id, "schedulesLogs")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "schedulesLogs")
-                                return
-                            },
                             themeOptions: { minimalbutton: true },
                         },
                         {
                             optionId: 'banKickLogs',
                             optionDescription: "Ban - kick logging",
                             optionType: DBD.formTypes.switch(),
-                            getActualSet: async ({guild}) => {
-                                client.settings.get(guild.id, "banKickLogs")
-                                return client.settings.get(guild.id, "banKickLogs")
-                            },
-                            setNew: async ({guild,newData}) => {
-                                client.settings.set(guild.id, newData, "banKickLogs")
-                                return
-                            },
                             themeOptions: { minimalbutton: { last: true, } },
                         },
                     ]

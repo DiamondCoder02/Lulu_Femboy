@@ -1,5 +1,14 @@
 {
-  "goodBot": 2,
-  "badBot": 1,
-  "canIFuckBot": 1
+  "goodBot": 0,
+  "badBot": 0,
+  "canIFuckBot": 0,
+  "botStatus": [
+    "So, how's your day going? ^^",
+    "I'm always lewd X3",
+    "Rawr! x-3 Nuzzles, pounces on you UwU, you're so warm...",
+    "Fight me you weak degenerates, in bed. >w<",
+    "If I could say all the stuff I saw...",
+    "Furries are susly rich... Donate to me: https://ko-fi.com/diamondcoder",
+    "My source code: https://github.com/DiamondPRO02/Femboi_OwO"
+  ]
 }
