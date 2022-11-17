@@ -10,12 +10,12 @@ module.exports = {
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
         console.log(eventFiles)
+        client.user.setActivity("Nya~")
         setInterval(() => {
-            //client.user.setActivity("Nya~")
             let status = SetAct[Math.floor(Math.random() * SetAct.length)]
             client.user.setActivity(status)
             console.log("I am now " + status)
-        }, 43200000)
+        }, 3600000)
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n -- Logged in as: ` + client.user.tag
             + `\n\t -- Client_ID: ` + client.user.id
@@ -66,8 +66,9 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
+- Added plus info for bot_info
 - Support server: https://discord.gg/DcQS9mNEUh
-- Every 12 hour the bot activity will change for fun (Give ideas for more)
+- Every 12 hour the bot activity will change for fun (Give ideas for more "/report bot")
 - Made good and bad bot counter global and not reset
 - Added new banner and profile picture on web dashboard and Discord
 - Added some minigames (rock-paper-scissors, number guessing )
@@ -75,7 +76,7 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
 - Removed phub command as links were broken
 - Internal changes and other small things and fixes
 [- ${dbd_dom}]
-[- https://discord.gg/DcQS9mNEUh]
+[- Support server: https://discord.gg/DcQS9mNEUh]
 `)
             try{
                 client.guilds.cache.forEach(guild => {

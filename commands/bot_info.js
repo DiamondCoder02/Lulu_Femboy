@@ -4,6 +4,7 @@ let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.j
 const package = require('../package.json');
 const config = require('../botConfigs/config.json');
 const goodBad = require('../botConfigs/bot_private.json');
+const os = require('os');
 module.exports = {
     cooldown: 60,
     data: new SlashCommandBuilder()
@@ -68,14 +69,37 @@ User,
                 { name: "__npm packages__", value: npmPackages, inline:true},
                 { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
                 { name: "__Partials__", value: pars, inline:true},
-                { name: "Current servers:", value: guildLength},
+                { name: "Current number servers:", value: String(guildLength)},
                 { name: "I was called good:", value: "\'"+String(goodBad.goodBot)+ "\' time(s)", inline:true},
                 { name: "I was called bad:", value: "\'"+String(goodBad.badBot)+ "\' time(s)", inline:true},
-                { name: "People asked if:", value: "They can fuck my bot \'"+String(goodBad.canIFuckBot)+ "\' time(s)", inline:true},
+                { name: "People asked if:", value: "They can f**k my bot \'"+String(goodBad.canIFuckBot)+ "\' time(s)", inline:true},
             )
             .setTimestamp()
-            .setFooter({text: `Last update: 2022.Nov.09.`});
-        await interaction.reply({embeds: [version_embed], components: [page]})
+            .setFooter({text: `Last update: 2022.Nov.17.`});
+        let uptime = os.uptime();
+        let days = Math.floor(uptime / (60 * 60 * 24));
+        let hours = Math.floor(uptime / (60 * 60)) - (days * 24);
+        let minutes = Math.floor(uptime / 60) - (days * 24 * 60) - (hours * 60);
+        let seconds = Math.floor(uptime % 60);
+        let uptimeString = `${days} day(s), ${hours} hour(s), ${minutes} minute(s), ${seconds} second(s)`;
+        let totalMemory = os.totalmem() / 1024 / 1024;
+        let usedMemory = totalMemory - (os.freemem() / 1024 / 1024);
+        let usedMemoryPercentage = Math.round((usedMemory / totalMemory) * 100);
+        let freeMemory = os.freemem() / 1024 / 1024;
+        let cpu1 = os.cpus()[0];
+        let cpuCores = os.cpus().length;
+        const osEmbed = new EmbedBuilder()
+            .setColor('#FFFF00')
+            .setTitle("System info:")
+            .setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
+            .addFields(
+                { name: "----------System", value: `OS: \`${os.type()}\`\nOS version: \`${os.release()}\`\nOS platform: \`${os.platform}\`\nOS arc: \`${os.arch()}\`\nPC name: \`${os.hostname}\``, inline:true},
+                { name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage}\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline:true},
+                { name: "System Uptime:", value: `\`${uptimeString}\``},
+                { name: "CPU", value: `Model: \`${cpu1.model}\`\nSpeed: \`${cpu1.speed} MHz\`\nCores: \`${cpuCores}\``, inline:true},
+            )
+            .setTimestamp()
+        await interaction.reply({embeds: [version_embed, osEmbed], components: [page]})
         //if bot owner, give more info
         require('dotenv').config(); var bOwnerId = process.env.botOwnerId;
         if(interaction.user.id === config.botOwnerId || interaction.user.id === bOwnerId) {

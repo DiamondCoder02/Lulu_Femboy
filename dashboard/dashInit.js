@@ -109,7 +109,6 @@ module.exports = {
                     categoryId: 'basic',
                     categoryName: "Basic",
                     categoryDescription: "Some basic settings",
-
                     getActualSet: async ({guild}) => {
                         return [
                             // optionId, must be EXACTLY the same
@@ -132,7 +131,6 @@ module.exports = {
                         // Allowed check still works, but needs to be on the option itself, not the category.
                         return;
                     },
-
                     categoryOptionsList: [
                         {
                             optionId: 'welcome',
@@ -170,7 +168,6 @@ module.exports = {
                     categoryId: 'channels',
                     categoryName: "Channels settings",
                     categoryDescription: "Channel setups",
-
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "moderationChannel", data: client.settings.get(guild.id, "moderationChannel") || null },
@@ -196,7 +193,6 @@ module.exports = {
                         } 
                         return;
                     },
-
                     categoryOptionsList: [
                         {
                             optionId: 'moderationChannel',
@@ -228,7 +224,6 @@ module.exports = {
                     categoryId: 'roles',
                     categoryName: "Roles settings",
                     categoryDescription: "Roles setups",
-
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "welcomeRoles", data: client.settings.get(guild.id, "welcomeRoles") || null },
@@ -242,7 +237,6 @@ module.exports = {
                         } 
                         return;
                     },
-
                     categoryOptionsList: [
                         {
                             optionId: 'welcomeRoles',
@@ -286,7 +280,6 @@ module.exports = {
                     categoryId: 'logs',
                     categoryName: "Logs and security (⌐■_■)",
                     categoryDescription: "Security and spying (Nice logs bro, UwU)",
-
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "welcomeUserCheck", data: client.settings.get(guild.id, "welcomeUserCheck") || null },
@@ -308,7 +301,6 @@ module.exports = {
                         } 
                         return;
                     },
-
                     categoryOptionsList: [
                         {
                             optionId: 'welcomeUserCheck',

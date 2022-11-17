@@ -46,18 +46,20 @@ module.exports = {
             else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply("Sorry, this is a Not Safe For Work command!")} } else {return interaction.reply("Not Safe For Work commands are disabled!")}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             for (let a = 0; a < amount; a++ ) {
-                if (category === 'hug') {img = await images.sfw.hug()}
-                if (category === 'kiss') {img = await images.sfw.kiss()}
-                if (category === 'slap') {img = await images.sfw.slap()}
-                if (category === 'punch') {img = await images.sfw.punch()}
-                if (category === 'wink') {img = await images.sfw.wink()}
-                if (category === 'pat') {img = await images.sfw.pat()}
-                if (category === 'kill') {img = await images.sfw.kill()}
-                if (category === 'cuddle') {img = await images.sfw.cuddle()}
-                if (category === 'waifu') {img = await images.sfw.waifu()}
-                if (category === 'hentai') {img = await images.nsfw.hentai()}
-                if (category === 'boobs') {img = await images.nsfw.boobs()}
-                if (category === 'lesbian') {img = await images.nsfw.lesbian()}
+                switch (category) {
+                    case "hug": {img = await images.sfw.hug()} break;
+                    case "kiss": {img = await images.sfw.kiss()} break;
+                    case "slap": {img = await images.sfw.slap()} break;
+                    case "punch": {img = await images.sfw.punch()} break;
+                    case "wink": {img = await images.sfw.wink()} break;
+                    case "pat": {img = await images.sfw.pat()} break;
+                    case "kill": {img = await images.sfw.kill()} break;
+                    case "cuddle": {img = await images.sfw.cuddle()} break;
+                    case "waifu": {img = await images.sfw.waifu()} break;
+                    case "hentai": {img = await images.nsfw.hentai()} break;
+                    case "boobs": {img = await images.nsfw.boobs()} break;
+                    case "lesbian": {img = await images.nsfw.lesbian()} break;
+                }
                 //console.log(img)
                 const embed = new EmbedBuilder()
                     .setImage(img.image)

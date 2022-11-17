@@ -16,6 +16,16 @@ module.exports = {
             .addIntegerOption(option => option.setName('max').setDescription('Maximum number (default 100)'))
             .addIntegerOption(option => option.setName('tries').setDescription('How many tries do we want? (default 10)'))
         )
+        /*
+        .addSubcommand(subcommand => subcommand.setName('tic_tac_toe').setDescription('Tic-tac-toe game')
+            .addStringOption(option => option.setName('who_start').setDescription('Chosse one to start with. ("X" goes first)')
+                .addChoices(
+                    { name: "random", value: 'random' },
+                    { name: "X", value: 'first' },
+                    { name: "O", value: 'second' }
+                ).setRequired(true)
+            )
+        )*/
         ,
     async execute(interaction, client, config) {
         switch (interaction.options.getSubcommand()) {
@@ -123,6 +133,17 @@ module.exports = {
                         else if (tries===0) { embed.setDescription(`I **lost**! I couldn't guess the number.`); await interaction.editReply({embeds: [embed]}); collector.stop() }
                     })
                 }
+            /*
+                .addStringOption(option => option.setName('who_start').setDescription('Chosse one to start with. ("X" goes first)')
+                    .addChoices(
+                        { name: "random", value: 'random' },
+                        { name: "X", value: 'first' },
+                        { name: "O", value: 'second' }
+                    ).setRequired(true)
+                )
+            )
+            */
+            //case 'tic_tac_toe':
         }
     }
 }

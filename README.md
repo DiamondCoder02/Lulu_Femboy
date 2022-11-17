@@ -1,10 +1,14 @@
 # Femboi_OwO
 
+![Banner, made by Nyaneko](https://i.imgur.com/bYYjIZC.png)
+
 ## A bit of explanation
 
 Just my own little bot to learn. Early in development.
 Feel free to contribute if you want. I also appriciate every problem report and every help.
 This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
+
+Temporary asks for admin till I set it up properly: [Bot Invite](https://discord.com/oauth2/authorize?client_id=963362899160612954&permissions=8&scope=applications.commands%20bot)
 
 ### Debug level in config
 

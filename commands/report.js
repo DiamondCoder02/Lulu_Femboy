@@ -21,7 +21,7 @@ module.exports = {
             .addStringOption(option => option.setName('description_2').setDescription('If you want to add more details, describe them here.'))
             .addStringOption(option => option.setName('fix').setDescription('Do you have a fix? If so, describe it here.'))
         )
-        .addSubcommand(subcommand => subcommand.setName('bot_bug').setDescription('If there is a bug in the bot, report it to bot owner.')
+        .addSubcommand(subcommand => subcommand.setName('bot').setDescription('If there is a bug in the bot, report it to bot owner.')
             .addStringOption(option => option.setName('problem_with').setDescription('What is the problem with?')
                 .addChoices(
                     { name: "Command_error", value: 'commandError' },
@@ -63,7 +63,7 @@ module.exports = {
                     await interaction.reply({content: "No admin channel found, server owner got the message", ephemeral: true})
                 }
             }
-            if (interaction.options.getSubcommand() === 'bot_bug') {
+            if (interaction.options.getSubcommand() === 'bot') {
                 report.setTitle('Bot Bug Report' + '\n' + problem_with);
                 try{
                     const config = require('../botConfigs/config.json')
