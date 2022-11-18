@@ -10,6 +10,8 @@ This bot only works with slash commands. NSFW commands only works in nsfw channe
 
 Temporary asks for admin till I set it up properly: [Bot Invite](https://discord.com/oauth2/authorize?client_id=963362899160612954&permissions=8&scope=applications.commands%20bot)
 
+Support server: [Discord link](https://discord.gg/DcQS9mNEUh)
+
 ### Debug level in config
 
 0. No trigger messages. Only errors.
