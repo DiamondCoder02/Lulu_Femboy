@@ -66,15 +66,7 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
-- Added plus info for bot_info
-- Support server: https://discord.gg/DcQS9mNEUh
-- Every 12 hour the bot activity will change for fun (Give ideas for more "/report bot")
-- Made good and bad bot counter global and not reset
-- Added new banner and profile picture on web dashboard and Discord
-- Added some minigames (rock-paper-scissors, number guessing )
-- Fixed /role command
-- Removed phub command as links were broken
-- Internal changes and other small things and fixes
+- 
 [- ${dbd_dom}]
 [- Support server: https://discord.gg/DcQS9mNEUh]
 `)

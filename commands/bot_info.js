@@ -69,10 +69,10 @@ User,
                 { name: "__npm packages__", value: npmPackages, inline:true},
                 { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
                 { name: "__Partials__", value: pars, inline:true},
-                { name: "Current number servers:", value: String(guildLength)},
-                { name: "I was called good:", value: "\'"+String(goodBad.goodBot)+ "\' time(s)", inline:true},
-                { name: "I was called bad:", value: "\'"+String(goodBad.badBot)+ "\' time(s)", inline:true},
-                { name: "People asked if:", value: "They can f**k my bot \'"+String(goodBad.canIFuckBot)+ "\' time(s)", inline:true},
+                { name: "Currently joined servers:", value: "\`"+String(guildLength)+"\` guilds"},
+                { name: "I was called good:", value: "\`"+String(goodBad.goodBot)+ "\` time(s)", inline:true},
+                { name: "I was called bad:", value: "\`"+String(goodBad.badBot)+ "\` time(s)", inline:true},
+                { name: "People asked if:", value: "They can f**k my bot \`"+String(goodBad.canIFuckBot)+ "\` time(s)", inline:true},
             )
             .setTimestamp()
             .setFooter({text: `Last update: 2022.Nov.17.`});
@@ -94,7 +94,7 @@ User,
             .setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
             .addFields(
                 { name: "----------System", value: `OS: \`${os.type()}\`\nOS version: \`${os.release()}\`\nOS platform: \`${os.platform}\`\nOS arc: \`${os.arch()}\`\nPC name: \`${os.hostname}\``, inline:true},
-                { name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage}\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline:true},
+                { name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage} %\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline:true},
                 { name: "System Uptime:", value: `\`${uptimeString}\``},
                 { name: "CPU", value: `Model: \`${cpu1.model}\`\nSpeed: \`${cpu1.speed} MHz\`\nCores: \`${cpuCores}\``, inline:true},
             )
