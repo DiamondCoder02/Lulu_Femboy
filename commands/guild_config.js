@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField } = require('discord.js');
 module.exports = {
     guildOnly: true,
-    permissions: PermissionsBitField.Flags.Administrator,
+    permissions: PermissionsBitField.Flags.ManageGuild,
 	data: new SlashCommandBuilder()
         .setName('guild_config')
         .setDescription('Small info and limited configuration for the guild. (Leave empty for current settings)')
