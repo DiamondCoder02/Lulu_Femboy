@@ -15,7 +15,7 @@ module.exports = {
             let status = SetAct[Math.floor(Math.random() * SetAct.length)]
             client.user.setActivity(status)
             console.log("I am now " + status)
-        }, 3600000)
+        }, 10800000)
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n -- Logged in as: ` + client.user.tag
             + `\n\t -- Client_ID: ` + client.user.id
@@ -49,16 +49,11 @@ module.exports = {
 DebugLevel: ${config.debug_level},
 Ready: <t:${Math.floor(client.readyTimestamp / 1000)}:f> 
 That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
-            try { 
-                const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
+            try{
+                const channel = client.channels.cache.get(config.botStatusChannelId)
                 channel.send({embeds: [embed]})
-            } catch { 
-                try{
-                    const channel = client.channels.cache.get(config.botStatusChannel)
-                    channel.send({embeds: [embed]})
-                } catch {
-                    console.log("No status channel given or found. Continuing...")
-                }
+            } catch {
+                console.log("No status channel ID given or found. Continuing...")
             }
         }
         if (config.gotNewUpdate) {

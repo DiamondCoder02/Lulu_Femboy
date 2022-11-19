@@ -8,7 +8,7 @@
   "dbd_redirect": ".http://localhost/discord/callback",
   "botOwnerId": "botOwnerID",
   "botReadyStatus": false,
-  "botStatusChannel": "897097242861789236",
+  "botStatusChannelId": "897097242861789236",
   "stopPassword": "lolipop",
   "debug_level": 2,
   "gotNewUpdate": false

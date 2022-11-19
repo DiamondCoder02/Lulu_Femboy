@@ -3,7 +3,6 @@ let eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')), comArray = commandFiles.map(x => {return x.replace('.js','\n')})
 const package = require('../package.json');
 const config = require('../botConfigs/config.json');
-const goodBad = require('../botConfigs/bot_private.json');
 const os = require('os');
 module.exports = {
     cooldown: 60,
@@ -12,6 +11,8 @@ module.exports = {
 		.setDescription("Bot information.")
         .addBooleanOption(option => option.setName('owner').setDescription('Warning: This can show potenially sensitive information.')),
 	async execute(interaction, client) {
+        let goodBadJSON = fs.readFileSync('./botConfigs/bot_private.json');
+        const goodBad = JSON.parse(goodBadJSON)
         const packDependence = Object.entries(package.dependencies)
         const npmPackages = packDependence.join(', \n')
 const GaInBi = `MessageContent,

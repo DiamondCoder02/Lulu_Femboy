@@ -12,16 +12,11 @@ module.exports = {
 			.setColor('#FFFF00')
 			.setTitle("Bot left a guild!")
 			.setDescription(`Name: ${guild.name}\n(ID: ${guild.id})`)
-		try { 
-			const channel = client.channels.cache.find(channel => channel.name === config.botStatusChannel)
+		try{
+			const channel = client.channels.cache.get(config.botStatusChannelId)
 			channel.send({embeds: [embed]})
-		} catch { 
-			try{
-				const channel = client.channels.cache.get(config.botStatusChannel)
-				channel.send({embeds: [embed]})
-			} catch {
-				console.log("No status channel given or found. Continuing...")
-			}
+		} catch {
+			console.log("No status channel given or found. Guild delete Continuing...")
 		}
 	}
 };
