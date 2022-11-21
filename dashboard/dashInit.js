@@ -43,7 +43,7 @@ module.exports = {
                     websiteName: `${client.user.username} bot`,
                     websiteUrl: "https://github.com/DiamondPRO02/Femboi_OwO",
                     dashboardUrl: "http://localhost:3000/",
-                    //supporteMail: "support@imidnight.ml",
+                    supporteMail: "femboyowo.supp@gmail.com",
                     supportServer: "https://discord.gg/DcQS9mNEUh",
                     imageFavicon: "https://i.imgur.com/GrXR9z8.png",
                     iconURL: "https://i.imgur.com/GrXR9z8.png",
