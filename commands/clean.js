@@ -6,9 +6,10 @@ module.exports = {
         .setName('clean')
 		.setDescription("Clean/Purge/Prune up to 99 messages")
         .addIntegerOption(option => option.setName('amount').setDescription("Amount of messages to delete").setMinValue(0).setMaxValue(99).setRequired(true))
-        .addUserOption(option => option.setName('user').setDescription("Delete messages from a specific user"))
-        .addBooleanOption(option => option.setName('whole_server').setDescription("If true it will delete user messages from everywhere"))
-        .addChannelOption(option => option.setName('channel').setDescription("Delete messages from a specific channel")),
+        //.addUserOption(option => option.setName('user').setDescription("Delete messages from a specific user"))
+        //.addBooleanOption(option => option.setName('whole_server').setDescription("If true it will delete user messages from everywhere"))
+        //.addChannelOption(option => option.setName('channel').setDescription("Delete messages from a specific channel"))
+        ,
 	async execute(interaction, client, config) {
         const amount = interaction.options.getInteger('amount');
         if (amount == 0) {return interaction.reply({ content: "You stupid >_<'"})}
