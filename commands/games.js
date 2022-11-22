@@ -16,8 +16,8 @@ module.exports = {
             .addIntegerOption(option => option.setName('max').setDescription('Maximum number (default 100)'))
             .addIntegerOption(option => option.setName('tries').setDescription('How many tries do we want? (default 10)'))
         )
-        /*
         .addSubcommand(subcommand => subcommand.setName('tic_tac_toe').setDescription('Tic-tac-toe game')
+        /*
             .addStringOption(option => option.setName('who_start').setDescription('Chosse one to start with. ("X" goes first)')
                 .addChoices(
                     { name: "random", value: 'random' },
@@ -25,7 +25,8 @@ module.exports = {
                     { name: "O", value: 'second' }
                 ).setRequired(true)
             )
-        )*/
+        */
+        )
         ,
     async execute(interaction, client, config) {
         switch (interaction.options.getSubcommand()) {
@@ -79,14 +80,14 @@ module.exports = {
                     const end = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel('End').setStyle(ButtonStyle.Link).setURL('https://discord.gg/DcQS9mNEUh'))
                     embed.setDescription('I\'m thinking of a number between '+min+' and '+max+'. Here are 10 random numbers. Take a guess. \n(You have '+tries+' tries to guess it!)')
                     await interaction.reply({ embeds: [embed], components: [start] });
-                    const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
-                    const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
+                    const filter1 = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
+                    const collector1 = interaction.channel.createMessageComponentCollector({filter1, time: 60000 });
                     let numbers = []
-                    collector.on('collect', async i => {
+                    collector1.on('collect', async i => {
                         if (number >= numbers[Number(i.customId)]) { highLow = 'higher'; tries--; min = numbers[Number(i.customId)]; }
                         if (number <= numbers[Number(i.customId)]) { highLow = 'lower'; tries--; max = numbers[Number(i.customId)]; }
-                        if (numbers[Number(i.customId)] === number) { embed.setDescription(`You **won**! The number was: ${number}.`); await interaction.editReply({embeds: [embed], components:[end]}); collector.stop(); return}
-                        else if (tries===0) { embed.setDescription(`You **lost**! You couldn't guess the number ${number}.`); await interaction.editReply({embeds: [embed], components:[end]}); collector.stop(); return }
+                        if (numbers[Number(i.customId)] === number) { embed.setDescription(`You **won**! The number was: ${number}.`); await interaction.editReply({embeds: [embed], components:[end]}); collector1.stop(); return}
+                        else if (tries===0) { embed.setDescription(`You **lost**! You couldn't guess the number ${number}.`); await interaction.editReply({embeds: [embed], components:[end]}); collector1.stop(); return }
                         for (let i = 0; i < 10; i++) { numbers.push(Math.floor(Math.random() * (max - min + 1)) + min) }
                         const buttons = new ActionRowBuilder().addComponents(
                             new ButtonBuilder().setCustomId(`0`).setLabel(`${String(numbers[0])}`).setStyle(ButtonStyle.Secondary),
@@ -114,9 +115,9 @@ module.exports = {
                     var guessingNum = Math.floor(Math.random() * (max - min + 1)) + min;
                     embed.setDescription('I\'m thinking of the number '+guessingNum+"!\nIs your number higher or lower? \n(I have "+tries+" tries left)")
                     interaction.reply({ embeds: [embed], components: [buttons] });
-                    const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
-                    const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
-                    collector.on('collect', async i => {
+                    const filter2 = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
+                    const collector2 = interaction.channel.createMessageComponentCollector({filter2, time: 60000 });
+                    collector2.on('collect', async i => {
                         if (i.customId === 'high') {
                             min = guessingNum
                             guessingNum = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -129,8 +130,8 @@ module.exports = {
                         }
                         embed.setDescription('I\'m thinking of the number ' + guessingNum + "!\nIs your number higher or lower? \n(I have "+tries+" tries left)")
                         await interaction.editReply({embeds: [embed]})
-                        if (i.customId === 'equal') { embed.setDescription(`I **won**! The number was: ${guessingNum}.`); await interaction.editReply({embeds: [embed]}); collector.stop() }
-                        else if (tries===0) { embed.setDescription(`I **lost**! I couldn't guess the number.`); await interaction.editReply({embeds: [embed]}); collector.stop() }
+                        if (i.customId === 'equal') { embed.setDescription(`I **won**! The number was: ${guessingNum}.`); await interaction.editReply({embeds: [embed]}); collector2.stop() }
+                        else if (tries===0) { embed.setDescription(`I **lost**! I couldn't guess the number.`); await interaction.editReply({embeds: [embed]}); collector2.stop() }
                     })
                 }
             /*
@@ -143,7 +144,35 @@ module.exports = {
                 )
             )
             */
-            //case 'tic_tac_toe':
+            case 'tic_tac_toe':
+                const tttEmbed = new EmbedBuilder()
+                    .setTitle('Tic Tac Toe')
+                    .setColor('#00FF00')
+                let base = [2,1,0, 1,0,2, 0,2,1]
+                const s = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('s').setLabel('Start').setStyle(ButtonStyle.Success) )
+                tttEmbed.setDescription('Click the button to start the game!')
+                await interaction.reply({ embeds: [tttEmbed], components: [s] });
+                const filter3 = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
+                const collector3 = interaction.channel.createMessageComponentCollector({filter3, time: 60000 });
+                collector3.on('collect', async i => {
+                    const row1 = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('0').setLabel(base[0]==2 ? "-":(base[0]==1?"X":"O")).setStyle(base[0]==2?ButtonStyle.Success:(base[0]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                        new ButtonBuilder().setCustomId('1').setLabel(base[1]==2 ? "-":(base[1]==1?"X":"O")).setStyle(base[1]==2?ButtonStyle.Success:(base[1]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                        new ButtonBuilder().setCustomId('2').setLabel(base[2]==2 ? "-":(base[2]==1?"X":"O")).setStyle(base[2]==2?ButtonStyle.Success:(base[2]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                    )
+                    const row2 = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('3').setLabel(base[3]==2 ? "-":(base[3]==1?"X":"O")).setStyle(base[3]==2?ButtonStyle.Success:(base[3]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                        new ButtonBuilder().setCustomId('4').setLabel(base[4]==2 ? "-":(base[4]==1?"X":"O")).setStyle(base[4]==2?ButtonStyle.Success:(base[4]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                        new ButtonBuilder().setCustomId('5').setLabel(base[5]==2 ? "-":(base[5]==1?"X":"O")).setStyle(base[5]==2?ButtonStyle.Success:(base[5]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                    )
+                    const row3 = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder().setCustomId('6').setLabel(base[6]==2 ? "-":(base[6]==1?"X":"O")).setStyle(base[6]==2?ButtonStyle.Success:(base[6]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                        new ButtonBuilder().setCustomId('7').setLabel(base[7]==2 ? "-":(base[7]==1?"X":"O")).setStyle(base[7]==2?ButtonStyle.Success:(base[7]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                        new ButtonBuilder().setCustomId('8').setLabel(base[8]==2 ? "-":(base[8]==1?"X":"O")).setStyle(base[8]==2?ButtonStyle.Success:(base[8]==1?ButtonStyle.Primary:ButtonStyle.Secondary)),
+                    )
+                    await interaction.editReply({embeds: [tttEmbed], components: [row1,row2,row3] })
+
+                })
         }
     }
 }
