@@ -3,7 +3,7 @@ console.clear();
 const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention } = require('discord.js'), config = require('./botConfigs/config.json');
 const client = new Client({ 
     ws: {
-        properties: {$browser: 'Discord Android'}
+        properties: { browser: 'Discord Android' }
     }, 
     intents: [
         GatewayIntentBits.DirectMessageReactions,
