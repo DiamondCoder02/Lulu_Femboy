@@ -241,13 +241,13 @@ module.exports = {
                         {
                             optionId: 'welcomeRoles',
                             optionName: "Welcome roles",
-                            optionDescription: "Roles you get as soon you join guild",
+                            optionDescription: "Roles you a member gets when they join or they accepted the Rules Screening",
                             optionType: DBD.formTypes.rolesMultiSelect(),
                         },
                         {
                             optionId: 'freeRoles',
                             optionName: "Self roles",
-                            optionDescription: "Roles you let users asign themselves",
+                            optionDescription: "Roles you let users asign themselves with /role command",
                             optionType: DBD.formTypes.rolesMultiSelect(),
                         },
                     ]

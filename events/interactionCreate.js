@@ -40,7 +40,9 @@ module.exports = {
 					await command.execute(interaction, client, config);
 				} catch (error) {
 					console.error(error);
-					return await interaction.reply({ content: "There was an error while executing this command!", ephemeral:true});
+					try {await interaction.reply({ content: "There was an error while executing this command!", ephemeral:true});}
+					catch {await interaction.followUp({ content: "There was an error while executing this command!", ephemeral:true});}
+					return;
 				}
 			}
 			if (config.debug_level >= 1) {
