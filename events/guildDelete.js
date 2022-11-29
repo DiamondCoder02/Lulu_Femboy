@@ -12,12 +12,16 @@ module.exports = {
 			const channel = client.channels.cache.get(config.botStatusChannelId)
 			channel.send({embeds: [embed]})
 		} catch {
-			console.log("No status channel given or found. Guild delete Continuing...")
+			console.log(`[${new Date().toLocaleString('hu-HU')}] No status channel given or found. Guild delete Continuing...`)
 		}
-
-		const invites = await guild.invites.fetch();
-		const codeUses = new Map();
-		invites.each(inv => codeUses.set(inv.code, inv.uses));
-		guildInvites.set(guild.id, codeUses);
+		try{
+			const invites = await guild.invites.fetch();
+			const codeUses = new Map();
+			invites.each(inv => codeUses.set(inv.code, inv.uses));
+			guildInvites.set(guild.id, codeUses);
+		} catch {
+			console.log(`[${new Date().toLocaleString('hu-HU')}] guildDelete - Not enough permission for ${guild.name}. Continuing...`)
+		}
+		
 	}
 };
