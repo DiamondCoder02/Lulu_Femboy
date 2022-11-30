@@ -38,7 +38,7 @@ module.exports = {
 			// Due to v14 Message_Delete type is now number 72
 			let fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 72});
 			let deletionLog = fetchedLogs.entries.first();
-			if (!deletionLog) console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
+			if (!deletionLog) {return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`)}
 			// Now grab the user object of the person who deleted the message / Also grab the target of this action to double-check things
 			let { executor, target } = deletionLog;
 			// Update the output with a bit more information / Also run a check to make sure that the log returned was for the same author's message
