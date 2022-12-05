@@ -83,7 +83,34 @@ module.exports = {
                     .setColor('#A020F0 ')
                 if (interaction.options.getUser('target')) {
                     const user = interaction.options.getUser('target'), from = interaction.user
-                    embed.setDescription(from.toString() + " sends you a nice " + category + ", " + user.toString() + ". :3")
+                    switch (category) {
+                        case 'nom': embed.setDescription(`${from} nommed ${user}. How tasty! >w<`); break;
+                        case 'bite': embed.setDescription(`${from} bit ${user}. How evil >.<`); break;
+                        case 'slap': embed.setDescription(`${from} slapped ${user}. Baka!`); break;
+                        case 'kill': embed.setDescription(`${from} want's to kill ${user}. Oh no. >.<`); break;
+                        case 'kick': embed.setDescription(`${from} kicked ${user}. I wonder why...`); break;
+                        case 'happy': embed.setDescription(`${from} is happy because ${user}! :3`); break;
+                        case 'wink': embed.setDescription(`${from} winked at ${user}. How cute!`); break;
+                        case 'poke': embed.setDescription(`${from} poked ${user}. X3`); break;
+                        case 'dance': embed.setDescription(`${from} danced with ${user}. How amazing! ^^`); break;
+                        case 'cringe': embed.setDescription(`${from} cringes ${user}. Why?`); break;
+                        case 'bully': embed.setDescription(`${from} bullied ${user}. How mean!`); break;
+                        case 'cuddle': embed.setDescription(`${from} cuddled ${user}. How cute!`); break;
+                        case 'cry': embed.setDescription(`${from} cried because ${user}. Evil!`); break;
+                        case 'hug': embed.setDescription(`${from} hugged ${user}. How sweet!`); break;
+                        case 'awoo': embed.setDescription(`${from} awooed at ${user}. Awoo!`); break;
+                        case 'kiss': embed.setDescription(`${from} kissed ${user}. How romantic!`); break;
+                        case 'lick': embed.setDescription(`${from} licked ${user}. How tasty!`); break;
+                        case 'pat': embed.setDescription(`${from} patted ${user}. How cute!`); break;
+                        case 'smug': embed.setDescription(`${from} is smug at ${user}. ( ͡• ͜ʖ ͡• )`); break;
+                        case 'bonk': embed.setDescription(`${from} bonked ${user}. How naughty!`); break;
+                        case 'yeet': embed.setDescription(`${from} yeeted ${user}. See you!`); break;
+                        case 'blush': embed.setDescription(`${from} blushed because ${user}. (❁´◡\`❁)`); break;
+                        case 'wave': embed.setDescription(`${from} waved at ${user}. []~(￣▽￣)~*`); break;
+                        case 'highfive': embed.setDescription(`${from} highfived ${user}. Slap!`); break;
+                        case 'handhold': embed.setDescription(`${from} handholded ${user}. How lewd!`); break;
+                        default: embed.setDescription(`${from} sends you a nice ${category}, ${user}. :3`); break;
+                    }
                     try { await interaction.followUp({ content: user.toString(), embeds: [embed]}) }
                     catch { interaction.reply({ content: user.toString(), embeds: [embed]}) }
                 } else {

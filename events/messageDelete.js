@@ -53,8 +53,8 @@ module.exports = {
 						content: `Message deleted in <#${message.channelId}> (${message.author.toString()}) => 
 "${message.content}"`
 + (deletionLog ?  (target.id === message.author.id ? `\ndeleted by ${executor.tag}. ` : `\nWe don't know by who, probably themselves. `) : `\nNo relevant audit logs were found. `)
-+ "\n✅ "
-+ (message.embeds.length?"Embed detected ":"") + (message.attachments.size?"Attachment detected ":"") + (message.components.length?"Components detected ":"") + (message.stickers.size?"Stickers detected":""),
++ "\n✅ detected: "
++ (message.embeds.length?"Embed ":"") + (message.attachments.size?"Attachment ":"") + (message.components.length?"Components ":"") + (message.stickers.size?"Stickers ":""),
 					});
 					embed.data.fields ? channel.send({ embeds: [embed] }) : null
 				}

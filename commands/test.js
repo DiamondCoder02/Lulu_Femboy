@@ -8,7 +8,7 @@ module.exports = {
 		.setName('test')
 		.setDescription('Feature testing')
 		.addSubcommand(subcommand => subcommand
-            .setName('test')
+            .setName('test2')
             .setDescription('Test subcommand.')
             .addStringOption(option => option.setName('input').setDescription('Enter a string'))
 			.addIntegerOption(option => option.setName('int').setDescription('Enter an integer'))
@@ -18,34 +18,6 @@ module.exports = {
 			.addChannelOption(option => option.setName('destination').setDescription('Select a channel'))
 			.addRoleOption(option => option.setName('muted').setDescription('Select a role'))
 			.addMentionableOption(option => option.setName('mentionable').setDescription('Mention something'))
-        )
-		.addSubcommandGroup(subcommandGroup => subcommandGroup
-			.setName('group')
-			.setDescription('Group subcommand')
-            .addSubcommand(subcommand => subcommand
-				.setName('test2')
-				.setDescription("Test 2")
-				.addStringOption(option => option.setName('input').setDescription('Enter a string'))
-				.addIntegerOption(option => option.setName('int').setDescription('Enter an integer'))
-				.addNumberOption(option => option.setName('num').setDescription('Enter a number'))
-				.addBooleanOption(option => option.setName('choice').setDescription('Select a boolean'))
-				.addUserOption(option => option.setName('target').setDescription('Select a user'))
-				.addChannelOption(option => option.setName('destination').setDescription('Select a channel'))
-				.addRoleOption(option => option.setName('muted').setDescription('Select a role'))
-				.addMentionableOption(option => option.setName('mentionable').setDescription('Mention something'))
-			)
-			.addSubcommand(subcommand => subcommand
-				.setName('test3')
-				.setDescription("This is a test.")
-				.addStringOption(option => option.setName('input').setDescription('Enter a string'))
-				.addIntegerOption(option => option.setName('int').setDescription('Enter an integer'))
-				.addNumberOption(option => option.setName('num').setDescription('Enter a number'))
-				.addBooleanOption(option => option.setName('choice').setDescription('Select a boolean'))
-				.addUserOption(option => option.setName('target').setDescription('Select a user'))
-				.addChannelOption(option => option.setName('destination').setDescription('Select a channel'))
-				.addRoleOption(option => option.setName('muted').setDescription('Select a role'))
-				.addMentionableOption(option => option.setName('mentionable').setDescription('Mention something'))
-			)
         )
 		.addSubcommand(subcommand => subcommand
 			.setName('debug_event_test')
@@ -63,8 +35,8 @@ module.exports = {
 			const channel = client.channels.cache.get(interaction.channelId);
 			await interaction.reply('**Debugging events... Started!**');
 			await wait(500);
-			await client.emit('emojiCreate', interaction.guild.emojis.cache.first()); await channel.send(`Event emojiCreate has been emitted.`)
-			await client.emit('emojiDelete', interaction.guild.emojis.cache.first()); await channel.send(`Event emojiDelete has been emitted.`)
+			//not in bot: await client.emit('emojiCreate', interaction.guild.emojis.cache.first()); await channel.send(`Event emojiCreate has been emitted.`)
+			//not in bot: await client.emit('emojiDelete', interaction.guild.emojis.cache.first()); await channel.send(`Event emojiDelete has been emitted.`)
 			await client.emit('guildBanAdd', interaction.member); await channel.send(`Event guildBanAdd has been emitted.`)
 			await client.emit('guildBanRemove', interaction.member); await channel.send(`Event guildBanRemove has been emitted.`)
 			await client.emit('guildCreate', interaction.guild); await channel.send(`Event guildCreate has been emitted.`)
@@ -82,8 +54,8 @@ module.exports = {
 			//await client.emit('messageReactionAdd', interaction); await channel.send(`Event messageReactionAdd has been emitted.`)
 			//await client.emit('messageUpdate', interaction); await channel.send(`Event messageUpdate has been emitted.`)
 			//NO, just don't:  await client.emit('ready', client); await channel.send(`Event ready has been emitted.`)
-			await client.emit('stickerCreate', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerCreate has been emitted.`)
-			await client.emit('stickerDelete', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerDelete has been emitted.`)
+			//not in bot: await client.emit('stickerCreate', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerCreate has been emitted.`)
+			//not in bot: await client.emit('stickerDelete', interaction.guild.stickers.cache.first()); await channel.send(`Event stickerDelete has been emitted.`)
 			await client.emit('userUpdate', interaction.member, interaction.guild.members.cache.first()); await channel.send(`Event userUpdate has been emitted.`)
 
 			return await interaction.followUp('**Debugging events... Done!**');
@@ -125,8 +97,8 @@ module.exports = {
 		const mentionable = interaction.options.getMentionable('mentionable');
 		//console.log(string, integer, number, boolean, user, member, channel, role, mentionable);
 		console.log(interaction.options);
-		console.log(interaction.options.getString('input'));
-		console.log(interaction.options.getGroup());
+		//console.log(interaction.options.getString('input'));
+		//console.log(interaction.options.getGroup());
 		console.log(interaction.options.getSubcommand());
 		await interaction.reply({ content: `${string}\n${integer}\n${number}\n${boolean}\n${user}\n${member}\n${channel}\n${role}\n${mentionable}` });
 		

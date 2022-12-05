@@ -47,18 +47,18 @@ module.exports = {
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             for (let a = 0; a < amount; a++ ) {
                 switch (category) {
-                    case "hug": {img = await images.sfw.hug()} break;
-                    case "kiss": {img = await images.sfw.kiss()} break;
-                    case "slap": {img = await images.sfw.slap()} break;
-                    case "punch": {img = await images.sfw.punch()} break;
-                    case "wink": {img = await images.sfw.wink()} break;
-                    case "pat": {img = await images.sfw.pat()} break;
-                    case "kill": {img = await images.sfw.kill()} break;
-                    case "cuddle": {img = await images.sfw.cuddle()} break;
-                    case "waifu": {img = await images.sfw.waifu()} break;
-                    case "hentai": {img = await images.nsfw.hentai()} break;
-                    case "boobs": {img = await images.nsfw.boobs()} break;
-                    case "lesbian": {img = await images.nsfw.lesbian()} break;
+                    case "hug": img = await images.sfw.hug(); break;
+                    case "kiss": img = await images.sfw.kiss(); break;
+                    case "slap": img = await images.sfw.slap(); break;
+                    case "punch": img = await images.sfw.punch(); break;
+                    case "wink": img = await images.sfw.wink(); break;
+                    case "pat": img = await images.sfw.pat(); break;
+                    case "kill": img = await images.sfw.kill(); break;
+                    case "cuddle": img = await images.sfw.cuddle(); break;
+                    case "waifu": img = await images.sfw.waifu(); break;
+                    case "hentai": img = await images.nsfw.hentai(); break;
+                    case "boobs": img = await images.nsfw.boobs(); break;
+                    case "lesbian": img = await images.nsfw.lesbian(); break;
                 }
                 //console.log(img)
                 const embed = new EmbedBuilder()
@@ -67,7 +67,17 @@ module.exports = {
                     .setColor('#00FF00')
                 if (interaction.options.getUser('target')) {
                     const user = interaction.options.getUser('target'), from = interaction.user
-                    embed.setDescription(from.toString() + " sends you a nice " + category + ", " + user.toString() + ". :3")
+                    switch (category) {
+                        case 'hug': embed.setDescription(`${from} hugged ${user}. How nice! :3`); break;
+                        case 'kiss': embed.setDescription(`${from} kissed ${user}. How romantic! X3`); break;
+                        case "slap": embed.setDescription(`${from} slapped ${user}. Baka!`); break;
+                        case "punch": embed.setDescription(`${from} punched ${user}. I wonder why...`); break;
+                        case "wink": embed.setDescription(`${from} winked at ${user}. How romantic!`); break;
+                        case "pat": embed.setDescription(`${from} patted ${user}. How cute!`); break;
+                        case "kill": embed.setDescription(`${from} want's to kill ${user}. Oh no. >.<`); break;
+                        case "cuddle": embed.setDescription(`${from} cuddled ${user}. How cute!`); break;
+                        default: embed.setDescription(`${from} sends you a nice ${category}, ${user}. :3`); break;
+                    }
                     try { await interaction.followUp({ content: user.toString(), embeds: [embed]}) }
                     catch { await interaction.reply({ content: user.toString(), embeds: [embed]}) } 
                 } else {

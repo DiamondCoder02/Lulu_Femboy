@@ -71,7 +71,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setColor('#FFFF00 ')
                     .setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
-                    .setDescription(welcomeMessage + "\nThe bot works with only slash commands.\n(nsfw only in nsfw channels)")
+                    .setDescription(welcomeMessage)
                     .setFooter({ text: `Member count: ${member.guild.memberCount-1} => ${member.guild.memberCount}` })
                     .setTimestamp()
                 channel.send({content: member.user.toString(),embeds: [embed]})

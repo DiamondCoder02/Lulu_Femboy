@@ -143,16 +143,26 @@ module.exports = {
                 .setColor('#00FF00')
             let base = [2,2,2, 2,2,2, 2,2,2] // 2=- , 1=X , 0=O
             let turn = 1;
-            /*if (interaction.options.getString('who_start') === 'second') { turn = 0 }
-            else if (interaction.options.getString('who_start') === 'first') { turn = 1 }
-            else */{ turn = Math.floor(Math.random()) };
-            console.log(turn)
+            let bot = 0;
+            if (interaction.options.getString('who_start') === 'second') { turn = 0, bot = 1 }
+            else if (interaction.options.getString('who_start') === 'first') { turn = 1, bot = 0 }
+            else { turn = Math.floor(Math.random() * 2), bot = Math.abs(turn-1) };
+            console.log(turn, bot)
             const start = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('start').setLabel('Start').setStyle(ButtonStyle.Success) )
             const end = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel('End').setStyle(ButtonStyle.Link).setURL('https://discord.gg/DcQS9mNEUh'))
             tttEmbed.setDescription('Click the button to start the game!')
             await interaction.reply({ embeds: [tttEmbed], components: [start] });
             const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
             const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
+            if (bot == 1) {
+                console.log('bot11')
+                var random = Math.floor(Math.random() * 9);
+                while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
+                base[random] = 1
+                console.log(random)
+                console.log(base)
+                turn = 0;
+            }
             collector.on('collect', async i => {
                 function game_overQ() {
                     if (winnerQ(0,1,2)  ||  winnerQ(3,4,5) ||  winnerQ(6,7,8) // check for 3-in-a-row horizontally
@@ -164,13 +174,29 @@ module.exports = {
                 function winnerQ(p1, p2, p3) { return (base[p1] != 2) && (base[p1] == base[p2]) && (base[p2] == base[p3]); }
                 function stalemateQ(){ for (var i=0; i<9; i++) { if (base[i] == 2) return false; } return true;}
 
-                if (turn == 1 ) { base[Number(i.customId)] = 1; turn = 0; }
-                else if (turn == 0 ) { base[Number(i.customId)] = 0; turn = 1; }
+                if (bot == 1) {
+                    //broken to fix
+                    console.log('bot1')
+                    if (turn == 0 ) {
+                        console.log('turn0')
+                        base[Number(i.customId)] = 0
+                        console.log(base)
+                        var random = Math.floor(Math.random() * 9);
+                        while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
+                        base[random] = 0
+                        console.log(random)
+                        console.log(base)
+                    }
+                }
+                else if (bot == 0) {
+                    console.log('bot0')
+                    base[Number(i.customId)] = 1
 
-                if (game_overQ()==="fuck") { tttEmbed.setDescription('Stalemate!'); await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
-                else if(game_overQ()) { tttEmbed.setDescription(`Game has ended! \nThe winner is ${turn==0?"X":"O"}`) ; await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
-
-                console.log(base, i.customId, base[Number(i.customId)])
+                    var random = Math.floor(Math.random() * 9);
+                    while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
+                    base[random] = 0
+                }
+                //console.log(base, i.customId, base[Number(i.customId)])
                 const row1 = new ActionRowBuilder().addComponents(
                     new ButtonBuilder().setCustomId('0').setLabel(base[0]==2 ? "-":(base[0]==1?"X":"O")).setStyle(base[0]==2?ButtonStyle.Success:(base[0]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[0]==2?false:true),
                     new ButtonBuilder().setCustomId('1').setLabel(base[1]==2 ? "-":(base[1]==1?"X":"O")).setStyle(base[1]==2?ButtonStyle.Success:(base[1]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[1]==2?false:true),
@@ -187,6 +213,9 @@ module.exports = {
                     new ButtonBuilder().setCustomId('8').setLabel(base[8]==2 ? "-":(base[8]==1?"X":"O")).setStyle(base[8]==2?ButtonStyle.Success:(base[8]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[8]==2?false:true),
                 )
                 tttEmbed.setDescription('Your turn!')
+                
+                if (game_overQ()==="fuck") { tttEmbed.setDescription('Stalemate! \nNo one win!'); await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
+                else if(game_overQ()) { tttEmbed.setDescription(`Game has ended! \nThe winner is ${turn==0?"X":"O"}`) ; await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
                 await interaction.editReply({embeds: [tttEmbed], components: [row1,row2,row3] })
             })
         }

@@ -18,7 +18,7 @@ const ask = (question, callback) => {
         input: process.stdin,
         output: process.stdout
     });
-    rl.question("Please choose a number between 1 and 5: \n1.Register new command only in the specific guild. \n2.Register command on all servers( might take an hour to appear). \n3.Delete all commands only in the specific guild. \n4.Delete commands on all servers( might take an hour to work). \n5.Exit. \nNumber: ", (answer) => {
+    rl.question("Please choose a number between 1 and 5: \n1.Register new command only in the specific guild. \n2.Register command on all servers( might take an hour to appear). \n3.Delete all commands only in the specific guild. \n4.Delete commands on all servers( might take an hour to work). \n5.Exit. \n\n6.Secret Global Commands reload. Please wait... \n7.Secret Guild Commands reload. Please wait... \nNumber: ", (answer) => {
         rl.close();
         callback(answer);
     });

@@ -6,23 +6,23 @@ const client = new Client({
         properties: { browser: 'Discord Android' }
     }, 
     intents: [
-        GatewayIntentBits.DirectMessageReactions,
-        //GatewayIntentBits.DirectMessageTyping,
-        GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.GuildBans,
-        GatewayIntentBits.GuildEmojisAndStickers,
-        GatewayIntentBits.GuildIntegrations,
-        GatewayIntentBits.GuildInvites,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessageReactions,
-        //GatewayIntentBits.GuildMessageTyping,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildScheduledEvents,
-        GatewayIntentBits.GuildVoiceStates,
-        //GatewayIntentBits.GuildWebhooks,
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.Guilds, //1
+        GatewayIntentBits.GuildMembers, //2
+        GatewayIntentBits.GuildBans, //4
+        GatewayIntentBits.GuildEmojisAndStickers, //8
+        GatewayIntentBits.GuildIntegrations, //16
+        //GatewayIntentBits.GuildWebhooks, //32
+        GatewayIntentBits.GuildInvites, //64
+        GatewayIntentBits.GuildVoiceStates, //128
+        GatewayIntentBits.GuildPresences, //256
+        GatewayIntentBits.GuildMessages, //512
+        GatewayIntentBits.GuildMessageReactions, //1024
+        //GatewayIntentBits.GuildMessageTyping, //2048
+        GatewayIntentBits.DirectMessages, //4096
+        GatewayIntentBits.DirectMessageReactions, //8192
+        //GatewayIntentBits.DirectMessageTyping //16384
+        GatewayIntentBits.MessageContent, //32768
+        GatewayIntentBits.GuildScheduledEvents, //65536
     ],
     partials: [
         Partials.Channel, 
@@ -52,7 +52,7 @@ client.settings = new Enmap({
         invitesLogs: false,
         schedulesLogs: false,
         banKickLogs: false,
-        welcomeMessage: "**Welcome to the server!** \nHope you enjoy your stay!",
+        welcomeMessage: "**Welcome to the server!** \nHope you enjoy your stay! \nThe bot works with only slash commands.\n(nsfw only in nsfw channels)",
         enableNSFW: false,
         welcomeRoles: [],
         freeRoles: [],

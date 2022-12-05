@@ -61,10 +61,14 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**\n
+- Added more activity statuses
+- Added ttt (Tic Tac Toe) option to the games command
 - 
+- Fixed stuff and internall changes
 [- ${dbd_dom}]
 [- Support server: https://discord.gg/DcQS9mNEUh]
 `)
+            .setFooter("If you don't want to see this message, set gotNewUpdate to false on the website.")
             try{
                 client.guilds.cache.forEach(guild => {
                     if (client.settings.get(guild.id, "enableBotUpdateMessage")) {

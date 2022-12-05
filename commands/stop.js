@@ -26,7 +26,7 @@ module.exports = {
 					.setTitle("Meh, you thought!")
 					.setDescription("Please ping the bot owner a million times to stop the bot " + interaction.user.tag)
 				await interaction.reply({content: "UwU", ephemeral: true})
-				await interaction.followUp({embeds: [embed]})
+				await interaction.followUp({embeds: [embed], ephemeral: true})
 			}
 		} else {
 			const embed = new EmbedBuilder()
