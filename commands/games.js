@@ -165,11 +165,11 @@ module.exports = {
             }
             collector.on('collect', async i => {
                 function game_overQ() {
-                    if (winnerQ(0,1,2)  ||  winnerQ(3,4,5) ||  winnerQ(6,7,8) // check for 3-in-a-row horizontally
-                    ||  winnerQ(0,3,6)  ||  winnerQ(1,4,7) ||  winnerQ(2,5,8) // check for 3-in-a-row vertically
-                    ||  winnerQ(0,4,8)  ||  winnerQ(6,4,2) // check for 3-in-a-row diagonally
+                    if (winnerQ(0,1,2)  ||  winnerQ(3,4,5) ||  winnerQ(6,7,8)
+                    ||  winnerQ(0,3,6)  ||  winnerQ(1,4,7) ||  winnerQ(2,5,8)
+                    ||  winnerQ(0,4,8)  ||  winnerQ(6,4,2)
                     ){ return true;
-                    } else if (stalemateQ()){ return "fuck" } // check for stalemate
+                    } else if (stalemateQ()){ return "fuck" }
                 }
                 function winnerQ(p1, p2, p3) { return (base[p1] != 2) && (base[p1] == base[p2]) && (base[p2] == base[p3]); }
                 function stalemateQ(){ for (var i=0; i<9; i++) { if (base[i] == 2) return false; } return true;}

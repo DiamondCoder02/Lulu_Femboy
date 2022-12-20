@@ -29,11 +29,11 @@ module.exports = {
 
         try {
             akinator(interaction, {
-                embedColor: "#00FF00", //Defaults to "RANDOM"
-                language: lang, //Defaults to "en"
-                childMode: childMode, //Defaults to "false"
-                gameType: gameType, //Defaults to "character"
-                useButtons: useButtons //Defaults to "false"
+                embedColor: "#00FF00",
+                language: lang,
+                childMode: childMode,
+                gameType: gameType,
+                useButtons: useButtons
             })
         } catch (error) { console.log("Akinator had a stroke: "+error) }
     }

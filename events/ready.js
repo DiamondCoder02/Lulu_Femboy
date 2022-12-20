@@ -63,7 +63,7 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setDescription(`**Bot news:**\n
 - Added more activity statuses
 - Added ttt (Tic Tac Toe) option to the games command
-- 
+- Added new command(s): /hentai (nsfw) and /ham_tie (sfw)
 - Fixed stuff and internall changes
 [- ${dbd_dom}]
 [- Support server: https://discord.gg/DcQS9mNEUh]
