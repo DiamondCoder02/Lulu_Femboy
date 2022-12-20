@@ -7,6 +7,7 @@
 Just my own little bot to learn. Early in development.
 Feel free to contribute if you want. I also appriciate every problem report and every help.
 This bot only works with slash commands. NSFW commands only works in nsfw channels. :3
+
 Discord bot invite (permissions might change in the future as more stuff is added): [Here.](https://discord.com/api/oauth2/authorize?client_id=963362899160612954&permissions=283505454273&scope=bot%20applications.commands)
 Admin if you don't care about permissions: [Bot Invite](https://discord.com/oauth2/authorize?client_id=963362899160612954&permissions=8&scope=applications.commands%20bot)
 
