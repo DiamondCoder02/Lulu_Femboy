@@ -130,39 +130,25 @@ module.exports = {
                 })
             }
         } else if (interaction.options.getSubcommand() === 'ttt') {
-            /*
-                .addStringOption(option => option.setName('who_start').setDescription('Chosse one to start with. ("X" goes first)')
-                    .addChoices(
-                        { name: "X", value: 'first' },
-                        { name: "O", value: 'second' }
-                    )
-                )
-            */
             const tttEmbed = new EmbedBuilder()
                 .setTitle('Tic Tac Toe')
                 .setColor('#00FF00')
             let base = [2,2,2, 2,2,2, 2,2,2] // 2=- , 1=X , 0=O
-            let turn = 1;
-            let bot = 0;
+            let turn = 2, bot = 2, winner = "none";
             if (interaction.options.getString('who_start') === 'second') { turn = 0, bot = 1 }
             else if (interaction.options.getString('who_start') === 'first') { turn = 1, bot = 0 }
             else { turn = Math.floor(Math.random() * 2), bot = Math.abs(turn-1) };
-            console.log(turn, bot)
+            if (turn == 0){
+                var random = Math.floor(Math.random() * 9);
+                while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
+                base[random] = 1
+            }
             const start = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('start').setLabel('Start').setStyle(ButtonStyle.Success) )
             const end = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel('End').setStyle(ButtonStyle.Link).setURL('https://discord.gg/DcQS9mNEUh'))
             tttEmbed.setDescription('Click the button to start the game!')
             await interaction.reply({ embeds: [tttEmbed], components: [start] });
             const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id;};
             const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
-            if (bot == 1) {
-                console.log('bot11')
-                var random = Math.floor(Math.random() * 9);
-                while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
-                base[random] = 1
-                console.log(random)
-                console.log(base)
-                turn = 0;
-            }
             collector.on('collect', async i => {
                 function game_overQ() {
                     if (winnerQ(0,1,2)  ||  winnerQ(3,4,5) ||  winnerQ(6,7,8)
@@ -171,52 +157,38 @@ module.exports = {
                     ){ return true;
                     } else if (stalemateQ()){ return "fuck" }
                 }
-                function winnerQ(p1, p2, p3) { return (base[p1] != 2) && (base[p1] == base[p2]) && (base[p2] == base[p3]); }
+                function winnerQ(p1, p2, p3) { winner=base[p1] ; return (base[p1] != 2) && (base[p1] == base[p2]) && (base[p2] == base[p3]); }
                 function stalemateQ(){ for (var i=0; i<9; i++) { if (base[i] == 2) return false; } return true;}
-
-                if (bot == 1) {
-                    //broken to fix
-                    console.log('bot1')
-                    if (turn == 0 ) {
-                        console.log('turn0')
-                        base[Number(i.customId)] = 0
-                        console.log(base)
+                if (turn == 1) {
+                    base[Number(i.customId)] = 1
+                    endGame()
+                    if (bot == 1) {
                         var random = Math.floor(Math.random() * 9);
                         while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
                         base[random] = 0
-                        console.log(random)
-                        console.log(base)
                     }
+                    bot=1
                 }
-                else if (bot == 0) {
-                    console.log('bot0')
-                    base[Number(i.customId)] = 1
-
+                else if (turn == 0 && bot == 0) {
+                    base[Number(i.customId)] = 0
+                    endGame()
                     var random = Math.floor(Math.random() * 9);
                     while (base[random] != 2) { random = Math.floor(Math.random() * 9); }
-                    base[random] = 0
+                    base[random] = 1
                 }
-                //console.log(base, i.customId, base[Number(i.customId)])
-                const row1 = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder().setCustomId('0').setLabel(base[0]==2 ? "-":(base[0]==1?"X":"O")).setStyle(base[0]==2?ButtonStyle.Success:(base[0]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[0]==2?false:true),
-                    new ButtonBuilder().setCustomId('1').setLabel(base[1]==2 ? "-":(base[1]==1?"X":"O")).setStyle(base[1]==2?ButtonStyle.Success:(base[1]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[1]==2?false:true),
-                    new ButtonBuilder().setCustomId('2').setLabel(base[2]==2 ? "-":(base[2]==1?"X":"O")).setStyle(base[2]==2?ButtonStyle.Success:(base[2]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[2]==2?false:true),
-                )
-                const row2 = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder().setCustomId('3').setLabel(base[3]==2 ? "-":(base[3]==1?"X":"O")).setStyle(base[3]==2?ButtonStyle.Success:(base[3]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[3]==2?false:true),
-                    new ButtonBuilder().setCustomId('4').setLabel(base[4]==2 ? "-":(base[4]==1?"X":"O")).setStyle(base[4]==2?ButtonStyle.Success:(base[4]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[4]==2?false:true),
-                    new ButtonBuilder().setCustomId('5').setLabel(base[5]==2 ? "-":(base[5]==1?"X":"O")).setStyle(base[5]==2?ButtonStyle.Success:(base[5]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[5]==2?false:true),
-                )
-                const row3 = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder().setCustomId('6').setLabel(base[6]==2 ? "-":(base[6]==1?"X":"O")).setStyle(base[6]==2?ButtonStyle.Success:(base[6]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[6]==2?false:true),
-                    new ButtonBuilder().setCustomId('7').setLabel(base[7]==2 ? "-":(base[7]==1?"X":"O")).setStyle(base[7]==2?ButtonStyle.Success:(base[7]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[7]==2?false:true),
-                    new ButtonBuilder().setCustomId('8').setLabel(base[8]==2 ? "-":(base[8]==1?"X":"O")).setStyle(base[8]==2?ButtonStyle.Success:(base[8]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[8]==2?false:true),
-                )
-                tttEmbed.setDescription('Your turn!')
-                
-                if (game_overQ()==="fuck") { tttEmbed.setDescription('Stalemate! \nNo one win!'); await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
-                else if(game_overQ()) { tttEmbed.setDescription(`Game has ended! \nThe winner is ${turn==0?"X":"O"}`) ; await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
-                await interaction.editReply({embeds: [tttEmbed], components: [row1,row2,row3] })
+                endGame()
+                if (turn == 0) { bot = 0 }
+
+                async function endGame() {
+                    const row1 = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('0').setLabel(base[0]==2 ? "-":(base[0]==1?"X":"O")).setStyle(base[0]==2?ButtonStyle.Success:(base[0]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[0]==2?false:true), new ButtonBuilder().setCustomId('1').setLabel(base[1]==2 ? "-":(base[1]==1?"X":"O")).setStyle(base[1]==2?ButtonStyle.Success:(base[1]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[1]==2?false:true), new ButtonBuilder().setCustomId('2').setLabel(base[2]==2 ? "-":(base[2]==1?"X":"O")).setStyle(base[2]==2?ButtonStyle.Success:(base[2]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[2]==2?false:true) )
+                    const row2 = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('3').setLabel(base[3]==2 ? "-":(base[3]==1?"X":"O")).setStyle(base[3]==2?ButtonStyle.Success:(base[3]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[3]==2?false:true), new ButtonBuilder().setCustomId('4').setLabel(base[4]==2 ? "-":(base[4]==1?"X":"O")).setStyle(base[4]==2?ButtonStyle.Success:(base[4]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[4]==2?false:true), new ButtonBuilder().setCustomId('5').setLabel(base[5]==2 ? "-":(base[5]==1?"X":"O")).setStyle(base[5]==2?ButtonStyle.Success:(base[5]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[5]==2?false:true) )
+                    const row3 = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('6').setLabel(base[6]==2 ? "-":(base[6]==1?"X":"O")).setStyle(base[6]==2?ButtonStyle.Success:(base[6]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[6]==2?false:true), new ButtonBuilder().setCustomId('7').setLabel(base[7]==2 ? "-":(base[7]==1?"X":"O")).setStyle(base[7]==2?ButtonStyle.Success:(base[7]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[7]==2?false:true), new ButtonBuilder().setCustomId('8').setLabel(base[8]==2 ? "-":(base[8]==1?"X":"O")).setStyle(base[8]==2?ButtonStyle.Success:(base[8]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[8]==2?false:true) )
+                    tttEmbed.setDescription('Your turn!')
+                    
+                    if (game_overQ()==="fuck") { tttEmbed.setDescription('Stalemate! \nNo one win!'); await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
+                    else if(game_overQ()) { tttEmbed.setDescription(`Game has ended! \nThe winner is ${winner?"X":"O"}`) ; await interaction.editReply({embeds: [tttEmbed], components:[end]}); collector.stop(); return; }
+                    await interaction.editReply({embeds: [tttEmbed], components: [row1,row2,row3] })
+                }
             })
         }
     }

@@ -7,7 +7,7 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setColor('#FFFF00')
 			.setTitle("Bot joined a guild!")
-			.setDescription(`Name: \`${guild.name}\` with \`${guild.memberCount}\` members \n(ID: \`${guild.id}\`)`)
+			.setDescription(`Name: \`${guild.name}\` with \`${guild.memberCount}\` members *(bot included)* \n(ID: \`${guild.id}\`)`)
 		try{
 			const channel = client.channels.cache.get(config.botStatusChannelId)
 			channel.send({embeds: [embed]})

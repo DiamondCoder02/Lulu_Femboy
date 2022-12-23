@@ -60,15 +60,20 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
-                .setDescription(`**Bot news:**\n
+                .setDescription(`**Bot news:**
+__*If you don't want to see this message, set gotNewUpdate to false on the website.*__
+\n
 - Added more activity statuses
 - Added ttt (Tic Tac Toe) option to the games command
-- Added new command(s): /hentai (nsfw) and /ham_tie (sfw)
+- Reworked entire image posting system
+- Reworked nsfw image posting system
 - Fixed stuff and internall changes
-[- ${dbd_dom}]
-[- Support server: https://discord.gg/DcQS9mNEUh]
+[- Website: ${dbd_dom}]
+[- Bug/feature report form: https://forms.gle/ebD1edtbir2gDgAn9]
+
+Sorry for long update, I was busy with university.
 `)
-            .setFooter("If you don't want to see this message, set gotNewUpdate to false on the website.")
+            .setFooter("Support server: https://discord.gg/DcQS9mNEUh")
             try{
                 client.guilds.cache.forEach(guild => {
                     if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
