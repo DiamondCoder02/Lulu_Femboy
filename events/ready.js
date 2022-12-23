@@ -69,11 +69,11 @@ __*If you don't want to see this message, set gotNewUpdate to false on the websi
 - Reworked nsfw image posting system
 - Fixed stuff and internall changes
 [- Website: ${dbd_dom}]
-[- Bug/feature report form: https://forms.gle/ebD1edtbir2gDgAn9]
+[- Support server: https://discord.gg/DcQS9mNEUh]
 
 Sorry for long update, I was busy with university.
 `)
-            .setFooter("Support server: https://discord.gg/DcQS9mNEUh")
+            .setFooter("Bug/feature report form: https://forms.gle/ebD1edtbir2gDgAn9")
             try{
                 client.guilds.cache.forEach(guild => {
                     if (client.settings.get(guild.id, "enableBotUpdateMessage")) {

@@ -107,9 +107,9 @@ User,
             const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
             const owner_embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setDescription("Only bot owner should be able to see this:")
+                .setDescription(`**(${String(guildLength)}) guild(s):**\n${Guilds}`)
                 .addFields(configList)
-                .addFields({name: `(${String(guildLength)}) guild(s):`, value: Guilds})
+                .setFooter({text: `Only the bot owner should see this.`});
             if (interaction.options.getBoolean('owner')) {
                 await interaction.followUp({embeds: [owner_embed], components: [page]})
             } else {

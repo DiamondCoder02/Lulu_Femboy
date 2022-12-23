@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, ActionRowBuilder,SelectMenuBuilder, ButtonStyle, ButtonBuilder } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ButtonStyle, ButtonBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('games')
@@ -29,7 +29,7 @@ module.exports = {
                 .setColor('#00FF00')
             const row = new ActionRowBuilder()
                 .addComponents(
-                    new SelectMenuBuilder()
+                    new StringSelectMenuBuilder()
                         .setCustomId('select')
                         .setPlaceholder('Nothing selected')
                         .addOptions(

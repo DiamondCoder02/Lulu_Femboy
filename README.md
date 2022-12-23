@@ -14,7 +14,7 @@ Admin invite if you don't care about permissions: [Admin Bot Invite.](https://di
 
 Support server: [Discord link](https://discord.gg/DcQS9mNEUh)
 
-Google form for bug and feature reeport [link here](https://forms.gle/ebD1edtbir2gDgAn9).
+Google form for bug and feature report [link here](https://forms.gle/ebD1edtbir2gDgAn9).
 
 ### Debug level in config
 
@@ -31,7 +31,6 @@ Google form for bug and feature reeport [link here](https://forms.gle/ebD1edtbir
 ## Credits (Package or API name - command name)
 
 - [Discord.js Akinator - akinator](https://www.npmjs.com/package/discord.js-akinator)
-- [Anime-images API - anime_images](https://anime-api.hisoka17.repl.co/)
 - [Astrology free API - astrology](https://ohmanda.com/api/horoscope)
 - [Booru - booru](https://www.npmjs.com/package/booru)
 - [Catboys - catboys](https://catboys.com/api)
