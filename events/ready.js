@@ -110,7 +110,7 @@ __*If you don't want to see this message, set enableBotUpdateMessage to false on
 
 - Removed Anime-images command
 
-- Fixed stuff and internall changes
+- Fixed stuff and other internall changes
 
 Sorry for long update, I was busy with university and it was the holidays.
 `)
