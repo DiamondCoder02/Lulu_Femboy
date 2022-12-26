@@ -105,14 +105,16 @@ __*If you don't want to see this message, set enableBotUpdateMessage to false on
 - Added ttt (Tic Tac Toe) option to the games command
 - Added message logger exception for channels and/or roles
 
-- Reworked entire image posting system
-- Reworked nsfw image posting system
+- Update the website a bit
 
 - Removed Anime-images command
 
 - Fixed stuff and other internall changes
 
 Sorry for long update, I was busy with university and it was the holidays
+
+__Also:__ The bot reached more than 75 servvers! Thank you all for using the bot!
+I will be verifying it soon.
 `)
             .addFields(
                 { name: 'Website:', value: `${dbd_dom}`, inline: true },

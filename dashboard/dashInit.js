@@ -52,26 +52,35 @@ module.exports = {
                     subColor: "#ebdbdb",
                     preloader: "Loading UwU..."
                 },
+                sidebar: {
+                    keepDefault: true,
+                    list: [{
+                        icon: `<svg style="position: absolute; margin-left: 8px; margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2CA8FF">    <path d="M0 0h24v24H0z" fill="none"/> <path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0  0 0 1.74-1 10 10 0 0 0-.27-10.44z"/> <path d="M10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>`,
+                        title: "Terms & Service",
+                        link: "https://www.termsofservicegenerator.net/live.php?token=uShWSqnDh7ZZsR18uM93ohdVVLfGAMQr",
+                        id: "term_service",
+                    }]
+                },
                 index: {
                     card: {
                         category: `${client.user.tag} Discord bot control panel`,
-                        title: `Welcome to the ${client.user.tag} control panel. You can edit options and I can learn discord dashboard.`,
+                        title: `Welcome to the ${client.user.tag} control panel. You can edit options.`,
                         image: `https://i.imgur.com/bYYjIZC.png`,
-                        footer: "Last edit: 16.09.2022",
+                        footer: "Last edit: 26.12.2022",
                     },
                     information: {
                         category: "Info",
-                        title: "Information about the bot",
+                        title: `Information about the bot.`,
                         description: `After a couple of failed bots, I'm planning making this as a project I'm not gonna abondon quickly. 
                         This bot only works with slash commands. 
                         NSFW commands only works in nsfw channels.`,
-                        footer: "Last edit: 16.09.2022",
+                        footer: "Last edit: 26.12.2022",
                     },
                     feeds: {
                         category: "News",
-                        title: `Update info ${package.version}`,
-                        description: `Updated packages and fixed some bugs and maybe fixed some database deletion error.`,
-                        footer: "Last edit: 13.10.2022",
+                        title: `Version: ${package.version}`,
+                        description: `Soon TM`,
+                        footer: "Last edit: 26.12.2022",
                     },
                 },
                 commands: [
