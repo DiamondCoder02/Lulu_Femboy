@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const HMfull = require("hmfull");
 module.exports = {
     cooldown: 60,
-    guildOnly: true,
     hasNSFW: true,
 	data: new SlashCommandBuilder()
         .setName('hentai')
