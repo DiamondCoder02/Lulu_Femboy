@@ -158,7 +158,7 @@ module.exports = {
                         },
                         {
                             optionId: 'enableBotUpdateMessage',
-                            optionDescription: "Should the bot send message when it updates?",
+                            optionDescription: "Should the bot send a message when it gets an updates?",
                             optionType: DBD.formTypes.switch(),
                             themeOptions: { minimalbutton: { last: true, } },
                         },
@@ -352,6 +352,8 @@ module.exports = {
                             { optionId: "invitesLogs", data: client.settings.get(guild.id, "invitesLogs") || null },
                             { optionId: "schedulesLogs", data: client.settings.get(guild.id, "schedulesLogs") || null },
                             { optionId: "banKickLogs", data: client.settings.get(guild.id, "banKickLogs") || null },
+                            { optionId: "mesLogBlaLisChan", data: client.settings.get(guild.id, "messageLogsBlacklistChannel") || null },
+                            { optionId: "mesLogBlaLisRole", data: client.settings.get(guild.id, "messageLogsBlacklistRoles") || null },
                         ]
                     },
                     setNew: async ({guild,data}) => {
@@ -362,6 +364,8 @@ module.exports = {
                             if(option.optionId === "invitesLogs") client.settings.set(guild.id, option.data, "invitesLogs");
                             if(option.optionId === "schedulesLogs") client.settings.set(guild.id, option.data, "schedulesLogs");
                             if(option.optionId === "banKickLogs") client.settings.set(guild.id, option.data, "banKickLogs");
+                            if(option.optionId === "mesLogBlaLisChan") client.settings.set(guild.id, option.data, "messageLogsBlacklistChannel");
+                            if(option.optionId === "mesLogBlaLisRole") client.settings.set(guild.id, option.data, "messageLogsBlacklistRoles");
                         } 
                         return;
                     },
@@ -403,6 +407,18 @@ module.exports = {
                             optionDescription: "Ban - kick logging",
                             optionType: DBD.formTypes.switch(),
                             themeOptions: { minimalbutton: { last: true, } },
+                        },
+                        {
+                            optionId: 'mesLogBlaLisChan',
+                            optionName: "messageLogsBlacklist Channel:",
+                            optionDescription: "Blacklist message logging for certain channels",
+                            optionType: DBD.formTypes.channelsMultiSelect(false, false, channelTypes = [ChannelType.GuildText]),
+                        },
+                        {
+                            optionId: 'mesLogBlaLisRole',
+                            optionName: "messageLogsBlacklist Roles:",
+                            optionDescription: "Blacklist message logging for certain roles",
+                            optionType: DBD.formTypes.rolesMultiSelect(),
                         },
                     ]
                 },

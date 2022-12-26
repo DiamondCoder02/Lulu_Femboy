@@ -48,6 +48,8 @@ client.settings = new Enmap({
         welcomeUserCheck: false,
         goodbye: false,
         messageLogs: false,
+        messageLogsBlacklistChannel: [],
+        messageLogsBlacklistRoles: [],
         memberUpdateLogs: false,
         invitesLogs: false,
         schedulesLogs: false,

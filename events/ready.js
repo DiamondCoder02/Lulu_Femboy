@@ -16,6 +16,41 @@ module.exports = {
             client.user.setActivity(status)
             console.log("I am now " + status)
         }, 10800000)
+
+        //Needs better way, but this checks for all values in guild
+        client.guilds.cache.forEach(guild => {
+            if (!client.settings.has(guild.id, "redditFeed")) client.settings.set(guild.id, false, "redditFeed")
+            if (!client.settings.has(guild.id, "redditFeedSub1")) client.settings.set(guild.id, "", "redditFeedSub1")
+            if (!client.settings.has(guild.id, "lastRedditFeedPost1")) client.settings.set(guild.id, "", "lastRedditFeedPost1")
+            if (!client.settings.has(guild.id, "redditFeedChannel1")) client.settings.set(guild.id, "", "redditFeedChannel1")
+            if (!client.settings.has(guild.id, "redditFeedSub2")) client.settings.set(guild.id, "", "redditFeedSub2")
+            if (!client.settings.has(guild.id, "lastRedditFeedPost2")) client.settings.set(guild.id, "", "lastRedditFeedPost2")
+            if (!client.settings.has(guild.id, "redditFeedChannel2")) client.settings.set(guild.id, "", "redditFeedChannel2")
+            if (!client.settings.has(guild.id, "redditFeedSub3")) client.settings.set(guild.id, "", "redditFeedSub3")
+            if (!client.settings.has(guild.id, "lastRedditFeedPost3")) client.settings.set(guild.id, "", "lastRedditFeedPost3")
+            if (!client.settings.has(guild.id, "redditFeedChannel3")) client.settings.set(guild.id, "", "redditFeedChannel3")
+            if (!client.settings.has(guild.id, "messageLogsBlacklistChannel")) client.settings.set(guild.id, [], "messageLogsBlacklistChannel")
+            if (!client.settings.has(guild.id, "messageLogsBlacklistRoles")) client.settings.set(guild.id, [], "messageLogsBlacklistRoles")
+            if (!client.settings.has(guild.id, "welcome")) client.settings.set(guild.id, false, "welcome")
+            if (!client.settings.has(guild.id, "welcomeUserCheck")) client.settings.set(guild.id, false, "welcomeUserCheck")
+            if (!client.settings.has(guild.id, "goodbye")) client.settings.set(guild.id, false, "goodbye")
+            if (!client.settings.has(guild.id, "messageLogs")) client.settings.set(guild.id, false, "messageLogs")
+            if (!client.settings.has(guild.id, "memberUpdateLogs")) client.settings.set(guild.id, false, "memberUpdateLogs")
+            if (!client.settings.has(guild.id, "invitesLogs")) client.settings.set(guild.id, false, "invitesLogs")
+            if (!client.settings.has(guild.id, "schedulesLogs")) client.settings.set(guild.id, false, "schedulesLogs")
+            if (!client.settings.has(guild.id, "banKickLogs")) client.settings.set(guild.id, false, "banKickLogs")
+            if (!client.settings.has(guild.id, "welcomeMessage")) client.settings.set(guild.id, "**Welcome to the server!** \nHope you enjoy your stay! \nThe bot works with only slash commands.\n(nsfw only in nsfw channels)", "welcomeMessage")
+            if (!client.settings.has(guild.id, "enableNSFW")) client.settings.set(guild.id, false, "enableNSFW")
+            if (!client.settings.has(guild.id, "welcomeRoles")) client.settings.set(guild.id, [], "welcomeRoles")
+            if (!client.settings.has(guild.id, "freeRoles")) client.settings.set(guild.id, [], "freeRoles")
+            if (!client.settings.has(guild.id, "moderationChannel")) client.settings.set(guild.id, "", "moderationChannel")
+            if (!client.settings.has(guild.id, "enableBotUpdateMessage")) client.settings.set(guild.id, true, "enableBotUpdateMessage")
+            if (!client.settings.has(guild.id, "enableRandomReactions")) client.settings.set(guild.id, false, "enableRandomReactions")
+            if (!client.settings.has(guild.id, "randomReactionChannelBlacklist")) client.settings.set(guild.id, [], "randomReactionChannelBlacklist")
+            if (!client.settings.has(guild.id, "singleChannelMessageLogger")) client.settings.set(guild.id, [], "singleChannelMessageLogger")
+            console.log("Enmap check done for " + guild.name)
+        })
+
         const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
 		console.log(`\n -- Logged in as: ` + client.user.tag
             + `\n\t -- Client_ID: ` + client.user.id
@@ -61,13 +96,14 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setColor('#FFFF00')
                 .setTitle("Bot has gotten an update: " + package.version)
                 .setDescription(`**Bot news:**
-__*If you don't want to see this message, set gotNewUpdate to false on the website.*__
+__*If you don't want to see this message, set enableBotUpdateMessage to false on the website.*__
 \n
 - Added Reddit feed (configurable on the website)
     + currently only up to 3 subreddits
     + Gets refreshed every 30 seconds
 - Added more activity statuses
 - Added ttt (Tic Tac Toe) option to the games command
+- Added message logger exception for channels and/or roles
 
 - Reworked entire image posting system
 - Reworked nsfw image posting system

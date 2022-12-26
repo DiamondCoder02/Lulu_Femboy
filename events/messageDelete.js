@@ -3,6 +3,14 @@ module.exports = {
 	name: 'messageDelete',
 	async execute(message, client) {
 		try{
+			let channelBlacklist = client.settings.get(message.guild.id, "messageLogsBlacklistChannels")
+			let roleBlacklist = client.settings.get(message.guild.id, "messageLogsBlacklistRoles")
+			for (var i = 0; i < channelBlacklist.length; i++) {
+				if (message.channelId == channelBlacklist[i]) { return }
+			}
+			for (var i = 0; i < roleBlacklist.length; i++) {
+				if (message.member.roles.cache.has(roleBlacklist[i])) { return }
+			}
 			/*
 			console.log("Delete")
 			console.log(message)

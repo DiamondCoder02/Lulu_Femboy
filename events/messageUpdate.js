@@ -1,6 +1,14 @@
 module.exports = {
     name: 'messageUpdate',
     execute(oldMessage, newMessage, client) {
+        let channelBlacklist = client.settings.get(oldMessage.guild.id, "messageLogsBlacklistChannels")
+        let roleBlacklist = client.settings.get(oldMessage.guild.id, "messageLogsBlacklistRoles")
+        for (var i = 0; i < channelBlacklist.length; i++) {
+            if (oldMessage.channelId == channelBlacklist[i]) { return }
+        }
+        for (var i = 0; i < roleBlacklist.length; i++) {
+            if (oldMessage.member.roles.cache.has(roleBlacklist[i])) { return }
+        }
 		try{
             try { if (oldMessage.author.bot) return } catch { return console.log("Bot is null, messageUpdate, WHAT THE FUCK?"); }
             if (newMessage.editedTimestamp === null && (newMessage.content.includes("https://") || newMessage.content.includes("http://"))) {return /*console.log('http(s):// Useless message update')*/}
