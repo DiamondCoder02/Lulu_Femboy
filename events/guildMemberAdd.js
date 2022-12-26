@@ -41,7 +41,8 @@ module.exports = {
             newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));
             guildInvites.set(member.guild.id, cachedInvites);
         } catch {
-            console.log(`[${new Date().toLocaleString('hu-HU')}] guildMemberAdd - Not enough permission for ${member.guild.name}. Continuing...`)
+
+            //console.log(`[${new Date().toLocaleString('hu-HU')}] guildMemberAdd - Not enough permission for ${member.guild.name}. Continuing...`)
         }
         if(member.pending === false){    
             if( client.settings.get(member.guild.id, "welcomeRoles") ) {
