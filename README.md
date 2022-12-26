@@ -41,4 +41,4 @@ Google form for bug and feature report [link here](https://forms.gle/ebD1edtbir2
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
-- [Discord-dashboard](https://www.npmjs.com/package/discord-dashboard), and [site](https://learnit.assistantscenter.com/)
+- [Discord Dashboard](https://www.npmjs.com/package/discord-dashboard), and [site](https://learnit.assistantscenter.com/)

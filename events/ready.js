@@ -44,8 +44,8 @@ module.exports = {
         if (config.botReadyStatus) {
             const embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setTitle("Bot has updated!")
-                .setDescription(`Bot has been started:
+                .setTitle("Bot has started!")
+                .setDescription(`Bot info:
 DebugLevel: ${config.debug_level},
 Ready: <t:${Math.floor(client.readyTimestamp / 1000)}:f> 
 That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
@@ -63,16 +63,25 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 .setDescription(`**Bot news:**
 __*If you don't want to see this message, set gotNewUpdate to false on the website.*__
 \n
+- Added Reddit feed (configurable on the website)
+    + currently only up to 3 subreddits
+    + Gets refreshed every 30 seconds
 - Added more activity statuses
 - Added ttt (Tic Tac Toe) option to the games command
+
 - Reworked entire image posting system
 - Reworked nsfw image posting system
-- Fixed stuff and internall changes
-[- Website: ${dbd_dom}]
-[- Support server: https://discord.gg/DcQS9mNEUh]
 
-Sorry for long update, I was busy with university.
+- Removed Anime-images command
+
+- Fixed stuff and internall changes
+
+Sorry for long update, I was busy with university and it was the holidays.
 `)
+            .addFields(
+                { name: 'Website:', value: `${dbd_dom}`, inline: true },
+                { name: 'Support server', value: `https://discord.gg/DcQS9mNEUh`, inline: true },
+            )
             .setFooter("Bug/feature report form: https://forms.gle/ebD1edtbir2gDgAn9")
             try{
                 client.guilds.cache.forEach(guild => {

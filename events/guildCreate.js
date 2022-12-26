@@ -18,10 +18,16 @@ module.exports = {
 		bot=client.user
 		try{
 			const channel = client.channels.cache.get(guild.systemChannelId)
-			channel.send(`Thank you for inviting ${bot.toString()}. All commands works with slash commands. More info at https://imgur.com/a/dStRp6Y \n\nTo edit config please go to: http://femboy.redirectme.net/`)
+			channel.send(`__**Thank you for inviting ${bot.toString()}.**__
+All commands works with slash commands. More info about them at https://imgur.com/a/dStRp6Y. 
+\nTo edit the server config please go to: http://femboy.redirectme.net/`
+			)
 		} catch {
 			client.users.fetch(guild.ownerId).then(user => {
-				user.send(`Thank you for inviting ${bot.toString()}. All commands works with slash commands. More info at https://imgur.com/a/dStRp6Y \n\nTo edit config please go to: http://femboy.redirectme.net/`)
+				user.send(`__**Thank you for inviting **${bot.toString()}.**__
+All commands works with slash commands. More info about them at https://imgur.com/a/dStRp6Y. 
+\nTo edit the server config please go to: http://femboy.redirectme.net/`
+				)
 			}).catch(err => { console.log("guildCreate Error:", err) })
 		}
 		try{

@@ -180,16 +180,8 @@ module.exports = {
                         for(const option of data) {
                             if(option.optionId === "moderationChannel") client.settings.set(guild.id, option.data, "moderationChannel");
                             if(option.optionId === "randomReactionChannelBlacklist") client.settings.set(guild.id, option.data, "randomReactionChannelBlacklist");
-                            if(option.optionId === "singleChannelMessageLogger_in") {
-                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
-                                chanLog[0] = option.data
-                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
-                            };
-                            if(option.optionId === "singleChannelMessageLogger_out") {
-                                const chanLog = client.settings.get(guild.id, "singleChannelMessageLogger")
-                                chanLog[1] = option.data
-                                client.settings.set(guild.id, chanLog, "singleChannelMessageLogger")
-                            }
+                            if(option.optionId === "singleChannelMessageLogger_in") client.settings.set(guild.id, chanLog, "singleChannelMessageLogger", 0);
+                            if(option.optionId === "singleChannelMessageLogger_out") client.settings.set(guild.id, chanLog, "singleChannelMessageLogger", 1);
                         } 
                         return;
                     },
@@ -273,6 +265,78 @@ module.exports = {
                             optionName: "NSFW",
                             optionDescription: "Enable nsfw on server?",
                             optionType: DBD.formTypes.switch(),
+                        },
+                    ]
+                },
+                {
+                    categoryId: 'reddit',
+                    categoryName: "Reddit Feed",
+                    categoryDescription: "reddit feed settings",
+                    getActualSet: async ({guild}) => {
+                        return [
+                            { optionId: "enableReddit", data: client.settings.get(guild.id, "redditFeed") || null },
+                            { optionId: "subreddit1", data: client.settings.get(guild.id, "redditFeedSub1") || null },
+                            { optionId: "redditChannelId1", data: client.settings.get(guild.id, "redditFeedChannel1") || null },
+                            { optionId: "subreddit2", data: client.settings.get(guild.id, "redditFeedSub2") || null },
+                            { optionId: "redditChannelId2", data: client.settings.get(guild.id, "redditFeedChannel2") || null },
+                            { optionId: "subreddit3", data: client.settings.get(guild.id, "redditFeedSub3") || null },
+                            { optionId: "redditChannelId3", data: client.settings.get(guild.id, "redditFeedChannel3") || null },
+                        ]
+                    },
+                    setNew: async ({guild,data}) => {
+                        for(const option of data) {
+                            if(option.optionId === "enableReddit") client.settings.set(guild.id, option.data, "redditFeed");
+                            if(option.optionId === "subreddit1") client.settings.set(guild.id, option.data, "redditFeedSub1");
+                            if(option.optionId === "redditChannelId1") client.settings.set(guild.id, option.data, "redditFeedChannel1");
+                            if(option.optionId === "subreddit2") client.settings.set(guild.id, option.data, "redditFeedSub2");
+                            if(option.optionId === "redditChannelId2") client.settings.set(guild.id, option.data, "redditFeedChannel2");
+                            if(option.optionId === "subreddit3") client.settings.set(guild.id, option.data, "redditFeedSub3");
+                            if(option.optionId === "redditChannelId3") client.settings.set(guild.id, option.data, "redditFeedChannel3");
+                        } 
+                        return;
+                    },
+                    categoryOptionsList: [
+                        {
+                            optionId: 'enableReddit',
+                            optionName: "Enable?",
+                            optionDescription: "Enable reddit feed? Refreshes every 1 minute. (only 3 feeds per server for now)",
+                            optionType: DBD.formTypes.switch(),
+                        },
+                        {
+                            optionId: 'subreddit1',
+                            optionName: "subbreddit name",
+                            optionDescription: "Give only the name of the subreddit",
+                            optionType: DBD.formTypes.input(),
+                        },
+                        {
+                            optionId: 'redditChannelId1',
+                            optionName: "Channel",
+                            optionDescription: "Choose a channel for the feed",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
+                        },
+                        {
+                            optionId: 'subreddit2',
+                            optionName: "subbreddit name",
+                            optionDescription: "Give only the name of the subreddit",
+                            optionType: DBD.formTypes.input(),
+                        },
+                        {
+                            optionId: 'redditChannelId2',
+                            optionName: "Channel",
+                            optionDescription: "Choose a channel for the feed",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
+                        },
+                        {
+                            optionId: 'subreddit3',
+                            optionName: "subbreddit name",
+                            optionDescription: "Give only the name of the subreddit",
+                            optionType: DBD.formTypes.input(),
+                        },
+                        {
+                            optionId: 'redditChannelId3',
+                            optionName: "Channel",
+                            optionDescription: "Choose a channel for the feed",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = [ChannelType.GuildText]),
                         },
                     ]
                 },

@@ -1,6 +1,6 @@
 console.clear();
 //basic loaders
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, userMention } = require('discord.js'), config = require('./botConfigs/config.json');
+const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js'), config = require('./botConfigs/config.json');
 const client = new Client({ 
     ws: {
         properties: { browser: 'Discord Android' }
@@ -61,6 +61,16 @@ client.settings = new Enmap({
         enableRandomReactions: false,
         randomReactionChannelBlacklist: [],
         singleChannelMessageLogger: [],
+        redditFeed: false,
+        redditFeedSub1: "",
+        lastRedditFeedPost1: "",
+        redditFeedChannel1: "",
+        redditFeedSub2: "",
+        lastRedditFeedPost2: "",
+        redditFeedChannel2: "",
+        redditFeedSub3: "",
+        lastRedditFeedPost3: "",
+        redditFeedChannel3: "",
     }
 });
 
@@ -89,6 +99,13 @@ client.on(`ready`, (...args) => dashboardInit.execute(...args, client, commandFu
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log("Please provide a bot token.")}
 
+//every 12hours send a message to the bot owner
+setInterval(() => {
+    client.users.fetch(config.botOwnerId).then(user => {
+        user.send("I'm still alive!")
+    })
+}, 43200000)
+
 //error handler
 console.log(client)
 client.on("error", (e) => console.error(e));
@@ -97,4 +114,68 @@ process.on('unhandledRejection', error => console.error('-----\nUncaught Rejecti
 process.on('uncaughtException', error => console.error('-----\nUncaught Exception:\n-----\n', error));
 if (config.debug_level >= 3) { 
     client.on("debug", (e) => console.log(e))
+}
+
+let redditFeedSub = []
+let redditFeedChannel = []
+setInterval(() => {
+    client.guilds.cache.forEach(guild => {
+        let tr = client.settings.get(guild.id, "redditFeed")
+        if (!tr) return;
+        redditFeedSub[0] = client.settings.get(guild.id, "redditFeedSub1")
+        redditFeedSub[1] = client.settings.get(guild.id, "redditFeedSub2")
+        redditFeedSub[2] = client.settings.get(guild.id, "redditFeedSub3")
+        redditFeedChannel[0] = client.settings.get(guild.id, "redditFeedChannel1")
+        redditFeedChannel[1] = client.settings.get(guild.id, "redditFeedChannel2")
+        redditFeedChannel[2] = client.settings.get(guild.id, "redditFeedChannel3")
+        for (i = 0; i < redditFeedSub.length; i++){
+            if (redditFeedSub[i] == '') return;
+            if (redditFeedChannel[i] == '') return;
+            else { redditFetchFunction(redditFeedChannel[i], redditFeedSub[i], i, guild) }
+        }
+    })
+}, 60000)
+async function redditFetchFunction(channel, sub, i, guild) {
+    let feedChannel = await client.channels.cache.get(channel)
+    if (feedChannel == undefined) return;
+    let post = await fetch(`https://www.reddit.com/r/${sub}/new.json`)
+        .then(res => res.json()).then(body => {
+            let found = body.data.children;
+            if (!found.length) return channel.send(`Unable to find a post. The subreddit "${subreddit}" does not exist, or it has no available post data.`);
+            return found[0].data;
+        })
+    if (i == 0) {
+        let lastID = client.settings.get(guild.id, "lastRedditFeedPost1")
+        if (lastID == post.id) return;
+        else { client.settings.set(guild.id, post.id, "lastRedditFeedPost1") }
+    } else if (i == 1) {
+        let lastID = client.settings.get(guild.id, "lastRedditFeedPost2")
+        if (lastID == post.id) return;
+        else { client.settings.set(guild.id, post.id, "lastRedditFeedPost2") }
+    } else if (i == 2) {
+        let lastID = client.settings.get(guild.id, "lastRedditFeedPost3")
+        if (lastID == post.id) return;
+        else { client.settings.set(guild.id, post.id, "lastRedditFeedPost3") }
+    } else return;
+    //console.log(post)
+    const embed = new EmbedBuilder()
+        .setColor('#A020F0')
+        .setTitle(post.title)
+        .setURL(`https://reddit.com${post.permalink}`)
+        .setAuthor({ name: post.author})
+        .setTimestamp()
+    const linkButton = new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+            .setLabel('Link')
+            .setStyle(ButtonStyle.Link)
+            .setEmoji('🖥️')
+            .setURL(`https://reddit.com${post.permalink}`)
+    )
+    if (post.media == null) { 
+        embed.setImage(post.url)
+        feedChannel.send({embeds: [embed], components: [linkButton]})
+    }
+    else {
+        feedChannel.send({content: `Video unable to show. Here link: \n${post.media.oembed.url}`, embeds: [embed], components: [linkButton]})
+    }
 }
