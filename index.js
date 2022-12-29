@@ -136,7 +136,7 @@ setInterval(() => {
             else { redditFetchFunction(redditFeedChannel[i], redditFeedSub[i], i, guild) }
         }
     })
-}, 60000)
+}, 240000)
 async function redditFetchFunction(channel, sub, i, guild) {
     let feedChannel = await client.channels.cache.get(channel)
     if (feedChannel == undefined) return;
