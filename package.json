@@ -1,7 +1,7 @@
 {
     "name": "femboi_owo",
     "version": "0.0.2_verification",
-    "description": "4th time trying to make a discord bot",
+    "description": "Femboy bot",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
