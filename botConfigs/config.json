@@ -10,6 +10,5 @@
   "botReadyStatus": false,
   "botStatusChannelId": "897097242861789236",
   "stopPassword": "lolipop",
-  "debug_level": 2,
-  "gotNewUpdate": false
+  "debug_level": 2
 }

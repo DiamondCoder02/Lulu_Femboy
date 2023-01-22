@@ -21,7 +21,7 @@ Google form for bug and feature report [link here](https://forms.gle/ebD1edtbir2
 0. No trigger messages. Only errors.
 1. Trigger messages.
 2. Trigger messages and button/menu reactions. (Default)
-3. Discord.js debug messages.
+3. Discordjs debug messages.
 
 #### Limitation
 

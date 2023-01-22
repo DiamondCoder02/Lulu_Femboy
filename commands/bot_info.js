@@ -71,8 +71,8 @@ User,
                 { name: "__GatewayIntentBits__", value: GaInBi, inline:true},
                 { name: "__Partials__", value: pars, inline:true},
                 { name: "Currently joined servers:", value: "\`"+String(guildLength)+"\` guilds"},
-                { name: "I was called good:", value: "\`"+String(goodBad.goodBot)+ "\` time(s)", inline:true},
-                { name: "I was called bad:", value: "\`"+String(goodBad.badBot)+ "\` time(s)", inline:true},
+                { name: "I was called good bot:", value: "\`"+String(goodBad.goodBot)+ "\` time(s)", inline:true},
+                { name: "I was called bad bat:", value: "\`"+String(goodBad.badBot)+ "\` time(s)", inline:true},
                 { name: "People asked if:", value: "They can f**k my bot \`"+String(goodBad.canIFuckBot)+ "\` time(s)", inline:true},
             )
             .setTimestamp()
@@ -104,10 +104,9 @@ User,
         //if bot owner, give more info
         require('dotenv').config(); var bOwnerId = process.env.botOwnerId;
         if(interaction.user.id === config.botOwnerId || interaction.user.id === bOwnerId) {
-            const Guilds = client.guilds.cache.map(guild => guild.name).join(' / ');
             const owner_embed = new EmbedBuilder()
                 .setColor('#FFFF00')
-                .setDescription(`**(${String(guildLength)}) guild(s):**\n${Guilds}`)
+                .setDescription(`**(${String(guildLength)}) guild(s) joined`)
                 .addFields(configList)
                 .setFooter({text: `Only the bot owner should see this.`});
             if (interaction.options.getBoolean('owner')) {
@@ -124,7 +123,6 @@ function configOwner(configIn, configOut) {
         if(obj[0] === 'Token') return;
         if(obj[0] === 'clientSecret') return;
         if(obj[0] === 'dbd_license') return;
-        if(obj[0] === 'gotNewUpdate') return;
         let cmdObject = {
             name: obj[0],
             value: String(obj[1]),

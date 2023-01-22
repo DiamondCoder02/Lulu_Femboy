@@ -101,13 +101,6 @@ client.on(`ready`, (...args) => dashboardInit.execute(...args, client, commandFu
 //Bot token
 try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log("Please provide a bot token.")}
 
-//every 12hours send a message to the bot owner
-setInterval(() => {
-    client.users.fetch(config.botOwnerId).then(user => {
-        user.send("I'm still alive!")
-    })
-}, 43200000)
-
 //error handler
 console.log(client)
 client.on("error", (e) => console.error(e));
@@ -173,11 +166,11 @@ async function redditFetchFunction(channel, sub, i, guild) {
             .setEmoji('🖥️')
             .setURL(`https://reddit.com${post.permalink}`)
     )
-    if (post.media == null) { 
+    if (post.url != null) { 
         embed.setImage(post.url)
         feedChannel.send({embeds: [embed], components: [linkButton]})
     }
     else {
-        feedChannel.send({content: `Video unable to show. Here link: \n${post.media.oembed.url}`, embeds: [embed], components: [linkButton]})
+        feedChannel.send({embeds: [embed], components: [linkButton]})
     }
 }

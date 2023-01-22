@@ -63,57 +63,5 @@ That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`)
                 console.log("No status channel ID given or found. Continuing...")
             }
         }
-        if (config.gotNewUpdate) {
-            const embed = new EmbedBuilder()
-                .setColor('#FFFF00')
-                .setTitle("Bot has gotten an update: " + package.version)
-                .setDescription(`**Bot news:**
-__*If you don't want to see this message, set enableBotUpdateMessage to false on the website.*__
-\n
-- Added Reddit feed (configurable on the website)
-    + currently only up to 3 subreddits
-    + Gets refreshed every 30 seconds
-- Added more activity statuses
-- Added ttt (Tic Tac Toe) option to the games command
-- Added message logger exception for channels and/or roles
-
-- Update the website a bit
-
-- Removed Anime-images command
-
-- Fixed stuff and other internall changes
-
-Sorry for long update, I was busy with university and it was the holidays
-
-__Also:__ The bot reached more than 75 servvers! Thank you all for using the bot!
-I will be verifying it soon.
-`)
-            .addFields(
-                { name: 'Website:', value: `${dbd_dom}`, inline: true },
-                { name: 'Support server', value: `https://discord.gg/DcQS9mNEUh`, inline: true },
-            )
-            .setFooter("Bug/feature report form: https://forms.gle/ebD1edtbir2gDgAn9")
-            try{
-                client.guilds.cache.forEach(guild => {
-                    if (client.settings.get(guild.id, "enableBotUpdateMessage")) {
-                        channel = guild.systemChannel
-                        if (channel) { channel.send({embeds: [embed]}) } 
-                        else {
-                            if (client.settings.get(guild.id, "moderationChannel")) {
-                                channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))
-                                channel.send({embeds: [embed]})
-                            } else {
-                                client.users.fetch(guild.ownerId).then(user => { user.send({embeds: [embed]}) })
-                            }
-                            
-                        }
-                    }
-                })
-                config.gotNewUpdate = false
-                fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
-            } catch(err) { 
-                console.log("FATAL ERROR THAT SHOULD NEVER HAPPENED: " + err) 
-            }
-        }
 	}
 }
