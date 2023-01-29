@@ -121,11 +121,6 @@ module.exports = {
                                 }
                             }
                         },
-                        privacyPolicy: {
-                            title: "Privacy Policy",
-                            description: "Privacy Policy and Terms of Service",
-                            pp: "Complete Privacy Policy"
-                        },
                         partials: {
                             sidebar: {
                                 dash: "Dashboard",
