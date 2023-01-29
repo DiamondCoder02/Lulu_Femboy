@@ -1,30 +1,86 @@
 const { Client, ChannelType } = require('discord.js'), config = require('../botConfigs/config.json');
 const package = require('../package.json');
 /* --- PRE_DASHBOARD --- */
-const DarkDashboard = require('dbd-dark-dashboard');
+const SoftUI = require("dbd-soft-ui")
 let DBD = require('discord-dashboard');
 var cliId = process.env.cid;
 var cliSecret = process.env.ClientSecret;
 var dbd_key = process.env.dbd;
 var dbd_domain = process.env.DBdomain;
 var dbd_redirect = process.env.DBredirect;
+try{ if (config.botOwnerId == "botOwnerID") { botOwnerId = Array(cliId) } else botOwnerId = Array(config.botOwnerId) }catch{ return console.log("ownerId error")}
 try{ if (config.clientId == "clientId") { clientID = String(cliId) } else clientID = String(config.clientId) }catch{ return console.log("clientID error")}
 try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("clientSecret error")}
 try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
 try{ if (config.dbd_domain == ".http://localhost/") { dbd_dom = dbd_domain } else dbd_dom = config.dbd_domain }catch{ return console.log("dbd_domain error")}
 try{ if (config.dbd_redirect == ".http://localhost/discord/callback") { dbd_red = dbd_redirect } else dbd_red = config.dbd_redirect }catch{ return console.log("dbd_redirect error")}
 
+    /*
+    useCategorySet: true,
+            createdBy: "DiamondCoder",
+            websiteTitle: `${client.user.username} discord bot`,
+            websiteName: `${client.user.username} bot`,
+            websiteUrl: "https://github.com/DiamondPRO02/Femboi_OwO",
+            dashboardUrl: "http://localhost:3000/",
+            supporteMail: "femboyowo.supp@gmail.com",
+            supportServer: "https://discord.gg/DcQS9mNEUh",
+            iconURL: "https://i.imgur.com/GrXR9z8.png",
+        },
+        sidebar: {
+            keepDefault: true,
+            list: [{
+                icon: `<svg style="position: absolute; margin-left: 8px; margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2CA8FF">    <path d="M0 0h24v24H0z" fill="none"/> <path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0  0 0 1.74-1 10 10 0 0 0-.27-10.44z"/> <path d="M10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>`,
+                title: "Terms & Service",
+                link: "https://www.termsofservicegenerator.net/live.php?token=uShWSqnDh7ZZsR18uM93ohdVVLfGAMQr",
+                id: "term_service",
+            }]
+        },
+        index: {
+            card: {
+                category: `${client.user.tag} Discord bot control panel`,
+                title: `Welcome to the ${client.user.tag} control panel. You can edit options.`,
+                image: `https://i.imgur.com/bYYjIZC.png`,
+                footer: "Last edit: 26.12.2022",
+            },
+            information: {
+                category: "Info",
+                title: `Information about the bot.`,
+                description: `After a couple of failed bots, I'm planning making this as a project I'm not gonna abondon quickly. 
+                This bot only works with slash commands. 
+                NSFW commands only works in nsfw channels.`,
+                footer: "Last edit: 26.12.2022",
+            },
+            feeds: {
+                category: "News",
+                title: `Version: ${package.version}`,
+                description: `Soon TM`,
+                footer: "Last edit: 26.12.2022",
+            },
+        },
+        guilds: {
+            cardTitle: "Guilds []~(￣▽￣)~*",
+            cardDescription: "Here are all the guilds you currenly have permissions for:",
+            type: "tablelist"
+        },
+        popupMsg: {
+            savedSettings: "Settings saved UwU", 
+            noPerms: "Error, sowwy >.<",
+        },
+    }),
+*/
+
+/**
+ * @param {Client} client 
+ */
+
 module.exports = {
-    /**
-     * @param {Client} client 
-     */
     async execute(arg, client, commandFuck) {
+        await DBD.useLicense(dbd_lic);
+        DBD.Dashboard = DBD.UpdatedClass();
         let commandList = []
         let hasNsfw = []
         let needsPerms = []
         CommandPushDashboard(commandFuck, commandList, hasNsfw, needsPerms)
-        await DBD.useLicense(dbd_lic);
-        DBD.Dashboard = DBD.UpdatedClass();
         const Dashboard = new DBD.Dashboard({
             port: 80,
             client: {
@@ -33,91 +89,197 @@ module.exports = {
             },
             redirectUri: dbd_red,
             domain: dbd_dom,
+            ownerIDs: botOwnerId,
+            useThemeMaintenance: true,
+            useTheme404: true,
             bot: client,
-            requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.MANAGE_GUILD, DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
             useCategorySet: true,
-            theme: DarkDashboard({
-                information: {
-                    createdBy: "DiamondCoder",
-                    websiteTitle: `${client.user.username} discord bot`,
-                    websiteName: `${client.user.username} bot`,
-                    websiteUrl: "https://github.com/DiamondPRO02/Femboi_OwO",
-                    dashboardUrl: "http://localhost:3000/",
-                    supporteMail: "femboyowo.supp@gmail.com",
-                    supportServer: "https://discord.gg/DcQS9mNEUh",
-                    imageFavicon: "https://i.imgur.com/GrXR9z8.png",
-                    iconURL: "https://i.imgur.com/GrXR9z8.png",
-                    loggedIn: "Successfully signed in OwO.",
-                    mainColor: "#2CA8FF",
-                    subColor: "#ebdbdb",
-                    preloader: "Loading UwU..."
-                },
-                sidebar: {
-                    keepDefault: true,
-                    list: [{
-                        icon: `<svg style="position: absolute; margin-left: 8px; margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#2CA8FF">    <path d="M0 0h24v24H0z" fill="none"/> <path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0  0 0 1.74-1 10 10 0 0 0-.27-10.44z"/> <path d="M10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>`,
-                        title: "Terms & Service",
-                        link: "https://www.termsofservicegenerator.net/live.php?token=uShWSqnDh7ZZsR18uM93ohdVVLfGAMQr",
-                        id: "term_service",
-                    }]
+            requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.MANAGE_GUILD, DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
+            theme: SoftUI({
+                locales: {
+                    enUS: {
+                        name: "English",
+                        index: {
+                            feeds: ["Current Users", "CPU", "System Platform", "Server Count"],
+                            card: {
+                                category: `dashboard`,
+                                title: `${client.user.username} bot dashboard`,
+                                // can use html (You can edit options. <br><br><b><i>Feel free to use HTML</i></b>)
+                                description:
+                                    `Welcome to the ${client.user.tag} control panel. <br><br>Due to the fact that my previous dashboard died. I will write one myself from scratch, but that will take time. This is a temporary solution. <br><br>Also, I need to verify my bot so it can join more servers. Thank you for your patience.`,
+                                footer: "Support server: https://discord.gg/DcQS9mNEUh"
+                            },
+                            feedsTitle: "Feeds",
+                            graphTitle: "Graphs"
+                        },
+                        manage: {
+                            settings: {
+                                memberCount: "Members",
+                                info: {
+                                    info: "Info",
+                                    server: "Server Information"
+                                }
+                            }
+                        },
+                        privacyPolicy: {
+                            title: "Privacy Policy",
+                            description: "Privacy Policy and Terms of Service",
+                            pp: "Complete Privacy Policy"
+                        },
+                        partials: {
+                            sidebar: {
+                                dash: "Dashboard",
+                                manage: "Manage Guilds",
+                                commands: "Commands",
+                                pp: "Privacy Policy",
+                                admin: "Admin",
+                                account: "Account Pages",
+                                login: "Sign In",
+                                logout: "Sign Out"
+                            },
+                            navbar: {
+                                home: "Home",
+                                pages: {
+                                    manage: "Manage Guilds",
+                                    settings: "Manage Guilds",
+                                    commands: "Commands",
+                                    pp: "Privacy Policy",
+                                    admin: "Admin Panel",
+                                    error: "Error",
+                                    credits: "Credits",
+                                    debug: "Debug",
+                                    leaderboard: "Leaderboard",
+                                    profile: "Profile",
+                                    maintenance: "Under Maintenance"
+                                }
+                            },
+                            title: {
+                                pages: {
+                                    manage: "Manage Guilds",
+                                    settings: "Manage Guilds",
+                                    commands: "Commands",
+                                    pp: "Privacy Policy",
+                                    admin: "Admin Panel",
+                                    error: "Error",
+                                    credits: "Credits",
+                                    debug: "Debug",
+                                    leaderboard: "Leaderboard",
+                                    profile: "Profile",
+                                    maintenance: "Under Maintenance"
+                                }
+                            },
+                            preloader: {
+                                text: "Loading UwU..."
+                            },
+                            premium: {
+                                title: "Want more from Femboy?",
+                                description: "Check out premium features below!",
+                                buttonText: "Become Premium"
+                            },
+                            settings: {
+                                title: "Site Configuration",
+                                description: "Configurable Viewing Options",
+                                theme: {
+                                    title: "Site Theme",
+                                    description: "Make the site more appealing for your eyes!"
+                                },
+                                language: {
+                                    title: "Site Language",
+                                    description: "Select your preffered language!"
+                                }
+                            }
+                        }
+                    }
                 },
                 index: {
                     card: {
-                        category: `${client.user.tag} Discord bot control panel`,
-                        title: `Welcome to the ${client.user.tag} control panel. You can edit options.`,
-                        image: `https://i.imgur.com/bYYjIZC.png`,
-                        footer: "Last edit: 26.12.2022",
+                        category: "bot website",
+                        title: `${client.user.username} bot`,
+                        description: "Testing <b><i>Feel free to use HTML</i></b>",
+                        image: `https://i.imgur.com/GrXR9z8.png`,
+                        link: {
+                            enabled: true,
+                            url: "https://discord.gg/DcQS9mNEUh"
+                        }
                     },
-                    information: {
-                        category: "Info",
-                        title: `Information about the bot.`,
-                        description: `After a couple of failed bots, I'm planning making this as a project I'm not gonna abondon quickly. 
-                        This bot only works with slash commands. 
-                        NSFW commands only works in nsfw channels.`,
-                        footer: "Last edit: 26.12.2022",
+                    graph: {
+                        enabled: false,
+                        lineGraph: true,
+                        title: 'Memory Usage',
+                        tag: 'Memory (MB)',
+                        max: 100
                     },
-                    feeds: {
-                        category: "News",
-                        title: `Version: ${package.version}`,
-                        description: `Soon TM`,
-                        footer: "Last edit: 26.12.2022",
+                },
+                customThemeOptions: {
+                    index: async ({ req, res, config }) => {
+                        return {
+                            values: [],
+                            graph: {},
+                            cards: [],
+                        }
                     },
+                },
+                websiteName: `${client.user.username}`,
+                colorScheme: "pink",
+                supporteMail: "femboyowo.supp@gmail.com",
+                icons: {
+                    favicon: 'https://i.imgur.com/GrXR9z8.png',
+                    noGuildIcon: "https://pnggrid.com/wp-content/uploads/2021/05/Discord-Logo-Circle-1024x1024.png",
+                    sidebar: {
+                        darkUrl: 'https://i.imgur.com/GrXR9z8.png',
+                        lightUrl: 'https://i.imgur.com/GrXR9z8.png',
+                        hideName: true,
+                        borderRadius: false,
+                        alignCenter: true
+                    },
+                },
+                sweetalert: {
+                    errors: {},
+                    success: {
+                        login: "Logged in! OwO",
+                    }
+                },
+                preloader: {
+                    image: "https://i.imgur.com/GrXR9z8.png",
+                    spinner: true,
+                    text: "Loading UwU",
+                },
+                admin: {
+                    pterodactyl: {
+                        enabled: false,
+                        apiKey: "apiKey",
+                        panelLink: "https://panel.website.com",
+                        serverUUIDs: []
+                    }
                 },
                 commands: [
                     {
                         category: `Slash commands ＼(ﾟｰﾟ＼)`,
                         subTitle: `Here is all the "/" command that should be possible ( Cooldown:⌛ )`,
-                        aliasesDisabled: true,
+                        hideAlias: true,
                         list: commandList,
                     },
                     {
                         category: `Permission based commands`,
                         subTitle: `All the commands that require permissions to use`,
-                        aliasesDisabled: true,
+                        hideAlias: true,
                         list: needsPerms,
                     },
                     {
                         category: `Nsfw commands`,
                         subTitle: `Not safe for work commands ( Cooldown:⌛ )`,
-                        aliasesDisabled: true,
+                        hideAlias: true,
                         list: hasNsfw,
                     },
-                ],
-                guilds: {
-                    cardTitle: "Guilds []~(￣▽￣)~*",
-                    cardDescription: "Here are all the guilds you currenly have permissions for:",
-                    type: "tablelist"
-                },
-                popupMsg: {
-                    savedSettings: "Settings saved UwU", 
-                    noPerms: "Error, sowwy >.<",
-                },
+            ],
             }),
             settings: [
                 {
                     categoryId: 'basic',
                     categoryName: "Basic",
                     categoryDescription: "Some basic settings",
+                    refreshOnSave: true,
+                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
                     getActualSet: async ({guild}) => {
                         return [
                             // optionId, must be EXACTLY the same
@@ -177,6 +339,8 @@ module.exports = {
                     categoryId: 'channels',
                     categoryName: "Channels settings",
                     categoryDescription: "Channel setups",
+                    refreshOnSave: true,
+                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "moderationChannel", data: client.settings.get(guild.id, "moderationChannel") || null },
@@ -225,6 +389,8 @@ module.exports = {
                     categoryId: 'roles',
                     categoryName: "Roles settings",
                     categoryDescription: "Roles setups",
+                    refreshOnSave: true,
+                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "welcomeRoles", data: client.settings.get(guild.id, "welcomeRoles") || null },
@@ -257,6 +423,8 @@ module.exports = {
                     categoryId: 'nsfw',
                     categoryName: "NSFW",
                     categoryDescription: "NSFW settings",
+                    refreshOnSave: true,
+                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "enableNSFW", data: client.settings.get(guild.id, "enableNSFW") || null },
@@ -281,6 +449,8 @@ module.exports = {
                     categoryId: 'reddit',
                     categoryName: "Reddit Feed",
                     categoryDescription: "reddit feed settings",
+                    refreshOnSave: true,
+                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "enableReddit", data: client.settings.get(guild.id, "redditFeed") || null },
@@ -353,6 +523,8 @@ module.exports = {
                     categoryId: 'logs',
                     categoryName: "Logs and security (⌐■_■)",
                     categoryDescription: "Security and spying (Nice logs bro, UwU)",
+                    refreshOnSave: true,
+                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
                     getActualSet: async ({guild}) => {
                         return [
                             { optionId: "welcomeUserCheck", data: client.settings.get(guild.id, "welcomeUserCheck") || null },
