@@ -42,7 +42,7 @@ module.exports = {
 			if (canSend) {
 				//add good morning message when asked?
 				if (message.content.toLowerCase() === "nya" || message.content.toLowerCase() === "nya~" || message.content.toLowerCase() === "nyaa~" || message.content.toLowerCase() === "nya~~") { message.channel.send("https://cdn.discordapp.com/attachments/657545944136417280/920902875364864090/nya.mp4"); }
-				if (message.content.toLowerCase().includes("good bot")) { good++; message.channel.send(`Thank you! :3 \n||I was called cute ${good} time(s)||`); }
+				if (message.content.toLowerCase().includes("good bot")) { good++; message.channel.send(`Thank you! :3 \n||I was called good ${good} time(s)||`); }
 				if (message.content.toLowerCase().includes("bad bot")) { bad++; message.channel.send(`I'm sorry. >.< \n||I was bad ${bad} time(s)||`); }
 				if ((message.content.toLowerCase().includes("political view") && message.content.toLowerCase().includes("bot"))) { message.channel.send("Me and my creator/master hates politics. So I don't have any opinion.¯\_(ツ)_/¯"); }
 				if (message.content.toLowerCase().includes("can i fuck") && message.content.toLowerCase().includes("bot") ) { canIFuck++; message.react('<:what_how:961926449806315530>'); } 

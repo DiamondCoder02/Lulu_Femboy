@@ -14,15 +14,17 @@ const client = new Client({
         //GatewayIntentBits.GuildWebhooks, //32
         GatewayIntentBits.GuildInvites, //64
         GatewayIntentBits.GuildVoiceStates, //128
-        GatewayIntentBits.GuildPresences, //256
-        GatewayIntentBits.GuildMessages, //512
+        //FUCK GatewayIntentBits.GuildPresences, //256
+        //FUCK GatewayIntentBits.GuildMessages, //512
         GatewayIntentBits.GuildMessageReactions, //1024
         //GatewayIntentBits.GuildMessageTyping, //2048
         GatewayIntentBits.DirectMessages, //4096
         GatewayIntentBits.DirectMessageReactions, //8192
         //GatewayIntentBits.DirectMessageTyping //16384
-        GatewayIntentBits.MessageContent, //32768
+        //FUCK GatewayIntentBits.MessageContent, //32768
         GatewayIntentBits.GuildScheduledEvents, //65536
+        GatewayIntentBits.AutoModerationConfiguration, //1048576
+        GatewayIntentBits.AutoModerationExecution //2097152
     ],
     partials: [
         Partials.Channel, 
