@@ -1,10 +1,10 @@
 {
-    "name": "femboy_twins",
+    "name": "femboy_owo",
     "version": "0.1.0_twins",
-    "description": "Femboy bots",
+    "description": "Sfw Femboy Bot",
     "main": "index.js",
     "scripts": {
-        "start": "node src_sfw-owo/index.js",
+        "start": "index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -22,14 +22,10 @@
         "booru": "^2.6.2",
         "dbd-soft-ui": "^1.6.3-beta.1",
         "discord-dashboard": "^2.3.61",
-        "discord-player": "^5.3.1",
         "discord.js": "^14.7.1",
         "discord.js-akinator": "^4.0.4",
         "dotenv": "^16.0.1",
         "enmap": "^5.9.5",
-        "ffmpeg": "^0.0.4",
-        "ffmpeg-static": "^5.0.2",
-        "hmfull": "^2.4.2",
         "nekos.life": "^3.0.0",
         "translate": "^1.4.1"
     }

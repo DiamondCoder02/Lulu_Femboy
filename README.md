@@ -1,4 +1,4 @@
-# Femboi_OwO **Whole bot idea rework soon.**
+# Femboy_owo **Whole bot idea rework soon.**
 
 ![Banner, made by Nyaneko](https://i.imgur.com/bYYjIZC.png)
 
@@ -13,7 +13,7 @@ The part where it will protect servers, while making them more alive and fun wil
 The website, nsfw will be the most effected. I might split the bot into two, but that means...
 
 1. one part of the bot will be sfw only, while having all the features.
-2. second bot will have all the features but with nsfw. A lot of nsfw :3
+2. second bot will have mostly nsfw. A lot of nsfw :3
 
 The config/setting between the two bot will be shared, so it's easier to change from one bot to another if necessary. As a special feature if both bot is in one server, the two bot might talk with each other, but I will see how hard would it be to implement it.
 
@@ -51,7 +51,6 @@ Support server: [Discord link](https://discord.gg/DcQS9mNEUh)
 - [Booru - booru](https://www.npmjs.com/package/booru)
 - [Catboys - catboys](https://catboys.com/api)
 - [Dad Joke API - dad_joke](https://icanhazdadjoke.com/)
-- [Hmfull - ham_tie/hentai](https://www.npmjs.com/package/hmfull)
 - [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [Translate - translate](https://www.npmjs.com/package/translate)
