@@ -1,2 +1,2 @@
-node src_sfw-owo/index.js
+node index.js
 pause

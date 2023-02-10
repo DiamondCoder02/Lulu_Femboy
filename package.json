@@ -14,13 +14,12 @@
     "author": "DiamondCoder",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/DiamondPRO02/Femboi_OwO/issues"
+        "url": "https://github.com/DiamondPRO02/Femboy_OwO/issues"
     },
-    "homepage": "https://github.com/DiamondPRO02/Femboi_OwO#readme",
+    "homepage": "https://github.com/DiamondPRO02/Femboy_OwO#readme",
     "dependencies": {
-        "@discordjs/opus": "^0.8.0",
-        "booru": "^2.6.2",
-        "dbd-soft-ui": "^1.6.3-beta.1",
+        "booru": "^2.6.3",
+        "dbd-soft-ui": "^1.6.36-beta.1",
         "discord-dashboard": "^2.3.61",
         "discord.js": "^14.7.1",
         "discord.js-akinator": "^4.0.4",
