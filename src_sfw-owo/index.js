@@ -1,6 +1,6 @@
 console.clear();
 //basic loaders
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js'), config = require('./botConfigs/config.json');
+const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js'), config = require('../botConfigs/config.json');
 const client = new Client({ 
     ws: {
         properties: { browser: 'Discord Android' }
@@ -97,7 +97,7 @@ for (const file of eventFiles) {
     else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
 }
 
-const dashboardInit = require(`./dashboard/dashInit.js`)
+const dashboardInit = require(`../dashboard/dashInit.js`)
 client.on(`ready`, (...args) => dashboardInit.execute(...args, client, commandFuck))
 
 //Bot token

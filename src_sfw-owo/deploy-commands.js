@@ -1,4 +1,4 @@
-const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9'), { guildId, clientId, Token } = require('./botConfigs/config.json');
+const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9'), { guildId, clientId, Token } = require('../botConfigs/config.json');
 const wait = require('node:timers/promises').setTimeout;
 const commands = [], commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 require('dotenv').config();
