@@ -1,16 +1,14 @@
-const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9'), { guildId, clientId, Token } = require('./botConfigs/config.json');
+const fs = require('fs'), { REST } = require('@discordjs/rest'), { Routes } = require('discord-api-types/v9')
 const wait = require('node:timers/promises').setTimeout;
 const commands = [], commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 require('dotenv').config();
-var token = process.env.token, cId =process.env.cId, gId =process.env.gId;
+var token = process.env.token, ClientID =process.env.ClientID, GuildID =process.env.GuildID;
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	commands.push(command.data.toJSON())
 }
 console.clear();
-try { if (Token !== "token") var t = Token; else var t = token} catch {console.log("Please provide a bot token.")}
-try { if (clientId !== "clientID") var c = clientId; else var c = cId} catch {console.log("Please provide a ClientID.")}
-const rest = new REST({ version: '9' }).setToken(t);
+const rest = new REST({ version: '9' }).setToken(token);
 //ask user for number input from console (github copilot)
 const ask = (question, callback) => {
     const readline = require('readline');
@@ -26,34 +24,32 @@ const ask = (question, callback) => {
 //ask user for a number between 1 and 5 and execute the corresponding function
 ask("Ask number 1-5", (answer) => {
     if (answer == 1) {
-        try { if (guildId !== "guildID") var g = guildId; else var g = gId} catch {console.log("Please provide a GuildID.")}
-        rest.put(Routes.applicationGuildCommands(c, g), { body: commands })
-        .then(() => console.log("Registered all commands in the specific guild => "+g))
+        rest.put(Routes.applicationGuildCommands(ClientID, GuildID), { body: commands })
+        .then(() => console.log("Registered all commands in the specific guild => "+GuildID))
         .catch(console.error);
         console.log(commands)
     } else if (answer == 2) {
-        rest.put(Routes.applicationCommands(c), { body: commands })
+        rest.put(Routes.applicationCommands(ClientID), { body: commands })
         .then(() => console.log("Registered all commands globally"))
         .catch(console.error);
         console.log(commands)
     } else if (answer == 3) {
-        try { if (guildId !== "guildID") var g = guildId; else var g = gId} catch {console.log("Please provide a GuildID.")}
-        rest.get(Routes.applicationGuildCommands(c, g))
+        rest.get(Routes.applicationGuildCommands(ClientID, GuildID))
         .then(data => {
             const promises = [];
             for (const command of data) {
-                const deleteUrl = `${Routes.applicationGuildCommands(c, g)}/${command.id}`;
+                const deleteUrl = `${Routes.applicationGuildCommands(ClientID, GuildID)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
-            Promise.all(promises).then(() => console.log("Deleted all commands in the specific guild => "+g)).catch(console.error);
+            Promise.all(promises).then(() => console.log("Deleted all commands in the specific guild => "+GuildID)).catch(console.error);
         })
         .catch(console.error);
     } else if (answer == 4) {
-        rest.get(Routes.applicationCommands(c))
+        rest.get(Routes.applicationCommands(ClientID))
         .then(data => {
             const promises = [];
             for (const command of data) {
-                const deleteUrl = `${Routes.applicationCommands(c)}/${command.id}`;
+                const deleteUrl = `${Routes.applicationCommands(ClientID)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
             Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
@@ -63,33 +59,32 @@ ask("Ask number 1-5", (answer) => {
         console.log("You have chosen to exit the program. Goodbye!");
     } else if (answer == 6) {
         console.log("Secret Global Commands reload. Please wait...");
-        rest.get(Routes.applicationCommands(c))
+        rest.get(Routes.applicationCommands(ClientID))
         .then(data => {
             const promises = [];
             for (const command of data) {
-                const deleteUrl = `${Routes.applicationCommands(c)}/${command.id}`;
+                const deleteUrl = `${Routes.applicationCommands(ClientID)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
             Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
         }).then(
-            rest.put(Routes.applicationCommands(c), { body: commands })
+            rest.put(Routes.applicationCommands(ClientID), { body: commands })
             .then(() => console.log("Registered all commands globally"))
             .catch(console.error)
         )
         .catch(console.error);
     } else if (answer == 7) {
         console.log("Secret Guild Commands reload. Please wait...");
-        try { if (guildId !== "guildID") var g = guildId; else var g = gId} catch {console.log("Please provide a GuildID.")}
-        rest.get(Routes.applicationGuildCommands(c, g))
+        rest.get(Routes.applicationGuildCommands(ClientID, GuildID))
         .then(data => {
             const promises = [];
             for (const command of data) {
-                const deleteUrl = `${Routes.applicationGuildCommands(c, g)}/${command.id}`;
+                const deleteUrl = `${Routes.applicationGuildCommands(ClientID, GuildID)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl));
             }
-            Promise.all(promises).then(() => console.log("Deleted all commands in the specific guild => "+g)).catch(console.error);
+            Promise.all(promises).then(() => console.log("Deleted all commands in the specific guild => "+GuildID)).catch(console.error);
         }).then(
-            rest.put(Routes.applicationCommands(c), { body: commands })
+            rest.put(Routes.applicationCommands(ClientID), { body: commands })
             .then(() => console.log("Registered all commands globally"))
             .catch(console.error)
         ).catch(console.error);

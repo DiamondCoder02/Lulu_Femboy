@@ -14,7 +14,7 @@ module.exports = {
             )
         )
         .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         try {
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             if (interaction.options.getString('category')) { var category = interaction.options.getString('category') } else var category = 'img'

@@ -36,7 +36,7 @@ module.exports = {
             .addStringOption(option => option.setName('description_2').setDescription('If you want to add more details, describe them here.'))
             .addStringOption(option => option.setName('fix').setDescription('Do you have a fix? If so, describe it here.'))
         ),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         try {
             const problem_with = interaction.options.getString('problem_with');
             const description = interaction.options.getString('description');
@@ -66,17 +66,10 @@ module.exports = {
             if (interaction.options.getSubcommand() === 'bot') {
                 report.setTitle('Bot Bug Report' + '\n' + problem_with);
                 try{
-                    const config = require('../botConfigs/config.json')
                     require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
-                    if(config.botOwnerId === "botOwnerID"){
-                        const user = await client.users.fetch(b_o_Id);
-                        const m = await user.send({embeds: [report], fetchReply: true})
-                        m.react('<:red_cross:1008725354296389723>')
-                    } else {
-                        const user = await client.users.fetch(config.botOwnerId);
-                        const m = await user.send({embeds: [report], fetchReply: true})
-                        m.react('<:red_cross:1008725354296389723>')
-                    }
+                    const user = await client.users.fetch(b_o_Id);
+                    const m = await user.send({embeds: [report], fetchReply: true})
+                    m.react('<:red_cross:1008725354296389723>')
                     await interaction.reply({content: "Report has been sent to bot owner", ephemeral: true})
                 } catch {
                     console.log("Unable to find a channel to send the report to.")

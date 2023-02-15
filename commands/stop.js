@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, PermissionsBitField } = require('discord.js');
-require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
+require('dotenv').config(); var b_o_Id = process.env.botOwnerId; var stopPassword = process.env.stopPassword;
 module.exports = {
 	permissions: PermissionsBitField.Flags.Administrator,
 	guildOnly: true,
@@ -7,9 +7,9 @@ module.exports = {
 		.setName('stop')
 		.setDescription("Stops the bot with a password.")
 		.addStringOption(option => option.setName('password').setDescription("Enter a password to stop the bot").setRequired(true)),
-	async execute(interaction, client, config) {
-		if (config.stopPassword === interaction.options.getString('password').trim()){
-			if (interaction.user.id === b_o_Id || interaction.user.id === config.botOwnerId) {
+	async execute(interaction, client) {
+		if (stopPassword === interaction.options.getString('password').trim()){
+			if (interaction.user.id === b_o_Id) {
 				console.log(`-------------------------\n` + `[${new Date().toLocaleString('hu-HU')}] The bot has stopped! \nBot has been stopped by: ` + interaction.user.tag 
 					+ "\nGuild: " + interaction.guild.name+", #"+interaction.channel.name + "\nTime:" + interaction.createdAt + `\n-------------------------`)
 				const embed = new EmbedBuilder()

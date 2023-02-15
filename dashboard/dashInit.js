@@ -1,19 +1,12 @@
-const { Client, ChannelType } = require('discord.js'), config = require('../botConfigs/config.json');
-const package = require('../package.json');
+const { Client, ChannelType } = require('discord.js')
 /* --- PRE_DASHBOARD --- */
 const SoftUI = require("dbd-soft-ui")
 let DBD = require('discord-dashboard');
-var cliId = process.env.cid;
+var botOwnerId = process.env.botOwnerId;
 var cliSecret = process.env.ClientSecret;
 var dbd_key = process.env.dbd;
 var dbd_domain = process.env.DBdomain;
 var dbd_redirect = process.env.DBredirect;
-try{ if (config.botOwnerId == "botOwnerID") { botOwnerId = Array(cliId) } else botOwnerId = Array(config.botOwnerId) }catch{ return console.log("ownerId error")}
-try{ if (config.clientId == "clientId") { clientID = String(cliId) } else clientID = String(config.clientId) }catch{ return console.log("clientID error")}
-try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("clientSecret error")}
-try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
-try{ if (config.dbd_domain == ".http://localhost/") { dbd_dom = dbd_domain } else dbd_dom = config.dbd_domain }catch{ return console.log("dbd_domain error")}
-try{ if (config.dbd_redirect == ".http://localhost/discord/callback") { dbd_red = dbd_redirect } else dbd_red = config.dbd_redirect }catch{ return console.log("dbd_redirect error")}
 
     /*
     useCategorySet: true,
@@ -75,7 +68,7 @@ try{ if (config.dbd_redirect == ".http://localhost/discord/callback") { dbd_red 
 
 module.exports = {
     async execute(arg, client, commandFuck) {
-        await DBD.useLicense(dbd_lic);
+        await DBD.useLicense(dbd_key);
         DBD.Dashboard = DBD.UpdatedClass();
         let commandList = []
         let hasNsfw = []
@@ -85,10 +78,10 @@ module.exports = {
             port: 80,
             client: {
                 id: client.user.id,
-                secret: cSec
+                secret: cliSecret
             },
-            redirectUri: dbd_red,
-            domain: dbd_dom,
+            redirectUri: dbd_redirect,
+            domain: dbd_domain,
             ownerIDs: botOwnerId,
             useThemeMaintenance: true,
             useTheme404: true,

@@ -54,15 +54,11 @@ module.exports = {
             .addUserOption(option => option.setName('target').setDescription("Ping your friend if you want."))
             .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
         ),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         try {
-            interaction.options.getSubcommand() === 'owo' ? type = 'uwu' : type = interaction.options.getSubcommand();
-            const category = interaction.options.getString('category');
-            if (type=="uwu") { }
-            else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply("Sorry, this is a Not Safe For Work command!")} } else {return interaction.reply("Not Safe For Work commands are disabled!")}  }
             if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
             for (let a = 0; a < amount; a++ ) {
-                let response = await fetch(`https://api.waifu.pics/${type}/${category}`);
+                let response = await fetch(`https://api.waifu.pics/sfw/${category}`);
                 let data = await response.text();
                 const img = JSON.parse(data)
                 const embed = new EmbedBuilder()

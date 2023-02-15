@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
 module.exports = {
@@ -75,7 +75,7 @@ module.exports = {
                     await interaction.followUp({content: posts[0].fileUrl}); 
                 }
             } else {
-                await embed.setImage(posts[0].fileUrl)
+                embed.setImage(posts[0].fileUrl)
                 try { await interaction.followUp({embeds: [embed], components: [buttons]}) }
                 catch { await interaction.reply({embeds: [embed], components: [buttons]}) }
             }

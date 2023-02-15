@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders'), { ActionRowBuild
 let eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js')), eventArray = eventFiles.map(x => {return x.replace('.js','\n')})
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')), comArray = commandFiles.map(x => {return x.replace('.js','\n')})
 const package = require('../package.json');
-const config = require('../botConfigs/config.json');
 const os = require('os');
 module.exports = {
     cooldown: 60,
@@ -15,7 +14,7 @@ module.exports = {
         const goodBad = JSON.parse(goodBadJSON)
         const packDependence = Object.entries(package.dependencies)
         const npmPackages = packDependence.join(', \n')
-const GaInBi = `MessageContent,
+const GaInBi = `~~MessageContent,~~
 Guilds, 
 GuildMembers, 
 GuildBans, 
@@ -24,7 +23,7 @@ GuildIntegrations,
 ~~GuildWebhooks,~~
 GuildInvites, 
 GuildVoiceStates,
-GuildPresences,
+~~GuildPresences,~~
 GuildMessages,
 GuildScheduledEvents,
 GuildMessageReactions,
@@ -41,8 +40,6 @@ Reaction,
 User,
 ~~ThreadMember~~
 `
-        let configList = []
-        configOwner(config, configList)
         const guildLength = client.guilds.cache.map(guild => guild.id).length;
         const page = new ActionRowBuilder().addComponents( new ButtonBuilder().setCustomId('delete').setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji('✖️'))
         const filter = i => i.user.id === interaction.user.id;
@@ -76,13 +73,19 @@ User,
                 { name: "People asked if:", value: "They can f**k my bot \`"+String(goodBad.canIFuckBot)+ "\` time(s)", inline:true},
             )
             .setTimestamp()
-            .setFooter({text: `Last update: 2022.Dec.23.`});
+            .setFooter({text: `Last update: 2023.Feb.15.`});
         let uptime = os.uptime();
         let days = Math.floor(uptime / (60 * 60 * 24));
         let hours = Math.floor(uptime / (60 * 60)) - (days * 24);
         let minutes = Math.floor(uptime / 60) - (days * 24 * 60) - (hours * 60);
         let seconds = Math.floor(uptime % 60);
         let uptimeString = `${days} day(s), ${hours} hour(s), ${minutes} minute(s), ${seconds} second(s)`;
+        let totalSeconds = (client.uptime / 1000);
+		let clientdays = Math.floor(totalSeconds / 86400);
+		let clienthours = Math.floor( (totalSeconds %= 86400) / 3600);
+		let clientminutes = Math.floor( (totalSeconds%= 3600) / 60);
+		let clientseconds = Math.floor(totalSeconds % 60);
+        let clientuptime = `${clientdays} day(s), ${clienthours} hour(s), ${clientminutes} minute(s), ${clientseconds} second(s)`
         let totalMemory = os.totalmem() / 1024 / 1024;
         let usedMemory = totalMemory - (os.freemem() / 1024 / 1024);
         let usedMemoryPercentage = Math.round((usedMemory / totalMemory) * 100);
@@ -97,37 +100,10 @@ User,
                 { name: "----------System", value: `OS: \`${os.type()}\`\nOS version: \`${os.release()}\`\nOS platform: \`${os.platform}\`\nOS arc: \`${os.arch()}\`\nPC name: \`${os.hostname}\``, inline:true},
                 { name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage} %\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline:true},
                 { name: "System Uptime:", value: `\`${uptimeString}\``},
+                { name: "Bot Uptime:", value: `\`${clientuptime}\``},
                 { name: "CPU", value: `Model: \`${cpu1.model}\`\nSpeed: \`${cpu1.speed} MHz\`\nCores: \`${cpuCores}\``, inline:true},
             )
             .setTimestamp()
         await interaction.reply({embeds: [version_embed, osEmbed], components: [page]})
-        //if bot owner, give more info
-        require('dotenv').config(); var bOwnerId = process.env.botOwnerId;
-        if(interaction.user.id === config.botOwnerId || interaction.user.id === bOwnerId) {
-            const owner_embed = new EmbedBuilder()
-                .setColor('#FFFF00')
-                .setDescription(`**(${String(guildLength)}) guild(s) joined`)
-                .addFields(configList)
-                .setFooter({text: `Only the bot owner should see this.`});
-            if (interaction.options.getBoolean('owner')) {
-                await interaction.followUp({embeds: [owner_embed], components: [page]})
-            } else {
-                await interaction.followUp({embeds: [owner_embed], ephemeral: true})
-            }
-        }
     }
-}
-function configOwner(configIn, configOut) {
-    var as = Object.entries(configIn)
-    Array.from(as).forEach(obj => {
-        if(obj[0] === 'Token') return;
-        if(obj[0] === 'clientSecret') return;
-        if(obj[0] === 'dbd_license') return;
-        let cmdObject = {
-            name: obj[0],
-            value: String(obj[1]),
-            inline: true
-        }
-        configOut.push(cmdObject)
-    })
 }

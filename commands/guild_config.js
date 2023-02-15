@@ -9,7 +9,7 @@ module.exports = {
         .addChannelOption(option => option.setName('moderation_channel').setDescription('Change mod channel.'))
         //.addBooleanOption(option => option.setName('enable_bot_update_message').setDescription('Enable or dissable bot update message.'))
         ,
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         try {
             if(interaction.options.getChannel('moderation_channel')) {
                 client.settings.set(interaction.guild.id, interaction.options.getChannel('moderation_channel').id, "moderationChannel");

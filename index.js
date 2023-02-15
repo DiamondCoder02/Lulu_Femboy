@@ -1,6 +1,6 @@
 console.clear();
 //basic loaders
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js'), config = require('./botConfigs/config.json');
+const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js')
 const client = new Client({ 
     ws: {
         properties: { browser: 'Discord Android' }
@@ -8,14 +8,14 @@ const client = new Client({
     intents: [
         GatewayIntentBits.Guilds, //1
         GatewayIntentBits.GuildMembers, //2
-        GatewayIntentBits.GuildBans, //4
+        GatewayIntentBits.GuildModeration, //4
         GatewayIntentBits.GuildEmojisAndStickers, //8
         GatewayIntentBits.GuildIntegrations, //16
         //GatewayIntentBits.GuildWebhooks, //32
         GatewayIntentBits.GuildInvites, //64
         GatewayIntentBits.GuildVoiceStates, //128
         //FUCK GatewayIntentBits.GuildPresences, //256
-        //FUCK GatewayIntentBits.GuildMessages, //512
+        GatewayIntentBits.GuildMessages, //512
         GatewayIntentBits.GuildMessageReactions, //1024
         //GatewayIntentBits.GuildMessageTyping, //2048
         GatewayIntentBits.DirectMessages, //4096
@@ -36,7 +36,7 @@ const client = new Client({
         //Partials.ThreadMember
     ]
 });
-require('dotenv').config(); var token = process.env.token;
+
 client.commands = new Collection();
 //Enmap - server side settings
 const Enmap = require('enmap');
@@ -101,7 +101,10 @@ const dashboardInit = require(`./dashboard/dashInit.js`)
 client.on(`ready`, (...args) => dashboardInit.execute(...args, client, commandFuck))
 
 //Bot token
-try{ if (config.Token == "token") { client.login(token) } else client.login(config.Token) }catch{console.log("Please provide a bot token.")}
+require('dotenv').config(); 
+var token = process.env.token;
+var debug_level = process.env.debug_level;
+client.login(token)
 
 //error handler
 console.log(client)
@@ -109,7 +112,7 @@ client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
 process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n', error));
 process.on('uncaughtException', error => console.error('-----\nUncaught Exception:\n-----\n', error));
-if (config.debug_level >= 3) { 
+if (debug_level >= 3) { 
     client.on("debug", (e) => console.log(e))
 }
 

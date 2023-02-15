@@ -10,7 +10,7 @@ module.exports = {
         //.addBooleanOption(option => option.setName('whole_server').setDescription("If true it will delete user messages from everywhere"))
         //.addChannelOption(option => option.setName('channel').setDescription("Delete messages from a specific channel"))
         ,
-	async execute(interaction, client, config) {
+	async execute(interaction, client) {
         const amount = interaction.options.getInteger('amount');
         if (amount == 0) {return interaction.reply({ content: "You stupid >_<'"})}
         const user = interaction.options.getUser('user');

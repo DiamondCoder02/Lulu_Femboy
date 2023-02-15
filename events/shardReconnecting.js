@@ -1,9 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
-const config = require('../botConfigs/config.json');
+require('dotenv').config(); var debug_level = process.env.debug_level;
 module.exports = {
 	name: 'shardReconnecting',
 	execute(id, client) {
-		if (config.debug_level >= 3) { 
+		if (debug_level >= 3) { 
 			console.log(`[\`${new Date().toLocaleString('hu-HU')}\`] --- shardReconnecting Test ---`);
 			console.log(client)
 			console.log(id);

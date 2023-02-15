@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), akinator = require("discord.js-akinator"), fs = require('fs')
+const { SlashCommandBuilder } = require('@discordjs/builders'), akinator = require("discord.js-akinator")
 module.exports = {
 	data: new SlashCommandBuilder()
         .setName('akinator')

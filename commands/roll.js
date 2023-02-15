@@ -8,7 +8,7 @@ module.exports = {
         .addIntegerOption(option => option.setName('min').setDescription('If you want to set a minimum value (default: 1)').setMinValue(1))
         .addIntegerOption(option => option.setName('max').setDescription('If you want to set a maximum value (default: 20)').setMinValue(1))
         .addIntegerOption(option => option.setName('amount').setDescription('If you want to set the amount of dice').setMinValue(1).setMaxValue(100)),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         let allResults = [];
         try {
             if (interaction.options.getInteger('min') !== null) { min = interaction.options.getInteger('min') } else { min = 1 };
