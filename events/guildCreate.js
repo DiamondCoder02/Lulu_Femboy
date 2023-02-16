@@ -16,7 +16,7 @@ module.exports = {
 			const channel = client.channels.cache.get(guild.systemChannelId)
 			channel.send(`__**Thank you for inviting me, the ${bot.toString()} bot.**__
 I am a multipurpose bot. My main goal is to make the server more lively. ^^
-I also provide moderation, games and I'm still being developed.
+I also provide moderation, games and __I'm still being developed__.
 I'm strictly wholesome, but if you want want other than that, you can invite my twin. >w<
 Or just ask me nicely and I will keep everything clean here. Or I will try. ^^'
 
@@ -27,7 +27,7 @@ All of my commands works with slash commands. More info about them at https://im
 			client.users.fetch(guild.ownerId).then(user => {
 				user.send(`__**Thank you for inviting me, the ${bot.toString()} bot.**__
 I am a multipurpose bot. My main goal is to make the server more lively. ^^
-I also provide moderation, games and I'm still being developed.
+I also provide moderation, games and __I'm still being developed__.
 I'm strictly wholesome, but if you want want other than that, you can invite my twin. >w<
 Or just ask me nicely and I will keep everything clean here. Or I will try. ^^'
 

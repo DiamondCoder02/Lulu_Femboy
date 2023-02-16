@@ -11,6 +11,8 @@ I recently got the idea how and where I want this project to continue. Due to un
 1. one part of the bot will be sfw only, while having all the features.
 2. second bot will have mostly nsfw. A lot of nsfw :3
 
+Nsfw bot can be found here: [Femboy_UwU nsfw](https://github.com/DiamondPRO02/Femboy_UwU)
+
 As a special feature if both bot is in one server, the two bot might talk with each other, but I will see how hard would it be to implement it.
 
 The bot is early in development. Feel free to contribute if you want. I also appriciate every problem report and every help. This bot only works with slash commands.

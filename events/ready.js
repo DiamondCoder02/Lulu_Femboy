@@ -1,6 +1,7 @@
 const { EmbedBuilder, Client, PermissionsBitField } = require('discord.js'), fs = require('fs')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'))
 const botStat = require('../botConfigs/bot_private.json', 'utf8'); const SetAct = botStat.botStatus
+require('dotenv').config(); 
 var stopPassword = process.env.stopPassword;
 var debug_level = process.env.debug_level;
 var botStatusChannelId = process.env.botStatusChannelId;
@@ -48,7 +49,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#FFFF00')
-            .setTitle("Bot has started!")
+            .setTitle("Bot has started! \n" + client.user.tag)
             .setDescription(`Bot info:
 DebugLevel: ${debug_level},
 Ready: <t:${Math.floor(client.readyTimestamp / 1000)}:f> 
