@@ -71,9 +71,8 @@ module.exports = {
         await DBD.useLicense(dbd_key);
         DBD.Dashboard = DBD.UpdatedClass();
         let commandList = []
-        let hasNsfw = []
         let needsPerms = []
-        CommandPushDashboard(commandFuck, commandList, hasNsfw, needsPerms)
+        CommandPushDashboard(commandFuck, commandList, needsPerms)
         const Dashboard = new DBD.Dashboard({
             port: 80,
             client: {
@@ -253,12 +252,6 @@ module.exports = {
                         hideAlias: true,
                         list: needsPerms,
                     },
-                    {
-                        category: `Nsfw commands`,
-                        subTitle: `Not safe for work commands ( Cooldown:⌛ )`,
-                        hideAlias: true,
-                        list: hasNsfw,
-                    },
             ],
             }),
             settings: [
@@ -404,32 +397,6 @@ module.exports = {
                             optionName: "Self roles",
                             optionDescription: "Roles you let users asign themselves with /role command",
                             optionType: DBD.formTypes.rolesMultiSelect(),
-                        },
-                    ]
-                },
-                {
-                    categoryId: 'nsfw',
-                    categoryName: "NSFW",
-                    categoryDescription: "NSFW settings",
-                    refreshOnSave: true,
-                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
-                    getActualSet: async ({guild}) => {
-                        return [
-                            { optionId: "enableNSFW", data: client.settings.get(guild.id, "enableNSFW") || null },
-                        ]
-                    },
-                    setNew: async ({guild,data}) => {
-                        for(const option of data) {
-                            if(option.optionId === "enableNSFW") client.settings.set(guild.id, option.data, "enableNSFW");
-                        } 
-                        return;
-                    },
-                    categoryOptionsList: [
-                        {
-                            optionId: 'enableNSFW',
-                            optionName: "NSFW",
-                            optionDescription: "Enable nsfw on server?",
-                            optionType: DBD.formTypes.switch(),
                         },
                     ]
                 },
@@ -597,7 +564,7 @@ module.exports = {
     }
 }
 
-function CommandPushDashboard(filterredArray, commandCate, nsfwCate, permCate) {
+function CommandPushDashboard(filterredArray, commandCate, permCate) {
     Array.from(filterredArray).forEach(obj => {
         if (obj.permissions) {
             let cmdObject = {
@@ -606,13 +573,6 @@ function CommandPushDashboard(filterredArray, commandCate, nsfwCate, permCate) {
                 commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
             }
             permCate.push(cmdObject)
-        } else if (obj.hasNSFW) {
-            let cmdObject = {
-                commandName: obj.data.name,
-                commandUsage: "/"+obj.data.name,
-                commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
-            }
-            nsfwCate.push(cmdObject)
         } else {
             let cmdObject = {
                 commandName: obj.data.name,
