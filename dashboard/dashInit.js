@@ -268,7 +268,6 @@ module.exports = {
                             { optionId: "goodbye", data: client.settings.get(guild.id, "goodbye") || null },
                             { optionId: "welcomeMessage", data: client.settings.get(guild.id, "welcomeMessage") || null },
                             { optionId: "enableRandomReactions", data: client.settings.get(guild.id, "enableRandomReactions") || null },
-                            { optionId: "enableBotUpdateMessage", data: client.settings.get(guild.id, "enableBotUpdateMessage") || null },
                         ]
                     },
                     setNew: async ({guild,data}) => { // data = [ { optionId: 'lang', data: 'fr' } ]
@@ -277,7 +276,6 @@ module.exports = {
                             if(option.optionId === "goodbye") client.settings.set(guild.id, option.data, "goodbye");
                             if(option.optionId === "welcomeMessage") client.settings.set(guild.id, option.data, "welcomeMessage");
                             if(option.optionId === "enableRandomReactions") client.settings.set(guild.id, option.data, "enableRandomReactions");
-                            if(option.optionId === "enableBotUpdateMessage") client.settings.set(guild.id, option.data, "enableBotUpdateMessage");
                         } 
                         // Errors still work!
                         // Allowed check still works, but needs to be on the option itself, not the category.
@@ -307,13 +305,7 @@ module.exports = {
                             optionDescription: "Should the bot react to messages randomly?",
                             optionType: DBD.formTypes.switch(),
                             themeOptions: { minimalbutton: { first: true, } },
-                        },
-                        {
-                            optionId: 'enableBotUpdateMessage',
-                            optionDescription: "Should the bot send a message when it gets an updates?",
-                            optionType: DBD.formTypes.switch(),
-                            themeOptions: { minimalbutton: { last: true, } },
-                        },
+                        }
                     ]
                 },
                 {

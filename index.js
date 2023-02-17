@@ -61,7 +61,6 @@ client.settings = new Enmap({
         welcomeRoles: [],
         freeRoles: [],
         moderationChannel: "",
-        enableBotUpdateMessage: true,
         enableRandomReactions: false,
         randomReactionChannelBlacklist: [],
         singleChannelMessageLogger: [],

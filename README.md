@@ -1,10 +1,12 @@
-# Femboy_owo **Whole bot rework soon.**
+# Femboy_owo - Lulu (Wholesome bot)
 
 ![Banner, made by Nyaneko](https://i.imgur.com/bYYjIZC.png)
 
 ## A bit of explanation
 
 I recently got the idea how and where I want this project to continue. Due to uni and to finalize everything, it will take time. Luckly many things won't change, but this project will get weird and different soon.
+
+Bot will have names and I wanna give them a nice personality.
 
 <u>The website, nsfw will be the most effected. I might split the bot into two, but that means...</u>
 
@@ -43,7 +45,6 @@ Google form for bug and feature report if you prefer it: [link here](https://for
 - [Booru - booru](https://www.npmjs.com/package/booru)
 - [Catboys - catboys](https://catboys.com/api)
 - [Dad Joke API - dad_joke](https://icanhazdadjoke.com/)
-- [Discord Player - music](https://www.npmjs.com/package/discord-player), huge thanks for: [Androz2091 Discord player example](https://github.com/Androz2091/discord-player/blob/master/example/music-bot/index.js)
 - [Nekos.life - nekoslife](https://www.npmjs.com/package/nekos.life)
 - [Translate - translate](https://www.npmjs.com/package/translate)
 - [Waifu.pics - waifu_pics](https://waifu.pics/)

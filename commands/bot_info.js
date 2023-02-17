@@ -73,7 +73,7 @@ User,
                 { name: "People asked if:", value: "They can f**k my bot \`"+String(goodBad.canIFuckBot)+ "\` time(s)", inline:true},
             )
             .setTimestamp()
-            .setFooter({text: `Last update: 2023.Feb.15.`});
+            .setFooter({text: `Last update: 2023.Feb.17.`});
         let uptime = os.uptime();
         let days = Math.floor(uptime / (60 * 60 * 24));
         let hours = Math.floor(uptime / (60 * 60)) - (days * 24);
