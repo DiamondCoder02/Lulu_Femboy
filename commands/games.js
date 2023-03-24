@@ -22,7 +22,7 @@ module.exports = {
             )
         )
         ,
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         if (interaction.options.getSubcommand() === 'rpc') {
             const rpc = new EmbedBuilder()
                 .setTitle('Rock-Paper-Scissors!')

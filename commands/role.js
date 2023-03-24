@@ -6,7 +6,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Gives roles (just send the message, then click the buttons)'),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         let ro = client.settings.get(interaction.guild.id, "freeRoles");
         if (Array.isArray(ro) && ro.length >0) { } else { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }
         if (ro.includes('')) { return interaction.reply(`Guild configuration item "freeRoles" has not been set.`) }

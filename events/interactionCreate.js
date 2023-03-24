@@ -1,6 +1,6 @@
-const { Collection, InteractionType, ChannelType } = require('discord.js'), config = require('../botConfigs/config.json');
+const { Collection, InteractionType, ChannelType } = require('discord.js')
 const cooldowns = new Collection();
-require('dotenv').config(); var b_o_Id = process.env.botOwnerId;
+require('dotenv').config(); var b_o_Id = process.env.botOwnerId; var debug_level = process.env.debug_level;
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client, guildInvites) {
@@ -11,7 +11,7 @@ module.exports = {
 				const command = client.commands.get(interaction.commandName);
 				if (!command) return;
 				if (command.guildOnly && interaction.guildId === null) {console.log(`[${new Date().toLocaleString('hu-HU')}] `+"Execute in DMs, why: " + i.commandName); return interaction.reply("(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.")}
-				if ( interaction.user.id === b_o_Id || interaction.user.id === config.botOwnerId ) {} else {
+				if ( interaction.user.id === b_o_Id ) {} else {
 					//Cooldown
 					if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection());}
 					const now = Date.now();
@@ -37,7 +37,7 @@ module.exports = {
 				}
 				//Execute
 				try {
-					await command.execute(interaction, client, config);
+					await command.execute(interaction, client);
 				} catch (error) {
 					console.error(error);
 					try {await interaction.reply({ content: "There was an error while executing this command!", ephemeral:true});}
@@ -45,24 +45,24 @@ module.exports = {
 					return;
 				}
 			}
-			if (config.debug_level >= 1) {
+			if (debug_level >= 1) {
 				if (i.guildId === null) {
 					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag + "] Triggered in DMs:" + i.commandName);
 				}
 				if (i.type === InteractionType.ApplicationCommand) {
 					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name +" triggered: " + i.commandName);
 				}
-				if ((i.type === InteractionType.MessageComponent) && config.debug_level >= 2) {
+				if ((i.type === InteractionType.MessageComponent) && debug_level >= 2) {
 					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
 					if (nameOfCommand === "akinator") { return } //console.log("Bad akinator") 
 					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
 				} 
-				if ((i.type === InteractionType.ModalSubmit) && config.debug_level >= 2) {
+				if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
 					console.log(i)
 					return console.log("["+i.createdAt.toLocaleString('hu-HU') + "] -- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name + " triggered a select menu => "+ i.value);
 				}
 			}
-			if (config.debug_level >= 1) {
+			if (debug_level >= 1) {
 				//console.log(i.options)
 				try {
 					/*const string = interaction.options.getString();

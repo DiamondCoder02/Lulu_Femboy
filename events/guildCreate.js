@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const config = require('../botConfigs/config.json');
+require('dotenv').config(); var botStatusChannelId = process.env.botStatusChannelId; var debug_level = process.env.debug_level;
 module.exports = {
 	name: 'guildCreate',
 	async execute(guild, client, guildInvites, vanityInvites) {
@@ -7,24 +7,30 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setColor('#FFFF00')
 			.setTitle("Bot joined a guild!")
-			.setDescription(`Name: \`${guild.name}\` with \`${guild.memberCount}\` members *(bot included)* \n(ID: \`${guild.id}\`)`)
-		try{
-			const channel = client.channels.cache.get(config.botStatusChannelId)
-			channel.send({embeds: [embed]})
-		} catch {
-			console.log(`[${new Date().toLocaleString('hu-HU')}] No status channel ID given or found. Guild create Continuing...`)
-		}
+			.setDescription(`Name: \`${guild.name}\` with \`${guild.memberCount}\` members *(bot included)*)`)
+		const channel = client.channels.cache.get(botStatusChannelId)
+		channel.send({embeds: [embed]})
 
 		bot=client.user
 		try{
 			const channel = client.channels.cache.get(guild.systemChannelId)
-			channel.send(`__**Thank you for inviting ${bot.toString()}.**__
-All commands works with slash commands. More info about them at https://imgur.com/a/dStRp6Y. 
-\nTo edit the server config please go to: http://femboy.redirectme.net/`
+			channel.send(`__**Thank you for inviting me, the ${bot.toString()} bot.**__
+I am a multipurpose bot. My main goal is to make the server more lively. ^^
+I also provide moderation, games and __I'm still being developed__.
+I'm strictly wholesome, but if you want want other than that, you can invite my twin. >w<
+Or just ask me nicely and I will keep everything clean here. Or I will try. ^^'
+
+All of my commands works with slash commands. More info about them at https://imgur.com/a/dStRp6Y. 
+\nTo edit my server config please go to: http://femboy.redirectme.net/`
 			)
 		} catch {
 			client.users.fetch(guild.ownerId).then(user => {
-				user.send(`__**Thank you for inviting **${bot.toString()}.**__
+				user.send(`__**Thank you for inviting me, the ${bot.toString()} bot.**__
+I am a multipurpose bot. My main goal is to make the server more lively. ^^
+I also provide moderation, games and __I'm still being developed__.
+I'm strictly wholesome, but if you want want other than that, you can invite my twin. >w<
+Or just ask me nicely and I will keep everything clean here. Or I will try. ^^'
+
 All commands works with slash commands. More info about them at https://imgur.com/a/dStRp6Y. 
 \nTo edit the server config please go to: http://femboy.redirectme.net/`
 				)
@@ -38,7 +44,7 @@ All commands works with slash commands. More info about them at https://imgur.co
 			if (guild.vanityURLCode != null) {
 				guild.fetchVanityData().then(invites => {
 					vanityInvites.set(guild.id, invites);
-					if (config.debug_level >= 2) { console.log(`[${new Date().toLocaleString('hu-HU')}] Vanity cached ${guild.name}`); }
+					if (debug_level >= 2) { console.log(`[${new Date().toLocaleString('hu-HU')}] Vanity cached ${guild.name}`); }
 				}).catch(err => { console.log("Ready vanity Error:", err) })
 			} else { console.log(`[${new Date().toLocaleString('hu-HU')}] Vanity URL: ${guild.name} has no vanity URL`) }
 		} catch {

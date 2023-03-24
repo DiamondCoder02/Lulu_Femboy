@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const config = require('../botConfigs/config.json');
+require('dotenv').config(); var botStatusChannelId = process.env.botStatusChannelId;
 module.exports = {
 	name: 'guildDelete',
 	async execute(guild, client, guildInvites) {
@@ -9,7 +9,7 @@ module.exports = {
 			.setTitle("Bot left a guild!")
 			.setDescription(`Name: \`${guild.name}\` \n(ID: \`${guild.id}\`)`)
 		try{
-			const channel = client.channels.cache.get(config.botStatusChannelId)
+			const channel = client.channels.cache.get(botStatusChannelId)
 			channel.send({embeds: [embed]})
 		} catch {
 			console.log(`[${new Date().toLocaleString('hu-HU')}] No status channel given or found. Guild delete Continuing...`)

@@ -1,19 +1,12 @@
-const { Client, ChannelType } = require('discord.js'), config = require('../botConfigs/config.json');
-const package = require('../package.json');
+const { Client, ChannelType } = require('discord.js')
 /* --- PRE_DASHBOARD --- */
 const SoftUI = require("dbd-soft-ui")
 let DBD = require('discord-dashboard');
-var cliId = process.env.cid;
+var botOwnerId = process.env.botOwnerId;
 var cliSecret = process.env.ClientSecret;
 var dbd_key = process.env.dbd;
 var dbd_domain = process.env.DBdomain;
 var dbd_redirect = process.env.DBredirect;
-try{ if (config.botOwnerId == "botOwnerID") { botOwnerId = Array(cliId) } else botOwnerId = Array(config.botOwnerId) }catch{ return console.log("ownerId error")}
-try{ if (config.clientId == "clientId") { clientID = String(cliId) } else clientID = String(config.clientId) }catch{ return console.log("clientID error")}
-try{ if (config.clientSecret == "clientSecret") { cSec = cliSecret } else cSec = config.clientSecret }catch{ return console.log("clientSecret error")}
-try{ if (config.dbd_license == "dbd_license") { dbd_lic = dbd_key } else dbd_lic = config.dbd_license }catch{ return console.log("dbd_license error")}
-try{ if (config.dbd_domain == ".http://localhost/") { dbd_dom = dbd_domain } else dbd_dom = config.dbd_domain }catch{ return console.log("dbd_domain error")}
-try{ if (config.dbd_redirect == ".http://localhost/discord/callback") { dbd_red = dbd_redirect } else dbd_red = config.dbd_redirect }catch{ return console.log("dbd_redirect error")}
 
     /*
     useCategorySet: true,
@@ -75,20 +68,19 @@ try{ if (config.dbd_redirect == ".http://localhost/discord/callback") { dbd_red 
 
 module.exports = {
     async execute(arg, client, commandFuck) {
-        await DBD.useLicense(dbd_lic);
+        await DBD.useLicense(dbd_key);
         DBD.Dashboard = DBD.UpdatedClass();
         let commandList = []
-        let hasNsfw = []
         let needsPerms = []
-        CommandPushDashboard(commandFuck, commandList, hasNsfw, needsPerms)
+        CommandPushDashboard(commandFuck, commandList, needsPerms)
         const Dashboard = new DBD.Dashboard({
             port: 80,
             client: {
                 id: client.user.id,
-                secret: cSec
+                secret: cliSecret
             },
-            redirectUri: dbd_red,
-            domain: dbd_dom,
+            redirectUri: dbd_redirect,
+            domain: dbd_domain,
             ownerIDs: botOwnerId,
             useThemeMaintenance: true,
             useTheme404: true,
@@ -260,12 +252,6 @@ module.exports = {
                         hideAlias: true,
                         list: needsPerms,
                     },
-                    {
-                        category: `Nsfw commands`,
-                        subTitle: `Not safe for work commands ( Cooldown:⌛ )`,
-                        hideAlias: true,
-                        list: hasNsfw,
-                    },
             ],
             }),
             settings: [
@@ -282,7 +268,6 @@ module.exports = {
                             { optionId: "goodbye", data: client.settings.get(guild.id, "goodbye") || null },
                             { optionId: "welcomeMessage", data: client.settings.get(guild.id, "welcomeMessage") || null },
                             { optionId: "enableRandomReactions", data: client.settings.get(guild.id, "enableRandomReactions") || null },
-                            { optionId: "enableBotUpdateMessage", data: client.settings.get(guild.id, "enableBotUpdateMessage") || null },
                         ]
                     },
                     setNew: async ({guild,data}) => { // data = [ { optionId: 'lang', data: 'fr' } ]
@@ -291,7 +276,6 @@ module.exports = {
                             if(option.optionId === "goodbye") client.settings.set(guild.id, option.data, "goodbye");
                             if(option.optionId === "welcomeMessage") client.settings.set(guild.id, option.data, "welcomeMessage");
                             if(option.optionId === "enableRandomReactions") client.settings.set(guild.id, option.data, "enableRandomReactions");
-                            if(option.optionId === "enableBotUpdateMessage") client.settings.set(guild.id, option.data, "enableBotUpdateMessage");
                         } 
                         // Errors still work!
                         // Allowed check still works, but needs to be on the option itself, not the category.
@@ -321,13 +305,7 @@ module.exports = {
                             optionDescription: "Should the bot react to messages randomly?",
                             optionType: DBD.formTypes.switch(),
                             themeOptions: { minimalbutton: { first: true, } },
-                        },
-                        {
-                            optionId: 'enableBotUpdateMessage',
-                            optionDescription: "Should the bot send a message when it gets an updates?",
-                            optionType: DBD.formTypes.switch(),
-                            themeOptions: { minimalbutton: { last: true, } },
-                        },
+                        }
                     ]
                 },
                 {
@@ -411,32 +389,6 @@ module.exports = {
                             optionName: "Self roles",
                             optionDescription: "Roles you let users asign themselves with /role command",
                             optionType: DBD.formTypes.rolesMultiSelect(),
-                        },
-                    ]
-                },
-                {
-                    categoryId: 'nsfw',
-                    categoryName: "NSFW",
-                    categoryDescription: "NSFW settings",
-                    refreshOnSave: true,
-                    categoryImageURL: 'https://i.imgur.com/GrXR9z8.png',
-                    getActualSet: async ({guild}) => {
-                        return [
-                            { optionId: "enableNSFW", data: client.settings.get(guild.id, "enableNSFW") || null },
-                        ]
-                    },
-                    setNew: async ({guild,data}) => {
-                        for(const option of data) {
-                            if(option.optionId === "enableNSFW") client.settings.set(guild.id, option.data, "enableNSFW");
-                        } 
-                        return;
-                    },
-                    categoryOptionsList: [
-                        {
-                            optionId: 'enableNSFW',
-                            optionName: "NSFW",
-                            optionDescription: "Enable nsfw on server?",
-                            optionType: DBD.formTypes.switch(),
                         },
                     ]
                 },
@@ -604,7 +556,7 @@ module.exports = {
     }
 }
 
-function CommandPushDashboard(filterredArray, commandCate, nsfwCate, permCate) {
+function CommandPushDashboard(filterredArray, commandCate, permCate) {
     Array.from(filterredArray).forEach(obj => {
         if (obj.permissions) {
             let cmdObject = {
@@ -613,13 +565,6 @@ function CommandPushDashboard(filterredArray, commandCate, nsfwCate, permCate) {
                 commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
             }
             permCate.push(cmdObject)
-        } else if (obj.hasNSFW) {
-            let cmdObject = {
-                commandName: obj.data.name,
-                commandUsage: "/"+obj.data.name,
-                commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : `- `)+obj.data.description
-            }
-            nsfwCate.push(cmdObject)
         } else {
             let cmdObject = {
                 commandName: obj.data.name,

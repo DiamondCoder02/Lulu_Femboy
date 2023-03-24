@@ -5,7 +5,7 @@ module.exports = {
         .setName('8ball')
         .setDescription('Very basic 8ball command.')
         .addStringOption(option => option.setName('question').setDescription('Enter a question').setRequired(true)),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         let items = ['It is certain.',
             'It is decidedly so.',
             'Without a doubt.',

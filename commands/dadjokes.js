@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
         .setName('dadjokes')
         .setDescription('Random dadjokes'),
-    async execute(interaction, client, config) {
+    async execute(interaction, client) {
         try {
             // This 3 line good for api
             let response = await fetch(`https://icanhazdadjoke.com/slack`);

@@ -1,30 +1,18 @@
-const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders'), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const Booru = require('booru'), { BooruError } = require('booru');
 module.exports = {
 	cooldown: 15,
-    hasNSFW: true,
     data: new SlashCommandBuilder()
         .setName('booru')
         .setDescription("Search imageboards for a picture")
         .addStringOption(option => option.setName('sites').setDescription("Sites to search")
             .addChoices(
-                { name: "e621.net 18+", value: 'e621' },
                 { name: "e926.net <18", value: 'e926' },
-                //{ name: "hypnohub.net 18+ (🚫tag)", value: 'hypnohub' },
-                //{ name: "danbooru.donmai.us 18+ (🚫tag)", value: 'danbooru' },
-                { name: "konachan.com 18+", value: 'konac' },
                 { name: "konachan.net <18", value: 'konan' },
-                { name: "yande.re 18+", value: 'yandere' },
                 //random false unless a tag is given:
-                { name: "gelbooru.com 18+", value: 'gelbooru' },
-                { name: "rule34.xxx 18+", value: 'rule34' },
                 { name: "safebooru.org <18", value: 'safebooru' },
                 { name: "tbib.org <18", value: 'tbib' },
-                { name: "xbooru.com 18+", value: 'xbooru' },
-                { name: "rule34.paheal.net 18+ (🚫tag)", value: 'paheal' },
-                { name: "derpibooru.org 18+", value: 'derpibooru' },
-                { name: "realbooru.net 18+", value: 'realbooru' }
             )
             .setRequired(true)
         )
@@ -33,12 +21,9 @@ module.exports = {
         .addNumberOption(option => option.setName('repeat').setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
     async execute(interaction, client) {
         const sites = interaction.options.getString('sites').trim()
-        if (sites=='e926' || sites=='konan' || sites=="safebooru" || sites=="tbib" || sites=="hypnohub" || sites=="danbooru"|| sites=="paheal") { }
-        else { if(client.settings.get(interaction.guild.id, "enableNSFW")) { if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText) { return interaction.reply({content: "Sorry, this is a Not Safe For Work command!"})} } else {return interaction.reply({content: "Not Safe For Work commands are disabled!"})}  }
-        if (!interaction.options.getString('tags') && (sites==('gelbooru') || sites==('rule34') || sites==('safebooru') || sites==('tbib') || sites==('xbooru') || sites==('derpibooru') || sites==('realbooru'))) { return interaction.reply({content: "Please give me a tag to find a random picture."}) }
+        if (!interaction.options.getString('tags') && (sites==('safebooru') || sites==('tbib'))) { return interaction.reply({content: "Please give me a tag to find a random picture."}) }
         else if(!interaction.options.getString('tags')) {tags = ""}
         else { tags = interaction.options.getString('tags').trim().split(' ')}
-        if (interaction.options.getString('tags') && (sites=='hypnohub' || sites=='danbooru' || sites=="paheal")) { return interaction.reply({content: "Please don't use tags with this site"}) }
         if (interaction.options.getNumber('repeat')) { var amount = Number(interaction.options.getNumber('repeat')) } else var amount = 1
         for (let a = 0; a < amount; a++) {
             await booruSearch(sites, tags, a, true).catch(err => { 
@@ -90,7 +75,7 @@ module.exports = {
                     await interaction.followUp({content: posts[0].fileUrl}); 
                 }
             } else {
-                await embed.setImage(posts[0].fileUrl)
+                embed.setImage(posts[0].fileUrl)
                 try { await interaction.followUp({embeds: [embed], components: [buttons]}) }
                 catch { await interaction.reply({embeds: [embed], components: [buttons]}) }
             }
