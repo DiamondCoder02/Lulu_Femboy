@@ -1,6 +1,6 @@
 # Femboy_owo - Lulu (Wholesome bot)
 
-![Banner, made by Nyaneko](https://i.imgur.com/bYYjIZC.png)
+![Lulu Banner, made by NyanekoNNK](https://user-images.githubusercontent.com/53056204/227460767-b133569e-82b8-46cf-b761-8a6c8b83ea7b.png)
 
 ## A bit of explanation
 
