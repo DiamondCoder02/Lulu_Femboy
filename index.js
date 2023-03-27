@@ -2,29 +2,27 @@ console.clear();
 //basic loaders
 const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js')
 const client = new Client({ 
-    ws: {
-        properties: { browser: 'Discord Android' }
-    }, 
+    ws: { properties: { browser: 'Discord Android' } }, 
     intents: [
         GatewayIntentBits.Guilds, //1
         GatewayIntentBits.GuildMembers, //2
         GatewayIntentBits.GuildModeration, //4
         GatewayIntentBits.GuildEmojisAndStickers, //8
-        GatewayIntentBits.GuildIntegrations, //16
-        //GatewayIntentBits.GuildWebhooks, //32
+        // GatewayIntentBits.GuildIntegrations, //16
+        // GatewayIntentBits.GuildWebhooks, //32
         GatewayIntentBits.GuildInvites, //64
-        GatewayIntentBits.GuildVoiceStates, //128
+        // GatewayIntentBits.GuildVoiceStates, //128
         //FUCK GatewayIntentBits.GuildPresences, //256
         GatewayIntentBits.GuildMessages, //512
         GatewayIntentBits.GuildMessageReactions, //1024
-        //GatewayIntentBits.GuildMessageTyping, //2048
+        // GatewayIntentBits.GuildMessageTyping, //2048
         GatewayIntentBits.DirectMessages, //4096
         GatewayIntentBits.DirectMessageReactions, //8192
-        //GatewayIntentBits.DirectMessageTyping //16384
+        // GatewayIntentBits.DirectMessageTyping //16384
         //FUCK GatewayIntentBits.MessageContent, //32768
         GatewayIntentBits.GuildScheduledEvents, //65536
-        GatewayIntentBits.AutoModerationConfiguration, //1048576
-        GatewayIntentBits.AutoModerationExecution //2097152
+        // GatewayIntentBits.AutoModerationConfiguration, //1048576
+        // GatewayIntentBits.AutoModerationExecution //2097152
     ],
     partials: [
         Partials.Channel, 
@@ -33,7 +31,7 @@ const client = new Client({
         Partials.Message, 
         Partials.Reaction, 
         Partials.User, 
-        //Partials.ThreadMember
+        // Partials.ThreadMember
     ]
 });
 
@@ -95,9 +93,6 @@ for (const file of eventFiles) {
 	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))} 
     else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
 }
-
-const dashboardInit = require(`./dashboard/dashInit.js`)
-client.on(`ready`, (...args) => dashboardInit.execute(...args, client, commandFuck))
 
 //Bot token
 require('dotenv').config(); 
