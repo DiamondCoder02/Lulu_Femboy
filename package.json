@@ -18,9 +18,9 @@
     },
     "homepage": "https://github.com/DiamondPRO02/Femboy_OwO#readme",
     "dependencies": {
+        "better-logging": "^5.0.0",
         "booru": "^2.6.3",
-        "dbd-soft-ui": "^1.6.36-beta.1",
-        "discord-dashboard": "^2.3.61",
+        "chalk": "^4.1.2",
         "discord.js": "^14.7.1",
         "discord.js-akinator": "^4.0.4",
         "dotenv": "^16.0.1",

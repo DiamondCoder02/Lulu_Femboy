@@ -26,7 +26,6 @@ module.exports = {
 		"key-spacing": [ "error", { "beforeColon": false, "afterColon": true }],
 		"keyword-spacing": [ "error", { "before": true, "after": true }],
 		"linebreak-style": [ "warn", "windows" ],
-		"no-console": ["warn"],
 		"no-multi-spaces": ["error"],
 		"no-multiple-empty-lines": [ "error", { max: 1 }],
 		"no-trailing-spaces": ["error"],
