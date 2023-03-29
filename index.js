@@ -1,40 +1,43 @@
 console.clear();
-//basic loaders
-const fs = require('fs'), { Client, Collection, GatewayIntentBits, Partials, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js')
-const client = new Client({ 
-    ws: { properties: { browser: 'Discord Android' } }, 
-    intents: [
-        GatewayIntentBits.Guilds, //1
-        GatewayIntentBits.GuildMembers, //2
-        GatewayIntentBits.GuildModeration, //4
-        GatewayIntentBits.GuildEmojisAndStickers, //8
-        // GatewayIntentBits.GuildIntegrations, //16
-        // GatewayIntentBits.GuildWebhooks, //32
-        GatewayIntentBits.GuildInvites, //64
-        // GatewayIntentBits.GuildVoiceStates, //128
-        //FUCK GatewayIntentBits.GuildPresences, //256
-        GatewayIntentBits.GuildMessages, //512
-        GatewayIntentBits.GuildMessageReactions, //1024
-        // GatewayIntentBits.GuildMessageTyping, //2048
-        GatewayIntentBits.DirectMessages, //4096
-        GatewayIntentBits.DirectMessageReactions, //8192
-        // GatewayIntentBits.DirectMessageTyping //16384
-        //FUCK GatewayIntentBits.MessageContent, //32768
-        GatewayIntentBits.GuildScheduledEvents, //65536
-        // GatewayIntentBits.AutoModerationConfiguration, //1048576
-        // GatewayIntentBits.AutoModerationExecution //2097152
-    ],
-    partials: [
-        Partials.Channel, 
-        Partials.GuildMember, 
-        Partials.GuildScheduledEvent, 
-        Partials.Message, 
-        Partials.Reaction, 
-        Partials.User, 
-        // Partials.ThreadMember
-    ]
+// Basic loaders
+const fs = require("fs"), { Client, GatewayIntentBits, Partials } = require("discord.js");
+const client = new Client({
+	ws: { properties: { browser: "Discord Android" } },
+	intents: [
+		GatewayIntentBits.Guilds, // 1
+		GatewayIntentBits.GuildMembers, // 2
+		GatewayIntentBits.GuildModeration, // 4
+		GatewayIntentBits.GuildEmojisAndStickers, // 8
+		// GatewayIntentBits.GuildIntegrations, // 16
+		// GatewayIntentBits.GuildWebhooks, // 32
+		GatewayIntentBits.GuildInvites, // 64
+		// GatewayIntentBits.GuildVoiceStates, // 128
+		// FUCK GatewayIntentBits.GuildPresences, // 256
+		GatewayIntentBits.GuildMessages, // 512
+		GatewayIntentBits.GuildMessageReactions, // 1024
+		// GatewayIntentBits.GuildMessageTyping, // 2048
+		GatewayIntentBits.DirectMessages, // 4096
+		GatewayIntentBits.DirectMessageReactions, // 8192
+		// GatewayIntentBits.DirectMessageTyping //16384
+		// FUCK GatewayIntentBits.MessageContent, // 32768
+		GatewayIntentBits.GuildScheduledEvents, // 65536
+		// GatewayIntentBits.AutoModerationConfiguration, //1048576
+		// GatewayIntentBits.AutoModerationExecution //2097152
+	],
+	partials: [
+		Partials.Channel,
+		Partials.GuildMember,
+		Partials.GuildScheduledEvent,
+		Partials.Message,
+		Partials.Reaction,
+		Partials.User,
+		// Partials.ThreadMember
+	]
 });
 
+let allCommandFromFolders = [];
+
+/* A
 client.commands = new Collection();
 //Enmap - server side settings
 const Enmap = require('enmap');
@@ -90,26 +93,30 @@ const guildInvites = new Map()
 const vanityInvites = new Map()
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))} 
+	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
     else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
 }
+*/
 
-//Bot token
-require('dotenv').config(); 
-var token = process.env.token;
-var debug_level = process.env.debug_level;
-client.login(token)
+// Bot token
+require("dotenv").config();
+let token = process.env.token;
+let debug_level = process.env.debug_level;
+client.login(token);
 
+/*
 //error handler
 console.log(client)
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
 process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n', error));
 process.on('uncaughtException', error => console.error('-----\nUncaught Exception:\n-----\n', error));
-if (debug_level >= 3) { 
+if (debug_level >= 3) {
     client.on("debug", (e) => console.log(e))
 }
+*/
 
+/* A
 let redditFeedSub = []
 let redditFeedChannel = []
 setInterval(() => {
@@ -165,7 +172,7 @@ async function redditFetchFunction(channel, sub, i, guild) {
             .setEmoji('🖥️')
             .setURL(`https://reddit.com${post.permalink}`)
     )
-    if (post.url != null) { 
+    if (post.url != null) {
         embed.setImage(post.url)
         feedChannel.send({embeds: [embed], components: [linkButton]})
     }
@@ -173,3 +180,4 @@ async function redditFetchFunction(channel, sub, i, guild) {
         feedChannel.send({embeds: [embed], components: [linkButton]})
     }
 }
+*/

@@ -1,27 +1,26 @@
-const { EmbedBuilder } = require('discord.js');
-require('dotenv').config(); var botStatusChannelId = process.env.botStatusChannelId;
+const { EmbedBuilder } = require("discord.js");
+require("dotenv").config(); let botStatusChannelId = process.env.botStatusChannelId;
 module.exports = {
-	name: 'guildDelete',
+	name: "guildDelete",
 	async execute(guild, client, guildInvites) {
-		console.log(`[${new Date().toLocaleString('hu-HU')}] Bot left guild: ${guild.name}`)
+		console.log(`[${new Date().toLocaleString("hu-HU")}] Bot left guild: ${guild.name}`);
 		const embed = new EmbedBuilder()
-			.setColor('#FFFF00')
+			.setColor("#FFFF00")
 			.setTitle("Bot left a guild!")
-			.setDescription(`Name: \`${guild.name}\` \n(ID: \`${guild.id}\`)`)
-		try{
-			const channel = client.channels.cache.get(botStatusChannelId)
-			channel.send({embeds: [embed]})
+			.setDescription(`Name: \`${guild.name}\` \n(ID: \`${guild.id}\`)`);
+		try {
+			const channel = client.channels.cache.get(botStatusChannelId);
+			channel.send({embeds: [embed]});
 		} catch {
-			console.log(`[${new Date().toLocaleString('hu-HU')}] No status channel given or found. Guild delete Continuing...`)
+			console.log(`[${new Date().toLocaleString("hu-HU")}] No status channel given or found. Guild delete Continuing...`);
 		}
-		try{
+		try {
 			const invites = await guild.invites.fetch();
 			const codeUses = new Map();
 			invites.each(inv => codeUses.set(inv.code, inv.uses));
 			guildInvites.set(guild.id, codeUses);
 		} catch {
-			console.log(`[${new Date().toLocaleString('hu-HU')}] guildDelete - Not enough permission for ${guild.name}. Continuing...`)
+			console.log(`[${new Date().toLocaleString("hu-HU")}] guildDelete - Not enough permission for ${guild.name}. Continuing...`);
 		}
-		
 	}
 };

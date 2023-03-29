@@ -27,5 +27,8 @@
         "enmap": "^5.9.5",
         "nekos.life": "^3.0.0",
         "translate": "^1.4.1"
+    },
+    "devDependencies": {
+        "eslint": "^8.37.0"
     }
 }
