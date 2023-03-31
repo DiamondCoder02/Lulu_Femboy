@@ -34,9 +34,10 @@ module.exports = {
 		"no-unused-vars": ["warn"],
 		"no-var": ["warn"],
 		"no-warning-comments": ["error"],
+		"object-curly-spacing": [ "error", "always" ],
 		"quotes": [ "error", "double" ],
-		"semi": [ "error", "always", { "omitLastInOneLineBlock": true}],
+		"semi": [ "error", "always", { "omitLastInOneLineBlock": true }],
 		"spaced-comment": [ "error", "always" ],
-		"space-in-parens": [ "error", "never" ]
+		"space-in-parens": [ "error", "never" ],
 	}
 };
