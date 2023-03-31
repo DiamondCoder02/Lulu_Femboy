@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders"), { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require("discord.js");
 const wait = require("node:timers/promises").setTimeout;
-const Booru = require("booru"), { BooruError } = require("booru");
+const { BooruError, search } = require("booru");
 module.exports = {
 	cooldown: 15,
 	data: new SlashCommandBuilder()
@@ -27,14 +27,14 @@ module.exports = {
 		if (interaction.options.getNumber("repeat")) { var amount = Number(interaction.options.getNumber("repeat")) } else {var amount = 1}
 		for (let a = 0; a < amount; a++) {
 			await booruSearch(sites, tags, a, true).catch(err => {
-				if (err instanceof BooruError) { a=amount; console.error("-"+err) }
-				else { console.error(err); a=amount ; return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."})}
+				if (err instanceof BooruError) { a=amount }
+				else { a=amount ; return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."})}
 			});
 			await wait(2000);
 		}
 		async function booruSearch(sites, tags, a, random = true) {
 			let limit=1;
-			const posts = await Booru.search(sites, tags, {limit, random});
+			const posts = await search(sites, tags, {limit, random});
 			if (Number(posts.length) === 0) { return interaction.reply({content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces."}) }
 			// Console.log(posts +"\n"+ posts.length)
 			// Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'

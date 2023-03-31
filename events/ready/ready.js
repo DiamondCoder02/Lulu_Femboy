@@ -1,6 +1,6 @@
 const { EmbedBuilder, Client, PermissionsBitField } = require("discord.js"), fs = require("fs");
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
-const botStat = require("../botConfigs/bot_private.json", "utf8"); const SetAct = botStat.botStatus;
+const botStat = require("../../botConfigs/bot_private.json", "utf8"); const SetAct = botStat.botStatus;
 require("dotenv").config();
 let stopPassword = process.env.stopPassword;
 let debug_level = process.env.debug_level;

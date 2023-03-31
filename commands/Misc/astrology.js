@@ -47,7 +47,6 @@ module.exports = {
 			await interaction.reply({ embeds: [embed] });
 		} catch (error) {
 			interaction.reply(`Something went wrong with ${type}! ` + error.name);
-			console.log(error);
 		}
 	}
 };

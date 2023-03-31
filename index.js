@@ -1,6 +1,6 @@
+// eslint-disable-next-line no-console
 console.clear();
-// Basic loaders
-const fs = require("fs"), { Client, GatewayIntentBits, Partials } = require("discord.js");
+const fs = require("fs"), { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
 const client = new Client({
 	ws: { properties: { browser: "Discord Android" } },
 	intents: [
@@ -20,7 +20,7 @@ const client = new Client({
 		GatewayIntentBits.DirectMessageReactions, // 8192
 		// GatewayIntentBits.DirectMessageTyping //16384
 		// FUCK GatewayIntentBits.MessageContent, // 32768
-		GatewayIntentBits.GuildScheduledEvents, // 65536
+		GatewayIntentBits.GuildScheduledEvents // 65536
 		// GatewayIntentBits.AutoModerationConfiguration, //1048576
 		// GatewayIntentBits.AutoModerationExecution //2097152
 	],
@@ -30,73 +30,79 @@ const client = new Client({
 		Partials.GuildScheduledEvent,
 		Partials.Message,
 		Partials.Reaction,
-		Partials.User,
+		Partials.User
 		// Partials.ThreadMember
 	]
 });
 
-let allCommandFromFolders = [];
-
-/* A
 client.commands = new Collection();
-//Enmap - server side settings
-const Enmap = require('enmap');
+// Enmap - server side settings
+const Enmap = require("enmap");
 client.settings = new Enmap({
-    name: "settings",
-    fetchAll: true,
-    autoFetch: true,
-    cloneLevel: 'deep',
-    autoEnsure: {
-        welcome: false,
-        welcomeUserCheck: false,
-        goodbye: false,
-        messageLogs: false,
-        messageLogsBlacklistChannel: [],
-        messageLogsBlacklistRoles: [],
-        memberUpdateLogs: false,
-        invitesLogs: false,
-        schedulesLogs: false,
-        banKickLogs: false,
-        welcomeMessage: "**Welcome to the server!** \nHope you enjoy your stay! \nThe bot works with only slash commands.\n(nsfw only in nsfw channels)",
-        enableNSFW: false,
-        welcomeRoles: [],
-        freeRoles: [],
-        moderationChannel: "",
-        enableRandomReactions: false,
-        randomReactionChannelBlacklist: [],
-        singleChannelMessageLogger: [],
-        redditFeed: false,
-        redditFeedSub1: "",
-        lastRedditFeedPost1: "",
-        redditFeedChannel1: "",
-        redditFeedSub2: "",
-        lastRedditFeedPost2: "",
-        redditFeedChannel2: "",
-        redditFeedSub3: "",
-        lastRedditFeedPost3: "",
-        redditFeedChannel3: "",
-    }
+	name: "settings",
+	fetchAll: true,
+	autoFetch: true,
+	cloneLevel: "deep",
+	autoEnsure: {
+		welcome: false,
+		welcomeUserCheck: false,
+		goodbye: false,
+		messageLogs: false,
+		messageLogsBlacklistChannel: [],
+		messageLogsBlacklistRoles: [],
+		memberUpdateLogs: false,
+		invitesLogs: false,
+		schedulesLogs: false,
+		banKickLogs: false,
+		welcomeMessage: "**Welcome to the server!** \nHope you enjoy your stay! \nThe bot works with only slash commands.\n(nsfw only in nsfw channels)",
+		enableNSFW: false,
+		welcomeRoles: [],
+		freeRoles: [],
+		moderationChannel: "",
+		enableRandomReactions: false,
+		randomReactionChannelBlacklist: [],
+		singleChannelMessageLogger: [],
+		redditFeed: false,
+		redditFeedSub1: "",
+		lastRedditFeedPost1: "",
+		redditFeedChannel1: "",
+		redditFeedSub2: "",
+		lastRedditFeedPost2: "",
+		redditFeedChannel2: "",
+		redditFeedSub3: "",
+		lastRedditFeedPost3: "",
+		redditFeedChannel3: ""
+	}
 });
 
-let commandFuck = []
-//command file reader
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-	const command_files = require(`./commands/${file}`);
-	client.commands.set(command_files.data.name, command_files);
-    commandFuck.push(command_files)
+// Command file reader
+let commandFolders = fs.readdirSync("./commands");
+for (const folder of commandFolders) {
+	fs.readdir(`./commands/${folder}`, (err, files) => {
+		if (err) {throw err}
+		for (const file of files) {
+			if (!file.endsWith(".js")) {continue}
+			const command = require(`./commands/${folder}/${file}`);
+			client.commands.set(command.data.name, command);
+		}
+	});
 }
 
-//event handler
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-const guildInvites = new Map()
-const vanityInvites = new Map()
-for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
-    else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
+// Event handler
+const guildInvites = new Map();
+const vanityInvites = new Map();
+let eventFolders = fs.readdirSync("./events");
+for (const folder of eventFolders) {
+	fs.readdir(`./events/${folder}`, (err, files) => {
+		if (err) {throw err}
+		for (const file of files) {
+			if (!file.endsWith(".js")) {continue}
+			const event = require(`./events/${folder}/${file}`);
+			if (event.once) {client.once(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
+			else {client.on(event.name, (...args) => event.execute(...args, client, guildInvites, vanityInvites))}
+		}
+	});
 }
-*/
 
 // Bot token
 require("dotenv").config();

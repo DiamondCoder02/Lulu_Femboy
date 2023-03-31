@@ -59,14 +59,14 @@ module.exports = {
 			});
 		} else if (interaction.options.getSubcommand() === "numbers") {
 			const game_mode = interaction.options.getString("game_mode");
-			var min = interaction.options.getInteger("min") || 1;
-			var max = interaction.options.getInteger("max") || 100;
-			var tries = interaction.options.getInteger("tries") || 10;
+			let min = interaction.options.getInteger("min") || 1;
+			let max = interaction.options.getInteger("max") || 100;
+			let tries = interaction.options.getInteger("tries") || 10;
 			const embed = new EmbedBuilder()
 				.setTitle("Guess the number!")
 				.setColor("#00FF00");
 			if (game_mode === "bot") {
-				var number = Math.floor(Math.random() * (max - min + 1)) + min;
+				let number = Math.floor(Math.random() * (max - min + 1)) + min;
 				let highLow = "???";
 				const start = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("start").setLabel("Start").setStyle(ButtonStyle.Primary));
 				const end = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel("End").setStyle(ButtonStyle.Link).setURL("https://discord.gg/DcQS9mNEUh"));
@@ -106,7 +106,7 @@ module.exports = {
 					new ButtonBuilder().setCustomId("equal").setLabel("Guessed it").setStyle(ButtonStyle.Primary)
 				);
 				const end = new ActionRowBuilder().addComponents(new ButtonBuilder().setLabel("End").setStyle(ButtonStyle.Link).setURL("https://discord.gg/DcQS9mNEUh"));
-				var guessingNum = Math.floor(Math.random() * (max - min + 1)) + min;
+				let guessingNum = Math.floor(Math.random() * (max - min + 1)) + min;
 				embed.setDescription("I'm thinking of the number "+guessingNum+"!\nIs your number higher or lower? \n(I have "+tries+" tries left)");
 				interaction.reply({ embeds: [embed], components: [buttons] });
 				const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id};
@@ -138,7 +138,7 @@ module.exports = {
 			else if (interaction.options.getString("who_start") === "first") { turn = 1, bot = 0 }
 			else { turn = Math.floor(Math.random() * 2), bot = Math.abs(turn-1) }
 			if (turn == 0){
-				var random = Math.floor(Math.random() * 9);
+				let random = Math.floor(Math.random() * 9);
 				while (base[random] != 2) { random = Math.floor(Math.random() * 9) }
 				base[random] = 1;
 			}
@@ -157,7 +157,7 @@ module.exports = {
 					} else if (stalemateQ()){ return "fuck" }
 				}
 				function winnerQ(p1, p2, p3) { winner=base[p1] ; return (base[p1] != 2) && (base[p1] == base[p2]) && (base[p2] == base[p3]) }
-				function stalemateQ(){ for (var i=0; i<9; i++) { if (base[i] == 2) {return false} } return true}
+				function stalemateQ(){ for (let i=0; i<9; i++) { if (base[i] == 2) {return false} } return true}
 				if (turn == 1) {
 					base[Number(i.customId)] = 1;
 					endGame();

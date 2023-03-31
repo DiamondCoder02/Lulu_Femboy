@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require("discord.js"), fs = require("fs");
 let eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js")), eventArray = eventFiles.map(x => {return x.replace(".js", "\n")});
 let commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js")), comArray = commandFiles.map(x => {return x.replace(".js", "\n")});
-const package = require("../package.json");
+const package = require("../../package.json");
 const os = require("os");
 module.exports = {
 	cooldown: 60,

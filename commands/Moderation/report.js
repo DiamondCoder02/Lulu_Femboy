@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 module.exports = {
 	cooldown: 60,
 	guildOnly: true,
@@ -72,7 +72,6 @@ module.exports = {
 					m.react("<:red_cross:1008725354296389723>");
 					await interaction.reply({content: "Report has been sent to bot owner", ephemeral: true});
 				} catch {
-					console.log("Unable to find a channel to send the report to.");
 					await interaction.reply({content: "No bot owner found, unable to report anything", ephemeral: true});
 				}
 			}

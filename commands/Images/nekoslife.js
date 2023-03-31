@@ -57,7 +57,7 @@ module.exports = {
 			.addNumberOption(option => option.setName("repeat").setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
 		),
 	async execute(interaction, client) {
-		if (interaction.options.getNumber("repeat")) { var amount = Number(interaction.options.getNumber("repeat")) } else {var amount = 1;}
+		if (interaction.options.getNumber("repeat")) { var amount = Number(interaction.options.getNumber("repeat")) } else {var amount = 1}
 		for (let a = 0; a < amount; a++) {
 			if (interaction.options.getString("sfw_w")) { c = interaction.options.getString("sfw_w")}
 			if (interaction.options.getString("sfw_o")) { c = interaction.options.getString("sfw_o")}

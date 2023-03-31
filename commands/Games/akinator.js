@@ -21,20 +21,18 @@ module.exports = {
 		try { const la = require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
 		catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .")}
 
-		// const lang = "en"; //The Language of the Game
-		// const childMode = false; //Whether to use Akinator's Child Mode
-		// const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
-		// const useButtons = true; //Whether to use Discord's Buttons
-		// const embedColor = "#1F1E33"; //The Color of the Message Embeds
+		// Const lang = "en"; //The Language of the Game
+		// Const childMode = false; //Whether to use Akinator's Child Mode
+		// Const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
+		// Const useButtons = true; //Whether to use Discord's Buttons
+		// Const embedColor = "#1F1E33"; //The Color of the Message Embeds
 
-		try {
-			akinator(interaction, {
-				embedColor: "#00FF00",
-				language: lang,
-				childMode: childMode,
-				gameType: gameType,
-				useButtons: useButtons
-			});
-		} catch (error) { console.log("Akinator had a stroke: "+error) }
+		akinator(interaction, {
+			embedColor: "#00FF00",
+			language: lang,
+			childMode: childMode,
+			gameType: gameType,
+			useButtons: useButtons
+		});
 	}
 };
