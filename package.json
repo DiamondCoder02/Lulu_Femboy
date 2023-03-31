@@ -1,22 +1,22 @@
 {
-    "name": "femboy_owo",
+    "name": "lulu_femboy",
     "version": "0.1.0_twins",
     "description": "Sfw Femboy Bot",
     "main": "index.js",
     "scripts": {
-        "start": "index.js",
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DiamondPRO02/Femboi_OwO.git"
+        "url": "git+https://github.com/DiamondPRO02/Lulu_Femboy.git"
     },
     "author": "DiamondCoder",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/DiamondPRO02/Femboy_OwO/issues"
+        "url": "https://github.com/DiamondPRO02/Lulu_Femboy/issues"
     },
-    "homepage": "https://github.com/DiamondPRO02/Femboy_OwO#readme",
+    "homepage": "https://github.com/DiamondPRO02/Lulu_Femboy#readme",
     "dependencies": {
         "better-logging": "^5.0.0",
         "booru": "^2.6.3",
