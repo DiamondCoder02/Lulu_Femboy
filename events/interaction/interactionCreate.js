@@ -3,14 +3,14 @@ const cooldowns = new Collection();
 require("dotenv").config(); let b_o_Id = process.env.botOwnerId; let debug_level = process.env.debug_level;
 module.exports = {
 	name: "interactionCreate",
-	async execute(interaction, client, guildInvites) {
+	async execute(interaction, client) {
 		// Console.log(interaction)
 		try {
 			const i = interaction;
 			if (i.type === InteractionType.ApplicationCommand) {
 				const command = client.commands.get(interaction.commandName);
 				if (!command) {return}
-				if (command.guildOnly && interaction.guildId === null) {console.log(`[${new Date().toLocaleString("hu-HU")}] `+"Execute in DMs, why: " + i.commandName); return interaction.reply("(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.")}
+				if (command.guildOnly && interaction.guildId === null) {return interaction.reply("(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.")}
 				if (interaction.user.id === b_o_Id) {} else {
 					// Cooldown
 					if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection())}
@@ -22,7 +22,7 @@ module.exports = {
 						if (now < expirationTime) {
 							const timeLeft = (expirationTime - now) / 1000;
 							console.log(`[${new Date().toLocaleString("hu-HU")}] `+"Cooldown time left, maybe spam?");
-							return interaction.reply({content: "Cooldown time left in seconds, before you can use the command again: `"+timeLeft+"`", ephemeral: true});
+							return interaction.reply({ content: "Cooldown time left in seconds, before you can use the command again: `"+timeLeft+"`", ephemeral: true });
 						}
 					}
 					timestamps.set(interaction.user.id, now);
@@ -31,7 +31,7 @@ module.exports = {
 					if (command.guildOnly) {
 						if (command.permissions) {
 							if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) { r=true } else { r=false }
-							if (!r || interaction.channel.type === ChannelType.DM) {console.log(`[${new Date().toLocaleString("hu-HU")}] `+"Not enough permission, what was the plan?"); return interaction.reply({content: "You do not have the required permissions to execute this command. => `"+command.permissions+"`", ephemeral: true})}
+							if (!r || interaction.channel.type === ChannelType.DM) {console.log(`[${new Date().toLocaleString("hu-HU")}] `+"Not enough permission, what was the plan?"); return interaction.reply({ content: "You do not have the required permissions to execute this command. => `"+command.permissions+"`", ephemeral: true })}
 						}
 					}
 				}
@@ -40,8 +40,8 @@ module.exports = {
 					await command.execute(interaction, client);
 				} catch (error) {
 					console.error(error);
-					try {await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true})}
-					catch {await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true})}
+					try {await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true })}
+					catch {await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true })}
 					return;
 				}
 			}

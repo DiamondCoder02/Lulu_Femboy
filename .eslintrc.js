@@ -38,6 +38,6 @@ module.exports = {
 		"quotes": [ "error", "double" ],
 		"semi": [ "error", "always", { "omitLastInOneLineBlock": true }],
 		"spaced-comment": [ "error", "always" ],
-		"space-in-parens": [ "error", "never" ],
+		"space-in-parens": [ "error", "never" ]
 	}
 };

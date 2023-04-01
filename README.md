@@ -50,3 +50,7 @@ Google form for bug and feature report if you prefer it: [link here](https://for
 - [Waifu.pics - waifu_pics](https://waifu.pics/)
 - Also big thanks for Github Copilot. :3
 - [Discord Dashboard](https://www.npmjs.com/package/discord-dashboard), and [site](https://learnit.assistantscenter.com/)
+
+## Notes
+
+- .env only gives back string.

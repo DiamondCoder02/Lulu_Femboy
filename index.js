@@ -1,5 +1,28 @@
 // eslint-disable-next-line no-console
 console.clear();
+const chalk = require("chalk"), today = new Date(), yyyy = today.getFullYear();
+let mm = today.getMonth() + 1, dd = today.getDate(), hh = today.getHours(), min = today.getMinutes(), sec = today.getSeconds(); // Months start at 0!
+if (dd < 10) {dd = "0" + dd} if (mm < 10) {mm = "0" + mm} if (hh < 10) {hh = "0" + hh} if (min < 10) {min = "0" + min} if (sec < 10) {sec = "0" + sec}
+const formattedToday = yyyy+"-"+mm+"-"+dd+"_"+hh+"-"+min+"-"+sec;
+
+require("better-logging")(console, {
+	format: ctx => `${ctx.date}${ctx.time} ${ctx.type} ${ctx.msg}`,
+	saveToFile: `./logs/${formattedToday}.log`,
+	color: {
+		base: chalk.greenBright,
+		type: { error: chalk.bgRed, warn: chalk.red, info: chalk.yellow, log: chalk.gray, debug: chalk.redBright }
+	}
+});
+// eslint-disable-next-line no-console
+console.logLevel = 4;
+/* All the log levels:
+debug: 4 - log: 3 - info: 2 - warn: 1 - error: 0 - line: 1 - turn off all logging: -1
+
+default: 3
+console.log("foo"); // Logged to console & saved in 1594897100267.log
+console.debug("foo"); // Won't log to console, but will be saved in 1594897100267.log
+*/
+
 const fs = require("fs"), { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
 const client = new Client({
 	ws: { properties: { browser: "Discord Android" } },
@@ -35,7 +58,6 @@ const client = new Client({
 	]
 });
 
-client.commands = new Collection();
 // Enmap - server side settings
 const Enmap = require("enmap");
 client.settings = new Enmap({
@@ -76,7 +98,9 @@ client.settings = new Enmap({
 });
 
 // Command file reader
+client.commands = new Collection();
 let commandFolders = fs.readdirSync("./commands");
+let forDeploy = [];
 for (const folder of commandFolders) {
 	fs.readdir(`./commands/${folder}`, (err, files) => {
 		if (err) {throw err}
@@ -84,6 +108,7 @@ for (const folder of commandFolders) {
 			if (!file.endsWith(".js")) {continue}
 			const command = require(`./commands/${folder}/${file}`);
 			client.commands.set(command.data.name, command);
+			forDeploy.push(command.data.toJSON());
 		}
 	});
 }
@@ -107,20 +132,23 @@ for (const folder of eventFolders) {
 // Bot token
 require("dotenv").config();
 let token = process.env.token;
-let debug_level = process.env.debug_level;
-client.login(token);
+let deploying = process.env.deployAskOnStart;
+if (deploying == "true") {
+	const deployCommands = require("./deploy-commands.js");
+	deployCommands.execute(client, token, forDeploy);
+} else {
+	client.login(token);
+}
 
-/*
-//error handler
-console.log(client)
+// Error handler
+let debug_level = process.env.debug_level;
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
-process.on('unhandledRejection', error => console.error('-----\nUncaught Rejection:\n-----\n', error));
-process.on('uncaughtException', error => console.error('-----\nUncaught Exception:\n-----\n', error));
+process.on("unhandledRejection", error => console.error("-----\nUncaught Rejection:\n-----\n", error));
+process.on("uncaughtException", error => console.error("-----\nUncaught Exception:\n-----\n", error));
 if (debug_level >= 3) {
-    client.on("debug", (e) => console.log(e))
+	client.on("debug", (e) => console.log(e));
 }
-*/
 
 /* A
 let redditFeedSub = []
