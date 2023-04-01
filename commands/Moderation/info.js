@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType, ChannelType } = require("discord.js");
+const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require("discord.js");
 module.exports = {
 	guildOnly: true,
 	data: new SlashCommandBuilder()
@@ -20,7 +20,7 @@ module.exports = {
 		const page = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("delete").setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji("✖️"));
 		const filter = i => i.user.id === interaction.user.id;
 		const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
-		collector.on("collect", async i => { await interaction.deleteReply(); collector.stop()});
+		collector.on("collect", async () => { await interaction.deleteReply(); collector.stop()});
 		if (interaction.options.getString("search") === "user") {
 			if (!interaction.options.getUser("target")) {return await interaction.reply("Which user do you want info about?")}
 			const user = interaction.options.getUser("target");
@@ -35,36 +35,36 @@ module.exports = {
 				.setTimestamp()
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
 				.addFields(
-					{name: "Nickname:", value: userMember.nickname ? userMember.nickname : "-", inline: true},
-					{name: "Tag:", value: user.tag, inline: true},
-					{name: "\u200B", value: "\u200B", inline: true},
-					{name: "Bot?", value: (user.bot ? "True" : "False"), inline: true},
-					{name: "UserID:", value: String(user.id), inline: true},
-					{name: "\u200B", value: "\u200B", inline: true}
+					{ name: "Nickname:", value: userMember.nickname ? userMember.nickname : "-", inline: true },
+					{ name: "Tag:", value: user.tag, inline: true },
+					{ name: "\u200B", value: "\u200B", inline: true },
+					{ name: "Bot?", value: (user.bot ? "True" : "False"), inline: true },
+					{ name: "UserID:", value: String(user.id), inline: true },
+					{ name: "\u200B", value: "\u200B", inline: true }
 				)
 				.addFields(
-					{name: "User created timestamp", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:F>`, inline: true},
-					{name: "User created", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline: true},
-					{name: "\u200B", value: "\u200B", inline: true},
-					{name: "User joined timestamp", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:F>`, inline: true},
-					{name: "User joined", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:R>`, inline: true}
+					{ name: "User created timestamp", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:F>`, inline: true },
+					{ name: "User created", value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline: true },
+					{ name: "\u200B", value: "\u200B", inline: true },
+					{ name: "User joined timestamp", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:F>`, inline: true },
+					{ name: "User joined", value: `<t:${Math.floor(userMember.joinedTimestamp / 1000)}:R>`, inline: true }
 				);
-			await interaction.reply({embeds: [embed], components: [page]});
+			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "text") {
 			const embed = new EmbedBuilder()
 				.setColor("#FFFF00")
 				.setTitle("Info about the text channel:")
 				.setDescription("**#"+interaction.channel.name+"**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
 				.addFields(
-					{name: "Position:", value: String(interaction.channel.rawPosition+1), inline: true},
-					{name: "NSFW?", value: (interaction.channel.nsfw ? "True" : "False"), inline: true},
-					{name: "ID:", value: interaction.channel.id, inline: true},
-					{name: "Type:", value: String(interaction.channel.type), inline: true},
-					{name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" +" seconds", inline: true}
+					{ name: "Position:", value: String(interaction.channel.rawPosition+1), inline: true },
+					{ name: "NSFW?", value: (interaction.channel.nsfw ? "True" : "False"), inline: true },
+					{ name: "ID:", value: interaction.channel.id, inline: true },
+					{ name: "Type:", value: String(interaction.channel.type), inline: true },
+					{ name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" +" seconds", inline: true }
 				)
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
 				.setTimestamp();
-			await interaction.reply({embeds: [embed], components: [page]});
+			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "voice") {
 			if (!interaction.member.voice.channel) {return interaction.reply("Please connect to a voice channel!")}
 			// Console.log(interaction.member.voice.channel)
@@ -73,17 +73,17 @@ module.exports = {
 				.setTitle("Info about the voice channel:")
 				.setDescription("**"+interaction.member.voice.channel.name+"**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
 				.addFields(
-					{name: "Position:", value: String(interaction.member.voice.channel.rawPosition+1), inline: true},
-					{name: "ID:", value: String(interaction.member.voice.channel.id), inline: true},
-					{name: "Type:", value: String(interaction.member.voice.channel.type), inline: true},
-					{name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate/100)+"kbps", inline: true},
-					{name: "UserLimit:", value: String(interaction.member.voice.channel.userLimit) + " members", inline: true},
-					{name: "rtcRegion:", value: interaction.member.voice.channel.rtcRegion ? interaction.member.voice.channel.rtcRegion : "Automatic", inline: true},
-					{name: "VideoQuality:", value: interaction.member.voice.channel.videoQualityMode ? (interaction.member.voice.channel.videoQualityMode===2 ? "720p": "Automatic") : "Automatic", inline: true}
+					{ name: "Position:", value: String(interaction.member.voice.channel.rawPosition+1), inline: true },
+					{ name: "ID:", value: String(interaction.member.voice.channel.id), inline: true },
+					{ name: "Type:", value: String(interaction.member.voice.channel.type), inline: true },
+					{ name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate/100)+"kbps", inline: true },
+					{ name: "UserLimit:", value: String(interaction.member.voice.channel.userLimit) + " members", inline: true },
+					{ name: "rtcRegion:", value: interaction.member.voice.channel.rtcRegion ? interaction.member.voice.channel.rtcRegion : "Automatic", inline: true },
+					{ name: "VideoQuality:", value: interaction.member.voice.channel.videoQualityMode ? (interaction.member.voice.channel.videoQualityMode===2 ? "720p": "Automatic") : "Automatic", inline: true }
 				)
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
 				.setTimestamp();
-			await interaction.reply({embeds: [embed], components: [page]});
+			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "server") {
 			const serverRoles = interaction.guild.roles.cache.map((role) => role.toString()).join(", ");
 			const botUser = client.user;
@@ -123,7 +123,7 @@ module.exports = {
 					{ name: "Is guild verified?", value: (interaction.guild.verified ? "True" : "False"), inline: true },
 					{ name: "Is guild partnered?", value: (interaction.guild.partnered ? "True" : "False"), inline: true }
 				);
-			await interaction.reply({embeds: [embed], components: [page]});
+			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "cheat") {
 			const embedtest1 = new EmbedBuilder()
 				.setColor("#FFFF00")
@@ -205,7 +205,7 @@ module.exports = {
 				embedtest2.addFields({ name: "Emojis name:", value: String(serverEmojis) });
 			}
 			// Note: embedtest2 cannot have more fields
-			await interaction.reply({content: "Here's all the debug info", embeds: [ embedtest1, embedtest2 ], components: [page]});
+			await interaction.reply({ content: "Here's all the debug info", embeds: [ embedtest1, embedtest2 ], components: [page] });
 		} else if (interaction.options.getString("search") === "sticker") {
 			console.log(interaction.guild);
 			const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(", ");

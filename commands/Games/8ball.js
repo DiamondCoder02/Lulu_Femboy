@@ -38,6 +38,6 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setColor("#00FF00")
 			.setDescription(`**${string}**` +"\n8ball says: " + item);
-		await interaction.reply({embeds: [embed]});
+		await interaction.reply({ embeds: [embed] });
 	}
 };

@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-console
+/* eslint-disable no-console */
 console.clear();
 const chalk = require("chalk"), today = new Date(), yyyy = today.getFullYear();
 let mm = today.getMonth() + 1, dd = today.getDate(), hh = today.getHours(), min = today.getMinutes(), sec = today.getSeconds(); // Months start at 0!
@@ -13,7 +13,6 @@ require("better-logging")(console, {
 		type: { error: chalk.bgRed, warn: chalk.red, info: chalk.yellow, log: chalk.gray, debug: chalk.redBright }
 	}
 });
-// eslint-disable-next-line no-console
 console.logLevel = 4;
 /* All the log levels:
 debug: 4 - log: 3 - info: 2 - warn: 1 - error: 0 - line: 1 - turn off all logging: -1
@@ -144,10 +143,10 @@ if (deploying == "true") {
 let debug_level = process.env.debug_level;
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
-process.on("unhandledRejection", error => console.error("-----\nUncaught Rejection:\n-----\n", error));
-process.on("uncaughtException", error => console.error("-----\nUncaught Exception:\n-----\n", error));
+process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error));
+process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error));
 if (debug_level >= 3) {
-	client.on("debug", (e) => console.log(e));
+	client.on("debug", (e) => console.debug(e));
 }
 
 /* A

@@ -9,10 +9,10 @@ module.exports = {
 		.addIntegerOption(option => option.setName("max").setDescription("If you want to set a maximum value (default: 20)").setMinValue(1))
 		.addIntegerOption(option => option.setName("amount").setDescription("If you want to set the amount of dice").setMinValue(1).setMaxValue(100)),
 	async execute(interaction) {
-		let allResults = [];
-		if (interaction.options.getInteger("min") !== null) { min = interaction.options.getInteger("min") } else { min = 1 }
-		if (interaction.options.getInteger("max") !== null) { max = interaction.options.getInteger("max") } else { max = 20 }
-		if (interaction.options.getInteger("amount") !== null) { amount = interaction.options.getInteger("amount") } else { amount = 1 }
+		let allResults = [], min = 1, max = 20, amount = 1;
+		if (interaction.options.getInteger("min") !== null) { min = interaction.options.getInteger("min") }
+		if (interaction.options.getInteger("max") !== null) { max = interaction.options.getInteger("max") }
+		if (interaction.options.getInteger("amount") !== null) { amount = interaction.options.getInteger("amount") }
 
 		for (let a = 0; a < amount; a++) {
 			const getRandomNumber = (minM, maxM) => {
@@ -26,6 +26,6 @@ module.exports = {
 			.setTitle(`${amount} times got rolled with min:${min} - max:${max}`)
 			.setDescription(`Numbers: ${String(allResults.join(", "))} \nTotal: ${String(allResults.reduce((a, b) => a + b, 0))}`);
 
-		await interaction.reply({embeds: [embed]});
+		await interaction.reply({ embeds: [embed] });
 	}
 };

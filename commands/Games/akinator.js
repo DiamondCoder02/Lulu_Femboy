@@ -13,12 +13,13 @@ module.exports = {
 			))
 		.addBooleanOption(option => option.setName("button").setDescription("If you want a button (Default: true)")),
 	async execute(interaction) {
-		if (interaction.options.getBoolean("button") === false) {useButtons = false} else {useButtons = true}
-		if (interaction.options.getBoolean("child_mode") === false) {childMode = false} else {childMode = true}
-		if (interaction.options.getString("lang")) {lang = interaction.options.getString("lang")} else {lang = "en"}
-		if (interaction.options.getString("game_type")) {gameType = interaction.options.getString("game_type")} else {gameType = "character"}
+		let lang = "en", childMode = true, gameType = "character", useButtons = true;
+		if (interaction.options.getBoolean("button") === false) {useButtons = false}
+		if (interaction.options.getBoolean("child_mode") === false) {childMode = false}
+		if (interaction.options.getString("lang")) {lang = interaction.options.getString("lang")}
+		if (interaction.options.getString("game_type")) {gameType = interaction.options.getString("game_type")}
 
-		try { const la = require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
+		try { require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
 		catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .")}
 
 		// Const lang = "en"; //The Language of the Game

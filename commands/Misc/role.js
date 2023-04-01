@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription("Gives roles (just send the message, then click the buttons)"),
 	async execute(interaction, client) {
 		let ro = client.settings.get(interaction.guild.id, "freeRoles");
-		if (Array.isArray(ro) && ro.length >0) { } else { return interaction.reply("Guild configuration item \"freeRoles\" has not been set.") }
+		if (Array.isArray(ro) && ro.length >0) { /* Empty */ } else { return interaction.reply("Guild configuration item \"freeRoles\" has not been set.") }
 		if (ro.includes("")) { return interaction.reply("Guild configuration item \"freeRoles\" has not been set.") }
 		let m = [];
 		const role_embed = new EmbedBuilder()
@@ -33,6 +33,7 @@ module.exports = {
 		case 3: await interaction.editReply({ embeds: [role_embed], components: [ but[0], but[1], but[2] ] }); break;
 		case 4: await interaction.editReply({ embeds: [role_embed], components: [ but[0], but[1], but[2], but[3] ] }); break;
 		case 5: await interaction.editReply({ embeds: [role_embed], components: [ but[0], but[1], but[2], but[3], but[4] ] }); break;
+		// eslint-disable-next-line no-console
 		default: console.log("God help you."); await interaction.editReply({ content: "Sorry, cannot have more than 25 roles", ephemeral: true }); break;
 		}
 		const filter = i => i.user.id === interaction.user.id;
@@ -46,7 +47,7 @@ module.exports = {
 				interaction.member.roles.add(role);
 				await interaction.followUp({ content: `${role} was added to you`, ephemeral: true });
 			}
-			i.update({components: interaction.components});
+			i.update({ components: interaction.components });
 		});
 		// Collector.on('end', collected => console.log(`Collected ${collected.size} items`));
 	}

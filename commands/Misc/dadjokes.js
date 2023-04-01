@@ -11,9 +11,9 @@ module.exports = {
 		let data = await response.text();
 		const img = JSON.parse(data);
 		const embed = new EmbedBuilder()
-			.setFooter({text: "Dad(dy) jokes < icanhazdadjoke.com >"})
+			.setFooter({ text: "Dad(dy) jokes < icanhazdadjoke.com >" })
 			.setColor("#00FF00")
 			.setDescription(img.attachments[0].text);
-		await interaction.reply({ embeds: [embed]});
+		await interaction.reply({ embeds: [embed] });
 	}
 };

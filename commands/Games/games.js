@@ -39,22 +39,24 @@ module.exports = {
 				);
 			await interaction.reply({ embeds: [rpc], components: [row] });
 			let bN = Math.floor(Math.random() * 3) + 1;
+			let bNw;
 			switch (bN) {
 			case 1: bNw = "rock"; break;
 			case 2: bNw = "paper"; break;
 			case 3: bNw = "scissors"; break;
 			}
 			const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id};
-			const collector = interaction.channel.createMessageComponentCollector({filter, time: 10000 });
+			const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
 			collector.on("collect", async i => {
+				let pA;
 				switch (i.values[0]) {
 				case "rock": pA=1; break;
 				case "paper": pA=2; break;
 				case "scissors": pA=3; break;
 				}
-				if (pA === bN) { rpc.setDescription("We both chose \`"+i.values[0]+ "\`\nIt's **a tie**"); await interaction.followUp({embeds: [rpc]}) }
-				if ((pA===1&&bN===2) || (pA===2&&bN===3) || (pA===3&&bN===1)) { rpc.setDescription("You chose \`"+i.values[0]+"\` and I chose \`"+bNw + "\`\n**I win**"); await interaction.followUp({embeds: [rpc]}) }
-				if ((pA===1&&bN===3) || (pA===2&&bN===1) || (pA===3&&bN===2)) { rpc.setDescription("You chose \`"+i.values[0]+"\` and I chose \`"+bNw + "\`\n**You win**"); await interaction.followUp({embeds: [rpc]}) }
+				if (pA === bN) { rpc.setDescription("We both chose `"+i.values[0]+ "`\nIt's **a tie**"); await interaction.followUp({ embeds: [rpc] }) }
+				if ((pA===1&&bN===2) || (pA===2&&bN===3) || (pA===3&&bN===1)) { rpc.setDescription("You chose `"+i.values[0]+"` and I chose `"+bNw + "`\n**I win**"); await interaction.followUp({ embeds: [rpc] }) }
+				if ((pA===1&&bN===3) || (pA===2&&bN===1) || (pA===3&&bN===2)) { rpc.setDescription("You chose `"+i.values[0]+"` and I chose `"+bNw + "`\n**You win**"); await interaction.followUp({ embeds: [rpc] }) }
 				collector.stop();
 			});
 		} else if (interaction.options.getSubcommand() === "numbers") {
@@ -73,13 +75,13 @@ module.exports = {
 				embed.setDescription("I'm thinking of a number between "+min+" and "+max+". Here are 10 random numbers. Take a guess. \n(You have "+tries+" tries to guess it!)");
 				await interaction.reply({ embeds: [embed], components: [start] });
 				const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id};
-				const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
+				const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 				let numbers = [];
 				collector.on("collect", async i => {
 					if (number >= numbers[Number(i.customId)]) { highLow = "higher"; tries--; min = numbers[Number(i.customId)] }
 					if (number <= numbers[Number(i.customId)]) { highLow = "lower"; tries--; max = numbers[Number(i.customId)] }
-					if (numbers[Number(i.customId)] === number) { embed.setDescription(`You **won**! The number was: ${number}.`); await interaction.editReply({embeds: [embed], components: [end]}); collector.stop(); return}
-					else if (tries===0) { embed.setDescription(`You **lost**! You couldn't guess the number ${number}.`); await interaction.editReply({embeds: [embed], components: [end]}); collector.stop(); return }
+					if (numbers[Number(i.customId)] === number) { embed.setDescription(`You **won**! The number was: ${number}.`); await interaction.editReply({ embeds: [embed], components: [end] }); collector.stop(); return}
+					else if (tries===0) { embed.setDescription(`You **lost**! You couldn't guess the number ${number}.`); await interaction.editReply({ embeds: [embed], components: [end] }); collector.stop(); return }
 					numbers = [];
 					for (let i = 0; i < 10; i++) { numbers.push(Math.floor(Math.random() * (max - min + 1)) + min) }
 					const buttons = new ActionRowBuilder().addComponents(
@@ -97,7 +99,7 @@ module.exports = {
 						new ButtonBuilder().setCustomId("9").setLabel(`${String(numbers[9])}`).setStyle(ButtonStyle.Primary)
 					);
 					embed.setDescription(`The number was **${highLow}**\nThe number is between `+min+" and "+max+". Here are 10 random numbers. Take a guess. \n(You have "+tries+" tries to guess it!)");
-					await interaction.editReply({embeds: [embed], components: [ buttons, buttons2 ] });
+					await interaction.editReply({ embeds: [embed], components: [ buttons, buttons2 ] });
 				});
 			} else {
 				const buttons = new ActionRowBuilder().addComponents(
@@ -110,7 +112,7 @@ module.exports = {
 				embed.setDescription("I'm thinking of the number "+guessingNum+"!\nIs your number higher or lower? \n(I have "+tries+" tries left)");
 				interaction.reply({ embeds: [embed], components: [buttons] });
 				const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id};
-				const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
+				const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 				collector.on("collect", async i => {
 					if (i.customId === "high") {
 						min = guessingNum;
@@ -123,9 +125,9 @@ module.exports = {
 						tries--;
 					}
 					embed.setDescription("I'm thinking of the number " + guessingNum + "!\nIs your number higher or lower? \n(I have "+tries+" tries left)");
-					await interaction.editReply({embeds: [embed]});
-					if (i.customId === "equal") { embed.setDescription(`I **won**! The number was: ${guessingNum}.`); await interaction.editReply({embeds: [embed], components: [end]}); collector.stop() }
-					else if (tries===0) { embed.setDescription("I **lost**! I couldn't guess the number."); await interaction.editReply({embeds: [embed], components: [end]}); collector.stop() }
+					await interaction.editReply({ embeds: [embed] });
+					if (i.customId === "equal") { embed.setDescription(`I **won**! The number was: ${guessingNum}.`); await interaction.editReply({ embeds: [embed], components: [end] }); collector.stop() }
+					else if (tries===0) { embed.setDescription("I **lost**! I couldn't guess the number."); await interaction.editReply({ embeds: [embed], components: [end] }); collector.stop() }
 				});
 			}
 		} else if (interaction.options.getSubcommand() === "ttt") {
@@ -147,7 +149,7 @@ module.exports = {
 			tttEmbed.setDescription("Click the button to start the game!");
 			await interaction.reply({ embeds: [tttEmbed], components: [start] });
 			const filter = i => {i.deferUpdate();return i.user.id === interaction.user.id};
-			const collector = interaction.channel.createMessageComponentCollector({filter, time: 60000 });
+			const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 			collector.on("collect", async i => {
 				function game_overQ() {
 					if (winnerQ(0, 1, 2) || winnerQ(3, 4, 5) || winnerQ(6, 7, 8)
@@ -183,9 +185,9 @@ module.exports = {
 					const row2 = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("3").setLabel(base[3]==2 ? "-":(base[3]==1?"X":"O")).setStyle(base[3]==2?ButtonStyle.Success:(base[3]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[3]==2?false:true), new ButtonBuilder().setCustomId("4").setLabel(base[4]==2 ? "-":(base[4]==1?"X":"O")).setStyle(base[4]==2?ButtonStyle.Success:(base[4]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[4]==2?false:true), new ButtonBuilder().setCustomId("5").setLabel(base[5]==2 ? "-":(base[5]==1?"X":"O")).setStyle(base[5]==2?ButtonStyle.Success:(base[5]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[5]==2?false:true));
 					const row3 = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("6").setLabel(base[6]==2 ? "-":(base[6]==1?"X":"O")).setStyle(base[6]==2?ButtonStyle.Success:(base[6]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[6]==2?false:true), new ButtonBuilder().setCustomId("7").setLabel(base[7]==2 ? "-":(base[7]==1?"X":"O")).setStyle(base[7]==2?ButtonStyle.Success:(base[7]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[7]==2?false:true), new ButtonBuilder().setCustomId("8").setLabel(base[8]==2 ? "-":(base[8]==1?"X":"O")).setStyle(base[8]==2?ButtonStyle.Success:(base[8]==1?ButtonStyle.Primary:ButtonStyle.Secondary)).setDisabled(base[8]==2?false:true));
 					tttEmbed.setDescription("Your turn!");
-					if (game_overQ()==="fuck") { tttEmbed.setDescription("Stalemate! \nNo one win!"); await interaction.editReply({embeds: [tttEmbed], components: [end]}); collector.stop(); return }
-					else if (game_overQ()) { tttEmbed.setDescription(`Game has ended! \nThe winner is ${winner?"X":"O"}`) ; await interaction.editReply({embeds: [tttEmbed], components: [end]}); collector.stop(); return }
-					await interaction.editReply({embeds: [tttEmbed], components: [ row1, row2, row3 ] });
+					if (game_overQ()==="fuck") { tttEmbed.setDescription("Stalemate! \nNo one win!"); await interaction.editReply({ embeds: [tttEmbed], components: [end] }); collector.stop(); return }
+					else if (game_overQ()) { tttEmbed.setDescription(`Game has ended! \nThe winner is ${winner?"X":"O"}`) ; await interaction.editReply({ embeds: [tttEmbed], components: [end] }); collector.stop(); return }
+					await interaction.editReply({ embeds: [tttEmbed], components: [ row1, row2, row3 ] });
 				}
 			});
 		}

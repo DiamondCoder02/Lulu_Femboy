@@ -44,36 +44,36 @@ User,
 		const page = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("delete").setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji("✖️"));
 		const filter = i => i.user.id === interaction.user.id;
 		const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
-		collector.on("collect", async i => { await interaction.deleteReply(); collector.stop()});
+		collector.on("collect", async () => { await interaction.deleteReply(); collector.stop()});
 		const version_embed = new EmbedBuilder()
 			.setColor("#FFFF00")
 			.setTitle("Here is some information about the bot and its development:")
 			.setDescription("Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO)")
 			.setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
 			.addFields(
-				{ name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondPRO02/projects/2/views/1)", inline: true},
-				{ name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondPRO02/Femboi_OwO/issues)", inline: true},
-				{ name: "How to use:", value: "[slash commands](https://imgur.com/a/dStRp6Y)"},
-				{ name: "Event listeners:", value: ","+String(eventArray), inline: true},
-				{ name: "Commands:", value: ","+String(comArray), inline: true},
-				{ name: "Bot Stop Password:", value: "||RickRoll :3||"},
-				{ name: "Project name:", value: package.name, inline: true},
-				{ name: "Project version:", value: package.version, inline: true},
-				{ name: "Project author:", value: package.author, inline: true},
-				{ name: "Project license:", value: package.license, inline: true},
-				{ name: "Project main file:", value: package.main, inline: true},
-				{ name: "Project description:", value: package.description},
-				{ name: "Project homepage:", value: package.homepage},
-				{ name: "__npm packages__", value: npmPackages, inline: true},
-				{ name: "__GatewayIntentBits__", value: GaInBi, inline: true},
-				{ name: "__Partials__", value: pars, inline: true},
-				{ name: "Currently joined servers:", value: "\`"+String(guildLength)+"\` guilds"},
-				{ name: "I was called good bot:", value: "\`"+String(goodBad.goodBot)+ "\` time(s)", inline: true},
-				{ name: "I was called bad bat:", value: "\`"+String(goodBad.badBot)+ "\` time(s)", inline: true},
-				{ name: "People asked if:", value: "They can f**k my bot \`"+String(goodBad.canIFuckBot)+ "\` time(s)", inline: true}
+				{ name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondPRO02/projects/2/views/1)", inline: true },
+				{ name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondPRO02/Femboi_OwO/issues)", inline: true },
+				{ name: "How to use:", value: "[slash commands](https://imgur.com/a/dStRp6Y)" },
+				{ name: "Event listeners:", value: ","+String(eventArray), inline: true },
+				{ name: "Commands:", value: ","+String(comArray), inline: true },
+				{ name: "Bot Stop Password:", value: "||RickRoll :3||" },
+				{ name: "Project name:", value: package.name, inline: true },
+				{ name: "Project version:", value: package.version, inline: true },
+				{ name: "Project author:", value: package.author, inline: true },
+				{ name: "Project license:", value: package.license, inline: true },
+				{ name: "Project main file:", value: package.main, inline: true },
+				{ name: "Project description:", value: package.description },
+				{ name: "Project homepage:", value: package.homepage },
+				{ name: "__npm packages__", value: npmPackages, inline: true },
+				{ name: "__GatewayIntentBits__", value: GaInBi, inline: true },
+				{ name: "__Partials__", value: pars, inline: true },
+				{ name: "Currently joined servers:", value: "`"+String(guildLength)+"` guilds" },
+				{ name: "I was called good bot:", value: "`"+String(goodBad.goodBot)+ "` time(s)", inline: true },
+				{ name: "I was called bad bat:", value: "`"+String(goodBad.badBot)+ "` time(s)", inline: true },
+				{ name: "People asked if:", value: "They can f**k my bot `"+String(goodBad.canIFuckBot)+ "` time(s)", inline: true }
 			)
 			.setTimestamp()
-			.setFooter({text: "Last update: 2023.Feb.17."});
+			.setFooter({ text: "Last update: 2023.Feb.17." });
 		let uptime = os.uptime();
 		let days = Math.floor(uptime / (60 * 60 * 24));
 		let hours = Math.floor(uptime / (60 * 60)) - (days * 24);
@@ -97,13 +97,13 @@ User,
 			.setTitle("System info:")
 			.setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
 			.addFields(
-				{ name: "----------System", value: `OS: \`${os.type()}\`\nOS version: \`${os.release()}\`\nOS platform: \`${os.platform}\`\nOS arc: \`${os.arch()}\`\nPC name: \`${os.hostname}\``, inline: true},
-				{ name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage} %\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline: true},
-				{ name: "System Uptime:", value: `\`${uptimeString}\``},
-				{ name: "Bot Uptime:", value: `\`${clientuptime}\``},
-				{ name: "CPU", value: `Model: \`${cpu1.model}\`\nSpeed: \`${cpu1.speed} MHz\`\nCores: \`${cpuCores}\``, inline: true}
+				{ name: "----------System", value: `OS: \`${os.type()}\`\nOS version: \`${os.release()}\`\nOS platform: \`${os.platform}\`\nOS arc: \`${os.arch()}\`\nPC name: \`${os.hostname}\``, inline: true },
+				{ name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage} %\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline: true },
+				{ name: "System Uptime:", value: `\`${uptimeString}\`` },
+				{ name: "Bot Uptime:", value: `\`${clientuptime}\`` },
+				{ name: "CPU", value: `Model: \`${cpu1.model}\`\nSpeed: \`${cpu1.speed} MHz\`\nCores: \`${cpuCores}\``, inline: true }
 			)
 			.setTimestamp();
-		await interaction.reply({embeds: [ version_embed, osEmbed ], components: [page]});
+		await interaction.reply({ embeds: [ version_embed, osEmbed ], components: [page] });
 	}
 };

@@ -55,14 +55,16 @@ module.exports = {
 			.addNumberOption(option => option.setName("repeat").setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
 		),
 	async execute(interaction) {
-		if (interaction.options.getNumber("repeat")) { var amount = Number(interaction.options.getNumber("repeat")) } else {var amount = 1}
+		let amount = 1;
+		if (interaction.options.getNumber("repeat")) { amount = Number(interaction.options.getNumber("repeat")) }
+		const category = interaction.options.getString("category");
 		for (let a = 0; a < amount; a++) {
 			let response = await fetch(`https://api.waifu.pics/sfw/${category}`);
 			let data = await response.text();
 			const img = JSON.parse(data);
 			const embed = new EmbedBuilder()
 				.setImage(img.url)
-				.setFooter({text: `${category} - ${a+1}/${amount}`})
+				.setFooter({ text: `${category} - ${a+1}/${amount}` })
 				.setColor("#A020F0 ");
 			if (interaction.options.getUser("target")) {
 				const user = interaction.options.getUser("target"), from = interaction.user;
@@ -94,11 +96,11 @@ module.exports = {
 				case "handhold": embed.setDescription(`${from} handholded ${user}. How lewd!`); break;
 				default: embed.setDescription(`${from} sends you a nice ${category}, ${user}. :3`); break;
 				}
-				try { await interaction.followUp({ content: user.toString(), embeds: [embed]}) }
-				catch { interaction.reply({ content: user.toString(), embeds: [embed]}) }
+				try { await interaction.followUp({ content: user.toString(), embeds: [embed] }) }
+				catch { interaction.reply({ content: user.toString(), embeds: [embed] }) }
 			} else {
-				try { await interaction.followUp({ embeds: [embed]}) }
-				catch { interaction.reply({ embeds: [embed]}) }
+				try { await interaction.followUp({ embeds: [embed] }) }
+				catch { interaction.reply({ embeds: [embed] }) }
 			}
 			await wait(1000);
 		}
