@@ -54,3 +54,4 @@ Google form for bug and feature report if you prefer it: [link here](https://for
 ## Notes
 
 - .env only gives back string.
+- Drink wine and listen to music, to boost morale, motivational and productivity.

@@ -11,7 +11,7 @@ module.exports = {
 				const command = client.commands.get(interaction.commandName);
 				if (!command) {return}
 				if (command.guildOnly && interaction.guildId === null) {return interaction.reply("(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.")}
-				if (interaction.user.id === b_o_Id) {} else {
+				if (interaction.user.id !== b_o_Id) {
 					// Cooldown
 					if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection())}
 					const now = Date.now();
@@ -21,7 +21,6 @@ module.exports = {
 						const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
 						if (now < expirationTime) {
 							const timeLeft = (expirationTime - now) / 1000;
-							console.log(`[${new Date().toLocaleString("hu-HU")}] `+"Cooldown time left, maybe spam?");
 							return interaction.reply({ content: "Cooldown time left in seconds, before you can use the command again: `"+timeLeft+"`", ephemeral: true });
 						}
 					}
@@ -30,8 +29,9 @@ module.exports = {
 					// Guild permission check
 					if (command.guildOnly) {
 						if (command.permissions) {
-							if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) { r=true } else { r=false }
-							if (!r || interaction.channel.type === ChannelType.DM) {console.log(`[${new Date().toLocaleString("hu-HU")}] `+"Not enough permission, what was the plan?"); return interaction.reply({ content: "You do not have the required permissions to execute this command. => `"+command.permissions+"`", ephemeral: true })}
+							let retard;
+							if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) { retard=true } else { retard=false }
+							if (!retard || interaction.channel.type === ChannelType.DM) { return interaction.reply({ content: "You do not have the required permissions to execute this command. => `"+command.permissions+"`", ephemeral: true })}
 						}
 					}
 				}
@@ -47,19 +47,20 @@ module.exports = {
 			}
 			if (debug_level >= 1) {
 				if (i.guildId === null) {
-					return console.log("["+i.createdAt.toLocaleString("hu-HU") + "] -- ["+ i.user.tag + "] Triggered in DMs:" + i.commandName);
+					return console.log("-- ["+ i.user.tag + "] Triggered in DMs:" + i.commandName);
 				}
 				if (i.type === InteractionType.ApplicationCommand) {
-					return console.log("["+i.createdAt.toLocaleString("hu-HU") + "] -- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name +" triggered: " + i.commandName);
+					return console.log("-- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name +" triggered: " + i.commandName);
 				}
 				if ((i.type === InteractionType.MessageComponent) && debug_level >= 2) {
+					let nameOfCommand;
 					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
 					if (nameOfCommand === "akinator") { return } // Console.log("Bad akinator")
-					return console.log("["+i.createdAt.toLocaleString("hu-HU") + "] -- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
+					return console.log("-- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name + " triggered a button with commandName: "+ nameOfCommand +" => "+ i.customId);
 				}
 				if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
 					console.log(i);
-					return console.log("["+i.createdAt.toLocaleString("hu-HU") + "] -- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name + " triggered a select menu => "+ i.value);
+					return console.log("-- ["+ i.user.tag +"] - "+ i.guild.name +" -> #"+ i.channel.name + " triggered a select menu => "+ i.value);
 				}
 			}
 			if (debug_level >= 1) {

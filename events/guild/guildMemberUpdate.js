@@ -10,6 +10,7 @@ module.exports = {
         console.log(newMember)
         console.log("Guild Member 2\n")
         */
+		let channel;
 		if (oldMember.pending && !newMember.pending) {
 			if (client.settings.get(newMember.guild.id, "welcomeRoles")) {
 				let ro = client.settings.get(newMember.guild.id, "welcomeRoles");
@@ -18,7 +19,6 @@ module.exports = {
 						let role = newMember.guild.roles.cache.get(ro[i]);
 						newMember.roles.add(role);
 					} catch (e) {
-						console.log("guildMemberUpdate giveRole "+e.name);
 						if (client.settings.get(oldMember.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
 						if (channel) {
 							channel.send("An error occured. A role got deleted from welcome roles. Please check the dashboard and edit the settings.");
@@ -36,9 +36,9 @@ module.exports = {
 				.setColor("#FFFF00")
 				.setTitle("Server side profile updated!")
 				.setDescription(`${oldMember.user.tag} (${newMember.nickname?newMember.nickname:newMember.user.tag}) user profile has been updated`)
-				.setFooter({text: `User ID: ${oldMember.user.id}`})
+				.setFooter({ text: `User ID: ${oldMember.user.id}` })
 				.setTimestamp();
-			if (oldMember.nickname !== newMember.nickname || oldMember.avatar !== newMember.avatar || oldMember.displayAvatarURL() !== newMember.displayAvatarURL() || oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) {} else {return}
+			if (oldMember.nickname !== newMember.nickname || oldMember.avatar !== newMember.avatar || oldMember.displayAvatarURL() !== newMember.displayAvatarURL() || oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) { /* Empty */ } else {return}
 			if (oldMember.nickname !== newMember.nickname) { embed.addFields({ name: "Server Nickname", value: `${oldMember.nickname?oldMember.nickname:"-"} => ${newMember.nickname?newMember.nickname:"-"}` }) }
 			if (oldMember.avatarURL() !== newMember.avatarURL()) {
 				embed.addFields({ name: "Server Avatar", value: `Old: ${oldMember.avatarURL()?oldMember.avatarURL():"-"} => \nNew: ${newMember.avatarURL()?newMember.avatarURL():"-"}` });
@@ -50,10 +50,9 @@ module.exports = {
 			}
 			try {
 				if (client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
-				channel.send({embeds: [embed]});
+				channel.send({ embeds: [embed] });
 			} catch (error) {
-				console.log(error);
-				console.log(`[${new Date().toLocaleString("hu-HU")}] `+ "guildMemberUpdate no channel:"+err.name);
+				console.log("guildMemberUpdate no channel:" + error);
 			}
 		}
 	}

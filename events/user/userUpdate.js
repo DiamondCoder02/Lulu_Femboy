@@ -19,9 +19,9 @@ module.exports = {
 						.setColor("#FFFF00")
 						.setTitle("User updated their own profile!")
 						.setDescription(`${oldUser.tag} (${newUser.tag}) has been updated`)
-						.setFooter({text: `User ID: ${oldUser.id}`})
+						.setFooter({ text: `User ID: ${oldUser.id}` })
 						.setTimestamp();
-					if (oldUser.tag !== newUser.tag || oldUser.avatarURL !== newUser.avatarURL) {} else {return}
+					if (oldUser.tag === newUser.tag || oldUser.avatarURL === newUser.avatarURL) {return}
 					if (oldUser.tag !== newUser.tag) { embed.addFields({ name: "Tag", value: `${oldUser.tag} => ${newUser.tag}` }) }
 					if (oldUser.avatarURL() !== newUser.avatarURL()) {
 						embed.addFields({ name: "Avatar", value: `Old: ${oldUser.avatarURL()?oldUser.avatarURL():"-"} => \nNew: ${newUser.avatarURL()?newUser.avatarURL():"-"}` });
@@ -29,11 +29,11 @@ module.exports = {
 						embed.setImage(newUser.avatarURL());
 					}
 					try {
+						let channel;
 						if (client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(guild.id, "moderationChannel"))} else {return}
-						channel.send({embeds: [embed]});
+						channel.send({ embeds: [embed] });
 					} catch (error) {
-						console.log(error);
-						console.log(`[${new Date().toLocaleString("hu-HU")}] `+ "userUpdate no channel:"+error.name);
+						console.log("userUpdate no channel:" + error);
 					}
 				}
 			}
