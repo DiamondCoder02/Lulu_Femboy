@@ -1,21 +1,22 @@
 const { EmbedBuilder, PermissionsBitField } = require("discord.js");
-const botStat = require("../../botConfigs/bot_private.json", "utf8"); const SetAct = botStat.botStatus;
+// Asd: const botStat = require("../../botConfigs/bot_private.json", "utf8"); const SetAct = botStat.botStatus;
 require("dotenv").config();
 let stopPassword = process.env.stopPassword;
 let debug_level = process.env.debug_level;
-let botStatusChannelId = process.env.botStatusChannelId;
+let botStatusChannelId = process.env.botStatus_ChannelId;
 module.exports = {
 	name: "ready",
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
-		client.user.setActivity("Nya~");
+		client.user.setActivity("Bot remake: 0%", "WATCHING");
 		setInterval(() => {
+			/* Asd
 			let status = SetAct[Math.floor(Math.random() * SetAct.length)];
-			client.user.setActivity(status);
+			client.user.setActivity(status);*/
+			client.user.setActivity("Bot remake: 0%", "WATCHING");
 		}, 10800000);
 
 		client.guilds.cache.forEach(guild => {
-			// Check if bot has permissions to view invites
 			const botPermissionCheck = guild.members.cache.get(client.user.id);
 			if (botPermissionCheck.permissions.has(PermissionsBitField.Flags.ManageGuild)){
 				guild.invites.fetch().then(invites => {
@@ -45,11 +46,7 @@ module.exports = {
 DebugLevel: ${debug_level},
 Ready: <t:${Math.floor(client.readyTimestamp / 1000)}:f> 
 That was: <t:${Math.floor(client.readyTimestamp / 1000)}:R>`);
-		try {
-			const channel = client.channels.cache.get(botStatusChannelId);
-			channel.send({ embeds: [embed] });
-		} catch {
-			console.log("No status channel ID given or found. Continuing...");
-		}
+		const channel = client.channels.cache.get(botStatusChannelId);
+		channel.send({ embeds: [embed] });
 	}
 };

@@ -1,13 +1,13 @@
-const { EmbedBuilder } = require("discord.js");
 require("dotenv").config(); let debug_level = process.env.debug_level;
 module.exports = {
 	name: "shardDisconnect",
 	execute(event, id, client) {
 		if (debug_level >= 3) {
-			console.log(`[\`${new Date().toLocaleString("hu-HU")}\`] --- shardDisconnect Test ---`);
-			console.log(client);
-			console.log(event);
-			console.log(id);
+			console.debug("--- shardDisconnect Test ---");
+			console.debug(client);
+			console.debug(event);
+			console.debug(id);
+			console.debug("--- shardDisconnect Test ---");
 			// Client.connect();
 		}
 

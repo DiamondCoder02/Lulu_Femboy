@@ -14,7 +14,7 @@ module.exports = {
 				input: process.stdin,
 				output: process.stdout
 			});
-			rl.question("Please choose a number between 1 and 5: \n1.Register new command only in the specific guild. \n2.Register command on all servers( might take an hour to appear). \n3.Delete all commands only in the specific guild. \n4.Delete commands on all servers( might take an hour to work). \n5.Exit. \n\n6.Secret Global Commands reload. \n7.Secret Guild Commands reload. \nNumber: ", (answer) => {
+			rl.question("Please choose a number between 1 and 7: \n1.Register new command only in the specific guild. \n2.Register command on all servers( might take an hour to appear). \n3.Delete all commands only in the specific guild. \n4.Delete commands on all servers( might take an hour to work). \n5.Exit. \n\n6.Secret Global Commands reload. \n7.Secret Guild Commands reload. \nNumber: ", (answer) => {
 				rl.close();
 				callback(answer);
 			});
@@ -24,12 +24,10 @@ module.exports = {
 				rest.put(Routes.applicationGuildCommands(client.user.id, GuildID), { body: forDeploy })
 					.then(() => console.log("Registered all commands in the specific guild => "+GuildID))
 					.catch(console.error);
-				console.log(forDeploy);
 			} else if (answer == 2) {
 				rest.put(Routes.applicationCommands(client.user.id), { body: forDeploy })
 					.then(() => console.log("Registered all commands globally"))
 					.catch(console.error);
-				console.log(forDeploy);
 			} else if (answer == 3) {
 				rest.get(Routes.applicationGuildCommands(client.user.id, GuildID))
 					.then(data => {
@@ -89,7 +87,6 @@ module.exports = {
 				console.log("Error: Please restart the program and enter a number between 1 and 5");
 			}
 			client.login(token);
-			console.log(client);
 			return wait(3000);
 		});
 	}
