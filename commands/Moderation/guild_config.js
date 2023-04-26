@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { PermissionsBitField } = require("discord.js");
+const { PermissionFlagsBits } = require("discord.js");
 module.exports = {
-	guildOnly: true,
-	permissions: PermissionsBitField.Flags.ManageGuild,
 	data: new SlashCommandBuilder()
 		.setName("guild_config")
 		.setDescription("Small info and limited configuration for the guild. (Leave empty for current settings)")
-		.addChannelOption(option => option.setName("moderation_channel").setDescription("Change mod channel.")), // .addBooleanOption(option => option.setName('enable_bot_update_message').setDescription('Enable or dissable bot update message.'))
-
+		.setDMPermission(false)
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+		.addChannelOption(option => option.setName("moderation_channel").setDescription("Change mod channel.")),
+	// .addBooleanOption(option => option.setName('enable_bot_update_message').setDescription('Enable or dissable bot update message.'))
 	async execute(interaction, client) {
 		if (interaction.options.getChannel("moderation_channel")) {
 			client.settings.set(interaction.guild.id, interaction.options.getChannel("moderation_channel").id, "moderationChannel");

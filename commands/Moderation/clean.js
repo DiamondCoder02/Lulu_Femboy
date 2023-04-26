@@ -1,17 +1,18 @@
-const { SlashCommandBuilder } = require("@discordjs/builders"), { ButtonBuilder, Message, PermissionsBitField } = require("discord.js");
+const { SlashCommandBuilder } = require("@discordjs/builders"), { PermissionFlagsBits } = require("discord.js");
 module.exports = {
-	guildOnly: true,
-	permissions: PermissionsBitField.Flags.ManageMessages,
 	data: new SlashCommandBuilder()
 		.setName("clean")
 		.setDescription("Clean/Purge/Prune up to 99 messages")
-		.addIntegerOption(option => option.setName("amount").setDescription("Amount of messages to delete").setMinValue(0).setMaxValue(99).setRequired(true)), // .addUserOption(option => option.setName('user').setDescription("Delete messages from a specific user"))
+		.setDMPermission(false)
+		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+		.addIntegerOption(option => option.setName("amount").setDescription("Amount of messages to delete").setMinValue(0).setMaxValue(99).setRequired(true)),
+	// .addUserOption(option => option.setName('user').setDescription("Delete messages from a specific user"))
 	// .addBooleanOption(option => option.setName('whole_server').setDescription("If true it will delete user messages from everywhere"))
 	// .addChannelOption(option => option.setName('channel').setDescription("Delete messages from a specific channel"))
 
 	async execute(interaction, client) {
 		const amount = interaction.options.getInteger("amount");
-		if (amount == 0) {return interaction.reply({ content: "You stupid >_<'"})}
+		if (amount == 0) {return interaction.reply({ content: "You stupid >_<'" })}
 		const user = interaction.options.getUser("user");
 		const whole_server = interaction.options.getBoolean("whole_server");
 		const channel = interaction.options.getChannel("channel");
@@ -26,7 +27,7 @@ module.exports = {
 			} else if (user == null && whole_server == null && channel !== null) {
 				const deletec = client.channels.cache.get(channel.id);
 				await deletec.bulkDelete(amount).catch(error => {console.error(error)});
-				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from #"+ channel.name});
+				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from #"+ channel.name });
 			} else if (channel == null && whole_server == null && user !== null) {
 				/*
                 Async function purgeMemberMessages(
@@ -73,12 +74,12 @@ module.exports = {
 				});
 				// Await interaction.channel.bulkDelete(userMessages)
 				console.log("test3");
-				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from " + user.tag});
+				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from " + user.tag });
 			} else if (user == null && whole_server == null && channel == null) {
 				await interaction.channel.bulkDelete(amount);
-				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from this channel"});
+				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from this channel" });
 			} else {
-				return interaction.reply({ content: "Something went wrong, try with other settings"});
+				return interaction.reply({ content: "Something went wrong, try with other settings" });
 			}
 		} catch (e) {
 			console.log("Clean error: ", e);

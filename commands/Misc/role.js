@@ -1,11 +1,10 @@
 const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require("discord.js");
 module.exports = {
-	guildOnly: true,
 	cooldown: 60,
-	// Permissions: "MANAGE_ROLES",
 	data: new SlashCommandBuilder()
 		.setName("role")
-		.setDescription("Gives roles (just send the message, then click the buttons)"),
+		.setDescription("Gives roles (just send the message, then click the buttons)")
+		.setDMPermission(false),
 	async execute(interaction, client) {
 		let ro = client.settings.get(interaction.guild.id, "freeRoles");
 		if (Array.isArray(ro) && ro.length >0) { /* Empty */ } else { return interaction.reply("Guild configuration item \"freeRoles\" has not been set.") }

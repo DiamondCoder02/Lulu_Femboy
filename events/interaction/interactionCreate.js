@@ -9,8 +9,7 @@ module.exports = {
 			const i = interaction;
 			if (i.type === InteractionType.ApplicationCommand) {
 				const command = client.commands.get(interaction.commandName);
-				if (!command) {return}
-				if (command.guildOnly && interaction.guildId === null) {return interaction.reply("(* ￣︿￣) Executing this command in DMs is disabled. Please use this command on a server.")}
+				if (!command) {return interaction.reply({ content: "What?, How?" })}
 				if (interaction.user.id !== b_o_Id) {
 					// Cooldown
 					if (!cooldowns.has(interaction.commandName)) {cooldowns.set(interaction.commandName, new Collection())}

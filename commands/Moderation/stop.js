@@ -1,11 +1,11 @@
-const { SlashCommandBuilder } = require("@discordjs/builders"), { EmbedBuilder, PermissionsBitField } = require("discord.js");
+const { SlashCommandBuilder } = require("@discordjs/builders"), { EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 require("dotenv").config(); let b_o_Id = process.env.botOwnerId; let stopPassword = process.env.stopPassword;
 module.exports = {
-	permissions: PermissionsBitField.Flags.Administrator,
-	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName("stop")
 		.setDescription("Stops the bot with a password.")
+		.setDMPermission(false)
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.addStringOption(option => option.setName("password").setDescription("Enter a password to stop the bot").setRequired(true)),
 	async execute(interaction, client) {
 		if (stopPassword === interaction.options.getString("password").trim()){

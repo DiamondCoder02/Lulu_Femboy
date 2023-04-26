@@ -2,10 +2,10 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
 module.exports = {
 	cooldown: 60,
-	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName("report")
 		.setDescription("Report a problem to admins or report a bot bug to me.")
+		.setDMPermission(false)
 		.addSubcommand(subcommand => subcommand.setName("guild").setDescription("If there is a problem with the guild or any member, report it here.")
 			.addStringOption(option => option.setName("problem_with").setDescription("What is the problem with?")
 				.addChoices(

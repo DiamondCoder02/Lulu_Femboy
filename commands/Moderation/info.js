@@ -1,8 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require("discord.js");
 module.exports = {
-	guildOnly: true,
 	data: new SlashCommandBuilder()
 		.setName("info")
+		.setDMPermission(false)
 		.setDescription("Server and user informations!")
 		.addStringOption(option => option.setName("search").setDescription("Info about a server, channel, user or debug server info")
 			.addChoices(
