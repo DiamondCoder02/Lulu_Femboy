@@ -123,6 +123,9 @@ for (const folder of eventFolders) {
 	});
 }
 
+const dashboardInit = require("./dashboard/dashInit.js");
+client.on("ready", (...args) => dashboardInit.execute(...args, client, forDeploy));
+
 // Bot token
 let token = process.env.token;
 let deploying = process.env.deployAskOnStart;
@@ -134,7 +137,7 @@ if (deploying == "true") {
 }
 
 // Error handler
-client.on("error", (e) => console.error(e));
+client.on("error", (e) => console.line(e));
 client.on("warn", (e) => console.warn(e));
 process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error));
 process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error));
