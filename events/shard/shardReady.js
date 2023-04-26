@@ -2,7 +2,7 @@ require("dotenv").config(); let debug_level = process.env.debug_level;
 module.exports = {
 	name: "shardReady",
 	execute(id, unavailableGuilds, client) {
-		if (debug_level >= 3) {
+		if (debug_level >= 5) {
 			console.debug("--- shardReady Test ---");
 			console.debug(client);
 			console.debug(unavailableGuilds);

@@ -24,7 +24,7 @@ Google form for bug and feature report if you prefer it: [link here](https://for
 
 ---
 
-Lulu got verified for new year at 2023.Jan.01. 0:48:00 UTC+1. -
+Lulu got verified for new year at 2023.Jan.01. 0:48:00 UTC+1. \
 Just in time as it was already in 99 server.
 
 ---
@@ -34,12 +34,13 @@ Just in time as it was already in 99 server.
 (*-1 will disappear all logging.*)
 
 0. Only errors.
-1. Console.warn and line
+1. Console.warn and line (line is not shown in log file)
 2. Console.info
 3. Console.log (Default)
 4. Console.debug
+5. (Enable shard logs, but probably spam the console/logs)
 
-console.log("foo"); // Logged to console & saved in 1594897100267.log
+console.log("foo"); // Logged to console & saved in 1594897100267.log \
 console.debug("foo"); // Won't log to console, but will be saved in 1594897100267.log
 
 ### API stuff (npm packages in package.json)
