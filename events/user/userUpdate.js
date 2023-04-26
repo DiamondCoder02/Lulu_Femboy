@@ -16,7 +16,7 @@ module.exports = {
 				const memberUpdateLogs = client.settings.get(guild.id, "memberUpdateLogs");
 				if (memberUpdateLogs) {
 					const embed = new EmbedBuilder()
-						.setColor("#FFFF00")
+						.setColor([ 255, 255, 0 ])
 						.setTitle("User updated their own profile!")
 						.setDescription(`${oldUser.tag} (${newUser.tag}) has been updated`)
 						.setFooter({ text: `User ID: ${oldUser.id}` })

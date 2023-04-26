@@ -14,7 +14,7 @@ module.exports = {
 				console.log("-------------------------\n" + `[${new Date().toLocaleString("hu-HU")}] The bot has stopped! \nBot has been stopped by: ` + interaction.user.tag
 					+ "\nGuild: " + interaction.guild.name+", #"+interaction.channel.name + "\nTime:" + interaction.createdAt + "\n-------------------------");
 				const embed = new EmbedBuilder()
-					.setColor("#ff0000")
+					.setColor([ 255, 0, 0 ])
 					.setTitle("The bot has stopped!")
 					.setDescription("Bot has been stopped by " + interaction.user.tag);
 				await interaction.reply({ content: "The bot has stopped!", ephemeral: true });
@@ -23,7 +23,7 @@ module.exports = {
 				process.exit();
 			} else {
 				const embed = new EmbedBuilder()
-					.setColor("#FFFF00 ")
+					.setColor([ 255, 0, 0 ])
 					.setTitle("Meh, you thought!")
 					.setDescription("Please ping the bot owner a million times to stop the bot " + interaction.user.tag);
 				await interaction.reply({ content: "UwU", ephemeral: true });
@@ -31,7 +31,7 @@ module.exports = {
 			}
 		} else {
 			const embed = new EmbedBuilder()
-				.setColor("#FFFF00 ")
+				.setColor([ 255, 0, 0 ])
 				.setTitle("Wrong password!")
 				.setDescription("You gave a wrong password" + interaction.user.tag);
 			await interaction.reply({ content: "You gave a wrong password", ephemeral: true });

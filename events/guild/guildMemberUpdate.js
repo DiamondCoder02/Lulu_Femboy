@@ -33,7 +33,7 @@ module.exports = {
 		const memberUpdateLogs = client.settings.get(oldMember.guild.id, "memberUpdateLogs");
 		if (memberUpdateLogs) {
 			const embed = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Server side profile updated!")
 				.setDescription(`${oldMember.user.tag} (${newMember.nickname?newMember.nickname:newMember.user.tag}) user profile has been updated`)
 				.setFooter({ text: `User ID: ${oldMember.user.id}` })

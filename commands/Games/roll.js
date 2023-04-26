@@ -22,7 +22,7 @@ module.exports = {
 			allResults.push(rollDice());
 		}
 		const embed = new EmbedBuilder()
-			.setColor("#00FF00")
+			.setColor([ 0, 255, 0 ])
 			.setTitle(`${amount} times got rolled with min:${min} - max:${max}`)
 			.setDescription(`Numbers: ${String(allResults.join(", "))} \nTotal: ${String(allResults.reduce((a, b) => a + b, 0))}`);
 

@@ -48,7 +48,7 @@ module.exports = {
 			}
 			const embed = new EmbedBuilder()
 				.setTimestamp()
-				.setColor("#A020F0")
+				.setColor([ 0, 255, 0 ])
 				.setFooter({ text: `${a+1}/${amount}` });
 			if (interaction.options.getBoolean("detailed_desc")) {
 				embed.setTitle("🌐"+sites +" ("+ posts.first.booru.domain+")")

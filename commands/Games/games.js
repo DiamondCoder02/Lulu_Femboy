@@ -25,7 +25,7 @@ module.exports = {
 		if (interaction.options.getSubcommand() === "rpc") {
 			const rpc = new EmbedBuilder()
 				.setTitle("Rock-Paper-Scissors!")
-				.setColor("#00FF00");
+				.setColor([ 0, 255, 0 ]);
 			const row = new ActionRowBuilder()
 				.addComponents(
 					new StringSelectMenuBuilder()

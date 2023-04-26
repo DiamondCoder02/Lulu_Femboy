@@ -261,7 +261,7 @@ module.exports = {
 					categoryDescription: "Some basic settings",
 					refreshOnSave: true,
 					categoryImageURL: "https://i.imgur.com/GrXR9z8.png",
-					getActualSet: async ({guild}) => {
+					getActualSet: async ({ guild }) => {
 						return [
 							// OptionId, must be EXACTLY the same
 							{ optionId: "welcome", data: client.settings.get(guild.id, "welcome") || null },
@@ -270,7 +270,7 @@ module.exports = {
 							{ optionId: "enableRandomReactions", data: client.settings.get(guild.id, "enableRandomReactions") || null }
 						];
 					},
-					setNew: async ({guild, data}) => { // Data = [ { optionId: 'lang', data: 'fr' } ]
+					setNew: async ({ guild, data }) => { // Data = [ { optionId: 'lang', data: 'fr' } ]
 						for (const option of data) {
 							if (option.optionId === "welcome") {client.settings.set(guild.id, option.data, "welcome")}
 							if (option.optionId === "goodbye") {client.settings.set(guild.id, option.data, "goodbye")}
@@ -314,7 +314,7 @@ module.exports = {
 					categoryDescription: "Channel setups",
 					refreshOnSave: true,
 					categoryImageURL: "https://i.imgur.com/GrXR9z8.png",
-					getActualSet: async ({guild}) => {
+					getActualSet: async ({ guild }) => {
 						return [
 							{ optionId: "moderationChannel", data: client.settings.get(guild.id, "moderationChannel") || null },
 							{ optionId: "randomReactionChannelBlacklist", data: client.settings.get(guild.id, "randomReactionChannelBlacklist") || null },
@@ -322,7 +322,7 @@ module.exports = {
 							{ optionId: "singleChannelMessageLogger_out", data: client.settings.get(guild.id, "singleChannelMessageLogger")[1] || null }
 						];
 					},
-					setNew: async ({guild, data}) => {
+					setNew: async ({ guild, data }) => {
 						for (const option of data) {
 							if (option.optionId === "moderationChannel") {client.settings.set(guild.id, option.data, "moderationChannel")}
 							if (option.optionId === "randomReactionChannelBlacklist") {client.settings.set(guild.id, option.data, "randomReactionChannelBlacklist")}
@@ -364,13 +364,13 @@ module.exports = {
 					categoryDescription: "Roles setups",
 					refreshOnSave: true,
 					categoryImageURL: "https://i.imgur.com/GrXR9z8.png",
-					getActualSet: async ({guild}) => {
+					getActualSet: async ({ guild }) => {
 						return [
 							{ optionId: "welcomeRoles", data: client.settings.get(guild.id, "welcomeRoles") || null },
 							{ optionId: "freeRoles", data: client.settings.get(guild.id, "freeRoles") || null }
 						];
 					},
-					setNew: async ({guild, data}) => {
+					setNew: async ({ guild, data }) => {
 						for (const option of data) {
 							if (option.optionId === "welcomeRoles") {client.settings.set(guild.id, option.data, "welcomeRoles")}
 							if (option.optionId === "freeRoles") {client.settings.set(guild.id, option.data, "freeRoles")}
@@ -398,7 +398,7 @@ module.exports = {
 					categoryDescription: "reddit feed settings",
 					refreshOnSave: true,
 					categoryImageURL: "https://i.imgur.com/GrXR9z8.png",
-					getActualSet: async ({guild}) => {
+					getActualSet: async ({ guild }) => {
 						return [
 							{ optionId: "enableReddit", data: client.settings.get(guild.id, "redditFeed") || null },
 							{ optionId: "subreddit1", data: client.settings.get(guild.id, "redditFeedSub1") || null },
@@ -409,7 +409,7 @@ module.exports = {
 							{ optionId: "redditChannelId3", data: client.settings.get(guild.id, "redditFeedChannel3") || null }
 						];
 					},
-					setNew: async ({guild, data}) => {
+					setNew: async ({ guild, data }) => {
 						for (const option of data) {
 							if (option.optionId === "enableReddit") {client.settings.set(guild.id, option.data, "redditFeed")}
 							if (option.optionId === "subreddit1") {client.settings.set(guild.id, option.data, "redditFeedSub1")}
@@ -472,7 +472,7 @@ module.exports = {
 					categoryDescription: "Security and spying (Nice logs bro, UwU)",
 					refreshOnSave: true,
 					categoryImageURL: "https://i.imgur.com/GrXR9z8.png",
-					getActualSet: async ({guild}) => {
+					getActualSet: async ({ guild }) => {
 						return [
 							{ optionId: "welcomeUserCheck", data: client.settings.get(guild.id, "welcomeUserCheck") || null },
 							{ optionId: "memberUpdateLogs", data: client.settings.get(guild.id, "memberUpdateLogs") || null },
@@ -484,7 +484,7 @@ module.exports = {
 							{ optionId: "mesLogBlaLisRole", data: client.settings.get(guild.id, "messageLogsBlacklistRoles") || null }
 						];
 					},
-					setNew: async ({guild, data}) => {
+					setNew: async ({ guild, data }) => {
 						for (const option of data) {
 							if (option.optionId === "welcomeUserCheck") {client.settings.set(guild.id, option.data, "welcomeUserCheck")}
 							if (option.optionId === "memberUpdateLogs") {client.settings.set(guild.id, option.data, "memberUpdateLogs")}
@@ -560,16 +560,16 @@ function CommandPushDashboard(filterredArray, commandCate, permCate) {
 	Array.from(filterredArray).forEach(obj => {
 		if (obj.permissions) {
 			let cmdObject = {
-				commandName: obj.data.name,
-				commandUsage: "/"+obj.data.name,
-				commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : "- ")+obj.data.description
+				commandName: obj.name,
+				commandUsage: "/"+obj.name,
+				commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : "- ")+obj.description
 			};
 			permCate.push(cmdObject);
 		} else {
 			let cmdObject = {
-				commandName: obj.data.name,
-				commandUsage: "/"+obj.data.name,
-				commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : "- ")+obj.data.description
+				commandName: obj.name,
+				commandUsage: "/"+obj.name,
+				commandDescription: (obj.cooldown? `⌛ ${obj.cooldown} sec - ` : "- ")+obj.description
 			};
 			commandCate.push(cmdObject);
 		}

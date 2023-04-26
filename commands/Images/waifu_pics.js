@@ -65,7 +65,7 @@ module.exports = {
 			const embed = new EmbedBuilder()
 				.setImage(img.url)
 				.setFooter({ text: `${category} - ${a+1}/${amount}` })
-				.setColor("#A020F0 ");
+				.setColor([ 0, 255, 0 ]);
 			if (interaction.options.getUser("target")) {
 				const user = interaction.options.getUser("target"), from = interaction.user;
 				switch (category) {

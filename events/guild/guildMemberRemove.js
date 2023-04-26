@@ -7,7 +7,7 @@ module.exports = {
 		if (goodbye) { /* Empty */ } else {return}
 		if (member.guild.systemChannel === null) {return console.log("No system channel found for " + member.guild.name)}
 		const embed = new EmbedBuilder()
-			.setColor("#FFFF00 ")
+			.setColor([ 255, 255, 0 ])
 			.setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
 			.setDescription(`**${member.user.tag}**, has left the server \n\`(ID:${member.user.id})\`.`)
 		// .setThumbnail(member.user.displayAvatarURL())

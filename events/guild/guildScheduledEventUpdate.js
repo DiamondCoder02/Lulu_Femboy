@@ -30,7 +30,7 @@ module.exports = {
 			if (newGuildScheduledEvent.status === 3) {newstaType = "Completed"}
 			if (newGuildScheduledEvent.status === 4) {newstaType = "Cancelled"}
 			const scheduleEmbed = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Guild event updated has been detected")
 				.setDescription(`Name: \`${oldGuildScheduledEvent.name}\``)
 				.setTimestamp();

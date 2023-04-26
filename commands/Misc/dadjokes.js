@@ -12,7 +12,7 @@ module.exports = {
 		const img = JSON.parse(data);
 		const embed = new EmbedBuilder()
 			.setFooter({ text: "Dad(dy) jokes < icanhazdadjoke.com >" })
-			.setColor("#00FF00")
+			.setColor([ 0, 255, 0 ])
 			.setDescription(img.attachments[0].text);
 		await interaction.reply({ embeds: [embed] });
 	}

@@ -13,7 +13,7 @@ module.exports = {
 		let m = [];
 		const role_embed = new EmbedBuilder()
 			.setTitle("Self Roles:")
-			.setColor("#00FF00 ")
+			.setColor([ 0, 255, 0 ])
 			.setDescription("`Click some button for roles!`");
 		await interaction.reply({ embeds: [role_embed], ephemeral: true });
 		for (let x = 0; x < ro.length; x++){

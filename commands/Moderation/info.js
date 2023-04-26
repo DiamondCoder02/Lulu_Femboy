@@ -27,7 +27,7 @@ module.exports = {
 			const userMember = interaction.guild.members.cache.get(user.id);
 			const roleOfMember = userMember.roles.cache.map((role) => role.toString()).join(", ");
 			const embed = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Profile / User Informations")
 				.setImage(user.displayAvatarURL())
 				.setDescription("Here are some user information, requested by: " + interaction.user.tag+`\n\n**Current Server Roles (${String(userMember.roles.cache.map(role => role.id).length)}) :**\n`+String(roleOfMember))
@@ -52,7 +52,7 @@ module.exports = {
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "text") {
 			const embed = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Info about the text channel:")
 				.setDescription("**#"+interaction.channel.name+"**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
 				.addFields(
@@ -69,7 +69,7 @@ module.exports = {
 			if (!interaction.member.voice.channel) {return interaction.reply("Please connect to a voice channel!")}
 			// Console.log(interaction.member.voice.channel)
 			const embed = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Info about the voice channel:")
 				.setDescription("**"+interaction.member.voice.channel.name+"**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
 				.addFields(
@@ -92,7 +92,7 @@ module.exports = {
 			const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
 			const botservertime = new Date(interaction.guild.joinedTimestamp).toLocaleString();
 			const embed = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Server Informations")
 				.setImage(interaction.guild.iconURL())
 				.setDescription(String(interaction.guild.roles.cache.map(role => role.id).length) + " roles:\n" + String(serverRoles))
@@ -126,7 +126,7 @@ module.exports = {
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "cheat") {
 			const embedtest1 = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Cheatsheet that will never be translated")
 				.setDescription("(Max25 field per embed) 1/?")
 				.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: "https://github.com/DiamondPRO02/Femboi_OwO" })
@@ -160,7 +160,7 @@ module.exports = {
 			const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(", ");
 			const serverStickers = sSticker.split(", ").sort().join(" // ");
 			const embedtest2 = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("Cheatsheet that will never be translated")
 				.setDescription("(Max25 field per embed) 2/?")
 				.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: "https://github.com/DiamondPRO02/Femboi_OwO" })

@@ -46,7 +46,7 @@ User,
 		const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
 		collector.on("collect", async () => { await interaction.deleteReply(); collector.stop()});
 		const version_embed = new EmbedBuilder()
-			.setColor("#FFFF00")
+			.setColor([ 255, 255, 0 ])
 			.setTitle("Here is some information about the bot and its development:")
 			.setDescription("Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO)")
 			.setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })

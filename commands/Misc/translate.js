@@ -28,7 +28,7 @@ module.exports = {
 			const text = await translate(interaction.options.getString("text"), { cache: 10000, from: from, to: to });
 			if (text.length > 1024) { return interaction.reply({ content: "Sorry the translated text is too long to display." }) }
 			const embed = new EmbedBuilder()
-				.setColor("#00FF00")
+				.setColor([ 0, 255, 0 ])
 				.setTitle("Translation from: "+ eng +"\n"+ from + " -> " + to)
 				.setDescription("--------------------\n"+text+"\n--------------------")
 				.addFields({ name: "Translated from:", value: "*"+interaction.options.getString("text")+"*" });

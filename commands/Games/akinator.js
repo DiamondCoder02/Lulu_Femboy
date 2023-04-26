@@ -29,7 +29,7 @@ module.exports = {
 		// Const embedColor = "#1F1E33"; //The Color of the Message Embeds
 
 		akinator(interaction, {
-			embedColor: "#00FF00",
+			embedColor: [ 0, 255, 0 ],
 			language: lang,
 			childMode: childMode,
 			gameType: gameType,

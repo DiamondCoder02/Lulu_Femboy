@@ -15,7 +15,7 @@ module.exports = {
 		const msg = await interaction.reply({ content: "Calculating ping...", fetchReply: true });
 		let ping = msg.createdTimestamp - interaction.createdTimestamp;
 		const embed = new EmbedBuilder()
-			.setColor("#00FF00")
+			.setColor([ 0, 255, 0 ])
 			.setTitle("Ping and uptime")
 			.setTimestamp()
 			.addFields(

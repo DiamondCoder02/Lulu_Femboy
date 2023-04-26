@@ -17,7 +17,7 @@ module.exports = {
 			if (guildScheduledEvent.status === 3) {staType = "Completed"}
 			if (guildScheduledEvent.status === 4) {staType = "Cancelled"}
 			const scheduleCreate = new EmbedBuilder()
-				.setColor("#FFFF00")
+				.setColor([ 255, 255, 0 ])
 				.setTitle(`Guild event created: \`${guildScheduledEvent.name}\``)
 				.setDescription(`Guild event created by \`${guildScheduledEvent.creator.tag}\``)
 				.setTimestamp()

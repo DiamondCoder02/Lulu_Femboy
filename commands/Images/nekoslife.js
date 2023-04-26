@@ -64,7 +64,7 @@ module.exports = {
 			if (interaction.options.getString("sfw_w")) { c = interaction.options.getString("sfw_w")}
 			if (interaction.options.getString("sfw_o")) { c = interaction.options.getString("sfw_o")}
 			const embed = new EmbedBuilder()
-				.setColor("#00FF00")
+				.setColor([ 0, 255, 0 ])
 				.setTitle("OwO, " + c)
 				.setTimestamp()
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() });

@@ -66,7 +66,7 @@ module.exports = {
 			else {
 				let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
 				const embed = new EmbedBuilder()
-					.setColor("#FFFF00 ")
+					.setColor([ 255, 255, 0 ])
 					.setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
 					.setDescription(welcomeMessage)
 					.setFooter({ text: `Member count: ${member.guild.memberCount-1} => ${member.guild.memberCount}` })
@@ -77,7 +77,7 @@ module.exports = {
 		if (client.settings.get(member.guild.id, "welcomeUserCheck")) {
 			const profilepic = member.displayAvatarURL();
 			const userInfo = new EmbedBuilder()
-				.setColor("#FFFF00 ")
+				.setColor([ 255, 255, 0 ])
 				.setTitle("New " + (member.user.bot ? "bot" : "user") + " joined:")
 				.setThumbnail(profilepic)
 				.setAuthor({ name: String(member.user.tag), iconURL: profilepic })

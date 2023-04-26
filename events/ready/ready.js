@@ -40,7 +40,7 @@ module.exports = {
             + "\n\t-- Ready at: " + client.readyAt);
 
 		const embed = new EmbedBuilder()
-			.setColor("#FFFF00")
+			.setColor([ 255, 255, 0 ])
 			.setTitle("Bot has started! \n" + client.user.tag)
 			.setDescription(`Bot info:
 DebugLevel: ${debug_level},

@@ -36,7 +36,7 @@ module.exports = {
 		}
 		const string = interaction.options.getString("question");
 		const embed = new EmbedBuilder()
-			.setColor("#00FF00")
+			.setColor([ 0, 255, 0 ])
 			.setDescription(`**${string}**` +"\n8ball says: " + item);
 		await interaction.reply({ embeds: [embed] });
 	}

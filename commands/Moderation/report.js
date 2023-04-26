@@ -43,7 +43,7 @@ module.exports = {
 		const fix = interaction.options.getString("fix");
 		const report = new EmbedBuilder()
 			.setDescription(description + "\n" + (description_2? description_2:"-") + "\n\n**Fix:**\n" + (fix? fix:"-"))
-			.setColor(0xFF0000)
+			.setColor([ 255, 0, 0 ])
 			.addFields({ name: "Reported by ID:", value: `${interaction.user.id}`, inline: true })
 			.setTimestamp()
 			.setFooter({ text: "React with emoji to delete" })
