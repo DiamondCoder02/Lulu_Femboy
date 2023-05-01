@@ -69,7 +69,7 @@ User,
 				{ name: "__Partials__", value: pars, inline: true },
 				{ name: "Currently joined servers:", value: "`"+String(guildLength)+"` guilds" },
 				{ name: "I was called good bot:", value: "`"+String(goodBad.goodBot)+ "` time(s)", inline: true },
-				{ name: "I was called bad bat:", value: "`"+String(goodBad.badBot)+ "` time(s)", inline: true },
+				{ name: "I was called bad bot:", value: "`"+String(goodBad.badBot)+ "` time(s)", inline: true },
 				{ name: "People asked if:", value: "They can f**k my bot `"+String(goodBad.canIFuckBot)+ "` time(s)", inline: true }
 			)
 			.setTimestamp()
