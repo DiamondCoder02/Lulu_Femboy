@@ -1,6 +1,28 @@
 const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require("discord.js"), fs = require("fs");
-let eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js")), eventArray = eventFiles.map(x => {return x.replace(".js", "\n")});
-let commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js")), comArray = commandFiles.map(x => {return x.replace(".js", "\n")});
+let eventFolders = fs.readdirSync("./events"); let eventFilesArray = [];
+for (const folder of eventFolders) {
+	fs.readdir(`./events/${folder}`, (err, files) => {
+		if (err) {throw err}
+		eventFilesArray.push(`\n__**${folder}**__`);
+		for (const file of files) {
+			if (!file.endsWith(".js")) {continue}
+			if (file === "ready.js") {eventFilesArray.push("- "+file.slice(folder, -3)); continue}
+			eventFilesArray.push("- "+file.slice(folder.length, -3));
+		}
+	});
+}
+let commandFolders = fs.readdirSync("./commands"); let commandFilesArray = [];
+for (const folder of commandFolders) {
+	fs.readdir(`./commands/${folder}`, (err, files) => {
+		if (err) {throw err}
+		commandFilesArray.push(`\n__**${folder}**__`);
+		for (const file of files) {
+			if (!file.endsWith(".js")) {continue}
+			commandFilesArray.push("- "+file.slice(0, -3));
+		}
+	});
+}
+
 const package = require("../../package.json");
 const os = require("os");
 module.exports = {
@@ -54,8 +76,8 @@ User,
 				{ name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondPRO02/projects/2/views/1)", inline: true },
 				{ name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondPRO02/Femboi_OwO/issues)", inline: true },
 				{ name: "How to use:", value: "[slash commands](https://imgur.com/a/dStRp6Y)" },
-				{ name: "Event listeners:", value: ","+String(eventArray), inline: true },
-				{ name: "Commands:", value: ","+String(comArray), inline: true },
+				{ name: "Event listeners:", value: String(eventFilesArray.join("\n")), inline: true },
+				{ name: "Commands:", value: String(commandFilesArray.join("\n")), inline: true },
 				{ name: "Bot Stop Password:", value: "||RickRoll :3||" },
 				{ name: "Project name:", value: package.name, inline: true },
 				{ name: "Project version:", value: package.version, inline: true },
