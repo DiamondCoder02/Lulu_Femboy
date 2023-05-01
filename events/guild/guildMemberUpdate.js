@@ -46,7 +46,7 @@ module.exports = {
 				embed.setImage(newMember.avatarURL());
 			}
 			if (oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) {
-				embed.addFields({ name: "Premium changed: ", value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` });
+				embed.addFields({ name: "User unboosted the server: ", value: `${oldMember.premiumSince ? oldMember.premiumSince : "-"} => ${newMember.premiumSince ? newMember.premiumSince : "-"}` });
 			}
 			try {
 				if (client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(oldMember.guild.id, "moderationChannel"))} else {channel = oldMember.guild.systemChannel}
