@@ -28,9 +28,9 @@ module.exports = {
 					// Guild permission check
 					if (command.guildOnly) {
 						if (command.permissions) {
-							let retard;
-							if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) { retard=true } else { retard=false }
-							if (!retard || interaction.channel.type === ChannelType.DM) { return interaction.reply({ content: "You do not have the required permissions to execute this command. => `"+command.permissions+"`", ephemeral: true })}
+							let isCommandDM = false;
+							if (interaction.guild && interaction.channel.permissionsFor(interaction.member).has(command.permissions)) { isCommandDM=true }
+							if (!isCommandDM || interaction.channel.type === ChannelType.DM) { return interaction.reply({ content: "You do not have the required permissions to execute this command. => `"+command.permissions+"`", ephemeral: true })}
 						}
 					}
 				}
@@ -42,6 +42,14 @@ module.exports = {
 					try {await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true })}
 					catch {await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true })}
 					return;
+				}
+			}
+			if (i.isButton()) {
+				// This is useful: console.log(i.message);
+				if (i.client.user.id === client.user.id && i.user.id === i.message.interaction.user.id && i.customId === "delete") {
+					i.message.delete();
+				} else if (i.user.id !== i.message.interaction.user.id && i.client.user.id === client.user.id && i.customId === "delete") {
+					await i.reply({ content: "Sorry, you are not the original executer of this command so you cannot delete this.", ephemeral: true });
 				}
 			}
 			if (debug_level >= 1) {

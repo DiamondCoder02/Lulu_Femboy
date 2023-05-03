@@ -60,12 +60,9 @@ module.exports = {
 				if (posts.first.tags.join(", ").length > 1000) {embed.addFields({ name: "📄"+"Tags: ", valve: "`"+posts.first.tags.join(", ").substring(0, 999)+"...`" })} else {embed.addFields({ name: "📄"+"Tags: ", value: "`"+posts.first.tags.join(", ")+"`" })}
 			}
 			const buttons = new ActionRowBuilder().addComponents(
-				new ButtonBuilder().setURL(posts[0].fileUrl).setLabel("Link").setStyle(ButtonStyle.Link).setEmoji("🖥️")
-				// New ButtonBuilder().setCustomId('delete').setLabel(lang.d).setStyle(ButtonStyle.Danger).setEmoji('✖️')
+				new ButtonBuilder().setURL(posts[0].fileUrl).setLabel("Link").setStyle(ButtonStyle.Link).setEmoji("🖥️"),
+				new ButtonBuilder().setCustomId("delete").setLabel("Delete").setStyle(ButtonStyle.Danger).setEmoji("✖️")
 			);
-			// Const filter = i => i.user.id === interaction.user.id;
-			// Const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
-			// Collector.on('collect', async i => { await interaction.deleteReply(); collector.stop()})
 			if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4")|| posts[0].fileUrl.includes(".gif")) {
 				try {
 					await interaction.followUp({ embeds: [embed], components: [buttons] });

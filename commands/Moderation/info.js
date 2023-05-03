@@ -18,9 +18,6 @@ module.exports = {
 		.addUserOption(option => option.setName("target").setDescription("Which user do you want info about")),
 	async execute(interaction, client) {
 		const page = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("delete").setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji("✖️"));
-		const filter = i => i.user.id === interaction.user.id;
-		const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
-		collector.on("collect", async () => { await interaction.deleteReply(); collector.stop()});
 		if (interaction.options.getString("search") === "user") {
 			if (!interaction.options.getUser("target")) {return await interaction.reply("Which user do you want info about?")}
 			const user = interaction.options.getUser("target");
