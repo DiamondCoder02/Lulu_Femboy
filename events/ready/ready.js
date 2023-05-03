@@ -8,11 +8,9 @@ module.exports = {
 	name: "ready",
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
-		let guildLength = client.guilds.cache.map(guild => guild.id).length;
-		client.user.setActivity(guildLength+" servers currently", { type: ActivityType.Watching });
+		client.user.setActivity(client.guilds.cache.size+" servers currently", { type: ActivityType.Watching });
 		setInterval(() => {
-			guildLength = client.guilds.cache.map(guild => guild.id).length;
-			client.user.setActivity(guildLength+" servers currently", { type: ActivityType.Watching });
+			client.user.setActivity(client.guilds.cache.size+" servers currently", { type: ActivityType.Watching });
 		}, 10800000);
 
 		client.guilds.cache.forEach(guild => {
