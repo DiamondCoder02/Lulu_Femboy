@@ -6,7 +6,7 @@ module.exports = {
 		.setDescription("Very basic 8ball command.")
 		.addStringOption(option => option.setName("question").setDescription("Enter a question").setRequired(true)),
 	async execute(interaction) {
-		let items = [ "It is certain.",
+		let items = ["It is certain.",
 			"It is decidedly so.",
 			"Without a doubt.",
 			"Yes — definitely.",
@@ -32,12 +32,12 @@ module.exports = {
 		if (special == 117) {
 			item = "Whatever. All I know you are a good person and I support you ^^";
 		} else {
-			item = items[Math.floor(Math.random()*items.length)];
+			item = items[Math.floor(Math.random() * items.length)];
 		}
 		const string = interaction.options.getString("question");
 		const embed = new EmbedBuilder()
-			.setColor([ 0, 255, 0 ])
-			.setDescription(`**${string}**` +"\n8ball says: " + item);
+			.setColor([0, 255, 0])
+			.setDescription(`**${string}**` + "\n8ball says: " + item);
 		await interaction.reply({ embeds: [embed] });
 	}
 };

@@ -1,7 +1,7 @@
 module.exports = {
 	name: "guildCreate",
 	async execute(guild, client, guildInvites, vanityInvites) {
-		let bot=client.user;
+		let bot = client.user;
 		try {
 			const channel = client.channels.cache.get(guild.systemChannelId);
 			channel.send(`__**Thank you for inviting me, the ${bot.toString()} bot.**__

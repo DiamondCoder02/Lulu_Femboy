@@ -11,7 +11,7 @@ module.exports = {
 			if (invitesLogs) {
 				let channel;
 				try {
-					if (client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))} else {channel = invite.guild.systemChannel}
+					if (client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))) { channel = client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel")) } else { channel = invite.guild.systemChannel }
 					return channel.send({ content: `Invite code deleted: \`${invite.code}\`` });
 				} catch (error) {
 					// Console.log(error)

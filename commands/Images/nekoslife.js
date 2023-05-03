@@ -61,10 +61,10 @@ module.exports = {
 		let amount = 1;
 		if (interaction.options.getNumber("repeat")) { amount = Number(interaction.options.getNumber("repeat")) }
 		for (let a = 0; a < amount; a++) {
-			if (interaction.options.getString("sfw_w")) { c = interaction.options.getString("sfw_w")}
-			if (interaction.options.getString("sfw_o")) { c = interaction.options.getString("sfw_o")}
+			if (interaction.options.getString("sfw_w")) { c = interaction.options.getString("sfw_w") }
+			if (interaction.options.getString("sfw_o")) { c = interaction.options.getString("sfw_o") }
 			const embed = new EmbedBuilder()
-				.setColor([ 0, 255, 0 ])
+				.setColor([0, 255, 0])
 				.setTitle("OwO, " + c)
 				.setTimestamp()
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() });
@@ -94,14 +94,14 @@ module.exports = {
 			case "lizard": img = await neko.lizard(); break;
 			case "kemonomini": img = await neko.kemonomini(); break;
 
-			case "why": {img = await neko.why(); let text = img.why; embed.setDescription(text); return interaction.reply({ embeds: [embed] })}
-			case "catText": {img = await neko.catText(); let text = img.cat; embed.setDescription(text); return interaction.reply({ embeds: [embed] })}
-			case "OwOify": {img = await neko.OwOify({ text: interaction.options.getString("text") }); const text = img.owo ; if (interaction.options.getString("text")){ embed.setDescription(text); return interaction.reply({ embeds: [embed] }) } else { return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.")}}
-			case "eightBall": {img = await neko.eightBall({ text: interaction.options.getString("text") }); const text = img.response ; if (interaction.options.getString("text")){ embed.setDescription(text); return interaction.reply({ embeds: [embed] }) } else { return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.")}}
-			case "fact": {img = await neko.fact(); const text = img.fact ; embed.setDescription(text); return interaction.reply({ embeds: [embed] })}
-			case "spoiler": {img = await neko.spoiler({ text: interaction.options.getString("text") }); const text = img.owo ; if (interaction.options.getString("text")){ embed.setDescription(text); return interaction.reply({ embeds: [embed] }) } else { return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.")}}
+			case "why": { img = await neko.why(); let text = img.why; embed.setDescription(text); return interaction.reply({ embeds: [embed] }) }
+			case "catText": { img = await neko.catText(); let text = img.cat; embed.setDescription(text); return interaction.reply({ embeds: [embed] }) }
+			case "OwOify": { img = await neko.OwOify({ text: interaction.options.getString("text") }); const text = img.owo; if (interaction.options.getString("text")) { embed.setDescription(text); return interaction.reply({ embeds: [embed] }) } else { return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.") } }
+			case "eightBall": { img = await neko.eightBall({ text: interaction.options.getString("text") }); const text = img.response; if (interaction.options.getString("text")) { embed.setDescription(text); return interaction.reply({ embeds: [embed] }) } else { return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.") } }
+			case "fact": { img = await neko.fact(); const text = img.fact; embed.setDescription(text); return interaction.reply({ embeds: [embed] }) }
+			case "spoiler": { img = await neko.spoiler({ text: interaction.options.getString("text") }); const text = img.owo; if (interaction.options.getString("text")) { embed.setDescription(text); return interaction.reply({ embeds: [embed] }) } else { return interaction.reply("You need to give a text for OwOify, Spoiler and 8ball.") } }
 			}
-			if (img.msg === "404") {embed.setDescription("**Error: 404**")} else {embed.setImage(img.url)}
+			if (img.msg === "404") { embed.setDescription("**Error: 404**") } else { embed.setImage(img.url) }
 			if (interaction.options.getUser("target")) {
 				const user = interaction.options.getUser("target"), from = interaction.user;
 				embed.setDescription(from.toString() + " sends you a nice " + interaction.options.getString("sfw_w") + ", " + user.toString() + ". :3");

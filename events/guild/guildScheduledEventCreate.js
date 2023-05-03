@@ -7,17 +7,17 @@ module.exports = {
 		console.log(`${guildScheduledEvent.guild.name} event created: "${guildScheduledEvent.name}" (By: ${guildScheduledEvent.creator.tag}).`);
 		const schedulesLogs = client.settings.get(guildScheduledEvent.guild.id, "schedulesLogs");
 		if (schedulesLogs) {
-			if (client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel"))} else {channel = guildScheduledEvent.guild.systemChannel}
-			if (guildScheduledEvent.scheduledEndTimestamp === null) {end = "-"} else {end = new Date(guildScheduledEvent.scheduledEndTimestamp).toLocaleString("hu-HU")}
-			if (guildScheduledEvent.entityType === 1) {scType = "StageInstance"}
-			if (guildScheduledEvent.entityType === 2) {scType = "Voice"}
-			if (guildScheduledEvent.entityType === 3) {scType = "External"}
-			if (guildScheduledEvent.status === 1) {staType = "Scheduled"}
-			if (guildScheduledEvent.status === 2) {staType = "Active"}
-			if (guildScheduledEvent.status === 3) {staType = "Completed"}
-			if (guildScheduledEvent.status === 4) {staType = "Cancelled"}
+			if (client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel"))) { channel = client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel")) } else { channel = guildScheduledEvent.guild.systemChannel }
+			if (guildScheduledEvent.scheduledEndTimestamp === null) { end = "-" } else { end = new Date(guildScheduledEvent.scheduledEndTimestamp).toLocaleString("hu-HU") }
+			if (guildScheduledEvent.entityType === 1) { scType = "StageInstance" }
+			if (guildScheduledEvent.entityType === 2) { scType = "Voice" }
+			if (guildScheduledEvent.entityType === 3) { scType = "External" }
+			if (guildScheduledEvent.status === 1) { staType = "Scheduled" }
+			if (guildScheduledEvent.status === 2) { staType = "Active" }
+			if (guildScheduledEvent.status === 3) { staType = "Completed" }
+			if (guildScheduledEvent.status === 4) { staType = "Cancelled" }
 			const scheduleCreate = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle(`Guild event created: \`${guildScheduledEvent.name}\``)
 				.setDescription(`Guild event created by \`${guildScheduledEvent.creator.tag}\``)
 				.setTimestamp()

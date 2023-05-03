@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require("discord.js");
+const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require("discord.js");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("info")
@@ -19,15 +19,15 @@ module.exports = {
 	async execute(interaction, client) {
 		const page = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("delete").setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji("✖️"));
 		if (interaction.options.getString("search") === "user") {
-			if (!interaction.options.getUser("target")) {return await interaction.reply("Which user do you want info about?")}
+			if (!interaction.options.getUser("target")) { return await interaction.reply("Which user do you want info about?") }
 			const user = interaction.options.getUser("target");
 			const userMember = interaction.guild.members.cache.get(user.id);
 			const roleOfMember = userMember.roles.cache.map((role) => role.toString()).join(", ");
 			const embed = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Profile / User Informations")
 				.setImage(user.displayAvatarURL())
-				.setDescription("Here are some user information, requested by: " + interaction.user.tag+`\n\n**Current Server Roles (${String(userMember.roles.cache.map(role => role.id).length)}) :**\n`+String(roleOfMember))
+				.setDescription("Here are some user information, requested by: " + interaction.user.tag + `\n\n**Current Server Roles (${String(userMember.roles.cache.map(role => role.id).length)}) :**\n` + String(roleOfMember))
 				.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
 				.setTimestamp()
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
@@ -49,34 +49,34 @@ module.exports = {
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "text") {
 			const embed = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Info about the text channel:")
-				.setDescription("**#"+interaction.channel.name+"**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
+				.setDescription("**#" + interaction.channel.name + "**\nTopic: **" + (interaction.channel.topic ? interaction.channel.topic : "-") + "**")
 				.addFields(
-					{ name: "Position:", value: String(interaction.channel.rawPosition+1), inline: true },
+					{ name: "Position:", value: String(interaction.channel.rawPosition + 1), inline: true },
 					{ name: "NSFW?", value: (interaction.channel.nsfw ? "True" : "False"), inline: true },
 					{ name: "ID:", value: interaction.channel.id, inline: true },
 					{ name: "Type:", value: String(interaction.channel.type), inline: true },
-					{ name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" +" seconds", inline: true }
+					{ name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" + " seconds", inline: true }
 				)
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
 				.setTimestamp();
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "voice") {
-			if (!interaction.member.voice.channel) {return interaction.reply("Please connect to a voice channel!")}
+			if (!interaction.member.voice.channel) { return interaction.reply("Please connect to a voice channel!") }
 			// Console.log(interaction.member.voice.channel)
 			const embed = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Info about the voice channel:")
-				.setDescription("**"+interaction.member.voice.channel.name+"**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
+				.setDescription("**" + interaction.member.voice.channel.name + "**\nTopic: **" + (interaction.member.voice.channel.topic ? interaction.member.voice.channel.topic : "-") + "**")
 				.addFields(
-					{ name: "Position:", value: String(interaction.member.voice.channel.rawPosition+1), inline: true },
+					{ name: "Position:", value: String(interaction.member.voice.channel.rawPosition + 1), inline: true },
 					{ name: "ID:", value: String(interaction.member.voice.channel.id), inline: true },
 					{ name: "Type:", value: String(interaction.member.voice.channel.type), inline: true },
-					{ name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate/100)+"kbps", inline: true },
+					{ name: "Bitrate:", value: String(interaction.member.voice.channel.bitrate / 100) + "kbps", inline: true },
 					{ name: "UserLimit:", value: String(interaction.member.voice.channel.userLimit) + " members", inline: true },
 					{ name: "rtcRegion:", value: interaction.member.voice.channel.rtcRegion ? interaction.member.voice.channel.rtcRegion : "Automatic", inline: true },
-					{ name: "VideoQuality:", value: interaction.member.voice.channel.videoQualityMode ? (interaction.member.voice.channel.videoQualityMode===2 ? "720p": "Automatic") : "Automatic", inline: true }
+					{ name: "VideoQuality:", value: interaction.member.voice.channel.videoQualityMode ? (interaction.member.voice.channel.videoQualityMode === 2 ? "720p" : "Automatic") : "Automatic", inline: true }
 				)
 				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
 				.setTimestamp();
@@ -89,7 +89,7 @@ module.exports = {
 			const servertime = new Date(interaction.guild.createdTimestamp).toLocaleString();
 			const botservertime = new Date(interaction.guild.joinedTimestamp).toLocaleString();
 			const embed = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Server Informations")
 				.setImage(interaction.guild.iconURL())
 				.setDescription(String(interaction.guild.roles.cache.map(role => role.id).length) + " roles:\n" + String(serverRoles))
@@ -123,7 +123,7 @@ module.exports = {
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "cheat") {
 			const embedtest1 = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Cheatsheet that will never be translated")
 				.setDescription("(Max25 field per embed) 1/?")
 				.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: "https://github.com/DiamondPRO02/Femboi_OwO" })
@@ -157,7 +157,7 @@ module.exports = {
 			const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(", ");
 			const serverStickers = sSticker.split(", ").sort().join(" // ");
 			const embedtest2 = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Cheatsheet that will never be translated")
 				.setDescription("(Max25 field per embed) 2/?")
 				.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL(), url: "https://github.com/DiamondPRO02/Femboi_OwO" })
@@ -188,7 +188,7 @@ module.exports = {
 				);
 			const serverRoles = interaction.guild.roles.cache.map((role) => role.toString()).join(", ");
 			if (serverRoles.length > 1000) {
-				const serverRoleShort = serverRoles.split(", ").sort().join(" // ").substring(0, 999)+"... and many more...";
+				const serverRoleShort = serverRoles.split(", ").sort().join(" // ").substring(0, 999) + "... and many more...";
 				embedtest2.addFields({ name: "Roles name:", value: String(serverRoleShort) });
 			} else {
 				embedtest2.addFields({ name: "Roles name:", value: String(serverRoles) });
@@ -196,13 +196,13 @@ module.exports = {
 			const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(", ");
 			const serverEmojis = sEmoji.split(", ").sort().join(" // ");
 			if (serverEmojis.length > 1000) {
-				const serverEmojisShort = sEmoji.split(", ").sort().join(" // ").substring(0, 999)+"... and many more...";
+				const serverEmojisShort = sEmoji.split(", ").sort().join(" // ").substring(0, 999) + "... and many more...";
 				embedtest2.addFields({ name: "Emojis name:", value: String(serverEmojisShort) });
 			} else {
 				embedtest2.addFields({ name: "Emojis name:", value: String(serverEmojis) });
 			}
 			// Note: embedtest2 cannot have more fields
-			await interaction.reply({ content: "Here's all the debug info", embeds: [ embedtest1, embedtest2 ], components: [page] });
+			await interaction.reply({ content: "Here's all the debug info", embeds: [embedtest1, embedtest2], components: [page] });
 		} else if (interaction.options.getString("search") === "sticker") {
 			console.log(interaction.guild);
 			const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(", ");

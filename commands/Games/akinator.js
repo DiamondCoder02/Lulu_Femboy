@@ -14,13 +14,13 @@ module.exports = {
 		.addBooleanOption(option => option.setName("button").setDescription("If you want a button (Default: true)")),
 	async execute(interaction) {
 		let lang = "en", childMode = true, gameType = "character", useButtons = true;
-		if (interaction.options.getBoolean("button") === false) {useButtons = false}
-		if (interaction.options.getBoolean("child_mode") === false) {childMode = false}
-		if (interaction.options.getString("lang")) {lang = interaction.options.getString("lang")}
-		if (interaction.options.getString("game_type")) {gameType = interaction.options.getString("game_type")}
+		if (interaction.options.getBoolean("button") === false) { useButtons = false }
+		if (interaction.options.getBoolean("child_mode") === false) { childMode = false }
+		if (interaction.options.getString("lang")) { lang = interaction.options.getString("lang") }
+		if (interaction.options.getString("game_type")) { gameType = interaction.options.getString("game_type") }
 
 		try { require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
-		catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .")}
+		catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .") }
 
 		// Const lang = "en"; //The Language of the Game
 		// Const childMode = false; //Whether to use Akinator's Child Mode
@@ -29,7 +29,7 @@ module.exports = {
 		// Const embedColor = "#1F1E33"; //The Color of the Message Embeds
 
 		akinator(interaction, {
-			embedColor: [ 0, 255, 0 ],
+			embedColor: [0, 255, 0],
 			language: lang,
 			childMode: childMode,
 			gameType: gameType,

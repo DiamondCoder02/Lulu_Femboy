@@ -7,9 +7,9 @@ module.exports = {
 		console.log(`${guildScheduledEvent.guild.name} event deleted: "${guildScheduledEvent.name}".`);
 		const schedulesLogs = client.settings.get(guildScheduledEvent.guild.id, "schedulesLogs");
 		if (schedulesLogs) {
-			if (client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel"))} else {channel = guildScheduledEvent.guild.systemChannel}
+			if (client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel"))) { channel = client.channels.cache.get(client.settings.get(guildScheduledEvent.guild.id, "moderationChannel")) } else { channel = guildScheduledEvent.guild.systemChannel }
 			const scheduleCreate = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle(`Guild event deleted: \`${guildScheduledEvent.name}\``)
 				.setDescription(`Description: \n\`${guildScheduledEvent.description}\`. \n\nWas creqated at: [\`${new Date(guildScheduledEvent.createdTimestamp).toLocaleString("hu-HU")}\`]`)
 				.setTimestamp();

@@ -4,12 +4,13 @@ module.exports = {
 	async execute(message, client) {
 		try {
 			try {
+				var i = 0;
 				let channelBlacklist = client.settings.get(message.guild.id, "messageLogsBlacklistChannels");
 				let roleBlacklist = client.settings.get(message.guild.id, "messageLogsBlacklistRoles");
-				for (var i = 0; i < channelBlacklist.length; i++) {
+				for (i = 0; i < channelBlacklist.length; i++) {
 					if (message.channelId == channelBlacklist[i]) { return }
 				}
-				for (var i = 0; i < roleBlacklist.length; i++) {
+				for (i = 0; i < roleBlacklist.length; i++) {
 					if (message.member.roles.cache.has(roleBlacklist[i])) { return }
 				}
 			} catch { return }
@@ -18,8 +19,8 @@ module.exports = {
 			console.log(message)
 			console.log("Delete2")
 			*/
-			if (!message.guild) {return}
-			try { if (message.author.bot) {return} } catch { return console.log("Bot and others are null, messageDelete, unchached message deleted?") }
+			if (!message.guild) { return }
+			try { if (message.author.bot) { return } } catch { return console.log("Bot and others are null, messageDelete, unchached message deleted?") }
 			let c = client.channels.cache.get(message.channelId);
 			const embed = new EmbedBuilder()
 				.setColor("#FFFF00")
@@ -46,9 +47,9 @@ module.exports = {
 			}
 			try {
 				// Due to v14 Message_Delete type is now number 72
-				let fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 72});
+				let fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 72 });
 				let deletionLog = fetchedLogs.entries.first();
-				if (!deletionLog) {return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`)}
+				if (!deletionLog) { return console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`) }
 				// Now grab the user object of the person who deleted the message / Also grab the target of this action to double-check things
 				let { executor, target } = deletionLog;
 				// Update the output with a bit more information / Also run a check to make sure that the log returned was for the same author's message
@@ -57,13 +58,13 @@ module.exports = {
 
 				let messageLogs = client.settings.get(message.guild.id, "messageLogs");
 				if (messageLogs) {
-					if (client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))} else {channel = message.guild.systemChannel}
+					if (client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel"))) { channel = client.channels.cache.get(client.settings.get(message.guild.id, "moderationChannel")) } else { channel = message.guild.systemChannel }
 					channel.send({
 						content: `Message deleted in <#${message.channelId}> (${message.author.toString()}) => 
 "${message.content}"`
-+ (deletionLog ? (target.id === message.author.id ? `\ndeleted by ${executor.tag}. ` : "\nWe don't know by who, probably themselves. ") : "\nNo relevant audit logs were found. ")
-+ "\n✅ detected: "
-+ (message.embeds.length?"Embed ":"") + (message.attachments.size?"Attachment ":"") + (message.components.length?"Components ":"") + (message.stickers.size?"Stickers ":"")
+							+ (deletionLog ? (target.id === message.author.id ? `\ndeleted by ${executor.tag}. ` : "\nWe don't know by who, probably themselves. ") : "\nNo relevant audit logs were found. ")
+							+ "\n✅ detected: "
+							+ (message.embeds.length ? "Embed " : "") + (message.attachments.size ? "Attachment " : "") + (message.components.length ? "Components " : "") + (message.stickers.size ? "Stickers " : "")
 					});
 					embed.data.fields ? channel.send({ embeds: [embed] }) : null;
 				}

@@ -12,7 +12,7 @@ module.exports = {
 
 	async execute(interaction, client) {
 		const amount = interaction.options.getInteger("amount");
-		if (amount == 0) {return interaction.reply({ content: "You stupid >_<'" })}
+		if (amount == 0) { return interaction.reply({ content: "You stupid >_<'" }) }
 		const user = interaction.options.getUser("user");
 		const whole_server = interaction.options.getBoolean("whole_server");
 		const channel = interaction.options.getChannel("channel");
@@ -26,30 +26,30 @@ module.exports = {
 				const asd = "fuck";
 			} else if (user == null && whole_server == null && channel !== null) {
 				const deletec = client.channels.cache.get(channel.id);
-				await deletec.bulkDelete(amount).catch(error => {console.error(error)});
-				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from #"+ channel.name });
+				await deletec.bulkDelete(amount).catch(error => { console.error(error) });
+				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from #" + channel.name });
 			} else if (channel == null && whole_server == null && user !== null) {
 				/*
-                Async function purgeMemberMessages(
-                    memberId,
-                    limit,
-                    timeout = 60000
-                ) {
-                    // Get all messages posted by the given user with a limit
-                    let messagesCollection = await interaction.channel.awaitMessages({
-                        filter: m => m.author.id === memberId,
-                        max: limit,
-                        time: timeout
-                    });
-                    // Convert the collection to an array
-                    let messages = Array.from(messagesCollection.values());
-                    // Delete each message
-                    for (let message of messages) {
-                        await message.delete();
-                    }
-                }
-                await purgeMemberMessages(user.id, amount);
-                */
+				Async function purgeMemberMessages(
+					memberId,
+					limit,
+					timeout = 60000
+				) {
+					// Get all messages posted by the given user with a limit
+					let messagesCollection = await interaction.channel.awaitMessages({
+						filter: m => m.author.id === memberId,
+						max: limit,
+						time: timeout
+					});
+					// Convert the collection to an array
+					let messages = Array.from(messagesCollection.values());
+					// Delete each message
+					for (let message of messages) {
+						await message.delete();
+					}
+				}
+				await purgeMemberMessages(user.id, amount);
+				*/
 
 				console.log(cha);
 				console.log(cha.messages.fetch());
@@ -91,9 +91,9 @@ Const amount = interaction.options.getInteger('amount');
 const user = interaction.options.getUser('user');
 
 if (user) {
-    const target = (await interaction.channel.messages.fetch({ limit:amount })).filter(m => m.author.id === user.id)
-    await interaction.channel.bulkDelete(target, true)
-    return interaction.reply({ content: pr[1] + `\`${amount}\` (${user})` + pr[2]})
+	const target = (await interaction.channel.messages.fetch({ limit:amount })).filter(m => m.author.id === user.id)
+	await interaction.channel.bulkDelete(target, true)
+	return interaction.reply({ content: pr[1] + `\`${amount}\` (${user})` + pr[2]})
 } else {
 
 await interaction.channel.bulkDelete(amount, true)

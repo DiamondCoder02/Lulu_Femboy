@@ -2,7 +2,7 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
 	name: "messageReactionAdd",
 	async execute(reaction, user, client) {
-		if (user.bot) {return}
+		if (user.bot) { return }
 		if (reaction.partial) {
 			try { await reaction.fetch() }
 			catch (error) { return console.error("Something went wrong when fetching the message:", error) }

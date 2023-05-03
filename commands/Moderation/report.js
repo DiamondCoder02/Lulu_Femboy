@@ -42,8 +42,8 @@ module.exports = {
 		const description_2 = interaction.options.getString("description_2");
 		const fix = interaction.options.getString("fix");
 		const report = new EmbedBuilder()
-			.setDescription(description + "\n" + (description_2? description_2:"-") + "\n\n**Fix:**\n" + (fix? fix:"-"))
-			.setColor([ 255, 0, 0 ])
+			.setDescription(description + "\n" + (description_2 ? description_2 : "-") + "\n\n**Fix:**\n" + (fix ? fix : "-"))
+			.setColor([255, 0, 0])
 			.addFields({ name: "Reported by ID:", value: `${interaction.user.id}`, inline: true })
 			.setTimestamp()
 			.setFooter({ text: "React with emoji to delete" })
@@ -51,7 +51,7 @@ module.exports = {
 		if (interaction.options.getSubcommand() === "guild") {
 			report.setTitle("Guild Report about " + problem_with);
 			let channel;
-			if (client.settings.get(interaction.guild.id, "moderationChannel")) {channel = client.channels.cache.get(client.settings.get(interaction.guild.id, "moderationChannel"))} else {channel = interaction.guild.systemChannel}
+			if (client.settings.get(interaction.guild.id, "moderationChannel")) { channel = client.channels.cache.get(client.settings.get(interaction.guild.id, "moderationChannel")) } else { channel = interaction.guild.systemChannel }
 			if (channel) {
 				const s = await channel.send({ embeds: [report], fetchReply: true });
 				s.react("<:red_cross:1008725354296389723>");

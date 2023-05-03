@@ -4,33 +4,33 @@ module.exports = {
 	execute(oldGuildScheduledEvent, newGuildScheduledEvent, client) {
 		/*
 		Console.log(oldGuildScheduledEvent)
-        console.log(`Guild event old updated: ${oldGuildScheduledEvent.name}`)
+		console.log(`Guild event old updated: ${oldGuildScheduledEvent.name}`)
 		console.log(newGuildScheduledEvent)
-        console.log(`Guild event new updated: ${newGuildScheduledEvent.name}`)
+		console.log(`Guild event new updated: ${newGuildScheduledEvent.name}`)
 		*/
 		let channel, oldend, newend, scType, staType, newscType, newstaType;
 		console.log(`${newGuildScheduledEvent.guild.name} event updated: ${newGuildScheduledEvent.name}.`);
 		const schedulesLogs = client.settings.get(oldGuildScheduledEvent.guild.id, "schedulesLogs");
 		if (schedulesLogs) {
-			if (client.channels.cache.get(client.settings.get(newGuildScheduledEvent.guild.id, "moderationChannel"))) {channel = client.channels.cache.get(client.settings.get(newGuildScheduledEvent.guild.id, "moderationChannel"))} else {channel = newGuildScheduledEvent.guild.systemChannel}
-			if (oldGuildScheduledEvent.scheduledEndTimestamp === null) {oldend = "-"} else {oldend = new Date(oldGuildScheduledEvent.scheduledEndTimestamp).toLocaleString("hu-HU")}
-			if (newGuildScheduledEvent.scheduledEndTimestamp === null) {newend = "-"} else {newend = new Date(newGuildScheduledEvent.scheduledEndTimestamp).toLocaleString("hu-HU")}
-			if (oldGuildScheduledEvent.entityType === 1) {scType = "StageInstance"}
-			if (oldGuildScheduledEvent.entityType === 2) {scType = "Voice"}
-			if (oldGuildScheduledEvent.entityType === 3) {scType = "External"}
-			if (oldGuildScheduledEvent.status === 1) {staType = "Scheduled"}
-			if (oldGuildScheduledEvent.status === 2) {staType = "Active"}
-			if (oldGuildScheduledEvent.status === 3) {staType = "Completed"}
-			if (oldGuildScheduledEvent.status === 4) {staType = "Cancelled"}
-			if (newGuildScheduledEvent.entityType === 1) {newscType = "StageInstance"}
-			if (newGuildScheduledEvent.entityType === 2) {newscType = "Voice"}
-			if (newGuildScheduledEvent.entityType === 3) {newscType = "External"}
-			if (newGuildScheduledEvent.status === 1) {newstaType = "Scheduled"}
-			if (newGuildScheduledEvent.status === 2) {newstaType = "Active"}
-			if (newGuildScheduledEvent.status === 3) {newstaType = "Completed"}
-			if (newGuildScheduledEvent.status === 4) {newstaType = "Cancelled"}
+			if (client.channels.cache.get(client.settings.get(newGuildScheduledEvent.guild.id, "moderationChannel"))) { channel = client.channels.cache.get(client.settings.get(newGuildScheduledEvent.guild.id, "moderationChannel")) } else { channel = newGuildScheduledEvent.guild.systemChannel }
+			if (oldGuildScheduledEvent.scheduledEndTimestamp === null) { oldend = "-" } else { oldend = new Date(oldGuildScheduledEvent.scheduledEndTimestamp).toLocaleString("hu-HU") }
+			if (newGuildScheduledEvent.scheduledEndTimestamp === null) { newend = "-" } else { newend = new Date(newGuildScheduledEvent.scheduledEndTimestamp).toLocaleString("hu-HU") }
+			if (oldGuildScheduledEvent.entityType === 1) { scType = "StageInstance" }
+			if (oldGuildScheduledEvent.entityType === 2) { scType = "Voice" }
+			if (oldGuildScheduledEvent.entityType === 3) { scType = "External" }
+			if (oldGuildScheduledEvent.status === 1) { staType = "Scheduled" }
+			if (oldGuildScheduledEvent.status === 2) { staType = "Active" }
+			if (oldGuildScheduledEvent.status === 3) { staType = "Completed" }
+			if (oldGuildScheduledEvent.status === 4) { staType = "Cancelled" }
+			if (newGuildScheduledEvent.entityType === 1) { newscType = "StageInstance" }
+			if (newGuildScheduledEvent.entityType === 2) { newscType = "Voice" }
+			if (newGuildScheduledEvent.entityType === 3) { newscType = "External" }
+			if (newGuildScheduledEvent.status === 1) { newstaType = "Scheduled" }
+			if (newGuildScheduledEvent.status === 2) { newstaType = "Active" }
+			if (newGuildScheduledEvent.status === 3) { newstaType = "Completed" }
+			if (newGuildScheduledEvent.status === 4) { newstaType = "Cancelled" }
 			const scheduleEmbed = new EmbedBuilder()
-				.setColor([ 255, 255, 0 ])
+				.setColor([255, 255, 0])
 				.setTitle("Guild event updated has been detected")
 				.setDescription(`Name: \`${oldGuildScheduledEvent.name}\``)
 				.setTimestamp();

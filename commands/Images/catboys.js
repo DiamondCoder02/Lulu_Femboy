@@ -24,9 +24,9 @@ module.exports = {
 			let data = await response.text();
 			const img = JSON.parse(data);
 			const embed = new EmbedBuilder()
-				.setFooter({ text: `${category} - ${a+1}/${amount}` })
-				.setColor([ 0, 255, 0 ]);
-			if (category === "catboy") { embed.setDescription(`Catboy says: ${img.response}`)}
+				.setFooter({ text: `${category} - ${a + 1}/${amount}` })
+				.setColor([0, 255, 0]);
+			if (category === "catboy") { embed.setDescription(`Catboy says: ${img.response}`) }
 			else if (img.error !== "none") { return interaction.reply("Error happened: " + img.error) }
 			else { embed.setImage(img.url) }
 

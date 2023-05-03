@@ -18,7 +18,7 @@ module.exports = {
 
 		client.guilds.cache.forEach(guild => {
 			const botPermissionCheck = guild.members.cache.get(client.user.id);
-			if (botPermissionCheck.permissions.has(PermissionsBitField.Flags.ManageGuild)){
+			if (botPermissionCheck.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
 				guild.invites.fetch().then(invites => {
 					const codeUses = new Map();
 					invites.each(inv => codeUses.set(inv.code, inv.uses));
@@ -34,13 +34,13 @@ module.exports = {
 
 		// eslint-disable-next-line no-console
 		console.log("\n-- Logged in as: " + client.user.tag
-            + "\n\t-- Client_ID: " + client.user.id
-            + "\n\t-- Password: " + stopPassword
-            + "\n\t-- Debug_level: " + debug_level
-            + "\n\t-- Ready at: " + client.readyAt);
+			+ "\n\t-- Client_ID: " + client.user.id
+			+ "\n\t-- Password: " + stopPassword
+			+ "\n\t-- Debug_level: " + debug_level
+			+ "\n\t-- Ready at: " + client.readyAt);
 
 		const embed = new EmbedBuilder()
-			.setColor([ 255, 255, 0 ])
+			.setColor([255, 255, 0])
 			.setTitle("Bot has started! \n" + client.user.tag)
 			.setDescription(`Bot info:
 DebugLevel: ${debug_level},

@@ -1,24 +1,24 @@
-const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle, ComponentType } = require("discord.js"), fs = require("fs");
+const { SlashCommandBuilder } = require("@discordjs/builders"), { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require("discord.js"), fs = require("fs");
 let eventFolders = fs.readdirSync("./events"); let eventFilesArray = [];
 for (const folder of eventFolders) {
 	fs.readdir(`./events/${folder}`, (err, files) => {
-		if (err) {throw err}
+		if (err) { throw err }
 		eventFilesArray.push(`\n__**${folder}**__`);
 		for (const file of files) {
-			if (!file.endsWith(".js")) {continue}
-			if (file === "ready.js") {eventFilesArray.push("- "+file.slice(folder, -3)); continue}
-			eventFilesArray.push("- "+file.slice(folder.length, -3));
+			if (!file.endsWith(".js")) { continue }
+			if (file === "ready.js") { eventFilesArray.push("- " + file.slice(folder, -3)); continue }
+			eventFilesArray.push("- " + file.slice(folder.length, -3));
 		}
 	});
 }
 let commandFolders = fs.readdirSync("./commands"); let commandFilesArray = [];
 for (const folder of commandFolders) {
 	fs.readdir(`./commands/${folder}`, (err, files) => {
-		if (err) {throw err}
+		if (err) { throw err }
 		commandFilesArray.push(`\n__**${folder}**__`);
 		for (const file of files) {
-			if (!file.endsWith(".js")) {continue}
-			commandFilesArray.push("- "+file.slice(0, -3));
+			if (!file.endsWith(".js")) { continue }
+			commandFilesArray.push("- " + file.slice(0, -3));
 		}
 	});
 }
@@ -64,11 +64,8 @@ User,
 `;
 		const guildLength = client.guilds.cache.map(guild => guild.id).length;
 		const page = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("delete").setLabel("Delete message").setStyle(ButtonStyle.Danger).setEmoji("✖️"));
-		const filter = i => i.user.id === interaction.user.id;
-		const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 30000 });
-		collector.on("collect", async () => { await interaction.deleteReply(); collector.stop()});
 		const version_embed = new EmbedBuilder()
-			.setColor([ 255, 255, 0 ])
+			.setColor([255, 255, 0])
 			.setTitle("Here is some information about the bot and its development:")
 			.setDescription("Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO)")
 			.setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
@@ -89,10 +86,10 @@ User,
 				{ name: "__npm packages__", value: npmPackages, inline: true },
 				{ name: "__GatewayIntentBits__", value: GaInBi, inline: true },
 				{ name: "__Partials__", value: pars, inline: true },
-				{ name: "Currently joined servers:", value: "`"+String(guildLength)+"` guilds" },
-				{ name: "I was called good bot:", value: "`"+String(goodBad.goodBot)+ "` time(s)", inline: true },
-				{ name: "I was called bad bot:", value: "`"+String(goodBad.badBot)+ "` time(s)", inline: true },
-				{ name: "People asked if:", value: "They can f**k my bot `"+String(goodBad.canIFuckBot)+ "` time(s)", inline: true }
+				{ name: "Currently joined servers:", value: "`" + String(guildLength) + "` guilds" },
+				{ name: "I was called good bot:", value: "`" + String(goodBad.goodBot) + "` time(s)", inline: true },
+				{ name: "I was called bad bot:", value: "`" + String(goodBad.badBot) + "` time(s)", inline: true },
+				{ name: "People asked if:", value: "They can f**k my bot `" + String(goodBad.canIFuckBot) + "` time(s)", inline: true }
 			)
 			.setTimestamp()
 			.setFooter({ text: "Last update: 2023.Feb.17." });
@@ -105,7 +102,7 @@ User,
 		let totalSeconds = (client.uptime / 1000);
 		let clientdays = Math.floor(totalSeconds / 86400);
 		let clienthours = Math.floor((totalSeconds %= 86400) / 3600);
-		let clientminutes = Math.floor((totalSeconds%= 3600) / 60);
+		let clientminutes = Math.floor((totalSeconds %= 3600) / 60);
 		let clientseconds = Math.floor(totalSeconds % 60);
 		let clientuptime = `${clientdays} day(s), ${clienthours} hour(s), ${clientminutes} minute(s), ${clientseconds} second(s)`;
 		let totalMemory = os.totalmem() / 1024 / 1024;
@@ -126,6 +123,6 @@ User,
 				{ name: "CPU", value: `Model: \`${cpu1.model}\`\nSpeed: \`${cpu1.speed} MHz\`\nCores: \`${cpuCores}\``, inline: true }
 			)
 			.setTimestamp();
-		await interaction.reply({ embeds: [ version_embed, osEmbed ], components: [page] });
+		await interaction.reply({ embeds: [version_embed, osEmbed], components: [page] });
 	}
 };
