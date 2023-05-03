@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionsBitField } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField, ActivityType } = require("discord.js");
 // Asd: const botStat = require("../../botConfigs/bot_private.json", "utf8"); const SetAct = botStat.botStatus;
 require("dotenv").config();
 let stopPassword = process.env.stopPassword;
@@ -8,12 +8,11 @@ module.exports = {
 	name: "ready",
 	once: true,
 	execute(arg, client, guildInvites, vanityInvites) {
-		client.user.setActivity("Bot remake: 0%", "WATCHING");
+		let guildLength = client.guilds.cache.map(guild => guild.id).length;
+		client.user.setActivity(guildLength+" servers currently", { type: ActivityType.Watching });
 		setInterval(() => {
-			/* Asd
-			let status = SetAct[Math.floor(Math.random() * SetAct.length)];
-			client.user.setActivity(status);*/
-			client.user.setActivity("Bot remake: 0%", "WATCHING");
+			guildLength = client.guilds.cache.map(guild => guild.id).length;
+			client.user.setActivity(guildLength+" servers currently", { type: ActivityType.Watching });
 		}, 10800000);
 
 		client.guilds.cache.forEach(guild => {
