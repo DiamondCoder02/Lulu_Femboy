@@ -33,7 +33,7 @@ module.exports = {
 		"no-undef": ["warn"],
 		"no-unused-vars": ["warn"],
 		"no-var": ["warn"],
-		"no-warning-comments": ["error"],
+		"no-warning-comments": ["warn"],
 		"object-curly-spacing": ["error", "always"],
 		"quotes": ["error", "double"],
 		"semi": ["error", "always", { "omitLastInOneLineBlock": true }],
