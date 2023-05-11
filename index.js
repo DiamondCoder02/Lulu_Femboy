@@ -137,10 +137,10 @@ if (deploying == "true") {
 }
 
 // Error handler
-client.on("error", (e) => console.line(e));
-client.on("warn", (e) => console.warn(e));
-process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error));
-process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error));
+client.on("error", (e) => console.error(e.name));
+client.on("warn", (e) => console.warn(e.name));
+process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error.name));
+process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error.name));
 if (debug_level >= 4) {
 	client.on("debug", (e) => console.debug(e));
 }
@@ -189,7 +189,7 @@ async function redditFetchFunction(channel, sub, i, guild) {
 	} else {return}
 	// Console.log(post)
 	const embed = new EmbedBuilder()
-		.setColor("#A020F0")
+		.setColor([160, 32, 240]) // #A020F0 purple
 		.setTitle(post.title)
 		.setURL(`https://reddit.com${post.permalink}`)
 		.setAuthor({ name: post.author })
