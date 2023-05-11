@@ -22,7 +22,7 @@
         "dbd-soft-ui": "^1.6.36-beta.1",
         "discord-dashboard": "^2.3.61",
         "discord.js": "^14.7.1",
-        "discord.js-akinator": "^4.0.4",
+        "discord.js-akinator": "^4.0.5",
         "dotenv": "^16.0.1",
         "enmap": "^5.9.5",
         "nekos.life": "^3.0.0",
