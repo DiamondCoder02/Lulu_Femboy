@@ -19,8 +19,8 @@ module.exports = {
 		if (interaction.options.getString("lang")) { lang = interaction.options.getString("lang") }
 		if (interaction.options.getString("game_type")) { gameType = interaction.options.getString("game_type") }
 
-		try { require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
-		catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .") }
+		// try { require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
+		// catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .") }
 
 		// Const lang = "en"; //The Language of the Game
 		// Const childMode = false; //Whether to use Akinator's Child Mode
