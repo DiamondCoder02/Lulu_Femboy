@@ -1,6 +1,9 @@
-const { Collection, InteractionType, ChannelType } = require("discord.js");
+const { Collection, InteractionType, ChannelType, EmbedBuilder } = require("discord.js");
 const cooldowns = new Collection();
 require("dotenv").config(); let b_o_Id = process.env.botOwnerId; let debug_level = process.env.debug_level;
+let announceChannel, announceRole, announceEmbed = new EmbedBuilder()
+	.setColor([255, 255, 0])
+	.setTimestamp();
 module.exports = {
 	name: "interactionCreate",
 	async execute(interaction, client) {
@@ -38,10 +41,34 @@ module.exports = {
 				try {
 					await command.execute(interaction, client);
 				} catch (error) {
-					console.error(error);
+					console.error(error.name, error.message);
+					console.line(error);
 					try { await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true }) }
 					catch { await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true }) }
 					return;
+				}
+			}
+			if (i.isCommand()) {
+				if (i.commandName === "announce") {
+					if (i.options.getChannel("channel")) {
+						announceChannel = i.options.getChannel("channel");
+						if (i.options.getRole("role")) {
+							announceRole = i.options.getRole("role");
+						}
+					}
+				}
+			}
+			if (i.type === InteractionType.ModalSubmit) {
+				if (i.customId === "announce") {
+					const titleString = i.fields.getTextInputValue("title");
+					const descriptionString = i.fields.getTextInputValue("description");
+					if (i.fields.getTextInputValue("title")) { announceEmbed.setTitle(titleString) }
+					if (i.fields.getTextInputValue("description")) { announceEmbed.setDescription(descriptionString) }
+					announceEmbed.setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() });
+					if (announceRole) {
+						announceChannel.send({ content: announceRole.toString(), embeds: [announceEmbed] });
+					} else { announceChannel.send({ embeds: [announceEmbed] }) }
+					await interaction.reply({ content: "Announcement sent!", ephemeral: true });
 				}
 			}
 			if (i.isButton()) {
@@ -66,7 +93,7 @@ module.exports = {
 					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a button with commandName: " + nameOfCommand + " => " + i.customId);
 				}
 				if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
-					console.log(i);
+					console.line(i);
 					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a select menu => " + i.value);
 				}
 			}
@@ -88,9 +115,9 @@ module.exports = {
 					// Const subcommand = interaction.options.getSubcommand();
 					// Console.log(subcommand);
 				} catch (error) {
-					console.log(error.name);
+					console.log(error.name, error.message);
 				}
 			}
-		} catch (error) { console.error(error) }
+		} catch (error) { console.error(error.name, error.message) }
 	}
 };
