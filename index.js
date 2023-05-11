@@ -137,10 +137,12 @@ if (deploying == "true") {
 }
 
 // Error handler
-client.on("error", (e) => console.error(e.name));
-client.on("warn", (e) => console.warn(e.name));
-process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error.name));
-process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error.name));
+client.on("error", (e) => console.error(e.name, e.message));
+client.on("error", (e) => console.line(e));
+client.on("warn", (e) => console.warn(e.name, e.message));
+client.on("warn", (e) => console.line(e));
+process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error.name, error.message));
+process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error.name, error.message));
 if (debug_level >= 4) {
 	client.on("debug", (e) => console.debug(e));
 }
