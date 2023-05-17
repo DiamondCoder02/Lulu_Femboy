@@ -52,6 +52,7 @@ module.exports = {
 				if (i.commandName === "announce") {
 					if (i.options.getChannel("channel")) {
 						announceChannel = i.options.getChannel("channel");
+						announceRole = false;
 						if (i.options.getRole("role")) {
 							announceRole = i.options.getRole("role");
 						}
@@ -60,10 +61,10 @@ module.exports = {
 			}
 			if (i.type === InteractionType.ModalSubmit) {
 				if (i.customId === "announce") {
-					const titleString = i.fields.getTextInputValue("title");
-					const descriptionString = i.fields.getTextInputValue("description");
-					if (i.fields.getTextInputValue("title")) { announceEmbed.setTitle(titleString) }
-					if (i.fields.getTextInputValue("description")) { announceEmbed.setDescription(descriptionString) }
+					let titleString = false, descriptionString = false, smallnote = false;
+					if (i.fields.getTextInputValue("title")) { titleString = i.fields.getTextInputValue("title"); announceEmbed.setTitle("*Announcement:*\n"+titleString) }
+					if (i.fields.getTextInputValue("description")) { descriptionString = i.fields.getTextInputValue("description"); announceEmbed.setDescription(descriptionString) }
+					if (i.fields.getTextInputValue("smallnote")) { smallnote = i.fields.getTextInputValue("smallnote"); announceEmbed.addFields({ name: "*smallnote:*", value: smallnote, inline: false }) }
 					announceEmbed.setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() });
 					if (announceRole) {
 						announceChannel.send({ content: announceRole.toString(), embeds: [announceEmbed] });
@@ -93,7 +94,7 @@ module.exports = {
 					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a button with commandName: " + nameOfCommand + " => " + i.customId);
 				}
 				if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
-					console.line(i);
+					// console.line(i);
 					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a select menu => " + i.value);
 				}
 			}
