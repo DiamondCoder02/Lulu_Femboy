@@ -172,9 +172,13 @@ async function redditFetchFunction(channel, sub, i, guild) {
 	if (feedChannel == undefined) {return}
 	let post = await fetch(`https://www.reddit.com/r/${sub}/new.json`)
 		.then(res => res.json()).then(body => {
-			let found = body.data.children;
-			if (!found.length) {return channel.send(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`)}
-			return found[0].data;
+			try {
+				let found = body.data.children;
+				if (!found.length) {return channel.send(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`)}
+				return found[0].data;
+			} catch (e) {
+				return channel.send(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`);
+			}
 		});
 	if (i == 0) {
 		let lastID = client.settings.get(guild.id, "lastRedditFeedPost1");
