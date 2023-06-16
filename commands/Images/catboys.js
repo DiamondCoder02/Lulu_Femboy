@@ -27,11 +27,11 @@ module.exports = {
 				.setFooter({ text: `${category} - ${a + 1}/${amount}` })
 				.setColor([0, 255, 0]);
 			if (category === "catboy") { embed.setDescription(`Catboy says: ${img.response}`) }
-			else if (img.error !== "none") { return interaction.reply("Error happened: " + img.error) }
+			else if (img.error !== "none") { return interaction.channel.send("Error happened: " + img.error) }
 			else { embed.setImage(img.url) }
 
-			try { await interaction.followUp({ embeds: [embed] }) }
-			catch { interaction.reply({ embeds: [embed] }) }
+			try { await interaction.channel.send({ embeds: [embed] }) }
+			catch { interaction.channel.send({ embeds: [embed] }) }
 			await wait(1000);
 		}
 	}

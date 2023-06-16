@@ -96,11 +96,11 @@ module.exports = {
 				case "handhold": embed.setDescription(`${from} handholded ${user}. How lewd!`); break;
 				default: embed.setDescription(`${from} sends you a nice ${category}, ${user}. :3`); break;
 				}
-				try { await interaction.followUp({ content: user.toString(), embeds: [embed] }) }
-				catch { interaction.reply({ content: user.toString(), embeds: [embed] }) }
+				try { await interaction.channel.send({ content: user.toString(), embeds: [embed] }) }
+				catch { interaction.channel.send({ content: user.toString(), embeds: [embed] }) }
 			} else {
-				try { await interaction.followUp({ embeds: [embed] }) }
-				catch { interaction.reply({ embeds: [embed] }) }
+				try { await interaction.channel.send({ embeds: [embed] }) }
+				catch { interaction.channel.send({ embeds: [embed] }) }
 			}
 			await wait(1000);
 		}
