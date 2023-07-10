@@ -8,6 +8,15 @@ let dbd_key = process.env.dbd;
 let dbd_domain = process.env.DBdomain;
 let dbd_redirect = process.env.DBredirect;
 
+const Handler = new DBD.Handler(
+    /*
+            Keyv storage instance
+            Example: { store: new KeyvMongo('mongodb://user:pass@localhost:27017/dbname') }
+
+            Can be left empty to use the default storage (Keyv with SQLite)
+        */
+);
+
 /*
     UseCategorySet: true,
             createdBy: "DiamondCoder",
@@ -86,13 +95,14 @@ module.exports = {
 			useTheme404: true,
 			bot: client,
 			useCategorySet: true,
-			requiredPermissions: [ DBD.DISCORD_FLAGS.Permissions.MANAGE_GUILD, DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR ],
+			requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.MANAGE_GUILD, DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
 			theme: SoftUI({
+				storage: Handler,
 				locales: {
 					enUS: {
 						name: "English",
 						index: {
-							feeds: [ "Current Users", "CPU", "System Platform", "Server Count" ],
+							feeds: ["Current Users", "CPU", "System Platform", "Server Count"],
 							card: {
 								category: "dashboard",
 								title: `${client.user.username} bot dashboard`,

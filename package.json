@@ -21,16 +21,18 @@
         "better-logging": "^5.0.0",
         "booru": "^2.6.3",
         "chalk": "^4.1.2",
+        "dbd-soft-ui": "^1.7.0-beta.1",
+        "discord-dashboard": "^2.3.62",
         "discord.js": "^14.11.0",
-        "dbd-soft-ui": "^1.6.36-beta.1",
-        "discord-dashboard": "^2.3.61",
-        "discord.js-akinator": "^4.0.5",
-        "dotenv": "^16.0.1",
-        "enmap": "^5.9.5",
+        "discord.js-akinator": "^4.1.2",
+        "dotenv": "^16.3.1",
+        "enmap": "^5.9.8",
+        "express": "^4.18.2",
         "nekos.life": "^3.0.0",
-        "translate": "^1.4.1"
+        "pug": "^3.0.2",
+        "translate": "^2.0.2"
     },
     "devDependencies": {
-        "eslint": "^8.37.0"
+        "eslint": "^8.44.0"
     }
 }
