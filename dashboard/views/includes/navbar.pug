@@ -1,4 +1,4 @@
-nav.navbar.navbar-expand-lg.bg-body-tertiary
+nav.navbar.navbar-expand-lg.bg-dark(data-bs-theme='dark')
   .container-fluid
     a.navbar-brand(href='/lulu') 
       img.d-inline-block.align-text-top(src='/pics/lulu_pic_small.png', alt='LuluPic', width='40', height='46')
@@ -12,4 +12,6 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary
         a.nav-link(href='/lulu/faq') FAQ
         a.nav-link(href='/lulu/licts') License
         a.nav-link(href='/lulu/statfun') Stats / Fun
-        a.nav-link(href='/lulu/login') Login
+        // img.d-inline-block.align-text-bottom(src='/pics/logout.png', alt='logout', width='30', height='30')
+        a.nav-link(href='/lulu/login') Login 
+          img.d-inline-block(src='/pics/navbar_login.png', alt='logout', width='20', height='20') 

@@ -14,5 +14,7 @@ app.get("/lulu", (req, res) => { res.render("main", {
 	subtitle: "main page"
 });});
 
+app.all("*", (req, res) => res.render("errors/404"));
+
 const port = process.env.serverPort ||3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
