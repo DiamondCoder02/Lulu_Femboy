@@ -1,0 +1,30 @@
+body{
+	background-color: #313338;
+	color: #ffffff;
+}
+
+#search {
+	max-width: 300px;
+}
+
+#search + button {
+	height: 64px;
+}
+
+li {
+	cursor: pointer;
+}
+
+.commands li {
+	margin: 5px 0;
+	border-radius: 5px;
+	border: 1px solid lightgray !important;
+}
+
+.icon-search{
+	background-image : url(../pics/commands/search.png);
+	background-size: cover;
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+}

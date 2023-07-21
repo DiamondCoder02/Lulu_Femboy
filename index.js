@@ -93,6 +93,7 @@ client.settings = new Enmap({
 
 // Command file reader
 client.commands = new Collection();
+let webCommands = new Map();
 let commandFolders = fs.readdirSync("./commands");
 let forDeploy = [];
 for (const folder of commandFolders) {
@@ -103,9 +104,17 @@ for (const folder of commandFolders) {
 			const command = require(`./commands/${folder}/${file}`);
 			client.commands.set(command.data.name, command);
 			forDeploy.push(command.data.toJSON());
+			webCommands.set(command.data.name,
+				{ 	category: folder,
+					name: command.data.name,
+					description: command.data.description,
+					cooldown: (command.cooldown || "-")
+				}
+			);
 		}
 	});
 }
+module.exports.webCommand = webCommands;
 
 // Event handler
 const guildInvites = new Map();
