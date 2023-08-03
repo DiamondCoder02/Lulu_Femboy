@@ -151,11 +151,13 @@ client.on("error", (e) => console.error(e.name, e.message));
 client.on("error", (e) => console.line(e));
 client.on("warn", (e) => console.warn(e.name, e.message));
 client.on("warn", (e) => console.line(e));
-process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error.name, error.message));
-process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error.name, error.message));
+process.on("unhandledRejection", error => console.error("----- Uncaught Rejection: -----\n", error.stack));
+process.on("uncaughtException", error => console.error("----- Uncaught Exception: -----\n", error.stack));
 if (debug_level >= 4) {
 	client.on("debug", (e) => console.debug(e));
 }
+
+module.exports.client = client;
 
 let redditFeedSub = [];
 let redditFeedChannel = [];
