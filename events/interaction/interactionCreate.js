@@ -65,7 +65,7 @@ module.exports = {
 					if (i.fields.getTextInputValue("title")) { titleString = i.fields.getTextInputValue("title"); announceEmbed.setTitle("*Announcement:*\n"+titleString) }
 					if (i.fields.getTextInputValue("description")) { descriptionString = i.fields.getTextInputValue("description"); announceEmbed.setDescription(descriptionString) }
 					if (i.fields.getTextInputValue("smallnote")) { smallnote = i.fields.getTextInputValue("smallnote"); announceEmbed.addFields({ name: "*smallnote:*", value: smallnote, inline: false }) }
-					announceEmbed.setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() });
+					announceEmbed.setAuthor({ name: interaction.user.username, iconURL: interaction.user.displayAvatarURL() });
 					if (announceRole) {
 						announceChannel.send({ content: announceRole.toString(), embeds: [announceEmbed] });
 					} else { announceChannel.send({ embeds: [announceEmbed] }) }
@@ -82,20 +82,20 @@ module.exports = {
 			}
 			if (debug_level >= 1) {
 				if (i.guildId === null) {
-					return console.log("-- [" + i.user.tag + "] Triggered in DMs:" + i.commandName);
+					return console.log("-- [" + i.user.username + "] Triggered in DMs:" + i.commandName);
 				}
 				if (i.type === InteractionType.ApplicationCommand) {
-					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered: " + i.commandName);
+					return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered: " + i.commandName);
 				}
 				if ((i.type === InteractionType.MessageComponent) && debug_level >= 2) {
 					let nameOfCommand;
 					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
 					if (nameOfCommand === "akinator") { return } // Console.log("Bad akinator")
-					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a button with commandName: " + nameOfCommand + " => " + i.customId);
+					return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a button with commandName: " + nameOfCommand + " => " + i.customId);
 				}
 				if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
 					// console.line(i);
-					return console.log("-- [" + i.user.tag + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a select menu => " + i.value);
+					return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a select menu => " + i.value);
 				}
 			}
 			if (debug_level >= 1) {

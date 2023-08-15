@@ -29,7 +29,7 @@ module.exports = {
 		});
 
 		// eslint-disable-next-line no-console
-		console.log("\n-- Logged in as: " + client.user.tag
+		console.log("\n-- Logged in as: " + client.user.username
 			+ "\n\t-- Client_ID: " + client.user.id
 			+ "\n\t-- Password: " + stopPassword
 			+ "\n\t-- Debug_level: " + debug_level

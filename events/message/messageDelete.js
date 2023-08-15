@@ -25,7 +25,7 @@ module.exports = {
 			const embed = new EmbedBuilder()
 				.setColor("#FFFF00")
 				.setDescription("Other info:");
-			process.stdout.write(`[${new Date().toLocaleString("hu-HU")}] Message deleted in ${c.guild.name} <#${c.name}> (${message.author.tag}) => "${message.content}"`);
+			process.stdout.write(`[${new Date().toLocaleString("hu-HU")}] Message deleted in ${c.guild.name} <#${c.name}> (${message.author.username}) => "${message.content}"`);
 			if (message.embeds.length) {
 				process.stdout.write(" //Embed deleted//");
 			}

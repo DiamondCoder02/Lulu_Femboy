@@ -12,7 +12,7 @@ module.exports = {
 				let channel;
 				try {
 					if (client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel"))) { channel = client.channels.cache.get(client.settings.get(invite.guild.id, "moderationChannel")) } else { channel = invite.guild.systemChannel }
-					return channel.send({ content: `Invite created with code \`${invite.code}\` from \`${invite.inviter.tag}\` with \`${invite.maxUses}\` uses (0 = infinite).` });
+					return channel.send({ content: `Invite created with code \`${invite.code}\` from \`${invite.inviter.username}\` with \`${invite.maxUses}\` uses (0 = infinite).` });
 				} catch (error) {
 					// Console.log(error)
 					console.log("Invite Create Error");

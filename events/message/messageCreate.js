@@ -14,7 +14,7 @@ module.exports = {
 			if (l[0] != "" && l[1] != "") {
 				const channel = client.settings.get(message.guild.id, "singleChannelMessageLogger");
 				if (channel[0] == message.channel.id) {
-					client.channels.cache.get(channel[1]).send({ content: message.author.tag + "* said:\n" + `${String(message.content)}` });
+					client.channels.cache.get(channel[1]).send({ content: message.author.username + "* said:\n" + `${String(message.content)}` });
 					if (message.embeds.length) {
 						console.log(" //Embed detected//");
 						client.channels.cache.get(channel[1]).send({ embeds: [message.embeds[0]] });

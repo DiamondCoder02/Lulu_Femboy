@@ -8,19 +8,19 @@ module.exports = {
 				for (var i = 0; i < channelBlacklist.length; i++) {
 					if (oldMessage.channelId == channelBlacklist[i]) { return }
 				}
-				for (var i = 0; i < roleBlacklist.length; i++) {
-					if (oldMessage.member.roles.cache.has(roleBlacklist[i])) { return }
+				for (var ii = 0; ii < roleBlacklist.length; ii++) {
+					if (oldMessage.member.roles.cache.has(roleBlacklist[ii])) { return }
 				}
 			} catch { return }
 			try { if (oldMessage.author.bot) { return } } catch { return console.log("Bot is null, messageUpdate, WHAT THE FUCK?") }
 			if (newMessage.editedTimestamp === null && (newMessage.content.includes("https://") || newMessage.content.includes("http://"))) { return /* console.log('http(s):// Useless message update')*/ }
 			count = 0;
-			for (var i = 0; i < newMessage.content.length; i++) {
-				if (String(newMessage.content)[i] != String(oldMessage.content)[i]) { count++ }
+			for (var iii = 0; iii < newMessage.content.length; iii++) {
+				if (String(newMessage.content)[iii] != String(oldMessage.content)[iii]) { count++ }
 			}
 			if (count == 0) {
-				for (var i = 0; i < oldMessage.content.length; i++) {
-					if (String(oldMessage.content)[i] != String(newMessage.content)[i]) { count++ }
+				for (var iiii = 0; iiii < oldMessage.content.length; iiii++) {
+					if (String(oldMessage.content)[iiii] != String(newMessage.content)[iiii]) { count++ }
 				}
 				if (count == 0) { return console.log("messageUpdate, no context changed") }
 				else if (count == 1 || count == 2) { return console.log("messageUpdate, context changed with 1-2 characther") }

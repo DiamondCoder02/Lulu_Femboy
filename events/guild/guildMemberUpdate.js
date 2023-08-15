@@ -35,7 +35,7 @@ module.exports = {
 			const embed = new EmbedBuilder()
 				.setColor([255, 255, 0])
 				.setTitle("Server side profile updated!")
-				.setDescription(`${oldMember.user.tag} (${newMember.nickname ? newMember.nickname : newMember.user.tag}) user profile has been updated`)
+				.setDescription(`${oldMember.user.username} (${newMember.nickname ? newMember.nickname : newMember.user.username}) user profile has been updated`)
 				.setFooter({ text: `User ID: ${oldMember.user.id}` })
 				.setTimestamp();
 			if (oldMember.nickname !== newMember.nickname || oldMember.avatar !== newMember.avatar || oldMember.displayAvatarURL() !== newMember.displayAvatarURL() || oldMember.premiumSinceTimestamp !== newMember.premiumSinceTimestamp) { /* Empty */ } else { return }

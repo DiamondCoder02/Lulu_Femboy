@@ -15,19 +15,19 @@ module.exports = {
 					let channel = "";
 					if (client.settings.get(member.guild.id, "moderationChannel")) { channel = client.channels.cache.get(client.settings.get(member.guild.id, "moderationChannel")) } else { channel = member.guild.systemChannel }
 					if (usedInvite) {
-						channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.tag}\`(ID:${member.user.id}). \nInvites:${usedInvite.uses}/${usedInvite.maxUses}` });
+						channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \nThe code \`${usedInvite.code}\` (Created by: \`${usedInvite.inviter.tag}\`) was just used by \`${member.user.username}\`(ID:${member.user.id}). \nInvites:${usedInvite.uses}/${usedInvite.maxUses}` });
 					} else {
 						try {
 							let cachedVanityInvites = vanityInvites.get(member.guild.id);
 							let newVanityInvites = await member.guild.fetchVanityData();
 							if (cachedVanityInvites.uses < newVanityInvites.uses) {
-								channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \n\`${member.user.tag}\` joined with custom invite link. \nUsed since creation: \`${newVanityInvites.uses}\`` });
+								channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \n\`${member.user.username}\` joined with custom invite link. \nUsed since creation: \`${newVanityInvites.uses}\`` });
 							} else {
-								console.log(`guildMemberAdd - ${member.user.tag} somehow broke my bot logic. WHAT?`);
-								channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \n\`${member.user.tag}\` somehow broke my bot logic. WHAT?` });
+								console.log(`guildMemberAdd - ${member.user.username} somehow broke my bot logic. WHAT?`);
+								channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \n\`${member.user.username}\` somehow broke my bot logic. WHAT?` });
 							}
 						} catch {
-							channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \n\`${member.user.tag}\` joined without using an invite or with a limited useable invite.` });
+							channel.send({ content: `[\`${new Date(member.joinedTimestamp).toLocaleString("hu-HU")}\`] \n\`${member.user.username}\` joined without using an invite or with a limited useable invite.` });
 						}
 					}
 				} catch (err) {
@@ -67,7 +67,7 @@ module.exports = {
 				let welcomeMessage = client.settings.get(member.guild.id, "welcomeMessage");
 				const embed = new EmbedBuilder()
 					.setColor([255, 255, 0])
-					.setAuthor({ name: `${member.user.tag}`, iconURL: member.user.displayAvatarURL() })
+					.setAuthor({ name: `${member.user.username}`, iconURL: member.user.displayAvatarURL() })
 					.setDescription(welcomeMessage)
 					.setFooter({ text: `Member count: ${member.guild.memberCount - 1} => ${member.guild.memberCount}` })
 					.setTimestamp();
@@ -80,11 +80,11 @@ module.exports = {
 				.setColor([255, 255, 0])
 				.setTitle("New " + (member.user.bot ? "bot" : "user") + " joined:")
 				.setThumbnail(profilepic)
-				.setAuthor({ name: String(member.user.tag), iconURL: profilepic })
+				.setAuthor({ name: String(member.user.username), iconURL: profilepic })
 				.setTimestamp()
-				.setFooter({ text: String(client.user.tag), iconURL: client.user.displayAvatarURL() })
+				.setFooter({ text: String(client.user.username), iconURL: client.user.displayAvatarURL() })
 				.addFields(
-					{ name: "Tag:", value: String(member.user.tag) },
+					{ name: "Username:", value: String(member.user.username) },
 					{ name: "UserID", value: String(member.user.id) }
 				)
 				.addFields(

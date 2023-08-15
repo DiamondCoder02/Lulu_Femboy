@@ -18,11 +18,11 @@ module.exports = {
 					const embed = new EmbedBuilder()
 						.setColor([255, 255, 0])
 						.setTitle("User updated their own profile!")
-						.setDescription(`${oldUser.tag} (${newUser.tag}) has been updated`)
+						.setDescription(`${oldUser.username} (${newUser.username}) has been updated`)
 						.setFooter({ text: `User ID: ${oldUser.id}` })
 						.setTimestamp();
-					if (oldUser.tag === newUser.tag || oldUser.avatarURL === newUser.avatarURL) { return }
-					if (oldUser.tag !== newUser.tag) { embed.addFields({ name: "Tag", value: `${oldUser.tag} => ${newUser.tag}` }) }
+					if (oldUser.username === newUser.username || oldUser.avatarURL === newUser.avatarURL) { return }
+					if (oldUser.username !== newUser.username) { embed.addFields({ name: "username", value: `${oldUser.username} => ${newUser.username}` }) }
 					if (oldUser.avatarURL() !== newUser.avatarURL()) {
 						embed.addFields({ name: "Avatar", value: `Old: ${oldUser.avatarURL() ? oldUser.avatarURL() : "-"} => \nNew: ${newUser.avatarURL() ? newUser.avatarURL() : "-"}` });
 						embed.setThumbnail(oldUser.avatarURL());
