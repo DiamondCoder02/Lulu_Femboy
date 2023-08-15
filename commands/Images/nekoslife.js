@@ -67,7 +67,7 @@ module.exports = {
 				.setColor([0, 255, 0])
 				.setTitle("OwO, " + c)
 				.setTimestamp()
-				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() });
+				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() });
 			switch (interaction.options.getString("sfw_w")) {
 			case "baka": img = await neko.tickle(); break;
 			case "cuddle": img = await neko.cuddle(); break;

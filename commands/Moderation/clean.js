@@ -74,7 +74,7 @@ module.exports = {
 				});
 				// Await interaction.channel.bulkDelete(userMessages)
 				console.log("test3");
-				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from " + user.tag });
+				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from " + user.username });
 			} else if (user == null && whole_server == null && channel == null) {
 				await interaction.channel.bulkDelete(amount);
 				return interaction.reply({ content: `\`${amount}\`` + " messages deleted from this channel" });

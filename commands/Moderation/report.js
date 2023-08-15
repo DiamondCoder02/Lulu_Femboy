@@ -47,7 +47,7 @@ module.exports = {
 			.addFields({ name: "Reported by ID:", value: `${interaction.user.id}`, inline: true })
 			.setTimestamp()
 			.setFooter({ text: "React with emoji to delete" })
-			.setAuthor({ name: `Reported by ${String(interaction.user.tag)}`, iconURL: interaction.user.displayAvatarURL() });
+			.setAuthor({ name: `Reported by ${String(interaction.user.username)}`, iconURL: interaction.user.displayAvatarURL() });
 		if (interaction.options.getSubcommand() === "guild") {
 			report.setTitle("Guild Report about " + problem_with);
 			let channel;

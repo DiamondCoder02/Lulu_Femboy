@@ -27,13 +27,13 @@ module.exports = {
 				.setColor([255, 255, 0])
 				.setTitle("Profile / User Informations")
 				.setImage(user.displayAvatarURL())
-				.setDescription("Here are some user information, requested by: " + interaction.user.tag + `\n\n**Current Server Roles (${String(userMember.roles.cache.map(role => role.id).length)}) :**\n` + String(roleOfMember))
-				.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
+				.setDescription("Here are some user information, requested by: " + interaction.user.username + `\n\n**Current Server Roles (${String(userMember.roles.cache.map(role => role.id).length)}) :**\n` + String(roleOfMember))
+				.setAuthor({ name: user.username, iconURL: user.displayAvatarURL() })
 				.setTimestamp()
-				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
+				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() })
 				.addFields(
 					{ name: "Nickname:", value: userMember.nickname ? userMember.nickname : "-", inline: true },
-					{ name: "Tag:", value: user.tag, inline: true },
+					{ name: "Username:", value: user.username, inline: true },
 					{ name: "\u200B", value: "\u200B", inline: true },
 					{ name: "Bot?", value: (user.bot ? "True" : "False"), inline: true },
 					{ name: "UserID:", value: String(user.id), inline: true },
@@ -59,7 +59,7 @@ module.exports = {
 					{ name: "Type:", value: String(interaction.channel.type), inline: true },
 					{ name: "RateLimit:", value: interaction.channel.topic ? interaction.channel.topic : "0" + " seconds", inline: true }
 				)
-				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
+				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() })
 				.setTimestamp();
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "voice") {
@@ -78,7 +78,7 @@ module.exports = {
 					{ name: "rtcRegion:", value: interaction.member.voice.channel.rtcRegion ? interaction.member.voice.channel.rtcRegion : "Automatic", inline: true },
 					{ name: "VideoQuality:", value: interaction.member.voice.channel.videoQualityMode ? (interaction.member.voice.channel.videoQualityMode === 2 ? "720p" : "Automatic") : "Automatic", inline: true }
 				)
-				.setFooter({ text: client.user.tag, iconURL: client.user.displayAvatarURL() })
+				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() })
 				.setTimestamp();
 			await interaction.reply({ embeds: [embed], components: [page] });
 		} else if (interaction.options.getString("search") === "server") {
@@ -94,10 +94,10 @@ module.exports = {
 				.setImage(interaction.guild.iconURL())
 				.setDescription(String(interaction.guild.roles.cache.map(role => role.id).length) + " roles:\n" + String(serverRoles))
 				.setTimestamp()
-				.setFooter({ text: "Server info, requested by: " + interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })
+				.setFooter({ text: "Server info, requested by: " + interaction.user.username, iconURL: interaction.user.displayAvatarURL() })
 				.addFields(
 					{ name: "Guild name and acronym:", value: interaction.guild.name + `\n(${interaction.guild.nameAcronym})`, inline: true },
-					{ name: "Server owner:", value: String(owner.user.tag), inline: true },
+					{ name: "Server owner:", value: String(owner.user.username), inline: true },
 					{ name: "Server capacity:", value: `${interaction.guild.memberCount} / ` + interaction.guild.maximumMembers, inline: true },
 					{ name: "Guild Created:", value: `<t:${Math.floor(interaction.guild.createdTimestamp / 1000)}:R>`, inline: true },
 					{ name: "Server ID:", value: String(interaction.guild.id), inline: true },

@@ -68,7 +68,7 @@ User,
 			.setColor([255, 255, 0])
 			.setTitle("Here is some information about the bot and its development:")
 			.setDescription("Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO)")
-			.setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
+			.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })
 			.addFields(
 				{ name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondPRO02/projects/2/views/1)", inline: true },
 				{ name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondPRO02/Femboi_OwO/issues)", inline: true },
@@ -114,7 +114,7 @@ User,
 		const osEmbed = new EmbedBuilder()
 			.setColor("#FFFF00")
 			.setTitle("System info:")
-			.setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() })
+			.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })
 			.addFields(
 				{ name: "----------System", value: `OS: \`${os.type()}\`\nOS version: \`${os.release()}\`\nOS platform: \`${os.platform}\`\nOS arc: \`${os.arch()}\`\nPC name: \`${os.hostname}\``, inline: true },
 				{ name: "Info:----------", value: `Memory %: \`${usedMemoryPercentage} %\`\nMemory total: \`${totalMemory.toFixed(2)} MB\`\nMemory used: \`${usedMemory.toFixed(2)} MB\`\nMemory free: \`${freeMemory.toFixed(2)} MB\``, inline: true },
