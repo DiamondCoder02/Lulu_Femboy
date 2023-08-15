@@ -32,8 +32,9 @@ module.exports = {
 				.setTimestamp()
 				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() })
 				.addFields(
-					{ name: "Nickname:", value: userMember.nickname ? userMember.nickname : "-", inline: true },
+					{ name: "DisplayName / Nickname:", value: user.displayName+" / "+(userMember.nickname?userMember.nickname:"-"), inline: true }, // Remove inline
 					{ name: "Username:", value: user.username, inline: true },
+					// { name: "Pronouns:", value: "soontm", inline: true },
 					{ name: "\u200B", value: "\u200B", inline: true },
 					{ name: "Bot?", value: (user.bot ? "True" : "False"), inline: true },
 					{ name: "UserID:", value: String(user.id), inline: true },
@@ -204,19 +205,23 @@ module.exports = {
 			// Note: embedtest2 cannot have more fields
 			await interaction.reply({ content: "Here's all the debug info", embeds: [embedtest1, embedtest2], components: [page] });
 		} else if (interaction.options.getString("search") === "sticker") {
+			/* A
 			console.log(interaction.guild);
 			const sSticker = interaction.guild.stickers.cache.map(sticker => sticker.name).join(", ");
 			const serverStickers = sSticker.split(", ").sort().join(", ");
 			console.log(serverStickers);
 			const sStickers = interaction.guild.stickers.cache;
 			console.log(sStickers);
+			*/
 		} else if (interaction.options.getString("search") === "emoji") {
+			/* A
 			console.log(interaction.guild);
 			const sEmoji = interaction.guild.emojis.cache.map(emoji => emoji.name).join(", ");
 			const serverEmojis = sEmoji.split(", ").sort();
 			console.log(serverEmojis);
 			const sEmojis = interaction.guild.emojis.cache;
 			console.log(sEmojis);
+			*/
 		}
 	}
 };
