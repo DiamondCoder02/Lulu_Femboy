@@ -55,3 +55,4 @@ console.debug("foo"); // Won't log to console, but will be saved in 159489710026
 
 - .env only gives back string.
 - Drink wine and listen to music, to boost morale, motivational and productivity.
+- Never stay with parents more than a week. It's harder to work.
