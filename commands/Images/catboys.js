@@ -30,8 +30,12 @@ module.exports = {
 			else if (img.error !== "none") { return interaction.channel.send("Error happened: " + img.error) }
 			else { embed.setImage(img.url) }
 
+			try { await interaction.reply({ embeds: [embed] }) }
+			catch { interaction.followUp({ embeds: [embed] }) }
+			/*
 			try { await interaction.channel.send({ embeds: [embed] }) }
 			catch { interaction.channel.send({ embeds: [embed] }) }
+			*/
 			await wait(1000);
 		}
 	}
