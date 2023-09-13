@@ -132,8 +132,6 @@ for (const folder of eventFolders) {
 	});
 }
 
-// const dashboardInit = require("./old_dashboard/dashInit.js");
-// client.on("ready", (...args) => dashboardInit.execute(...args, client, forDeploy));
 client.on("ready", () => require("./dashboard/server.js"));
 
 // Bot token

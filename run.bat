@@ -1,6 +1,5 @@
 @ECHO OFF
 call npm prune
-node deploy-commands.js
 node index.js
 :loop
 echo The bot will restart in 15 seconds. Press N to cancel.

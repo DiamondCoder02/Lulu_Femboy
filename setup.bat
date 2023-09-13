@@ -1,5 +1,5 @@
 call npm i
 call npm prune
 call npm fund
-node deploy-commands.js
+node index.js
 pause
