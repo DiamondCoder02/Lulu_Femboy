@@ -1,6 +1,6 @@
 {
     "name": "lulu_femboy",
-    "version": "0.1.0_twins",
+    "version": "0.2.0_website",
     "description": "Sfw Femboy Bot",
     "main": "index.js",
     "scripts": {
@@ -21,7 +21,6 @@
         "better-logging": "^5.0.0",
         "booru": "^2.6.4",
         "chalk": "^4.1.2",
-        "cookies": "^0.8.0",
         "discord-oauth2": "^2.11.0",
         "discord.js": "^14.13.0",
         "discord.js-akinator": "^4.1.2",
@@ -29,7 +28,6 @@
         "enmap": "^5.9.8",
         "express": "^4.18.2",
         "nekos.life": "^3.0.0",
-        "pug": "^3.0.2",
         "translate": "^2.0.2"
     },
     "devDependencies": {

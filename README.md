@@ -2,6 +2,10 @@
 
 ![Lulu Banner, made by NyanekoNNK](https://user-images.githubusercontent.com/53056204/227460767-b133569e-82b8-46cf-b761-8a6c8b83ea7b.png)
 
+## REMAKE PUG TO HTML, FUCK PUGS
+
+Also rewrite everything to my own liking, not following a tutorial
+
 ## A bit of explanation
 
 Hi and welcome to the bots development page. Currently I work alone while doing university, so development is slow. Hope you enjoy the bot and have fun with it.

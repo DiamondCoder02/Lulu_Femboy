@@ -1,32 +1,18 @@
 const express = require("express");
-const cookies = require("cookies");
-
-const middleware = require("./modules/middleware");
-const authRoutes = require("./routes/auth-routes");
-const rootRoutes = require("./routes/root-routes");
-// const dashboardRoutes = require("./routes/dashboard-routes");
+const port = process.env.serverPort ||3000;
 
 const app = express();
 
-app.set("views", __dirname + "/views");
-app.set("view engine", "pug");
+app.get("/lulu", (request, response) => {
+	return response.sendFile("/html/index.html", { root: "./dashboard" });
+});
 
-app.use(cookies.express("a", "b", "c"));
+app.get("/lulu/teapot", (request, response) => {
+	return response.sendFile("/html/errors/418.html", { root: "./dashboard" });
+});
 
-app.use(express.static(`${__dirname}/assets`));
-app.locals.basedir = `${__dirname}/assets`;
+app.get("*", (request, response) => {
+	return response.sendFile("/html/errors/404.html", { root: "./dashboard" });
+});
 
-app.use("/",
-	middleware.updateUser,
-	rootRoutes,
-	authRoutes,
-	// middleware.validateUser, middleware.updateGuilds, dashboardRoutes
-);
-
-app.all("*", (req, res) => res.render("errors/404", {
-	botName: "Lulu",
-	subtitle: "error"
-}));
-
-const port = process.env.serverPort ||3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

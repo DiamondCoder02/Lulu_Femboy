@@ -15,6 +15,7 @@ module.exports = {
 		)
 		.addNumberOption(option => option.setName("repeat").setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
 	async execute(interaction) {
+		interaction.reply("Temporary dissabled"); return;
 		let amount = 1, category = "img";
 		if (interaction.options.getNumber("repeat")) { amount = Number(interaction.options.getNumber("repeat")) }
 		if (interaction.options.getString("category")) { category = interaction.options.getString("category") }
