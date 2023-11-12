@@ -32,8 +32,6 @@ module.exports = {
 		.setDescription("Bot information.")
 		.addBooleanOption(option => option.setName("owner").setDescription("Warning: This can show potenially sensitive information.")),
 	async execute(interaction, client) {
-		let goodBadJSON = fs.readFileSync("./botConfigs/bot_private.json");
-		const goodBad = JSON.parse(goodBadJSON);
 		const packDependence = Object.entries(package.dependencies);
 		const npmPackages = packDependence.join(", \n");
 		const GaInBi = `~~MessageContent,~~
@@ -86,10 +84,7 @@ User,
 				{ name: "__npm packages__", value: npmPackages, inline: true },
 				{ name: "__GatewayIntentBits__", value: GaInBi, inline: true },
 				{ name: "__Partials__", value: pars, inline: true },
-				{ name: "Currently joined servers:", value: "`" + String(guildLength) + "` guilds" },
-				{ name: "I was called good bot:", value: "`" + String(goodBad.goodBot) + "` time(s)", inline: true },
-				{ name: "I was called bad bot:", value: "`" + String(goodBad.badBot) + "` time(s)", inline: true },
-				{ name: "People asked if:", value: "They can f**k my bot `" + String(goodBad.canIFuckBot) + "` time(s)", inline: true }
+				{ name: "Currently joined servers:", value: "`" + String(guildLength) + "` guilds" }
 			)
 			.setTimestamp()
 			.setFooter({ text: "Last update: 2023.Feb.17." });
