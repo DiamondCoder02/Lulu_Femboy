@@ -1,0 +1,58 @@
+/* Fuck light mode */
+body{
+	background-color: #313338;
+	color: #ffffff;
+}
+
+/* side NavBar */
+nav {
+	top: 0;
+	position: fixed;
+	background-color: #1e1f22;
+	height: 100%;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+nav li {
+	padding: 10px 20px 10px 20px;
+}
+
+nav li:hover {
+	color: #fff;
+	background-color: rgba(255, 255, 255, 0.502);
+}
+
+nav a {
+	color: rgba(255, 255, 255, 0.66);
+}
+
+
+
+
+.container {
+	margin-left: 20%;
+	margin-top: 0;
+	padding: 0;
+}
+
+.mainMenuBanner {
+	background-color: #1e1f22;
+	padding: 10px;
+}
+
+
+aside {
+	width: 25%;
+	margin-right: 0;
+}
+
+aside section {
+	background-color: #909;
+}
