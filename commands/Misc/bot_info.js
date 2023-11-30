@@ -65,11 +65,11 @@ User,
 		const version_embed = new EmbedBuilder()
 			.setColor([255, 255, 0])
 			.setTitle("Here is some information about the bot and its development:")
-			.setDescription("Source code / Creator: [Github](https://github.com/DiamondPRO02/Femboi_OwO)")
+			.setDescription("Source code / Creator: [Github](https://github.com/DiamondCoder02/Lulu_Femboy)")
 			.setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })
 			.addFields(
-				{ name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondPRO02/projects/2/views/1)", inline: true },
-				{ name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondPRO02/Femboi_OwO/issues)", inline: true },
+				{ name: "Roadmap of development", value: "[Github project](https://github.com/users/DiamondCoder02/projects/2/views/1)", inline: true },
+				{ name: "To fix/bugs:", value: "[Github issues](https://github.com/DiamondCoder02/Lulu_Femboy/issues)", inline: true },
 				{ name: "How to use:", value: "[slash commands](https://imgur.com/a/dStRp6Y)" },
 				{ name: "Event listeners:", value: String(eventFilesArray.join("\n")), inline: true },
 				{ name: "Commands:", value: String(commandFilesArray.join("\n")), inline: true },

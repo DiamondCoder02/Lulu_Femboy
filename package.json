@@ -9,14 +9,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DiamondPRO02/Lulu_Femboy.git"
+        "url": "git+https://github.com/DiamondCoder02/Lulu_Femboy.git"
     },
     "author": "DiamondCoder",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/DiamondPRO02/Lulu_Femboy/issues"
+        "url": "https://github.com/DiamondCoder02/Lulu_Femboy/issues"
     },
-    "homepage": "https://github.com/DiamondPRO02/Lulu_Femboy#readme",
+    "homepage": "https://github.com/DiamondCoder02/Lulu_Femboy#readme",
     "dependencies": {
         "better-logging": "^5.0.0",
         "booru": "^2.6.4",
