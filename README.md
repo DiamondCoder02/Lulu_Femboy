@@ -9,9 +9,9 @@ Also rewrite everything to my own liking, not following a tutorial
 ## A bit of explanation
 
 Hi and welcome to the bots development page. Currently I work alone while doing university, so development is slow. Hope you enjoy the bot and have fun with it.
-The development can be checked on the [projects page](https://github.com/users/DiamondPRO02/projects/2).
+The development can be checked on the [projects page](https://github.com/users/DiamondCoder02/projects/2).
 
-This is a multi purpose bot, but the main focus is on the wholesome side. So no nsfw unless you want. Of course the lewd bot can be found here: [Lily_Femboy nsfw](https://github.com/DiamondPRO02/Lily_Femboy).
+This is a multi purpose bot, but the main focus is on the wholesome side. So no nsfw unless you want. Of course the lewd bot can be found here: [Lily_Femboy nsfw](https://github.com/DiamondCoder02/Lily_Femboy).
 
 As a special feature if both bot is in one server, the two bot might talk with each other, but I will see how hard would it be to implement it.
 

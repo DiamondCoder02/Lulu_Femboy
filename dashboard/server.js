@@ -3,6 +3,8 @@ const port = process.env.serverPort ||3000;
 
 const app = express();
 
+app.use(express.static("dashboard"));
+
 app.get("/lulu", (request, response) => {
 	return response.sendFile("/html/index.html", { root: "./dashboard" });
 });
