@@ -1,5 +1,14 @@
 /* eslint-disable no-console */
 console.clear();
+
+// Curently broken:
+// - Images in embeds and not sending in the same message
+// - Delete button not working?
+// - Give the /roll an average
+// - Every embed sending is broken... FUCK
+// - Emoji deletion works, lol
+// - Translate is broken as fuck but only in the newer test bot?
+
 require("dotenv").config();
 let debug_level = process.env.debug_level;
 const chalk = require("chalk"), today = new Date(), yyyy = today.getFullYear();
@@ -93,7 +102,6 @@ client.settings = new Enmap({
 
 // Command file reader
 client.commands = new Collection();
-let webCommands = new Map();
 let commandFolders = fs.readdirSync("./commands");
 let forDeploy = [];
 for (const folder of commandFolders) {
@@ -104,17 +112,9 @@ for (const folder of commandFolders) {
 			const command = require(`./commands/${folder}/${file}`);
 			client.commands.set(command.data.name, command);
 			forDeploy.push(command.data.toJSON());
-			webCommands.set(command.data.name,
-				{ 	category: folder,
-					name: command.data.name,
-					description: command.data.description,
-					cooldown: (command.cooldown || "-")
-				}
-			);
 		}
 	});
 }
-module.exports.webCommand = webCommands;
 
 // Event handler
 const guildInvites = new Map();
@@ -131,8 +131,6 @@ for (const folder of eventFolders) {
 		}
 	});
 }
-
-client.on("ready", () => require("./dashboard/server.js"));
 
 // Bot token
 let token = process.env.token;
@@ -154,8 +152,6 @@ process.on("uncaughtException", error => console.error("----- Uncaught Exception
 if (debug_level >= 4) {
 	client.on("debug", (e) => console.debug(e));
 }
-
-module.exports.client = client;
 
 let redditFeedSub = [];
 let redditFeedChannel = [];

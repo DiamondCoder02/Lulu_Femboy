@@ -25,15 +25,11 @@ module.exports = {
 			"My reply is no.",
 			"My sources say no.",
 			"Outlook not so good.",
-			"Very doubtful."
+			"Very doubtful.",
+			"IDK. All I know you are a good person and I support you ^^"
 		];
-		let special = Math.floor(Math.random() * 1000);
 		let item = "";
-		if (special == 117) {
-			item = "Whatever. All I know you are a good person and I support you ^^";
-		} else {
-			item = items[Math.floor(Math.random() * items.length)];
-		}
+		item = items[Math.floor(Math.random() * items.length)];
 		const string = interaction.options.getString("question");
 		const embed = new EmbedBuilder()
 			.setColor([0, 255, 0])
