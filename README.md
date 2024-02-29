@@ -59,6 +59,7 @@ As this was wrintten in Node.js 10.2.1
 - botOwnerId=  // Your discord id ( owner of the bot )
 - GID=  // Your guild id where you want to locally test the bot
 - debug_level=  // Debug level you want the logging to be at
+- deployAskOnStart=  // Only the first time setup needed to be true, when you wanna register the commands, then it can be set to false
 
 So your .env file should look like this:
 
@@ -69,6 +70,7 @@ ClientSecret=asdasd123456789
 botOwnerId=987654321
 GID=123123123
 debug_level=3
+deployAskOnStart=true
 ```
 
 ### Debug levels
