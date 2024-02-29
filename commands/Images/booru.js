@@ -20,6 +20,7 @@ module.exports = {
 		.addBooleanOption(option => option.setName("detailed_desc").setDescription("If you want to get image details for them"))
 		.addNumberOption(option => option.setName("repeat").setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10)),
 	async execute(interaction) {
+		await interaction.deferReply();
 		const sites = interaction.options.getString("sites").trim();
 		let tags, r = "-", amount = 1;
 		if (!interaction.options.getString("tags") && (sites == ("safebooru") || sites == ("tbib"))) { return interaction.channel.send({ content: "Please give me a tag to find a random picture." }) }
@@ -29,7 +30,7 @@ module.exports = {
 		for (let a = 0; a < amount; a++) {
 			await booruSearch(sites, tags, a, true).catch(err => {
 				if (err instanceof BooruError) { a = amount }
-				else { a = amount; return interaction.channel.send({ content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces." }) }
+				else { a = amount; return interaction.channel.send({ content: "Something went wrong. \n```"+err+"```" }) }
 			});
 			await wait(2000);
 		}
@@ -65,16 +66,15 @@ module.exports = {
 			);
 			if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4") || posts[0].fileUrl.includes(".gif")) {
 				try {
-					await interaction.channel.send({ embeds: [embed], components: [buttons] });
-					await interaction.channel.send({ content: posts[0].fileUrl });
+					await interaction.followUp({ embeds: [embed], components: [buttons] });
 				} catch {
-					await interaction.channel.send({ embeds: [embed], components: [buttons] });
-					await interaction.channel.send({ content: posts[0].fileUrl });
+					interaction.editReply({ embeds: [embed], components: [buttons] });
 				}
+				await interaction.followUp({ content: posts[0].fileUrl });
 			} else {
 				embed.setImage(posts[0].fileUrl);
-				try { await interaction.channel.send({ embeds: [embed], components: [buttons] }) }
-				catch { await interaction.channel.send({ embeds: [embed], components: [buttons] }) }
+				try { await interaction.followUp({ embeds: [embed], components: [buttons] }) }
+				catch { interaction.editReply({ embeds: [embed], components: [buttons] }) }
 			}
 		}
 	}

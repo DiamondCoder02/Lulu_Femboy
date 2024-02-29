@@ -57,6 +57,7 @@ module.exports = {
 			.addNumberOption(option => option.setName("repeat").setDescription("Amount: If you want to get more then one at a time.").setMinValue(1).setMaxValue(10))
 		),
 	async execute(interaction, client) {
+		await interaction.deferReply();
 		let c = "", img = "";
 		let amount = 1;
 		if (interaction.options.getNumber("repeat")) { amount = Number(interaction.options.getNumber("repeat")) }
@@ -68,7 +69,7 @@ module.exports = {
 				.setTitle("OwO, " + c)
 				.setTimestamp()
 				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() });
-			switch (interaction.options.getString("sfw_w")) {
+			switch (c) {
 			case "baka": img = await neko.tickle(); break;
 			case "cuddle": img = await neko.cuddle(); break;
 			case "feed": img = await neko.feed(); break;
@@ -105,24 +106,17 @@ module.exports = {
 			if (interaction.options.getUser("target")) {
 				const user = interaction.options.getUser("target"), from = interaction.user;
 				embed.setDescription(from.toString() + " sends you a nice " + interaction.options.getString("sfw_w") + ", " + user.toString() + ". :3");
-				try {
-					await interaction.reply("Hew we go UwU :3");
-					await interaction.channel.send({ content: user.toString(), embeds: [embed] });
-				}
+				try { await interaction.followUp({ embeds: [embed] }) }
 				catch {
-					await wait(1000);
-					await interaction.channel.send({ embeds: [embed] });
+					interaction.editReply({ embeds: [embed] });
+					// WHY THE FUCK WONT YOU WORK???
+					await interaction.followUp(user.toString());
 				}
 			} else {
-				try {
-					await interaction.reply("Hew we go UwU :3");
-					await interaction.channel.send({ embeds: [embed] });
-				}
-				catch {
-					await wait(1000);
-					await interaction.channel.send({ embeds: [embed] });
-				}
+				try { await interaction.followUp({ embeds: [embed] }) }
+				catch { interaction.editReply({ embeds: [embed] }) }
 			}
+			await wait(1000);
 		}
 	}
 };

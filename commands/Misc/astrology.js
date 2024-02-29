@@ -23,6 +23,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const type = interaction.options.getString("signs");
+		interaction.deferReply();
 		try {
 			let sign = await fetch(`https://ohmanda.com/api/horoscope/${type}/`).then(res => res.text()).then(data => JSON.parse(data));
 			// Console.log(sign)
@@ -46,9 +47,9 @@ module.exports = {
 			case "scorpio": embed.setColor([0, 0, 0]).setFooter({ text: "Date: Oct.23-Nov.21" }).setThumbnail(linkStart+"808/503/non_2x/zodiac-sign-scorpio"+linkEnd); break; // #000000 Black
 			case "sagittarius": embed.setColor([160, 32, 240]).setFooter({ text: "Date: Nov.22-Dec.21" }).setThumbnail(linkStart+"808/501/non_2x/zodiac-sign-sagittarius"+linkEnd); break; // #A020F0 Purple
 			}
-			await interaction.channel.send({ embeds: [embed] });
+			await interaction.editReply({ embeds: [embed] });
 		} catch (error) {
-			interaction.channel.send(`Something went wrong with ${type}! ` + error.name);
+			interaction.editReply(`Something went wrong with ${type}! ` + error.name);
 		}
 	}
 };

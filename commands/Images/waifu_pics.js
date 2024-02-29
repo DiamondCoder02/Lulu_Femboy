@@ -58,6 +58,7 @@ module.exports = {
 		let amount = 1;
 		if (interaction.options.getNumber("repeat")) { amount = Number(interaction.options.getNumber("repeat")) }
 		const category = interaction.options.getString("category");
+		await interaction.deferReply();
 		for (let a = 0; a < amount; a++) {
 			let response = await fetch(`https://api.waifu.pics/sfw/${category}`);
 			let data = await response.text();
@@ -96,11 +97,11 @@ module.exports = {
 				case "handhold": embed.setDescription(`${from} handholded ${user}. How lewd!`); break;
 				default: embed.setDescription(`${from} sends you a nice ${category}, ${user}. :3`); break;
 				}
-				try { await interaction.channel.send({ content: user.toString(), embeds: [embed] }) }
-				catch { interaction.channel.send({ content: user.toString(), embeds: [embed] }) }
+				try { await interaction.followUp({ content: user.toString(), embeds: [embed] }) }
+				catch { interaction.editReply({ content: user.toString(), embeds: [embed] }) }
 			} else {
-				try { await interaction.channel.send({ embeds: [embed] }) }
-				catch { interaction.channel.send({ embeds: [embed] }) }
+				try { await interaction.followUp({ embeds: [embed] }) }
+				catch { interaction.editReply({ embeds: [embed] }) }
 			}
 			await wait(1000);
 		}
