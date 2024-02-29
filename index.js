@@ -153,6 +153,10 @@ if (debug_level >= 4) {
 	client.on("debug", (e) => console.debug(e));
 }
 
+const subredditsFunction = require("./functions/subreddit.js");
+subredditsFunction.subreddit(client);
+
+/* To Test if this can be deleted
 let redditFeedSub = [];
 let redditFeedChannel = [];
 setInterval(() => {
@@ -221,3 +225,5 @@ async function redditFetchFunction(channel, sub, i, guild) {
 		feedChannel.send({ embeds: [embed], components: [linkButton] });
 	}
 }
+
+*/
