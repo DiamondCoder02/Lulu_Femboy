@@ -1,16 +1,20 @@
+/* eslint-disable no-console */
 const { Collection, InteractionType, ChannelType, EmbedBuilder } = require("discord.js");
 const cooldowns = new Collection();
-require("dotenv").config(); let b_o_Id = process.env.botOwnerId; let debug_level = process.env.debug_level;
-let announceChannel, announceRole, announceEmbed = new EmbedBuilder()
+require("dotenv").config();
+let b_o_Id = process.env.botOwnerId;
+let debug_level = process.env.debug_level;
+let announceChannel, announceRole;
+let announceEmbed = new EmbedBuilder()
 	.setColor([255, 255, 0])
 	.setTimestamp();
+
 module.exports = {
 	name: "interactionCreate",
 	async execute(interaction, client) {
 		// Console.log(interaction)
 		try {
-			const i = interaction;
-			if (i.type === InteractionType.ApplicationCommand) {
+			if (interaction.type === InteractionType.ApplicationCommand) {
 				const command = client.commands.get(interaction.commandName);
 				if (!command) { return interaction.reply({ content: "What?, How?" }) }
 				if (interaction.user.id !== b_o_Id) {
@@ -48,77 +52,94 @@ module.exports = {
 					return;
 				}
 			}
-			if (i.isCommand()) {
-				if (i.commandName === "announce") {
-					if (i.options.getChannel("channel")) {
-						announceChannel = i.options.getChannel("channel");
-						announceRole = false;
-						if (i.options.getRole("role")) {
-							announceRole = i.options.getRole("role");
-						}
-					}
+			if (interaction.isCommand()) {
+				switch (interaction.commandName) {
+					case "announce": announcementModalGetInfo(interaction); break;
 				}
 			}
-			if (i.type === InteractionType.ModalSubmit) {
-				if (i.customId === "announce") {
-					let titleString = false, descriptionString = false, smallnote = false;
-					if (i.fields.getTextInputValue("title")) { titleString = i.fields.getTextInputValue("title"); announceEmbed.setTitle("*Announcement:*\n"+titleString) }
-					if (i.fields.getTextInputValue("description")) { descriptionString = i.fields.getTextInputValue("description"); announceEmbed.setDescription(descriptionString) }
-					if (i.fields.getTextInputValue("smallnote")) { smallnote = i.fields.getTextInputValue("smallnote"); announceEmbed.addFields({ name: "*smallnote:*", value: smallnote, inline: false }) }
-					announceEmbed.setAuthor({ name: interaction.user.username, iconURL: interaction.user.displayAvatarURL() });
-					if (announceRole) {
-						announceChannel.send({ content: announceRole.toString(), embeds: [announceEmbed] });
-					} else { announceChannel.send({ embeds: [announceEmbed] }) }
-					await interaction.reply({ content: "Announcement sent!", ephemeral: true });
+			if (interaction.type === InteractionType.ModalSubmit) {
+				switch (interaction.customId) {
+					case "announce": announcementModal(interaction); break;
 				}
 			}
-			if (i.isButton()) {
-				// This is useful: console.log(i.message);
-				if (i.client.user.id === client.user.id && i.user.id === i.message.interaction.user.id && i.customId === "delete") {
-					i.message.delete();
-				} else if (i.user.id !== i.message.interaction.user.id && i.client.user.id === client.user.id && i.customId === "delete") {
-					await i.reply({ content: "Sorry, you are not the original executer of this command so you cannot delete this.", ephemeral: true });
-				}
+			if (interaction.isButton()) {
+				deleteButtonForMessages(interaction, client);
 			}
 			if (debug_level >= 1) {
-				if (i.guildId === null) {
-					return console.log("-- [" + i.user.username + "] Triggered in DMs:" + i.commandName);
-				}
-				if (i.type === InteractionType.ApplicationCommand) {
-					return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered: " + i.commandName);
-				}
-				if ((i.type === InteractionType.MessageComponent) && debug_level >= 2) {
-					let nameOfCommand;
-					if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
-					if (nameOfCommand === "akinator") { return } // Console.log("Bad akinator")
-					return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a button with commandName: " + nameOfCommand + " => " + i.customId);
-				}
-				if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
-					// console.line(i);
-					return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a select menu => " + i.value);
-				}
-			}
-			if (debug_level >= 1) {
-				// Console.log(i.options)
-				try {
-					/* Const string = interaction.options.getString();
-					const integer = interaction.options.getInteger();
-					const number = interaction.options.getNumber();
-					const boolean = interaction.options.getBoolean();
-					const user = interaction.options.getUser();
-					const member = interaction.options.getMember();
-					const channel = interaction.options.getChannel();
-					const role = interaction.options.getRole();
-					const mentionable = interaction.options.getMentionable();
-					const subcommand = interaction.options.getSubcommand();
-					console.log(string + '\n' + integer + '\n' + number + '\n' + boolean + '\n' + user + '\n' + member + '\n' + channel + '\n' + role + '\n' + mentionable + '\n' + subcommand);
-					*/
-					// Const subcommand = interaction.options.getSubcommand();
-					// Console.log(subcommand);
-				} catch (error) {
-					console.log(error.name, error.message);
-				}
+				debugDeploy(interaction);
 			}
 		} catch (error) { console.error(error.name, error.message) }
 	}
 };
+
+function announcementModalGetInfo(i) {
+	if (i.options.getChannel("channel")) {
+		announceChannel = i.options.getChannel("channel");
+		announceRole = false;
+		if (i.options.getRole("role")) {
+			announceRole = i.options.getRole("role");
+		}
+	}
+}
+
+async function announcementModal(i) {
+	let titleString = false, descriptionString = false, smallnote = false;
+	if (i.fields.getTextInputValue("title")) { titleString = i.fields.getTextInputValue("title"); announceEmbed.setTitle("*Announcement:*\n" + titleString) }
+	if (i.fields.getTextInputValue("description")) { descriptionString = i.fields.getTextInputValue("description"); announceEmbed.setDescription(descriptionString) }
+	if (i.fields.getTextInputValue("smallnote")) { smallnote = i.fields.getTextInputValue("smallnote"); announceEmbed.addFields({ name: "*smallnote:*", value: smallnote, inline: false }) }
+	announceEmbed.setAuthor({ name: i.user.username, iconURL: i.user.displayAvatarURL() });
+	if (announceRole) {
+		announceChannel.send({ content: announceRole.toString(), embeds: [announceEmbed] });
+	} else { announceChannel.send({ embeds: [announceEmbed] }) }
+	await i.reply({ content: "Announcement sent!", ephemeral: true });
+}
+
+function deleteButtonForMessages(i, client) {
+	// This is useful: console.log(i.message);
+	if (i.client.user.id === client.user.id && i.user.id === i.message.interaction.user.id && i.customId === "delete") {
+		i.message.delete();
+	} else if (i.user.id !== i.message.interaction.user.id && i.client.user.id === client.user.id && i.customId === "delete") {
+		i.reply({ content: "Sorry, you are not the original executer of this command so you cannot delete this.", ephemeral: true });
+	}
+}
+
+function debugDeploy(i) {
+	if (i.guildId === null) {
+		return console.log("-- [" + i.user.username + "] Triggered in DMs:" + i.commandName);
+	}
+	if (i.type === InteractionType.ApplicationCommand) {
+		return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered: " + i.commandName);
+	}
+	if ((i.type === InteractionType.MessageComponent) && debug_level >= 2) {
+		let nameOfCommand;
+		if (i.message.interaction === null) { nameOfCommand = "-akinator? or followUp button-" } else { nameOfCommand = i.message.interaction.commandName }
+		if (nameOfCommand === "akinator") { return } // Console.log("Bad akinator")
+		return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a button with commandName: " + nameOfCommand + " => " + i.customId);
+	}
+	if ((i.type === InteractionType.ModalSubmit) && debug_level >= 2) {
+		// - console.line(i);
+		return console.log("-- [" + i.user.username + "] - " + i.guild.name + " -> #" + i.channel.name + " triggered a select menu => " + i.value);
+	}
+
+	// More debug testing if needed later !!!
+
+	// Console.log(i.options)
+	try {
+		/* Const string = interaction.options.getString();
+		const integer = interaction.options.getInteger();
+		const number = interaction.options.getNumber();
+		const boolean = interaction.options.getBoolean();
+		const user = interaction.options.getUser();
+		const member = interaction.options.getMember();
+		const channel = interaction.options.getChannel();
+		const role = interaction.options.getRole();
+		const mentionable = interaction.options.getMentionable();
+		const subcommand = interaction.options.getSubcommand();
+		console.log(string + '\n' + integer + '\n' + number + '\n' + boolean + '\n' + user + '\n' + member + '\n' + channel + '\n' + role + '\n' + mentionable + '\n' + subcommand);
+		*/
+		// Const subcommand = interaction.options.getSubcommand();
+		// Console.log(subcommand);
+	} catch (error) {
+		console.log(error.name, error.message);
+	}
+}

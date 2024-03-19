@@ -22,7 +22,7 @@ module.exports = {
 		"comma-style": ["error", "last"],
 		"curly": ["warn"],
 		"default-case-last": ["error"],
-		"indent": ["warn", "tab"],
+		"indent": ["warn", "tab", { "SwitchCase": 1 }],
 		"key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
 		"keyword-spacing": ["error", { "before": true, "after": true }],
 		"linebreak-style": ["warn", "windows"],
