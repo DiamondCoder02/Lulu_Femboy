@@ -22,47 +22,47 @@ module.exports = {
 		};
 		ask("Ask number 1-5", (answer) => {
 			switch (answer) {
-			case "1": {
-				rest.put(Routes.applicationCommands(cId), { body: forDeploy })
-					.then(() => console.log("Registered all commands globally"))
-					.catch(console.error);
-				break;
-			}
-			case "2": {
-				rest.get(Routes.applicationCommands(cId))
-					.then(data => {
-						const promises = [];
-						for (const command of data) {
-							const deleteUrl = `${Routes.applicationCommands(cId)}/${command.id}`;
-							promises.push(rest.delete(deleteUrl));
-						}
-						Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
-					})
-					.catch(console.error);
-				break;
-			}
-			case "3": {
-				console.log("Global Commands reload. Please wait...");
-				rest.get(Routes.applicationCommands(cId))
-					.then(data => {
-						const promises = [];
-						for (const command of data) {
-							const deleteUrl = `${Routes.applicationCommands(cId)}/${command.id}`;
-							promises.push(rest.delete(deleteUrl));
-						}
-						Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
-					}).then(
-						rest.put(Routes.applicationCommands(cId), { body: forDeploy })
-							.then(() => console.log("Registered all commands globally"))
-							.catch(console.error)
-					)
-					.catch(console.error);
-				break;
-			}
-			default: {
-				console.log("Continuing without modifing commands.");
-				break;
-			}
+				case "1": {
+					rest.put(Routes.applicationCommands(cId), { body: forDeploy })
+						.then(() => console.log("Registered all commands globally"))
+						.catch(console.error);
+					break;
+				}
+				case "2": {
+					rest.get(Routes.applicationCommands(cId))
+						.then(data => {
+							const promises = [];
+							for (const command of data) {
+								const deleteUrl = `${Routes.applicationCommands(cId)}/${command.id}`;
+								promises.push(rest.delete(deleteUrl));
+							}
+							Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
+						})
+						.catch(console.error);
+					break;
+				}
+				case "3": {
+					console.log("Global Commands reload. Please wait...");
+					rest.get(Routes.applicationCommands(cId))
+						.then(data => {
+							const promises = [];
+							for (const command of data) {
+								const deleteUrl = `${Routes.applicationCommands(cId)}/${command.id}`;
+								promises.push(rest.delete(deleteUrl));
+							}
+							Promise.all(promises).then(() => console.log("Deleted all commands globally")).catch(console.error);
+						}).then(
+							rest.put(Routes.applicationCommands(cId), { body: forDeploy })
+								.then(() => console.log("Registered all commands globally"))
+								.catch(console.error)
+						)
+						.catch(console.error);
+					break;
+				}
+				default: {
+					console.log("Continuing without modifing commands.");
+					break;
+				}
 			}
 			client.login(token);
 			return wait(2000);

@@ -19,14 +19,16 @@ module.exports = {
 		if (interaction.options.getString("lang")) { lang = interaction.options.getString("lang") }
 		if (interaction.options.getString("game_type")) { gameType = interaction.options.getString("game_type") }
 
+		/* This is stupid
 		// try { require(`../node_modules/discord.js-akinator/src/translations/${lang}.json`) }
 		// catch { return await interaction.reply("An error occured. Make sure you choose a correct language: \nhttps://github.com/WillTDA/Discord.js-Akinator/tree/master/src/translations .") }
 
-		// Const lang = "en"; //The Language of the Game
-		// Const childMode = false; //Whether to use Akinator's Child Mode
-		// Const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
-		// Const useButtons = true; //Whether to use Discord's Buttons
-		// Const embedColor = "#1F1E33"; //The Color of the Message Embeds
+		// const lang = "en"; //The Language of the Game
+		// const childMode = false; //Whether to use Akinator's Child Mode
+		// const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
+		// const useButtons = true; //Whether to use Discord's Buttons
+		// const embedColor = "#1F1E33"; //The Color of the Message Embeds
+		*/
 
 		akinator(interaction, {
 			embedColor: [0, 255, 0],

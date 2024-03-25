@@ -22,60 +22,61 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply();
 		const sites = interaction.options.getString("sites").trim();
-		let tags, r = "-", amount = 1;
+		let tags, amount = 1;
 		if (!interaction.options.getString("tags") && (sites == ("safebooru") || sites == ("tbib"))) { return interaction.channel.send({ content: "Please give me a tag to find a random picture." }) }
 		else if (!interaction.options.getString("tags")) { tags = "" }
 		else { tags = interaction.options.getString("tags").trim().split(" ") }
 		if (interaction.options.getNumber("repeat")) { amount = Number(interaction.options.getNumber("repeat")) }
 		for (let a = 0; a < amount; a++) {
-			await booruSearch(sites, tags, a, true).catch(err => {
+			await booruSearch(interaction, amount, sites, tags, a, true).catch(err => {
 				if (err instanceof BooruError) { a = amount }
 				else { a = amount; return interaction.channel.send({ content: "Something went wrong. \n```"+err+"```" }) }
 			});
 			await wait(2000);
 		}
-		async function booruSearch(sites, tags, a, random = true) {
-			let limit = 1;
-			const posts = await search(sites, tags, { limit, random });
-			if (Number(posts.length) === 0) { return interaction.channel.send({ content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces." }) }
-			// Console.log(posts +"\n"+ posts.length)
-			// Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
-			if (posts.first.rating == "s") { r = "Safe" }
-			else if (posts.first.rating == "q") { r = "Questionable" }
-			else if (posts.first.rating == "e") { r = "Explicit" }
-			else if (posts.first.rating == "u") { r = "Unrated" }
-			if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText && (posts.first.rating == "e" || posts.first.rating == "q")) {
-				return interaction.channel.send({ content: "Sorry this is an explixit or questionable picture that got somehow sent here. This is wholesome only chat :3" });
-			}
-			const embed = new EmbedBuilder()
-				.setTimestamp()
-				.setColor([0, 255, 0])
-				.setFooter({ text: `${a + 1}/${amount}` });
-			if (interaction.options.getBoolean("detailed_desc")) {
-				embed.setTitle("🌐" + sites + " (" + posts.first.booru.domain + ")")
-					.setAuthor({ name: posts.first.booru.domain, url: "https://" + posts.first.booru.domain })
-					.addFields(
-						{ name: "⚖️ Rating:", value: r, inline: true },
-						{ name: "🔍 Searched for:", value: "*" + tags + "*", inline: true }
-					);
-				if (posts.first.tags.join(", ").length > 1000) { embed.addFields({ name: "📄" + "Tags: ", valve: "`" + posts.first.tags.join(", ").substring(0, 999) + "...`" }) } else { embed.addFields({ name: "📄" + "Tags: ", value: "`" + posts.first.tags.join(", ") + "`" }) }
-			}
-			const buttons = new ActionRowBuilder().addComponents(
-				new ButtonBuilder().setURL(posts[0].fileUrl).setLabel("Link").setStyle(ButtonStyle.Link).setEmoji("🖥️"),
-				new ButtonBuilder().setCustomId("delete").setLabel("Delete").setStyle(ButtonStyle.Danger).setEmoji("✖️")
-			);
-			if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4") || posts[0].fileUrl.includes(".gif")) {
-				try {
-					await interaction.followUp({ embeds: [embed], components: [buttons] });
-				} catch {
-					interaction.editReply({ embeds: [embed], components: [buttons] });
-				}
-				await interaction.followUp({ content: posts[0].fileUrl });
-			} else {
-				embed.setImage(posts[0].fileUrl);
-				try { await interaction.followUp({ embeds: [embed], components: [buttons] }) }
-				catch { interaction.editReply({ embeds: [embed], components: [buttons] }) }
-			}
-		}
 	}
 };
+
+async function booruSearch(interaction, amount, sites, tags, a, random = true) {
+	let limit = 1, r = "Unrated";
+	const posts = await search(sites, tags, { limit, random });
+	if (Number(posts.length) === 0) { return interaction.channel.send({ content: "Something went wrong. Make sure you wrote the tag correctly by seperating them with spaces." }) }
+	// Console.log(posts +"\n"+ posts.length)
+	// Rating: s: 'Safe' q: 'Questionable' e: 'Explicit' u: 'Unrated'
+	if (posts.first.rating == "s") { r = "Safe" }
+	else if (posts.first.rating == "q") { r = "Questionable" }
+	else if (posts.first.rating == "e") { r = "Explicit" }
+	else if (posts.first.rating == "u") { r = "Unrated" }
+	if (!interaction.channel.nsfw && interaction.channel.type === ChannelType.GuildText && (posts.first.rating == "e" || posts.first.rating == "q")) {
+		return interaction.channel.send({ content: "Sorry this is an explixit or questionable picture that got somehow sent here. This is wholesome only chat :3" });
+	}
+	const embed = new EmbedBuilder()
+		.setTimestamp()
+		.setColor([0, 255, 0])
+		.setFooter({ text: `${a + 1}/${amount}` });
+	if (interaction.options.getBoolean("detailed_desc")) {
+		embed.setTitle("🌐" + sites + " (" + posts.first.booru.domain + ")")
+			.setAuthor({ name: posts.first.booru.domain, url: "https://" + posts.first.booru.domain })
+			.addFields(
+				{ name: "⚖️ Rating:", value: r, inline: true },
+				{ name: "🔍 Searched for:", value: "*" + tags + "*", inline: true }
+			);
+		if (posts.first.tags.join(", ").length > 1000) { embed.addFields({ name: "📄" + "Tags: ", valve: "`" + posts.first.tags.join(", ").substring(0, 999) + "...`" }) } else { embed.addFields({ name: "📄" + "Tags: ", value: "`" + posts.first.tags.join(", ") + "`" }) }
+	}
+	const buttons = new ActionRowBuilder().addComponents(
+		new ButtonBuilder().setURL(posts[0].fileUrl).setLabel("Link").setStyle(ButtonStyle.Link).setEmoji("🖥️"),
+		new ButtonBuilder().setCustomId("delete").setLabel("Delete").setStyle(ButtonStyle.Danger).setEmoji("✖️")
+	);
+	if (posts[0].fileUrl.includes(".webm") || posts[0].fileUrl.includes(".mp4") || posts[0].fileUrl.includes(".gif")) {
+		try {
+			await interaction.followUp({ embeds: [embed], components: [buttons] });
+		} catch {
+			interaction.editReply({ embeds: [embed], components: [buttons] });
+		}
+		await interaction.followUp({ content: posts[0].fileUrl });
+	} else {
+		embed.setImage(posts[0].fileUrl);
+		try { await interaction.followUp({ embeds: [embed], components: [buttons] }) }
+		catch { interaction.editReply({ embeds: [embed], components: [buttons] }) }
+	}
+}
