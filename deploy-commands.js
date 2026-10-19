@@ -11,6 +11,12 @@ console.clear();
 const rest = new REST({ version: '9' }).setToken(token);
 //ask user for number input from console (github copilot)
 const ask = (question, callback) => {
+    console.log(GuildID)
+    wait(3000)
+    if (GuildID == null || cId == null || token == null) {
+        console.log("LOL, dead env")
+        return wait(3000)
+    }
     const readline = require('readline');
     const rl = readline.createInterface({
         input: process.stdin,
